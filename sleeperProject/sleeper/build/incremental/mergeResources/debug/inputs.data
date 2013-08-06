@@ -1,0 +1,14 @@
+# incremental data. DO NOT EDIT.
+# format is <lastModified> <length> <SHA-1> <path>
+# Encoding is UTF-8
+1375794827269 244 045ff451db7cd8e61285502b8c9bbf7405f2078d C:\Users\1\Documents\GitHub\sleeperProject\sleeper\src\main\res\menu\main.xml
+1375794824742 32132 9e16771a1083a946b19ed8320b69995e9be0d952 C:\Users\1\Documents\GitHub\sleeperProject\sleeper\src\main\res\drawable-xxhdpi\ic_launcher.png
+1375794824742 5161 279f98944be192d5c15c2af3285b07c4b30d9fd5 C:\Users\1\Documents\GitHub\sleeperProject\sleeper\src\main\res\drawable-mdpi\ic_launcher.png
+1375794827332 649 52e8d9051811c2787c5fc0d0dc7735d67b0820be C:\Users\1\Documents\GitHub\sleeperProject\sleeper\src\main\res\layout\activity_main.xml
+1375794824742 10412 0d0dede26c0db8af377f7ea27c5f2e4bc3e17467 C:\Users\1\Documents\GitHub\sleeperProject\sleeper\src\main\res\drawable-hdpi\ic_launcher.png
+1375794824742 16320 d2ceb5e6791354ece271d979da96b152438da425 C:\Users\1\Documents\GitHub\sleeperProject\sleeper\src\main\res\drawable-xhdpi\ic_launcher.png
+1375794826676 674 c78f92856947cb5742edaa3b94df76b0823dbbe7 C:\Users\1\Documents\GitHub\sleeperProject\sleeper\src\main\res\values\styles.xml
+1375794827300 211 4e1904afba59d31e5cd6133f6a4c360fa9a5913f C:\Users\1\Documents\GitHub\sleeperProject\sleeper\src\main\res\values\dimens.xml
+1375794827285 224 c9440ffe8a9706e66f2e40b38771350a82c60704 C:\Users\1\Documents\GitHub\sleeperProject\sleeper\src\main\res\values\strings.xml
+1375794827300 181 84de2797380184d8b39af6f829afb092fb956173 C:\Users\1\Documents\GitHub\sleeperProject\sleeper\src\main\res\values-sw600dp\dimens.xml
+1375794827300 254 25b6404e44acb50c82590049639d4fb5fefbac8e C:\Users\1\Documents\GitHub\sleeperProject\sleeper\src\main\res\values-sw720dp-land\dimens.xml

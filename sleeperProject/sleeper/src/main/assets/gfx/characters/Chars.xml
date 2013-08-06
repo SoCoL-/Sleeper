@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<texture version="1" file="Chars.png" type="bitmap" width="128" height="256" pixelformat="RGBA_8888" minfilter="linear" magfilter="linear" wrapt="clamp" wraps="clamp" premultiplyalpha="false">
+    <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker -->
+    <!-- $TexturePacker:SmartUpdate:dc80453d9c00499682721bade67dfa3a:1/1$ -->
+    <textureregion id="0" src="Left1.png" x="62" y="110" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="1" src="Left2.png" x="42" y="110" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="2" src="Left3.png" x="22" y="110" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="3" src="Left4.png" x="2" y="110" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="4" src="Left5.png" x="62" y="110" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="5" src="Left6.png" x="102" y="83" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="6" src="Left7.png" x="82" y="83" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="7" src="Left8.png" x="62" y="83" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="8" src="down1.png" x="42" y="83" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="9" src="down2.png" x="22" y="83" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="10" src="down3.png" x="2" y="83" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="11" src="down4.png" x="102" y="56" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="12" src="down5.png" x="42" y="83" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="13" src="down6.png" x="82" y="56" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="14" src="down7.png" x="62" y="56" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="15" src="down8.png" x="42" y="56" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="16" src="right1.png" x="22" y="56" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="17" src="right2.png" x="2" y="56" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="18" src="right3.png" x="102" y="29" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="19" src="right4.png" x="82" y="29" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="20" src="right5.png" x="22" y="56" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="21" src="right6.png" x="62" y="29" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="22" src="right7.png" x="42" y="29" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="23" src="right8.png" x="22" y="29" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="24" src="up1.png" x="2" y="29" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="25" src="up2.png" x="102" y="2" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="26" src="up3.png" x="82" y="2" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="27" src="up4.png" x="62" y="2" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="28" src="up5.png" x="2" y="29" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="29" src="up6.png" x="42" y="2" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="30" src="up7.png" x="22" y="2" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+    <textureregion id="31" src="up8.png" x="2" y="2" width="18" height="25" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="18" srcheight="25"/>
+</texture>
