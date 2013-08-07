@@ -1,5 +1,6 @@
 package ru.rouge.sleeper.Map;
 
+import org.andengine.entity.modifier.PathModifier;
 import org.andengine.extension.tmx.TMXLoader;
 import org.andengine.extension.tmx.TMXObject;
 import org.andengine.extension.tmx.TMXObjectGroup;
@@ -82,6 +83,7 @@ public final class GameMap
 		Debug.e("playerSpawn.getX() = " + playerSpawn.getX());
 		Debug.e("playerSpawn.getY() = " + playerSpawn.getY());
 		WorldContext.getInstance().mPlayer = new Player(playerSpawn.getX(), playerSpawn.getY(), ResourceManager.getInstance().mHeroTexture, ResourceManager.getInstance().mVBO);
+		WorldContext.getInstance().mPlayer.setPath(new PathModifier.Path(2).to(290,290).to(290,290));
 	}
 
 	private ArrayList<TMXObject> getObjectsTile(final String name, ArrayList<TMXObject> mapObjects)

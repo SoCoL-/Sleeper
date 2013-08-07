@@ -157,8 +157,8 @@ public final class ResourceManager
 		WorldContext wc = WorldContext.getInstance();
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/characters/");
 
-        this.mPlayerTexture = new BitmapTextureAtlas(wc.getTextureManager(), 128, 256, TextureOptions.DEFAULT);
-        this.mHeroTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mPlayerTexture, wc.getAssetManager(), "Chars.png", 0, 0, 6, 5);
+        this.mPlayerTexture = new BitmapTextureAtlas(wc.getTextureManager(), 256, 128, TextureOptions.DEFAULT);
+        this.mHeroTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mPlayerTexture, wc.getAssetManager(), "hero.png", 0, 0, 8, 4);
         this.mPlayerTexture.load();
 
 		/*try

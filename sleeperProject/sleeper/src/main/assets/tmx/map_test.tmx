@@ -22,6 +22,7 @@
   </data>
  </layer>
  <objectgroup name="spawn" width="60" height="60">
-  <object name="player_spawn" x="289" y="192" width="32" height="32"/>
+  <object name="player_spawn" x="289" y="192" width="32" height="32">
+  </object>
  </objectgroup>
 </map>

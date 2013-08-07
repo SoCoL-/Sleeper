@@ -11,6 +11,7 @@ import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.andengine.entity.scene.Scene;
+import org.andengine.entity.util.FPSLogger;
 import org.andengine.ui.activity.BaseGameActivity;
 
 import java.io.IOException;
@@ -57,6 +58,7 @@ public class MainActivity extends BaseGameActivity
 	@Override
 	public void onCreateScene(OnCreateSceneCallback pOnCreateSceneCallback) throws IOException
 	{
+		this.mEngine.registerUpdateHandler(new FPSLogger());
 		ScenesManager.getInstance().setSplash(pOnCreateSceneCallback);
 	}
 
