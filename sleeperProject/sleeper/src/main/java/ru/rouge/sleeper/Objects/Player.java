@@ -4,6 +4,7 @@ import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
+import ru.rouge.sleeper.Utils.Directions;
 import ru.rouge.sleeper.WorldContext;
 
 /**
@@ -22,7 +23,7 @@ public final class Player extends BaseAnimObject
 	//VARIABLES
 	//-----------------------------
 
-	//IUpdateHandler animationControl;
+	private Directions mDir;
 
 	//-----------------------------
 	//CONSTRUCTORS
@@ -31,34 +32,36 @@ public final class Player extends BaseAnimObject
 	public Player(float pX, float pY, ITiledTextureRegion pTiledTextureRegion, VertexBufferObjectManager pVertexBufferObjectManager)
 	{
 		super(pX, pY, pTiledTextureRegion, pVertexBufferObjectManager);
-
-		/*animationControl = new IUpdateHandler()
-		{
-			@Override
-			public void onUpdate(float pSecondsElapsed)
-			{
-				int Loop = -1;
-				int AnimFrames[] = {0,1,2,3,4,5,6,7,8,9,10,11,12};//,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};
-				long times[] = {150,150,150,150,150,150,150,150,150,150,150,150,150};//,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150};
-				//Player.this.animate(150, Loop);
-				Player.this.animate(100);
-			}
-
-			@Override
-			public void reset()
-			{
-
-			}
-		};
-
-		//this.unregisterUpdateHandler(animationControl);
-		this.registerUpdateHandler(animationControl);
-		WorldContext.getInstance().getCamera().updateChaseEntity();*/
+		mSpeed = 0.5f;
 	}
 
 	//-----------------------------
 	//CLASS METHODS
 	//-----------------------------
+
+	public void animatePlayer(Directions dir)
+	{
+		if(mDir == dir)
+			return;
+
+		mDir = dir;
+
+		switch (dir)
+		{
+			case DIR_EAST:
+				this.animate(new long[]{150, 150, 150, 150, 150, 150, 150, 150}, 8, 15, true);//run right
+				break;
+			case DIR_WEST:
+				this.animate(new long[]{150, 150, 150, 150, 150, 150, 150, 150}, 0, 7, true);//run left
+				break;
+			case DIR_SOUTH:
+				this.animate(new long[]{150, 150, 150, 150, 150, 150, 150, 150}, 24, 31, true);//run down
+				break;
+			case DIR_NORTH:
+				this.animate(new long[]{150, 150, 150, 150, 150, 150, 150, 150}, 16, 23, true);//run up
+				break;
+		}
+	}
 
 	//-----------------------------
 	//GETTERS/SETTERS

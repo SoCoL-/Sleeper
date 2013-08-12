@@ -84,6 +84,10 @@ public final class GameMap
 		Debug.e("playerSpawn.getY() = " + playerSpawn.getY());
 		WorldContext.getInstance().mPlayer = new Player(playerSpawn.getX(), playerSpawn.getY(), ResourceManager.getInstance().mHeroTexture, ResourceManager.getInstance().mVBO);
 		WorldContext.getInstance().mPlayer.setPath(new PathModifier.Path(2).to(290,290).to(290,290));
+
+		WorldContext.getInstance().mPlayerContr.setWorld(this);
+		WorldContext.getInstance().mPlayerContr.setPlayer(WorldContext.getInstance().mPlayer);
+
 	}
 
 	private ArrayList<TMXObject> getObjectsTile(final String name, ArrayList<TMXObject> mapObjects)

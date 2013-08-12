@@ -9,6 +9,7 @@ import org.andengine.engine.camera.BoundCamera;
 import org.andengine.opengl.font.FontManager;
 import org.andengine.opengl.texture.TextureManager;
 
+import ru.rouge.sleeper.Controllers.PlayerControllers;
 import ru.rouge.sleeper.Map.GameMap;
 import ru.rouge.sleeper.Objects.Player;
 
@@ -36,6 +37,7 @@ public final class WorldContext
     private AssetManager    mAssetManager;              //Менеджер файлов в assets
 
 	public Resources mResourceManager;					//Менеджер ресурсов фндроида
+	public PlayerControllers mPlayerContr;
 
 	public float mScreenWidth;                          //Текущая ширина экрана
 	public float mScreenHeight;                         //Текущая высота экрана
@@ -67,6 +69,7 @@ public final class WorldContext
         this.mAssetManager = am;
 
 		this.mResourceManager = this.mContext.getResources();
+		this.mPlayerContr = new PlayerControllers();
     }
 
 	/**

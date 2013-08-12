@@ -128,7 +128,9 @@ public final class MainGameScene extends MainScene
                     {
 						WorldContext wc = WorldContext.getInstance();
 
-						if(path == null)
+						wc.mPlayerContr.move(pSceneTouchEvent);
+
+						/*if(path == null)
 							path = new Path(2);
 
 						float curPositionPlayerX = wc.mPlayer.getX();
@@ -165,7 +167,7 @@ public final class MainGameScene extends MainScene
 						else
 						{
 							//Move up/down
-						}
+						}*/
 
 						/*switch(mCurDir)
 						{
