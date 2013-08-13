@@ -1,8 +1,5 @@
 package ru.rouge.sleeper.Controllers;
 
-import android.os.SystemClock;
-
-import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.util.debug.Debug;
 
@@ -21,16 +18,14 @@ public final class PlayerControllers
 	//CONSTANTS
 	//---------------------------------
 
-	final long STEP_TIME = 800;			//Время одного шага в миллисекундах
-
 	//---------------------------------
 	//VARIABLES
 	//---------------------------------
 
 	private Player mPlayer;
 	private GameMap mGameMap;
-	private float currStepPlayerX;
-	private float currStepTime;
+	//private float currStepPlayerX;
+	//private float currStepTime;
 	//---------------------------------
 	//SUPER
 	//---------------------------------
@@ -43,7 +38,7 @@ public final class PlayerControllers
 	{
 		//this.mPlayer = WorldContext.getInstance().mPlayer;
 		//this.mGameMap = WorldContext.getInstance().mWorld;
-		this.currStepTime = 0f;
+		//this.currStepTime = 0f;
 	}
 
 	public void move(TouchEvent pSceneTouchEvent)
@@ -67,7 +62,46 @@ public final class PlayerControllers
 			{
 				Debug.e("Move right");
 				mPlayer.animatePlayer(Directions.DIR_EAST);
-				currStepPlayerX = currPlayerX;
+				//currStepPlayerX = currPlayerX;
+				//currStepTime = SystemClock.elapsedRealtime();
+
+				/*IUpdateHandler updatePosition = new IUpdateHandler()
+				{
+					@Override
+					public void onUpdate(float pSecondsElapsed)
+					{
+						float currStepPlayerY = mPlayer.getY();
+
+						//while(currStepPlayerX < (currPlayerX + 32) && (currStepTime + STEP_TIME) <= SystemClock.elapsedRealtime())//32 is Tile width
+						//{
+							//Debug.e("currStepPlayerX = " + currStepPlayerX);
+							//mPlayer.setPosition(currStepPlayerX, currStepPlayerY);
+							currStepPlayerX = currStepPlayerX + mPlayer.mSpeed;
+							currStepTime = SystemClock.elapsedRealtime();
+						//}
+
+						/*if(currStepPlayerX >= (currPlayerX + 32))
+						{
+							Debug.e("Stop animation!!!!!");
+							mPlayer.stopAnimation();
+							mPlayer.unregisterUpdateHandler(this);
+						}*/
+					/*}
+
+					@Override
+					public void reset()
+					{
+
+					}
+				};*/
+				/*mPlayer.unregisterUpdateHandler(updatePosition);
+				mPlayer.registerUpdateHandler(updatePosition);*/
+			}
+			else			//left
+			{
+				Debug.e("Move left");
+				mPlayer.animatePlayer(Directions.DIR_WEST);
+				/*currStepPlayerX = currPlayerX;
 				currStepTime = SystemClock.elapsedRealtime();
 
 				IUpdateHandler updatePosition = new IUpdateHandler()
@@ -77,15 +111,15 @@ public final class PlayerControllers
 					{
 						float currStepPlayerY = mPlayer.getY();
 
-						while(currStepPlayerX < (currPlayerX + 32) && (currStepTime + STEP_TIME) <= SystemClock.elapsedRealtime())//32 is Tile width
+						//while(currStepPlayerX > (currPlayerX - 32) && (currStepTime + STEP_TIME) <= SystemClock.elapsedRealtime())//32 is Tile width
 						{
 							Debug.e("currStepPlayerX = " + currStepPlayerX);
 							mPlayer.setPosition(currStepPlayerX, currStepPlayerY);
-							currStepPlayerX = currStepPlayerX + mPlayer.mSpeed;
+							currStepPlayerX = currStepPlayerX - mPlayer.mSpeed;
 							currStepTime = SystemClock.elapsedRealtime();
 						}
 
-						if(currStepPlayerX >= (currPlayerX + 32))
+						if(currStepPlayerX <= (currPlayerX - 32))
 						{
 							Debug.e("Stop animation!!!!!");
 							mPlayer.stopAnimation();
@@ -100,11 +134,7 @@ public final class PlayerControllers
 					}
 				};
 				mPlayer.unregisterUpdateHandler(updatePosition);
-				mPlayer.registerUpdateHandler(updatePosition);
-			}
-			else			//left
-			{
-				Debug.e("Move left");
+				mPlayer.registerUpdateHandler(updatePosition);*/
 			}
 		}
 		else
