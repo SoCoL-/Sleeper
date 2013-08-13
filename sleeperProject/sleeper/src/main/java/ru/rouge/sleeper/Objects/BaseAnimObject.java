@@ -22,7 +22,11 @@ public class BaseAnimObject extends AnimatedSprite
 	//VARIABLES
 	//-----------------------------
 
-	private PathModifier.Path mPath;
+	private PathModifier.Path mPath; //????
+	public float mSpeed;						//Скорость перемещения
+	public float mVelocityX, mVelocityY;		//Скорость по координатным направлениям
+
+	private boolean isAlive;					//Состояние объекта(жив, мертв)
 
 	//-----------------------------
 	//CONSTRUCTORS
