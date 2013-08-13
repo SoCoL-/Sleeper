@@ -88,13 +88,13 @@ public final class GameMap
 			//WorldContext.getInstance().mPlayer.setPath(new PathModifier.Path(2).to(290,290).to(290,290));
 
 			Debug.e("PlayerController");
-			WorldContext.getInstance().mPlayerContr.setWorld(this);
+			//WorldContext.getInstance().mPlayerContr.setWorld(this);
+            WorldContext.getInstance().mPlayerContr.setPlayer(WorldContext.getInstance().mPlayer);
 		}
 		catch(Exception e)
 		{
 			Debug.e(e);
 		}
-		//WorldContext.getInstance().mPlayerContr.setPlayer(WorldContext.getInstance().mPlayer);
 	}
 
 	private ArrayList<TMXObject> getObjectsTile(final String name, ArrayList<TMXObject> mapObjects)

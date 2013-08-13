@@ -72,7 +72,15 @@ public final class MainGameScene extends MainScene
                     {
 						WorldContext wc = WorldContext.getInstance();
 
-						wc.mPlayerContr.move(pSceneTouchEvent);
+                        Debug.e("PlayerContr move");
+                        try
+                        {
+						    wc.mPlayerContr.move(pSceneTouchEvent);
+                        }
+                        catch(Exception e)
+                        {
+                            Debug.e(e);
+                        }
 
 						/*if(path == null)
 							path = new Path(2);

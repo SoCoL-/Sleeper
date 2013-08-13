@@ -62,79 +62,11 @@ public final class PlayerControllers
 			{
 				Debug.e("Move right");
 				mPlayer.animatePlayer(Directions.DIR_EAST);
-				//currStepPlayerX = currPlayerX;
-				//currStepTime = SystemClock.elapsedRealtime();
-
-				/*IUpdateHandler updatePosition = new IUpdateHandler()
-				{
-					@Override
-					public void onUpdate(float pSecondsElapsed)
-					{
-						float currStepPlayerY = mPlayer.getY();
-
-						//while(currStepPlayerX < (currPlayerX + 32) && (currStepTime + STEP_TIME) <= SystemClock.elapsedRealtime())//32 is Tile width
-						//{
-							//Debug.e("currStepPlayerX = " + currStepPlayerX);
-							//mPlayer.setPosition(currStepPlayerX, currStepPlayerY);
-							currStepPlayerX = currStepPlayerX + mPlayer.mSpeed;
-							currStepTime = SystemClock.elapsedRealtime();
-						//}
-
-						/*if(currStepPlayerX >= (currPlayerX + 32))
-						{
-							Debug.e("Stop animation!!!!!");
-							mPlayer.stopAnimation();
-							mPlayer.unregisterUpdateHandler(this);
-						}*/
-					/*}
-
-					@Override
-					public void reset()
-					{
-
-					}
-				};*/
-				/*mPlayer.unregisterUpdateHandler(updatePosition);
-				mPlayer.registerUpdateHandler(updatePosition);*/
 			}
 			else			//left
 			{
 				Debug.e("Move left");
 				mPlayer.animatePlayer(Directions.DIR_WEST);
-				/*currStepPlayerX = currPlayerX;
-				currStepTime = SystemClock.elapsedRealtime();
-
-				IUpdateHandler updatePosition = new IUpdateHandler()
-				{
-					@Override
-					public void onUpdate(float pSecondsElapsed)
-					{
-						float currStepPlayerY = mPlayer.getY();
-
-						//while(currStepPlayerX > (currPlayerX - 32) && (currStepTime + STEP_TIME) <= SystemClock.elapsedRealtime())//32 is Tile width
-						{
-							Debug.e("currStepPlayerX = " + currStepPlayerX);
-							mPlayer.setPosition(currStepPlayerX, currStepPlayerY);
-							currStepPlayerX = currStepPlayerX - mPlayer.mSpeed;
-							currStepTime = SystemClock.elapsedRealtime();
-						}
-
-						if(currStepPlayerX <= (currPlayerX - 32))
-						{
-							Debug.e("Stop animation!!!!!");
-							mPlayer.stopAnimation();
-							mPlayer.unregisterUpdateHandler(this);
-						}
-					}
-
-					@Override
-					public void reset()
-					{
-
-					}
-				};
-				mPlayer.unregisterUpdateHandler(updatePosition);
-				mPlayer.registerUpdateHandler(updatePosition);*/
 			}
 		}
 		else
@@ -144,10 +76,12 @@ public final class PlayerControllers
 			if(deltaY > 0)	//down
 			{
 				Debug.e("Move down");
+                mPlayer.animatePlayer(Directions.DIR_SOUTH);
 			}
 			else			//up
 			{
 				Debug.e("Move up");
+                mPlayer.animatePlayer(Directions.DIR_NORTH);
 			}
 		}
 	}
@@ -161,10 +95,10 @@ public final class PlayerControllers
 		this.mPlayer = player;
 	}
 
-	public void setWorld(GameMap map)
+	/*public void setWorld(GameMap map)
 	{
 		this.mGameMap = map;
-	}
+	}*/
 
 	//---------------------------------
 	//INNER CLASSES

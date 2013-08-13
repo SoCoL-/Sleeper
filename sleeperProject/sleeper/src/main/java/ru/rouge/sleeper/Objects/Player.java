@@ -5,6 +5,7 @@ import android.os.SystemClock;
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
+import org.andengine.util.debug.Debug;
 
 import ru.rouge.sleeper.Utils.Directions;
 import ru.rouge.sleeper.WorldContext;
@@ -42,7 +43,7 @@ public final class Player extends BaseAnimObject
 	public Player(float pX, float pY, ITiledTextureRegion pTiledTextureRegion, VertexBufferObjectManager pVertexBufferObjectManager)
 	{
 		super(pX, pY, pTiledTextureRegion, pVertexBufferObjectManager);
-		mSpeed = 0.5f;
+		mSpeed = 1f;
 		this.isMove = false;
 		mDir = Directions.DIR_EAST;
 		mKX = 0;
@@ -61,18 +62,25 @@ public final class Player extends BaseAnimObject
 		//TODO
 		if(isMove)			//Обработка движения персонажа
 		{
-			if(SystemClock.elapsedRealtime() >= mCurrentStepTime + STEP_TIME)
+            Debug.e("isMove");
+            if(SystemClock.elapsedRealtime() >= mCurrentStepTime + STEP_TIME)
 			{
+                Debug.e("Step");
 				float nextCoordX = getX() + mSpeed*mKX;
 				float nextCoordY = getY() + mSpeed*mKY;
+                Debug.e("nextCoordX = " + nextCoordX);
+                Debug.e("nextCoordY = " + nextCoordY);
 
 				setPosition(nextCoordX, nextCoordY);
 
 				mCurrentStepTime = SystemClock.elapsedRealtime();
 				mLength -= mSpeed;
+                Debug.e("mLength = " + mLength);
 				if(mLength <= 0)
 				{
+                    Debug.e("Stop move!");
 					isMove = false;
+                    stopAnimation();
 					setAnimateDirection();
 				}
 			}
@@ -138,11 +146,17 @@ public final class Player extends BaseAnimObject
 				break;
 			case DIR_SOUTH:
 				this.animate(new long[]{150, 150, 150, 150, 150, 150, 150, 150}, 24, 31, true);//run down
+
 				mKX = 0;
+                mKY = 1;
+
 				break;
 			case DIR_NORTH:
 				this.animate(new long[]{150, 150, 150, 150, 150, 150, 150, 150}, 16, 23, true);//run up
+
 				mKX = 0;
+                mKY = -1;
+
 				break;
 		}
 	}
