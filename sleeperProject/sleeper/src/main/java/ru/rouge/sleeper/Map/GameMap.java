@@ -85,6 +85,7 @@ public final class GameMap
 		try
 		{
 			WorldContext.getInstance().mPlayer = new Player(playerSpawn.getX(), playerSpawn.getY(), ResourceManager.getInstance().mHeroTexture, ResourceManager.getInstance().mVBO);
+            WorldContext.getInstance().getCamera().setChaseEntity(WorldContext.getInstance().mPlayer);
 			//WorldContext.getInstance().mPlayer.setPath(new PathModifier.Path(2).to(290,290).to(290,290));
 
 			Debug.e("PlayerController");
