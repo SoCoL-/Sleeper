@@ -21,10 +21,6 @@ import ru.rouge.sleeper.WorldContext;
  */
 public final class MainGameScene extends MainScene
 {
-	final long TIME_LONG_TOUCH = 600;
-
-	private float mTouchX = 0, mTouchY = 0, mTouchOffsetX = 0, mTouchOffsetY = 0;
-	private long timeToTouch;														//Для создания longPress
 
 	@Override
     public void createScene()
@@ -40,111 +36,39 @@ public final class MainGameScene extends MainScene
 			@Override
 			public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent)
 			{
+				WorldContext wc = WorldContext.getInstance();
+
 				if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_DOWN)
 				{
-					mTouchX = pSceneTouchEvent.getMotionEvent().getX();
-					mTouchY = pSceneTouchEvent.getMotionEvent().getY();
-					timeToTouch = System.currentTimeMillis();
+					Debug.e("Action Down is enabled");
+					wc.mPlayer.isMoveLoop = true;
+					try
+					{
+						wc.mPlayerContr.move(pSceneTouchEvent);
+					}
+					catch(Exception e)
+					{
+						Debug.e(e);
+					}
+
 				}
 				else if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_MOVE)
 				{
-					if((System.currentTimeMillis() - timeToTouch) < TIME_LONG_TOUCH)
-						return false;
+					Debug.e("Action Move is enabled");
 
-					//Двигаем карту по долгому нажатию на ней
-					float newX = pSceneTouchEvent.getMotionEvent().getRawX();
-					float newY = pSceneTouchEvent.getMotionEvent().getRawY();
-
-					mTouchOffsetX = (newX - mTouchX);
-					mTouchOffsetY = (newY - mTouchY);
-
-					float newScrollX = WorldContext.getInstance().getCamera().getCenterX() - mTouchOffsetX;
-					float newScrollY = WorldContext.getInstance().getCamera().getCenterY() - mTouchOffsetY;
-
-					WorldContext.getInstance().getCamera().setCenter(newScrollX, newScrollY);
-
-					mTouchX = newX;
-					mTouchY = newY;
+					try
+					{
+						wc.mPlayerContr.move(pSceneTouchEvent);
+					}
+					catch(Exception e)
+					{
+						Debug.e(e);
+					}
 				}
                 else if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_UP)
                 {
-                    if((System.currentTimeMillis() - timeToTouch) < TIME_LONG_TOUCH)
-                    {
-						WorldContext wc = WorldContext.getInstance();
-
-                        Debug.e("PlayerContr move");
-                        try
-                        {
-						    wc.mPlayerContr.move(pSceneTouchEvent);
-                        }
-                        catch(Exception e)
-                        {
-                            Debug.e(e);
-                        }
-
-						/*if(path == null)
-							path = new Path(2);
-
-						float curPositionPlayerX = wc.mPlayer.getX();
-						float curPositionPlayerY = wc.mPlayer.getY();
-						Debug.e("Player coords = " + curPositionPlayerX + ", " + curPositionPlayerY);
-
-						float destinationPosX = pSceneTouchEvent.getX();
-						float destinationPosY = pSceneTouchEvent.getY();
-
-						float deltaX = destinationPosX - curPositionPlayerX;
-						float deltaY = destinationPosY - curPositionPlayerY;
-
-						if(Math.abs(deltaX) > Math.abs(deltaY))
-						{
-							//Move left/right
-							if(deltaX > 0) // right
-							{
-								Debug.e("Move Player right");
-								Player p = wc.mPlayer;
-								p.unregisterEntityModifier(mPathMod);
-								Debug.e("Player coords = " + p.getX() + ", " + p.getY());
-								Debug.e("Player next coords = " + (p.getX() + 32) + ", " + p.getY());
-								//TMXTile tile = wc.mWorld.mTMXMap.getTMXLayers().get(0).getTMXTileAt(p.getX(), p.getY());
-								//path.to(tile.getTileColumn(), tile.getTileRow()).to(tile.getTileColumn() + 32, tile.getTileRow());
-								path = new Path(2).to(p.getX(), p.getY()).to(p.getX() + 32, p.getY());
-								p.setPath(path);
-								p.registerEntityModifier(mPathMod);
-							}
-							else//left
-							{
-
-							}
-						}
-						else
-						{
-							//Move up/down
-						}*/
-
-						/*switch(mCurDir)
-						{
-							case NONE:
-								mCurDir = LEFT;
-                        		WorldContext.getInstance().mPlayer.animate(new long[]{150, 150, 150, 150, 150, 150, 150, 150}, 0, 7, true);//run left
-								break;
-							case LEFT:
-								mCurDir = DOWN;
-								WorldContext.getInstance().mPlayer.animate(new long[]{150, 150, 150, 150, 150, 150, 150, 150}, 24, 31, true);//run down
-								break;
-							case DOWN:
-								mCurDir = RIGHT;
-								WorldContext.getInstance().mPlayer.animate(new long[]{150, 150, 150, 150, 150, 150, 150, 150}, 8, 15, true);//run right
-								break;
-							case RIGHT:
-								mCurDir = UP;
-								WorldContext.getInstance().mPlayer.animate(new long[]{150, 150, 150, 150, 150, 150, 150, 150}, 16, 23, true);//run up
-								break;
-							case UP:
-								mCurDir = LEFT;
-								WorldContext.getInstance().mPlayer.animate(new long[]{150, 150, 150, 150, 150, 150, 150, 150}, 0, 7, true);//run left
-								break;
-						}*/
-                    }
+					Debug.e("Action Up is enabled");
+					wc.mPlayer.isMoveLoop = false;
                 }
 
 				return true;
@@ -194,7 +118,7 @@ public final class MainGameScene extends MainScene
     public void OnKeyBackPressed()
     {
         //TODO возврат в игровое меню
-		ScenesManager.getInstance().setScene(new SceneMenu());
+		ScenesManager.getInstance().setScene(ScenesManager.SceneTypes.SCENE_MENU);
     }
 
     @Override
@@ -204,12 +128,16 @@ public final class MainGameScene extends MainScene
     }
 
     @Override
-    public void dispposeScene()
+    public void disposeScene()
     {
+		Debug.e("on MainGameScene dispose scene");
         detachChild(WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(0));
         detachChild(WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(1));
+		detachChild(WorldContext.getInstance().mPlayer);
         WorldContext.getInstance().mWorld.mTMXMap.getTMXTileSets().clear();
         WorldContext.getInstance().mWorld.mTMXMap = null;
         WorldContext.getInstance().mWorld = null;
+		this.detachSelf();
+		this.dispose();
     }
 }

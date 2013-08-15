@@ -24,13 +24,17 @@ public final class Player extends BaseAnimObject
 
 	final private long STEP_TIME = 20;					//Время одного шага в миллисекундах
 	final private int NEXT_DESTINATION_TILE_WIDTH;		//Размер пути( = ширина тайла) на который надо переместиться за один раз
+	//Время анимации каждого кадра бега в одном направлении
+	final private long[] ANIM_TIMINGS_RUN = {200, 200, 200, 200, 200, 200, 200, 200};
 
 	//-----------------------------
 	//VARIABLES
 	//-----------------------------
 
 	private Directions mDir;							//Направление движения персонажа
+	private Directions mOldDir;							//Старое направление движения
 	private boolean isMove;								//Движется ли персонаж
+	public boolean isMoveLoop;							//Если мы нажали и не отпускаем, то персонаж движется все время в заданном направлении
 	private float mLength;								//Длина пути персонажа
 	private int mKX, mKY;								//Коэфиценты для движения персонажа(отнимать или прибавлять скорость покоординатно)
 	private long mCurrentStepTime;						//Прошедшее время с момента последнего шага
@@ -45,9 +49,12 @@ public final class Player extends BaseAnimObject
 		super(pX, pY, pTiledTextureRegion, pVertexBufferObjectManager);
 		mSpeed = 1f;
 		this.isMove = false;
-		mDir = Directions.DIR_EAST;
+		mDir = Directions.DIR_NONE;
+		mOldDir = Directions.DIR_EAST;
 		mKX = 0;
 		mKY = 0;
+		mLength = 0;
+		mCurrentStepTime = 0;
 		NEXT_DESTINATION_TILE_WIDTH = 32;
 		setAnimateDirection();
 	}
@@ -59,30 +66,44 @@ public final class Player extends BaseAnimObject
 	@Override
 	protected void onManagedUpdate(float pSecondsElapsed)
 	{
-		//TODO
 		if(isMove)			//Обработка движения персонажа
 		{
-            Debug.e("isMove");
+            //Debug.e("isMove");
             if(SystemClock.elapsedRealtime() >= mCurrentStepTime + STEP_TIME)
 			{
-                Debug.e("Step");
+				if(mLength <= 0)
+				{
+					//Debug.e("Stop move!");
+					if(isMoveLoop)
+					{
+						//Debug.e("Resume move!");
+						if(mOldDir != mDir)
+							animatePlayer();
+
+						mLength = NEXT_DESTINATION_TILE_WIDTH;
+					}
+					else if(!isMoveLoop)
+					{
+						//Debug.e("Stop animation!!!!!!");
+						isMove = false;
+						mOldDir = mDir;
+						mDir = Directions.DIR_NONE;
+						stopAnimation();
+						setAnimateDirection();
+					}
+				}
+
+				//Debug.e("Step");
 				float nextCoordX = getX() + mSpeed*mKX;
 				float nextCoordY = getY() + mSpeed*mKY;
-                Debug.e("nextCoordX = " + nextCoordX);
-                Debug.e("nextCoordY = " + nextCoordY);
+                //Debug.e("nextCoordX = " + nextCoordX);
+                //Debug.e("nextCoordY = " + nextCoordY);
 
 				setPosition(nextCoordX, nextCoordY);
 
 				mCurrentStepTime = SystemClock.elapsedRealtime();
 				mLength -= mSpeed;
-                Debug.e("mLength = " + mLength);
-				if(mLength <= 0)
-				{
-                    Debug.e("Stop move!");
-					isMove = false;
-                    stopAnimation();
-					setAnimateDirection();
-				}
+                //Debug.e("mLength = " + mLength);
 			}
 		}
 
@@ -112,47 +133,78 @@ public final class Player extends BaseAnimObject
 			case DIR_NORTH:
 				this.setCurrentTileIndex(16);
 				break;
+			case DIR_NONE:
+				switch (mOldDir)
+				{
+					case DIR_WEST:
+						this.setCurrentTileIndex(0);
+						break;
+					case DIR_SOUTH:
+						this.setCurrentTileIndex(24);
+						break;
+					case DIR_EAST:
+						this.setCurrentTileIndex(8);
+						break;
+					case DIR_NORTH:
+						this.setCurrentTileIndex(16);
+						break;
+				}
+				break;
 		}
+	}
+
+	/**
+	 * Меняем направление движения персонажа
+	 * */
+	public void setNewDirection(Directions dir)
+	{
+		//if(mDir != Directions.DIR_NONE)
+			//mOldDir = mDir;
+		//else
+		if(mDir == Directions.DIR_NONE)
+		{
+			//mOldDir = dir;
+			isMove = true;
+		}
+		mOldDir = mDir;
+		mDir = dir;
 	}
 
 	/**
 	 * Анимируем персонаж согласно выбранному направлению
 	 * */
-	public void animatePlayer(Directions dir)
+	public void animatePlayer()
 	{
-		if(this.isMove)
-			return;
-
-		mDir = dir;
+		//Debug.e("Calculate animation direction");
 		this.isMove = true;
-		this.mLength = NEXT_DESTINATION_TILE_WIDTH;
-		this.mCurrentStepTime = SystemClock.elapsedRealtime();
 
-		switch (dir)
+		//Debug.e("mDir = " + mDir);
+
+		switch (mDir)
 		{
 			case DIR_EAST:
-				this.animate(new long[]{150, 150, 150, 150, 150, 150, 150, 150}, 8, 15, true);//run right
+				this.animate(ANIM_TIMINGS_RUN, 8, 15, true);//run right
 
 				mKY = 0;
 				mKX = 1;
 
 				break;
 			case DIR_WEST:
-				this.animate(new long[]{150, 150, 150, 150, 150, 150, 150, 150}, 0, 7, true);//run left
+				this.animate(ANIM_TIMINGS_RUN, 0, 7, true);//run left
 
 				mKY = 0;
 				mKX = -1;
 
 				break;
 			case DIR_SOUTH:
-				this.animate(new long[]{150, 150, 150, 150, 150, 150, 150, 150}, 24, 31, true);//run down
+				this.animate(ANIM_TIMINGS_RUN, 24, 31, true);//run down
 
 				mKX = 0;
                 mKY = 1;
 
 				break;
 			case DIR_NORTH:
-				this.animate(new long[]{150, 150, 150, 150, 150, 150, 150, 150}, 16, 23, true);//run up
+				this.animate(ANIM_TIMINGS_RUN, 16, 23, true);//run up
 
 				mKX = 0;
                 mKY = -1;
@@ -164,6 +216,20 @@ public final class Player extends BaseAnimObject
 	//-----------------------------
 	//GETTERS/SETTERS
 	//-----------------------------
+
+	/**
+	 * Находится ли в движении персонаж?
+	 * @return true - движется, false - иначе
+	 * */
+	public boolean isMove()
+	{
+		return this.isMove;
+	}
+
+	public Directions getDirection()
+	{
+		return this.mDir;
+	}
 
 	//-----------------------------
 	//INNER CLASSES
