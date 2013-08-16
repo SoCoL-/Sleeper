@@ -2,11 +2,11 @@ package ru.rouge.sleeper.Objects;
 
 import android.os.SystemClock;
 
-import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.debug.Debug;
 
+import ru.rouge.sleeper.Map.GameMap;
 import ru.rouge.sleeper.Utils.Directions;
 import ru.rouge.sleeper.WorldContext;
 
@@ -74,7 +74,7 @@ public final class Player extends BaseAnimObject
 				if(mLength <= 0)
 				{
 					//Debug.e("Stop move!");
-					if(isMoveLoop)
+					if(isMoveLoop/* && isCanGo()*/)
 					{
 						//Debug.e("Resume move!");
 						if(mOldDir != mDir)
@@ -113,6 +113,53 @@ public final class Player extends BaseAnimObject
 	//-----------------------------
 	//CLASS METHODS
 	//-----------------------------
+
+	/**
+	 * Можно ли пройти на тайл по координатам
+	 * @return true - можно идти, иначе нет
+	 * */
+	private boolean isCanGo()
+	{
+		float x, y;
+		int kx = 0, ky = 0;
+
+		Debug.e("isCanGo");
+		if(mDir == Directions.DIR_EAST)
+		{
+			ky = 0;
+			kx = 1;
+		}
+		else if(mDir == Directions.DIR_NORTH)
+		{
+			kx = 0;
+			ky = -1;
+		}
+		else if(mDir == Directions.DIR_SOUTH)
+		{
+			kx = 0;
+			ky = 1;
+		}
+		else if(mDir == Directions.DIR_WEST)
+		{
+			ky = 0;
+			kx = -1;
+		}
+
+		Debug.e("kx = " + kx + ", ky = " + ky);
+		Debug.e("PlayerX = " + getX() + ", PlayerY = " + getY());
+
+		x = getX() + 32 * kx;
+		y = getY() + 32 * ky;
+		Debug.e("x = " + x + ", y = " + y);
+
+		GameMap gm = WorldContext.getInstance().mWorld;
+		int TileColumn = (int) x / 32;
+		int TileRow = (int)y / 32;
+		Debug.e("TileColumn = " + TileColumn + ", TileRow = " + TileRow);
+		Debug.e("gm.mWakables[TileRow][TileColumn] = " + gm.mWakables[TileRow][TileColumn]);
+
+		return gm.mWakables[TileRow][TileColumn];
+	}
 
 	/**
 	*  Функция приводит персонаж на первый кадр выбранного направления, если он не движется
@@ -154,31 +201,12 @@ public final class Player extends BaseAnimObject
 	}
 
 	/**
-	 * Меняем направление движения персонажа
-	 * */
-	public void setNewDirection(Directions dir)
-	{
-		//if(mDir != Directions.DIR_NONE)
-			//mOldDir = mDir;
-		//else
-		if(mDir == Directions.DIR_NONE)
-		{
-			//mOldDir = dir;
-			isMove = true;
-		}
-		mOldDir = mDir;
-		mDir = dir;
-	}
-
-	/**
 	 * Анимируем персонаж согласно выбранному направлению
 	 * */
 	public void animatePlayer()
 	{
 		//Debug.e("Calculate animation direction");
 		this.isMove = true;
-
-		//Debug.e("mDir = " + mDir);
 
 		switch (mDir)
 		{
@@ -216,6 +244,18 @@ public final class Player extends BaseAnimObject
 	//-----------------------------
 	//GETTERS/SETTERS
 	//-----------------------------
+
+	/**
+	 * Меняем направление движения персонажа
+	 * */
+	public void setNewDirection(Directions dir)
+	{
+		if(mDir == Directions.DIR_NONE)
+			isMove = true;
+
+		mOldDir = mDir;
+		mDir = dir;
+	}
 
 	/**
 	 * Находится ли в движении персонаж?

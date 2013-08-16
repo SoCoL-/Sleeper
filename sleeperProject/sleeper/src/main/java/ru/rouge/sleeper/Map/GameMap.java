@@ -1,6 +1,7 @@
 package ru.rouge.sleeper.Map;
 
 import org.andengine.entity.modifier.PathModifier;
+import org.andengine.extension.tmx.TMXLayer;
 import org.andengine.extension.tmx.TMXLoader;
 import org.andengine.extension.tmx.TMXObject;
 import org.andengine.extension.tmx.TMXObjectGroup;
@@ -25,17 +26,20 @@ public final class GameMap
 	//CONSTANTS
 	//-----------------------------
 
+	public final static int LAYER_FLOOR = 0;
+	public final static int LAYER_WALLS = 1;
+
 	private final String OBJECT_NAME_PORTAL = "portal";
 	private final String OBJECT_NAME_PLAYERSPAWN = "player_spawn";
 
-	private final String LAYER_WAKABLE = "wakable";
+	private final String LAYER_WAKABLE = "wakable";//???
 
 	//-----------------------------
 	//VARIABLES
 	//-----------------------------
 
 	public TMXTiledMap mTMXMap;
-	public ArrayList<TMXTile> mWakables;
+	public boolean[][] mWakables;
 	public ArrayList<TMXObject> mPortals;
 	public ArrayList<TMXObject> mSpawns;
 
@@ -50,6 +54,15 @@ public final class GameMap
 			mTMXMap = loader.loadFromAsset("tmx/map_test.tmx");
 			if(mTMXMap == null)
 				Debug.e("not load map with name = " + "map_test.tmx");
+
+			Debug.e("mTMXMap.getTileColumns() = " + mTMXMap.getTileColumns());
+			Debug.e("mTMXMap.getTileRows() = " + mTMXMap.getTileRows());
+
+			mWakables = new boolean[mTMXMap.getTileColumns()][mTMXMap.getTileRows()];
+			for(int i = 0; i < mTMXMap.getTileColumns(); i++)
+				for(int j = 0; j < mTMXMap.getTileRows(); j++)
+					mWakables[j][i] = false;
+
 			prepareMap();
 		}
 		catch (TMXLoadException e)
@@ -69,6 +82,31 @@ public final class GameMap
 	private void prepareMap()
 	{
 		Debug.e("prepareMap()");
+
+		//Отключам отрисовку тайлов вне камеры
+		for(int i = 0; i < mTMXMap.getTMXLayers().size(); i++)
+		{
+			mTMXMap.getTMXLayers().get(i).setCullingEnabled(true);
+		}
+
+		//Инициализация карты проходимости
+		Debug.e("walkable init");
+		TMXLayer floor = mTMXMap.getTMXLayers().get(LAYER_FLOOR);
+		for(int i = 0; i < floor.getTileColumns(); i++)
+		{
+			for(int j = 0; j < floor.getTileRows(); j++)
+			{
+				if(floor.getTMXTile(j, i) != null && floor.getTMXTile(j, i).getGlobalTileID() == 1)
+				{
+					Debug.e("i = " + i);
+					Debug.e("j = " + j);
+					Debug.e("floor.getTMXTileAT(i, j) = " + floor.getTMXTile(j, i).getGlobalTileID());
+					mWakables[j][i] = true;
+				}
+			}
+		}
+		Debug.e("Walkable map is done!");
+
 		ArrayList<TMXObject> mMapObjects = new ArrayList<TMXObject>();
 		for(TMXObjectGroup objects : mTMXMap.getTMXObjectGroups())
 		{
@@ -78,7 +116,7 @@ public final class GameMap
 		this.mSpawns = getObjectsTile(OBJECT_NAME_PLAYERSPAWN, mMapObjects);
 		this.mPortals = getObjectsTile(OBJECT_NAME_PORTAL, mMapObjects);
 
-		///TODO setup character
+		///setup Player
 		TMXObject playerSpawn = mSpawns.get(0);
 		Debug.e("playerSpawn.getX() = " + playerSpawn.getX());
 		Debug.e("playerSpawn.getY() = " + playerSpawn.getY());
@@ -86,10 +124,6 @@ public final class GameMap
 		{
 			WorldContext.getInstance().mPlayer = new Player(playerSpawn.getX(), playerSpawn.getY(), ResourceManager.getInstance().mHeroTexture, ResourceManager.getInstance().mVBO);
             WorldContext.getInstance().getCamera().setChaseEntity(WorldContext.getInstance().mPlayer);
-			//WorldContext.getInstance().mPlayer.setPath(new PathModifier.Path(2).to(290,290).to(290,290));
-
-			Debug.e("PlayerController");
-			//WorldContext.getInstance().mPlayerContr.setWorld(this);
             WorldContext.getInstance().mPlayerContr.setPlayer(WorldContext.getInstance().mPlayer);
 		}
 		catch(Exception e)
