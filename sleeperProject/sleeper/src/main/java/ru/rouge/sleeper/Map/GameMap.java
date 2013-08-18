@@ -51,7 +51,7 @@ public final class GameMap
 	{
 		try
 		{
-			mTMXMap = loader.loadFromAsset("tmx/map_test.tmx");
+			mTMXMap = loader.loadFromAsset("tmx/map_test2.tmx");
 			if(mTMXMap == null)
 				Debug.e("not load map with name = " + "map_test.tmx");
 
@@ -61,7 +61,8 @@ public final class GameMap
 			mWakables = new boolean[mTMXMap.getTileColumns()][mTMXMap.getTileRows()];
 			for(int i = 0; i < mTMXMap.getTileColumns(); i++)
 				for(int j = 0; j < mTMXMap.getTileRows(); j++)
-					mWakables[j][i] = false;
+					mWakables[i][j] = false;
+            Debug.e("Init walkables done! ");
 
 			prepareMap();
 		}
@@ -96,7 +97,7 @@ public final class GameMap
 		{
 			for(int j = 0; j < floor.getTileRows(); j++)
 			{
-				if(floor.getTMXTile(i, j) != null && floor.getTMXTile(i, j).getGlobalTileID() == 1)
+				if(floor.getTMXTile(i, j) != null && floor.getTMXTile(i, j).getGlobalTileID() == 18)
 				{
 					Debug.e("i = " + i);
 					Debug.e("j = " + j);
