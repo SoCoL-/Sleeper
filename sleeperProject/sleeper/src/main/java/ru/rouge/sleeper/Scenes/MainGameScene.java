@@ -128,7 +128,7 @@ public final class MainGameScene extends MainScene
     }
 
     @Override
-    public void disposeScene()
+    public void dispposeScene()
     {
 		Debug.e("on MainGameScene dispose scene");
         detachChild(WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(0));

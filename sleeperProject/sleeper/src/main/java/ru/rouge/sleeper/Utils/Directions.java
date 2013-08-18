@@ -7,6 +7,7 @@ package ru.rouge.sleeper.Utils;
  */
 public enum Directions
 {
+    DIR_NONE,
 	DIR_NORTH,
 	DIR_SOUTH,
 	DIR_WEST,

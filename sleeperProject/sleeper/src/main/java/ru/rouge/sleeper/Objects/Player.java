@@ -22,10 +22,10 @@ public final class Player extends BaseAnimObject
 	//CONSTANTS
 	//-----------------------------
 
-	final private long STEP_TIME = 20;					//Время одного шага в миллисекундах
+	final private long STEP_TIME = 10;					//Время одного шага в миллисекундах
 	final private int NEXT_DESTINATION_TILE_WIDTH;		//Размер пути( = ширина тайла) на который надо переместиться за один раз
 	//Время анимации каждого кадра бега в одном направлении
-	final private long[] ANIM_TIMINGS_RUN = {200, 200, 200, 200, 200, 200, 200, 200};
+	final private long[] ANIM_TIMINGS_RUN = {220, 220, 220, 220, 220, 220, 220, 220};
 
 	//-----------------------------
 	//VARIABLES
@@ -69,12 +69,13 @@ public final class Player extends BaseAnimObject
 		if(isMove)			//Обработка движения персонажа
 		{
             //Debug.e("isMove");
-            if(SystemClock.elapsedRealtime() >= mCurrentStepTime + STEP_TIME)
+            if(SystemClock.elapsedRealtime() >= mCurrentStepTime + STEP_TIME)//Определяет скорость движения
 			{
 				if(mLength <= 0)
 				{
 					//Debug.e("Stop move!");
-					if(isMoveLoop/* && isCanGo()*/)
+                    boolean isGo = isCanGo();
+					if(isMoveLoop && isGo)
 					{
 						//Debug.e("Resume move!");
 						if(mOldDir != mDir)
@@ -82,14 +83,17 @@ public final class Player extends BaseAnimObject
 
 						mLength = NEXT_DESTINATION_TILE_WIDTH;
 					}
-					else if(!isMoveLoop)
+					else if(!isMoveLoop || !isGo)
 					{
 						//Debug.e("Stop animation!!!!!!");
 						isMove = false;
 						mOldDir = mDir;
 						mDir = Directions.DIR_NONE;
+                        mKX = 0;
+                        mKY = 0;
 						stopAnimation();
 						setAnimateDirection();
+                        return;
 					}
 				}
 
@@ -153,6 +157,8 @@ public final class Player extends BaseAnimObject
 		Debug.e("x = " + x + ", y = " + y);
 
 		GameMap gm = WorldContext.getInstance().mWorld;
+        float[] coord = gm.mTMXMap.getTMXLayers().get(GameMap.LAYER_FLOOR).convertSceneToLocalCoordinates(getX(), getY());
+        Debug.e("coord[x] = " + coord[0] + ", coord[y] = " + coord[1]);
 		int TileColumn = (int) x / 32;
 		int TileRow = (int)y / 32;
 		Debug.e("TileColumn = " + TileColumn + ", TileRow = " + TileRow);
