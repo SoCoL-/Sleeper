@@ -9,7 +9,8 @@ import org.andengine.opengl.texture.region.ITextureRegion;
  * @author Nicolas Gramlich
  * @since 10:39:48 - 05.08.2010
  */
-public class TMXTile {
+public class TMXTile
+{
 	// ===========================================================
 	// Constants
 	// ===========================================================
@@ -85,7 +86,7 @@ public class TMXTile {
 	}
 
 	/**
-	 * You'd probably want to call {@link org.andengine.extension.tmx.TMXTile#setGlobalTileID(org.andengine.extension.tmx.TMXTiledMap, int)} instead.
+	 * You'd probably want to call {@link TMXTile#setGlobalTileID(org.andengine.extension.tmx.TMXTiledMap, int)} instead.
 	 * @param pTextureRegion
 	 */
 	public void setTextureRegion(final ITextureRegion pTextureRegion) {

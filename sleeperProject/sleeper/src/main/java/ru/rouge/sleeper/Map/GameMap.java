@@ -90,6 +90,9 @@ public final class GameMap
 			mTMXMap.getTMXLayers().get(i).setCullingEnabled(true);
 		}
 
+		//Тестовое добавление тайла в 1 строку и 1 столбец с индексом 18 и без свойств
+		mTMXMap.getTMXLayers().get(LAYER_FLOOR).addTileByGlobalTileID(1, 1, 18, null);
+
 		//Инициализация карты проходимости
 		Debug.e("walkable init");
 		TMXLayer floor = mTMXMap.getTMXLayers().get(LAYER_FLOOR);

@@ -89,6 +89,31 @@ public class TMXLayer extends SpriteBatch implements TMXConstants {
 		this.setAlpha(SAXUtils.getFloatAttribute(pAttributes, TMXConstants.TAG_LAYER_ATTRIBUTE_OPACITY, TMXConstants.TAG_LAYER_ATTRIBUTE_OPACITY_VALUE_DEFAULT));
 	}
 
+	public TMXLayer(final TMXTiledMap pTMXTiledMap, int layerW, int layerH, String name, final VertexBufferObjectManager pVertexBufferObjectManager)
+	{
+		super(null, layerW * layerH, pVertexBufferObjectManager);
+
+		this.mTMXTiledMap = pTMXTiledMap;
+		this.mName = name;
+		this.mTileColumns = layerW;
+		this.mTileRows = layerH;
+		this.mTMXTiles = new TMXTile[this.mTileRows][this.mTileColumns];
+
+		this.mWidth = pTMXTiledMap.getTileWidth() * this.mTileColumns;
+		this.mHeight = pTMXTiledMap.getTileHeight() * this.mTileRows;
+
+		this.mRotationCenterX = this.mWidth * 0.5f;
+		this.mRotationCenterY = this.mHeight * 0.5f;
+
+		this.mScaleCenterX = this.mRotationCenterX;
+		this.mScaleCenterY = this.mRotationCenterY;
+
+		this.mGlobalTileIDsExpected = this.mTileColumns * this.mTileRows;
+
+		this.setVisible(true);
+		this.setAlpha(1.0f);
+	}
+
 	// ===========================================================
 	// Getter & Setter
 	// ===========================================================
@@ -117,14 +142,17 @@ public class TMXLayer extends SpriteBatch implements TMXConstants {
 		return this.mTMXTiles;
 	}
 
-	public TMXTile getTMXTile(final int pTileColumn, final int pTileRow) throws ArrayIndexOutOfBoundsException {
+	public TMXTile getTMXTile(final int pTileColumn, final int pTileRow) throws ArrayIndexOutOfBoundsException
+	{
+		if(this.mTMXTiles[pTileRow][pTileColumn] == null)
+			return null;
 		return this.mTMXTiles[pTileRow][pTileColumn];
 	}
 
 	/**
 	 * @param pX in SceneCoordinates.
 	 * @param pY in SceneCoordinates.
-	 * @return the {@link org.andengine.extension.tmx.TMXTile} located at <code>pX/pY</code>.
+	 * @return the {@link TMXTile} located at <code>pX/pY</code>.
 	 */
 	public TMXTile getTMXTileAt(final float pX, final float pY) {
 		final float[] localCoords = this.convertSceneToLocalCoordinates(pX, pY);
@@ -242,7 +270,64 @@ public class TMXLayer extends SpriteBatch implements TMXConstants {
 		}
 	}
 
-	private void addTileByGlobalTileID(final int pGlobalTileID, final ITMXTilePropertiesListener pTMXTilePropertyListener) {
+	public void addTileByGlobalTileID(final int tilecol, final int tilerow, final int pGlobalTileID, final ITMXTilePropertiesListener pTMXTilePropertyListener)
+	{
+		final TMXTiledMap tmxTiledMap = this.mTMXTiledMap;
+
+		//final int tilesHorizontal = this.mTileColumns;
+
+		final int column = tilecol;//this.mTilesAdded % tilesHorizontal;
+		final int row = tilerow;//this.mTilesAdded / tilesHorizontal;
+
+		final float tileHeight = this.mTMXTiledMap.getTileHeight();
+		final float tileWidth = this.mTMXTiledMap.getTileWidth();
+
+		final TMXTile[][] tmxTiles = this.mTMXTiles;
+
+		final ITextureRegion tmxTileTextureRegion;
+		if(pGlobalTileID == 0)
+		{
+			final TMXTile tmxTile = new TMXTile(pGlobalTileID, column, row, tileWidth, tileHeight, null);
+			tmxTiles[row][column] = tmxTile;
+		}
+		else  if(pGlobalTileID != 0)
+		{
+			tmxTileTextureRegion = tmxTiledMap.getTextureRegionFromGlobalTileID(pGlobalTileID);
+
+			if(this.mTexture == null)
+			{
+				this.mTexture = tmxTileTextureRegion.getTexture();
+				super.initBlendFunction(this.mTexture);
+			}
+			else
+			{
+				if(this.mTexture != tmxTileTextureRegion.getTexture())
+				{
+					throw new AndEngineRuntimeException("All TMXTiles in a TMXLayer need to be in the same TMXTileSet.");
+				}
+			}
+			final TMXTile tmxTile = new TMXTile(pGlobalTileID, column, row, tileWidth, tileHeight, tmxTileTextureRegion);
+			tmxTiles[row][column] = tmxTile;
+
+			this.setIndex(this.getSpriteBatchIndex(column, row));
+			this.drawWithoutChecks(tmxTileTextureRegion, tmxTile.getTileX(), tmxTile.getTileY(), tileWidth, tileHeight, Color.WHITE_ABGR_PACKED_FLOAT);
+			this.submit(); // TODO Doesn't need to be called here, but should rather be called in a "init" step, when parsing the XML is complete.
+
+			/* Notify the ITMXTilePropertiesListener if it exists. */
+			if(pTMXTilePropertyListener != null)
+			{
+				final TMXProperties<TMXTileProperty> tmxTileProperties = tmxTiledMap.getTMXTileProperties(pGlobalTileID);
+				if(tmxTileProperties != null)
+				{
+					pTMXTilePropertyListener.onTMXTileWithPropertiesCreated(tmxTiledMap, this, tmxTile, tmxTileProperties);
+				}
+			}
+		}
+		//this.mTilesAdded++;
+	}
+
+	private void addTileByGlobalTileID(final int pGlobalTileID, final ITMXTilePropertiesListener pTMXTilePropertyListener)
+	{
 		final TMXTiledMap tmxTiledMap = this.mTMXTiledMap;
 
 		final int tilesHorizontal = this.mTileColumns;
@@ -250,23 +335,30 @@ public class TMXLayer extends SpriteBatch implements TMXConstants {
 		final int column = this.mTilesAdded % tilesHorizontal;
 		final int row = this.mTilesAdded / tilesHorizontal;
 
+		final float tileHeight = this.mTMXTiledMap.getTileHeight();
+		final float tileWidth = this.mTMXTiledMap.getTileWidth();
+
 		final TMXTile[][] tmxTiles = this.mTMXTiles;
 
 		final ITextureRegion tmxTileTextureRegion;
-		/*if(pGlobalTileID == 0) {
-			tmxTileTextureRegion = null;
-		}*/
-		if(pGlobalTileID != 0) {
+		if(pGlobalTileID == 0)
+		{
+			final TMXTile tmxTile = new TMXTile(pGlobalTileID, column, row, tileWidth, tileHeight, null);
+			tmxTiles[row][column] = tmxTile;
+		}
+		else  if(pGlobalTileID != 0)
+		{
 			tmxTileTextureRegion = tmxTiledMap.getTextureRegionFromGlobalTileID(pGlobalTileID);
 		
-			final float tileHeight = this.mTMXTiledMap.getTileHeight();
-			final float tileWidth = this.mTMXTiledMap.getTileWidth();
-	
-			if(this.mTexture == null) {
+			if(this.mTexture == null)
+			{
 				this.mTexture = tmxTileTextureRegion.getTexture();
 				super.initBlendFunction(this.mTexture);
-			} else {
-				if(this.mTexture != tmxTileTextureRegion.getTexture()) {
+			}
+			else
+			{
+				if(this.mTexture != tmxTileTextureRegion.getTexture())
+				{
 					throw new AndEngineRuntimeException("All TMXTiles in a TMXLayer need to be in the same TMXTileSet.");
 				}
 			}
@@ -277,30 +369,33 @@ public class TMXLayer extends SpriteBatch implements TMXConstants {
 			this.drawWithoutChecks(tmxTileTextureRegion, tmxTile.getTileX(), tmxTile.getTileY(), tileWidth, tileHeight, Color.WHITE_ABGR_PACKED_FLOAT);
 			this.submit(); // TODO Doesn't need to be called here, but should rather be called in a "init" step, when parsing the XML is complete.
 	
-			if(pGlobalTileID != 0) {
-				/* Notify the ITMXTilePropertiesListener if it exists. */
-				if(pTMXTilePropertyListener != null) {
-					final TMXProperties<TMXTileProperty> tmxTileProperties = tmxTiledMap.getTMXTileProperties(pGlobalTileID);
-					if(tmxTileProperties != null) {
-						pTMXTilePropertyListener.onTMXTileWithPropertiesCreated(tmxTiledMap, this, tmxTile, tmxTileProperties);
-					}
+			/* Notify the ITMXTilePropertiesListener if it exists. */
+			if(pTMXTilePropertyListener != null)
+			{
+				final TMXProperties<TMXTileProperty> tmxTileProperties = tmxTiledMap.getTMXTileProperties(pGlobalTileID);
+				if(tmxTileProperties != null)
+				{
+					pTMXTilePropertyListener.onTMXTileWithPropertiesCreated(tmxTiledMap, this, tmxTile, tmxTileProperties);
 				}
 			}
 		}
 		this.mTilesAdded++;
 	}
 
-	private int getSpriteBatchIndex(final int pColumn, final int pRow) {
+	private int getSpriteBatchIndex(final int pColumn, final int pRow)
+	{
 		return pRow * this.mTileColumns + pColumn;
 	}
 
-	private int readGlobalTileID(final DataInputStream pDataIn) throws IOException {
+	private int readGlobalTileID(final DataInputStream pDataIn) throws IOException
+	{
 		final int lowestByte = pDataIn.read();
 		final int secondLowestByte = pDataIn.read();
 		final int secondHighestByte = pDataIn.read();
 		final int highestByte = pDataIn.read();
 
-		if(lowestByte < 0 || secondLowestByte < 0 || secondHighestByte < 0 || highestByte < 0) {
+		if(lowestByte < 0 || secondLowestByte < 0 || secondHighestByte < 0 || highestByte < 0)
+		{
 			throw new IllegalArgumentException("Couldn't read global Tile ID.");
 		}
 

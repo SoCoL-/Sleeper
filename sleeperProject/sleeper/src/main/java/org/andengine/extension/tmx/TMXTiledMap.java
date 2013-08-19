@@ -9,8 +9,6 @@ import org.xml.sax.Attributes;
 
 import android.util.SparseArray;
 
-import ru.rouge.sleeper.WorldContext;
-
 /**
  * (c) 2010 Nicolas Gramlich
  * (c) 2011 Zynga Inc.
@@ -18,7 +16,8 @@ import ru.rouge.sleeper.WorldContext;
  * @author Nicolas Gramlich
  * @since 19:38:11 - 20.07.2010
  */
-public class TMXTiledMap implements TMXConstants {
+public class TMXTiledMap implements TMXConstants
+{
 	// ===========================================================
 	// Constants
 	// ===========================================================
@@ -30,8 +29,8 @@ public class TMXTiledMap implements TMXConstants {
 	private final String mOrientation;
 	private final int mTileColumns;
 	private final int mTilesRows;
-	private final float mTileWidth;
-	private final float mTileHeight;
+	private final int mTileWidth;
+	private final int mTileHeight;
 
 	private final ArrayList<TMXTileSet> mTMXTileSets = new ArrayList<TMXTileSet>();
 	private final ArrayList<TMXLayer> mTMXLayers = new ArrayList<TMXLayer>();
@@ -59,6 +58,16 @@ public class TMXTiledMap implements TMXConstants {
 		this.mTileHeight = SAXUtils.getIntAttributeOrThrow(pAttributes, TMXConstants.TAG_MAP_ATTRIBUTE_TILEHEIGHT);
 	}
 
+
+	TMXTiledMap(int rows, int columns, int tilewidth, int tileheight)
+	{
+		this.mOrientation = "orthogonal";
+		this.mTileColumns = columns;
+		this.mTilesRows = rows;
+		this.mTileHeight = tileheight;
+		this.mTileWidth = tilewidth;
+	}
+
 	// ===========================================================
 	// Getter & Setter
 	// ===========================================================
@@ -67,7 +76,7 @@ public class TMXTiledMap implements TMXConstants {
 		return this.mOrientation;
 	}
 	/**
-	 * @deprecated Instead use {@link org.andengine.extension.tmx.TMXTiledMap#getTileColumns()} * {@link org.andengine.extension.tmx.TMXTiledMap#getTileWidth()}.
+	 * @deprecated Instead use {@link TMXTiledMap#getTileColumns()} * {@link TMXTiledMap#getTileWidth()}.
 	 * @return
 	 */
 	@Deprecated
@@ -80,7 +89,7 @@ public class TMXTiledMap implements TMXConstants {
 	}
 
 	/**
-	 * @deprecated Instead use {@link org.andengine.extension.tmx.TMXTiledMap#getTileRows()} * {@link org.andengine.extension.tmx.TMXTiledMap#getTileHeight()}.
+	 * @deprecated Instead use {@link TMXTiledMap#getTileRows()} * {@link TMXTiledMap#getTileHeight()}.
 	 * @return
 	 */
 	@Deprecated
@@ -92,11 +101,11 @@ public class TMXTiledMap implements TMXConstants {
 		return this.mTilesRows;
 	}
 
-	public final float getTileWidth() {
+	public final int getTileWidth() {
 		return this.mTileWidth;
 	}
 
-	public final float getTileHeight() {
+	public final int getTileHeight() {
 		return this.mTileHeight;
 	}
 
