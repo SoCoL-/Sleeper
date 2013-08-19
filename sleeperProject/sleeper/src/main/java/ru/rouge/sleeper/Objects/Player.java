@@ -25,7 +25,7 @@ public final class Player extends BaseAnimObject
 	final private long STEP_TIME = 10;					//Время одного шага в миллисекундах
 	final private int NEXT_DESTINATION_TILE_WIDTH;		//Размер пути( = ширина тайла) на который надо переместиться за один раз
 	//Время анимации каждого кадра бега в одном направлении
-	final private long[] ANIM_TIMINGS_RUN = {220, 220, 220, 220, 220, 220, 220, 220};
+	final private long[] ANIM_TIMINGS_RUN = {130, 130, 130, 130, 130, 130, 130, 130};
 
 	//-----------------------------
 	//VARIABLES
