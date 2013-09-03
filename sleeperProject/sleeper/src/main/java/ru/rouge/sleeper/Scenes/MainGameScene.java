@@ -13,6 +13,7 @@ import org.andengine.util.color.Color;
 
 import ru.rouge.sleeper.Managers.ResourceManager;
 import ru.rouge.sleeper.Managers.ScenesManager;
+import ru.rouge.sleeper.Map.GameMap;
 import ru.rouge.sleeper.WorldContext;
 
 /**
@@ -90,7 +91,7 @@ public final class MainGameScene extends MainScene
 				Debug.e("WorldContext.getInstance().mWorld.getTMXLayers() == null Oo");
 
 			Debug.e("Get layer 0");
-			TMXLayer ground = WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(0);
+			TMXLayer ground = WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(GameMap.LAYER_FLOOR);
 			Debug.e("Check layer 0");
 			if(ground == null)
 				Debug.e("WorldContext.getInstance().mWorld.getTMXLayers().get(0) = null Oo");
@@ -100,8 +101,9 @@ public final class MainGameScene extends MainScene
 			if(ground == null)
 				Debug.e("WorldContext.getInstance().mWorld.getTMXLayers().get(0) = null Oo");
 			attachChild(ground);
-			attachChild(WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(1));
+			attachChild(WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(GameMap.LAYER_WALLS));
 			attachChild(WorldContext.getInstance().mPlayer);
+            attachChild(WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(GameMap.LAYER_ABOVE));
 			attachChild(new Text(100, 100, ResourceManager.getInstance().mGameFont, "Main Game", ResourceManager.getInstance().mVBO));
 			Debug.e("1 layer show");
 		}

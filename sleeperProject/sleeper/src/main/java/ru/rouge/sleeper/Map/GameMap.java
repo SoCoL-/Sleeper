@@ -1,11 +1,9 @@
 package ru.rouge.sleeper.Map;
 
-import org.andengine.entity.modifier.PathModifier;
 import org.andengine.extension.tmx.TMXLayer;
 import org.andengine.extension.tmx.TMXLoader;
 import org.andengine.extension.tmx.TMXObject;
 import org.andengine.extension.tmx.TMXObjectGroup;
-import org.andengine.extension.tmx.TMXTile;
 import org.andengine.extension.tmx.TMXTiledMap;
 import org.andengine.extension.tmx.util.exception.TMXLoadException;
 import org.andengine.util.debug.Debug;
@@ -28,11 +26,11 @@ public final class GameMap
 
 	public final static int LAYER_FLOOR = 0;
 	public final static int LAYER_WALLS = 1;
+    public final static int LAYER_ABOVE = 2;
 
 	private final String OBJECT_NAME_PORTAL = "portal";
 	private final String OBJECT_NAME_PLAYERSPAWN = "player_spawn";
-
-	private final String LAYER_WAKABLE = "wakable";//???
+    private final String OBJECT_NAME_DOOR = "door_wood";
 
 	//-----------------------------
 	//VARIABLES
@@ -42,6 +40,7 @@ public final class GameMap
 	public boolean[][] mWakables;
 	public ArrayList<TMXObject> mPortals;
 	public ArrayList<TMXObject> mSpawns;
+    public ArrayList<TMXObject> mDoors;
 
 	//-----------------------------
 	//CONSTRUCTORS
@@ -91,7 +90,8 @@ public final class GameMap
 		}
 
 		//Тестовое добавление тайла в 1 строку и 1 столбец с индексом 18 и без свойств
-		mTMXMap.getTMXLayers().get(LAYER_FLOOR).addTileByGlobalTileID(1, 1, 18, null);
+		//mTMXMap.getTMXLayers().get(LAYER_FLOOR).addTileByGlobalTileID(1, 1, 18, null);
+        createTestRoom(mTMXMap);
 
 		//Инициализация карты проходимости
 		Debug.e("walkable init");
@@ -123,6 +123,9 @@ public final class GameMap
 
 		this.mSpawns = getObjectsTile(OBJECT_NAME_PLAYERSPAWN, mMapObjects);
 		this.mPortals = getObjectsTile(OBJECT_NAME_PORTAL, mMapObjects);
+        this.mDoors = getObjectsTile(OBJECT_NAME_DOOR, mMapObjects);
+
+        setDoors(mDoors);
 
 		///setup Player
 		TMXObject playerSpawn = mSpawns.get(0);
@@ -152,6 +155,43 @@ public final class GameMap
 
 		return rezult;
 	}
+
+    private void setDoors(ArrayList<TMXObject> doors)
+    {
+        for(TMXObject o : doors)
+        {
+            Debug.i("object.height = " + o.getHeight() + " object.width = " + o.getWidth());
+            Debug.i("object.x = " + o.getX() + " object.y = " + o.getY());
+
+            Debug.i("mTMXMap.getTileColumns() = " + mTMXMap.getTileColumns() + " mTMXMap.getTileRows() = " + mTMXMap.getTileRows());
+
+            int tileColumn = o.getX()/o.getWidth();
+            int tileRow = o.getY()/o.getHeight();
+            mTMXMap.getTMXLayers().get(LAYER_ABOVE).addTileByGlobalTileID(tileColumn, tileRow, 17, null);
+            mTMXMap.getTMXLayers().get(LAYER_WALLS).addTileByGlobalTileID(tileColumn, tileRow+1, 14, null);
+            mTMXMap.getTMXLayers().get(LAYER_WALLS).addTileByGlobalTileID(tileColumn, tileRow-1, 14, null);
+        }
+    }
+
+    private void createTestRoom(TMXTiledMap map)
+    {
+        for(int i = 30; i < 46; i++)//y
+        {
+            for(int j = 1; j < 15; j++)
+            {
+                map.getTMXLayers().get(LAYER_FLOOR).addTileByGlobalTileID(i, j, 18, null);
+            }
+        }
+
+        map.getTMXLayers().get(LAYER_FLOOR).addTileByGlobalTileID(26, 16, 18, null);
+        map.getTMXLayers().get(LAYER_WALLS).addTileByGlobalTileID(26, 16, 0, null);
+        map.getTMXLayers().get(LAYER_ABOVE).addTileByGlobalTileID(26, 16, 17, null);
+        map.getTMXLayers().get(LAYER_FLOOR).addTileByGlobalTileID(27, 16, 18, null);
+        map.getTMXLayers().get(LAYER_FLOOR).addTileByGlobalTileID(27, 15, 18, null);
+        map.getTMXLayers().get(LAYER_FLOOR).addTileByGlobalTileID(27, 14, 18, null);
+        map.getTMXLayers().get(LAYER_FLOOR).addTileByGlobalTileID(28, 14, 18, null);
+        map.getTMXLayers().get(LAYER_FLOOR).addTileByGlobalTileID(29, 14, 18, null);
+    }
 
 	//-----------------------------
 	//GETTERS/SETTERS

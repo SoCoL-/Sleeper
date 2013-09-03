@@ -51,6 +51,7 @@ public final class SceneMenu extends MainScene implements MenuScene.IOnMenuItemC
 	@Override
 	public void createScene()
 	{
+        WorldContext.getInstance().getCamera().setChaseEntity(null);
 		this.mWorldContext = WorldContext.getInstance();
 		this.mResManager = ResourceManager.getInstance();
 		this.mResManager.loadMenuRes();
