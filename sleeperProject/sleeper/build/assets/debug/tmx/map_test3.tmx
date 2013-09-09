@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="60" height="50" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="walls_stone" tilewidth="32" tileheight="32">
+  <image source="tileset/walls_stone.png" width="96" height="192"/>
+ </tileset>
+ <layer name="floor" width="60" height="50">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3WMQ6AIBBEUY7g/U9rj4lmgZHZ5b/ExmLhS4Gt4c3VPdXRWxu9z3eVvslX2+zjRnm+9OZzUm/0nOnNxbVXfce49arWpfefdaPoHZ8T7d3x77myNwN6x+fsvN8i+3Sao+Z8Fgoj+6OXXler93dSb4ZzpnduFr1eXPelQi8AAAAAAMjkBt5jR3PgLgAA
+  </data>
+ </layer>
+ <layer name="wall" width="60" height="50">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2YyQ7DIAxEadVV6vL/f9vkgFpRErCZgCHzJF9QAgxeYuJcPufJDoFdBO/3xjFzbBSod396X+4/p0fJca1/Ty59JhbPpkbsWsoPrX9j37Elv46gV/KMJb2xPHxGxmZ7THYL3lvLTYt6JUhjgXq3IaeWaOwdWcuC3prxY0FvWIN8TSn1u1X/brWu1fzdal2t3tq9Z2u9pWto50Dp/a0D15XnJX7NmU+6T5RejY5R4hkNMp5L/eJj7e6+/TTav8h4RmO1L47VGUQeWdcr2R/qDtwC6k2zVNukd/4WIPvYHv5XU2/5XKmxllCvnlgdQ/RESHr/Tyhlb3p9DFqLO0IIIYQQQgghpIQP84O1yOAuAAA=
+  </data>
+ </layer>
+ <layer name="above" width="60" height="50">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3BMQEAAADCoPVPbQwfoAAAAAAAAAAAAAAA4G+ekqdq4C4AAA==
+  </data>
+ </layer>
+ <objectgroup name="spawn" width="60" height="50">
+  <object name="player_spawn" x="416" y="96" width="32" height="32"/>
+  <object name="door_wood" x="512" y="192" width="32" height="32"/>
+  <object name="door_wood" x="704" y="416" width="32" height="32"/>
+ </objectgroup>
+</map>

@@ -55,7 +55,7 @@ public final class LoadScene extends MainScene
 					{
 						mRM.loadGameRes();
 
-						final TMXLoader loader = new TMXLoader(mWC.getAssetManager(), mWC.getTextureManager(), TextureOptions.DEFAULT, ResourceManager.getInstance().mVBO);
+						final TMXLoader loader = new TMXLoader(mWC.getAssetManager(), mWC.getTextureManager(), TextureOptions.BILINEAR_PREMULTIPLYALPHA, ResourceManager.getInstance().mVBO);
 						Debug.e("on LoadScene load TMXLoader");
 						try
 						{

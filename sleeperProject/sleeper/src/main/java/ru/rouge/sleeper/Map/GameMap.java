@@ -110,18 +110,18 @@ public final class GameMap
 			{
 				if(floor.getTMXTile(i, j) != null && floor.getTMXTile(i, j).getGlobalTileID() == 16)
 				{
-					Debug.e("i = " + i);
-					Debug.e("j = " + j);
-					Debug.e("floor.getTMXTileAT(i, j) = " + floor.getTMXTile(i, j).getGlobalTileID());
+					//Debug.e("i = " + i);
+					//Debug.e("j = " + j);
+					//Debug.e("floor.getTMXTileAT(i, j) = " + floor.getTMXTile(i, j).getGlobalTileID());
 					mWakables[j][i].isWalkable = true;
 				}
 			}
 		}
 		Debug.e("Walkable map is done!");
-        Debug.e("mWakables[6][10] = " + mWakables[6][10]);
-        Debug.e("mWakables[6][9] = " + mWakables[6][9]);
-        Debug.e("mWakables[6][10] = " + mWakables[10][6]);
-        Debug.e("mWakables[6][9] = " + mWakables[9][6]);
+        Debug.e("mWakables[6][10] = " + mWakables[6][10].isWalkable);
+        Debug.e("mWakables[6][9] = " + mWakables[6][9].isWalkable);
+        Debug.e("mWakables[6][10] = " + mWakables[10][6].isWalkable);
+        Debug.e("mWakables[6][9] = " + mWakables[9][6].isWalkable);
 
 		ArrayList<TMXObject> mMapObjects = new ArrayList<TMXObject>();
 		for(TMXObjectGroup objects : mTMXMap.getTMXObjectGroups())

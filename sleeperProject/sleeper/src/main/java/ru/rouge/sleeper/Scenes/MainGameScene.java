@@ -44,6 +44,7 @@ public final class MainGameScene extends MainScene
 				{
 					Debug.e("Action Down is enabled");
 					wc.mPlayer.isMoveLoop = true;
+                    //wc.mPlayer.isMove = true;
 					try
 					{
 						wc.mPlayerContr.move(pSceneTouchEvent);
@@ -71,6 +72,7 @@ public final class MainGameScene extends MainScene
                 {
 					Debug.e("Action Up is enabled");
 					wc.mPlayer.isMoveLoop = false;
+                    //wc.mPlayer.isMove = false;
                 }
 
 				return true;

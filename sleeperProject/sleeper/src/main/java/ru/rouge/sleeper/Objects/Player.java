@@ -33,7 +33,7 @@ public final class Player extends BaseAnimObject
 
 	private Directions mDir;							//Направление движения персонажа
 	private Directions mOldDir;							//Старое направление движения
-	private boolean isMove;								//Движется ли персонаж
+	public boolean isMove;								//Движется ли персонаж
 	public boolean isMoveLoop;							//Если мы нажали и не отпускаем, то персонаж движется все время в заданном направлении
 	private float mLength;								//Длина пути персонажа
 	private int mKX, mKY;								//Коэфиценты для движения персонажа(отнимать или прибавлять скорость покоординатно)
@@ -74,16 +74,34 @@ public final class Player extends BaseAnimObject
 				if(mLength <= 0)
 				{
 					//Debug.e("Stop move!");
-                    boolean isGo = isCanGo();
-					if(isMoveLoop && isGo)
-					{
-						//Debug.e("Resume move!");
-						if(mOldDir != mDir)
-							animatePlayer();
+                    if(isMoveLoop)
+                    {
+                        //Debug.i("isMoveLoop = " + isMoveLoop);
+                        boolean isGo = isCanGo();
+                        if(isGo)
+                        {
+                            //Debug.e("Resume move!");
+                            if(mOldDir != mDir)
+                                animatePlayer();
 
-						mLength = NEXT_DESTINATION_TILE_WIDTH;
-					}
-					else if(!isMoveLoop || !isGo)
+                            mLength = NEXT_DESTINATION_TILE_WIDTH;
+                        }
+                        else
+                        {
+                           // Debug.e("Not Resume move!");
+                            isMove = false;
+                            isMoveLoop = false;
+                            mLength = 0;
+                            mOldDir = mDir;
+                            mDir = Directions.DIR_NONE;
+                            mKX = 0;
+                            mKY = 0;
+                            stopAnimation();
+                            setAnimateDirection();
+                            return;
+                        }
+                    }
+					else
 					{
 						//Debug.e("Stop animation!!!!!!");
 						isMove = false;
