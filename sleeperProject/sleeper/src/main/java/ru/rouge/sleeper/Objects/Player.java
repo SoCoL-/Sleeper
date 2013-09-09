@@ -162,9 +162,35 @@ public final class Player extends BaseAnimObject
 		int TileColumn = (int) x / 32;
 		int TileRow = (int)y / 32;
 		Debug.e("TileColumn = " + TileColumn + ", TileRow = " + TileRow);
-		Debug.e("gm.mWakables[TileRow][TileColumn] = " + gm.mWakables[TileRow][TileColumn]);
+		Debug.e("gm.mWakables[TileRow][TileColumn] = " + gm.mWakables[TileRow][TileColumn].isWalkable);
+        Debug.e("gm.mWakables[TileRow][TileColumn].index = " + gm.mWakables[TileRow][TileColumn].mIndexObject);
 
-		return gm.mWakables[TileRow][TileColumn];
+        boolean isWalk = false;
+
+        if(gm.mWakables[TileRow][TileColumn].mIndexObject == -1)
+        {
+            Debug.i("Нет объектов на пути, возвращаем значение карты проходимости");
+            isWalk = gm.mWakables[TileRow][TileColumn].isWalkable;
+        }
+        else if(gm.mWakables[TileRow][TileColumn].mIndexObject > -1)
+        {
+            Debug.i("Object!!! Try to identify it");
+            Door d = gm.mDoors.get(gm.mWakables[TileRow][TileColumn].mIndexObject);
+            Debug.i("This is door");
+            if(d.isOpen())
+            {
+                Debug.i("Door is Open, move enable");
+                isWalk = true;
+            }
+            else
+            {
+                Debug.i("Door is Closed, move disable, open door");
+                d.setOpen(true);
+                isWalk = false;
+            }
+        }
+
+        return  isWalk;
 	}
 
 	/**

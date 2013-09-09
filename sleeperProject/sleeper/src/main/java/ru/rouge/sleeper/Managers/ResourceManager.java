@@ -63,6 +63,9 @@ public final class ResourceManager
 	//public  TiledTextureRegion              mEnemy3Texture;
 	//private TexturePackTextureRegionLibrary mCharactersTexturePackLibrary;
 
+    private BitmapTextureAtlas              mDoorsAtlas;
+    public  TiledTextureRegion              mDoorsTexture;
+
     public Font mGameFont;
     private ITexture mGameFontAtlas;
 
@@ -155,26 +158,15 @@ public final class ResourceManager
 	public void loadGameRes()
 	{
 		WorldContext wc = WorldContext.getInstance();
-        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/characters/");
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 
         this.mPlayerTexture = new BitmapTextureAtlas(wc.getTextureManager(), 256, 128, TextureOptions.DEFAULT);
-        this.mHeroTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mPlayerTexture, wc.getAssetManager(), "hero.png", 0, 0, 8, 4);
+        this.mHeroTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mPlayerTexture, wc.getAssetManager(), "characters/hero.png", 0, 0, 8, 4);
         this.mPlayerTexture.load();
 
-		/*try
-		{
-			TexturePack spriteSheetCharactersTexturePack = new TexturePackLoader(wc.getTextureManager(), "gfx/characters/").loadFromAsset(wc.getAssetManager(), "hero.xml");
-			spriteSheetCharactersTexturePack.loadTexture();
-			mCharactersTexturePackLibrary = spriteSheetCharactersTexturePack.getTexturePackTextureRegionLibrary();
-		}
-		catch (TexturePackParseException e)
-		{
-			Debug.e(e);
-		}
-
-		TexturePackerTextureRegion heroRegion = mCharactersTexturePackLibrary.get(PLAYER_ID);
-		mHeroTexture = TiledTextureRegion.create(heroRegion.getTexture(), (int)heroRegion.getTextureX(), (int)heroRegion.getTextureY(), (int)heroRegion.getWidth(), (int)heroRegion.getHeight(), 6, 5);*/
-        //mHeroTexture = TiledTextureRegion.create(heroRegion.getTexture(), (int)heroRegion.getTextureX(), (int)heroRegion.getTextureY(), 32, 32, 6, 5);
+        this.mDoorsAtlas = new BitmapTextureAtlas(wc.getTextureManager(), 64, 64, TextureOptions.DEFAULT);
+        this.mDoorsTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mDoorsAtlas, wc.getAssetManager(), "door/door1.png", 0, 0, 2, 2);
+        this.mDoorsAtlas.load();
 	}
 
 	/**
@@ -188,8 +180,10 @@ public final class ResourceManager
         mGameFontAtlas.unload();
         mGameFontAtlas = null;
 		mHeroTexture = null;
+        mPlayerTexture.unload();
         mPlayerTexture = null;
-		//mCharactersTexturePackLibrary = null;
+        mDoorsAtlas.unload();
+        mDoorsAtlas = null;
 
 		if(instance != null)
 			instance = null;

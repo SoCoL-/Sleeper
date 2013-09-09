@@ -14,6 +14,7 @@ import org.andengine.util.color.Color;
 import ru.rouge.sleeper.Managers.ResourceManager;
 import ru.rouge.sleeper.Managers.ScenesManager;
 import ru.rouge.sleeper.Map.GameMap;
+import ru.rouge.sleeper.Objects.Door;
 import ru.rouge.sleeper.WorldContext;
 
 /**
@@ -103,7 +104,9 @@ public final class MainGameScene extends MainScene
 			attachChild(ground);
 			attachChild(WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(GameMap.LAYER_WALLS));
 			attachChild(WorldContext.getInstance().mPlayer);
-            attachChild(WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(GameMap.LAYER_ABOVE));
+            for(Door d : WorldContext.getInstance().mWorld.mDoors)
+                attachChild(d);
+            //attachChild(WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(GameMap.LAYER_ABOVE));
 			attachChild(new Text(100, 100, ResourceManager.getInstance().mGameFont, "Main Game", ResourceManager.getInstance().mVBO));
 			Debug.e("1 layer show");
 		}
