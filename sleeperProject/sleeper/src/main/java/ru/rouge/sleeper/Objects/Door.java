@@ -20,6 +20,7 @@ public class Door extends TiledSprite
     //Variables
     //-----------------------------
     private boolean isOpen;             //Открыта или закрыта дверь
+    private boolean isLocked;           //Замкнута дверь или нет
     private boolean isVertical;         //Вертикальная или горизонтальная
     private float X, Y;                 //Координаты двери (в пикселах)
 
@@ -27,12 +28,13 @@ public class Door extends TiledSprite
     //Ctors
     //-----------------------------
 
-    public Door(float pX, float pY, boolean verical, ITiledTextureRegion pTiledTextureRegion, VertexBufferObjectManager pVertexBufferObjectManager)
+    public Door(float pX, float pY, boolean verical, boolean locked, ITiledTextureRegion pTiledTextureRegion, VertexBufferObjectManager pVertexBufferObjectManager)
     {
         super(pX, pY, pTiledTextureRegion, pVertexBufferObjectManager);
 
         setX(pX);
         setY(pY);
+        setLocked(locked);
         setVertical(verical);
         setOpen(false);
     }
@@ -115,6 +117,16 @@ public class Door extends TiledSprite
     public void setVertical(boolean vertical)
     {
         isVertical = vertical;
+    }
+
+    public boolean isLocked()
+    {
+        return isLocked;
+    }
+
+    public void setLocked(boolean locked)
+    {
+        isLocked = locked;
     }
 
     //-----------------------------

@@ -2,11 +2,15 @@ package ru.rouge.sleeper.Objects;
 
 import android.os.SystemClock;
 
+import org.andengine.entity.text.Text;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.debug.Debug;
 
+import ru.rouge.sleeper.Managers.ResourceManager;
+import ru.rouge.sleeper.Managers.ScenesManager;
 import ru.rouge.sleeper.Map.GameMap;
+import ru.rouge.sleeper.Scenes.MainGameScene;
 import ru.rouge.sleeper.Utils.Directions;
 import ru.rouge.sleeper.WorldContext;
 
@@ -202,9 +206,18 @@ public final class Player extends BaseAnimObject
             }
             else
             {
-                Debug.i("Door is Closed, move disable, open door");
-                d.setOpen(true);
-                isWalk = false;
+                if(!d.isLocked())
+                {
+                    Debug.i("Door is Closed, move disable, open door");
+                    d.setOpen(true);
+                    isWalk = false;
+                }
+                else
+                {
+                    Debug.i("Door is Locked, move disable, can't open door");
+                    Text errorText = new Text(0, 10, ResourceManager.getInstance().mGameFont, "This door is locked!!", ResourceManager.getInstance().mVBO);
+                    ((MainGameScene)ScenesManager.getInstance().getCurrentScene()).mHUD.attachChild(errorText);
+                }
             }
         }
 

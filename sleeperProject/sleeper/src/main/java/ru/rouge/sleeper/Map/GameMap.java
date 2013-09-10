@@ -174,16 +174,21 @@ public final class GameMap
 
             Debug.i("mTMXMap.getTileColumns() = " + mTMXMap.getTileColumns() + " mTMXMap.getTileRows() = " + mTMXMap.getTileRows());
 
-            Door newDoor = new Door(o.getX(), o.getY(), true, ResourceManager.getInstance().mDoorsTexture, ResourceManager.getInstance().mVBO);
+            Door newDoor = new Door(o.getX(), o.getY(), true, false, ResourceManager.getInstance().mDoorsTexture, ResourceManager.getInstance().mVBO);
             mDoors.add(newDoor);
 
             int tileColumn = o.getX()/o.getWidth();
             int tileRow = o.getY()/o.getHeight();
             Debug.i("mDoors.size() = " + mDoors.size());
             mWakables[tileRow][tileColumn].mIndexObject = mDoors.size()-1;
-            //mTMXMap.getTMXLayers().get(LAYER_WALLS).addTileByGlobalTileID(tileColumn, tileRow+1, 14, null);
-            //mTMXMap.getTMXLayers().get(LAYER_WALLS).addTileByGlobalTileID(tileColumn, tileRow-1, 14, null);
         }
+
+        Door newDoor = new Door(24*32, 9*32, false, false, ResourceManager.getInstance().mDoorsTexture, ResourceManager.getInstance().mVBO);
+        mDoors.add(newDoor);
+        mWakables[9][24].mIndexObject = mDoors.size()-1;
+        newDoor = new Door(25*32, 6*32, true, true, ResourceManager.getInstance().mDoorsTexture, ResourceManager.getInstance().mVBO);
+        mDoors.add(newDoor);
+        mWakables[6][25].mIndexObject = mDoors.size()-1;
     }
 
     private void createTestRoom(TMXTiledMap map)
@@ -198,7 +203,6 @@ public final class GameMap
 
         map.getTMXLayers().get(LAYER_FLOOR).addTileByGlobalTileID(26, 16, 16, null);
         map.getTMXLayers().get(LAYER_WALLS).addTileByGlobalTileID(26, 16, 0, null);
-        //map.getTMXLayers().get(LAYER_ABOVE).addTileByGlobalTileID(26, 16, 17, null);
         map.getTMXLayers().get(LAYER_FLOOR).addTileByGlobalTileID(27, 16, 16, null);
         map.getTMXLayers().get(LAYER_FLOOR).addTileByGlobalTileID(27, 15, 16, null);
         map.getTMXLayers().get(LAYER_FLOOR).addTileByGlobalTileID(27, 14, 16, null);

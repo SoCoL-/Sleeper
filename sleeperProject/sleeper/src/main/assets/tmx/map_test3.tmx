@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="60" height="50" tilewidth="32" tileheight="32">
- <tileset firstgid="1" name="walls_stone" tilewidth="32" tileheight="32">
-  <image source="tileset/walls_stone.png" width="96" height="192"/>
+ <tileset firstgid="1" name="walls_stone" tilewidth="32" tileheight="32" spacing="2" margin="1">
+  <image source="tileset/walls_stone.png" width="102" height="204"/>
  </tileset>
  <layer name="floor" width="60" height="50">
   <data encoding="base64" compression="gzip">
@@ -10,7 +10,7 @@
  </layer>
  <layer name="wall" width="60" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2YyQ7DIAxEadVV6vL/f9vkgFpRErCZgCHzJF9QAgxeYuJcPufJDoFdBO/3xjFzbBSod396X+4/p0fJca1/Ty59JhbPpkbsWsoPrX9j37Elv46gV/KMJb2xPHxGxmZ7THYL3lvLTYt6JUhjgXq3IaeWaOwdWcuC3prxY0FvWIN8TSn1u1X/brWu1fzdal2t3tq9Z2u9pWto50Dp/a0D15XnJX7NmU+6T5RejY5R4hkNMp5L/eJj7e6+/TTav8h4RmO1L47VGUQeWdcr2R/qDtwC6k2zVNukd/4WIPvYHv5XU2/5XKmxllCvnlgdQ/RESHr/Tyhlb3p9DFqLO0IIIYQQQgghpIQP84O1yOAuAAA=
+   H4sIAAAAAAAAC+2YiQ6DIBBEadMz6fH/f9uSSGJxqywMuuC8ZGNCEBz3cMW5dM5fO0R2UdzfGsfEsV6g3v3pfblpTveS47n+TXknFt/NGrFrKT9q+jf4tQe9mjmW9J7c1C9PYczbY7i60Zy53LSoV4M2Fqi3DlJPjLC3sJcFvWvGjwW9cQ0KNaXU71b9W2tfq/lba99cvdI3r2bvubXe0j1y10DpHdeB68x8jV9T1tM+J0pvjo5e4hkNMp5L/RJi7e5++2mkIeMZjdW+WKoziDyyrlfzfKh/4C2g3mX+1TZfo27RHEvncR5kH9vCeTX1lq+1NLYl1JuPVMcQPRGS1s8JtexNb4hBa3FHCCGEEEIIIYSU8AF5zCN24C4AAA==
   </data>
  </layer>
  <layer name="above" width="60" height="50">

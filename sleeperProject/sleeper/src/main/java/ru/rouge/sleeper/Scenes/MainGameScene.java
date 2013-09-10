@@ -2,6 +2,7 @@ package ru.rouge.sleeper.Scenes;
 
 import android.view.MotionEvent;
 
+import org.andengine.engine.camera.hud.HUD;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
@@ -24,6 +25,8 @@ import ru.rouge.sleeper.WorldContext;
 public final class MainGameScene extends MainScene
 {
 
+    public HUD mHUD;
+
 	@Override
     public void createScene()
     {
@@ -32,6 +35,8 @@ public final class MainGameScene extends MainScene
 		Debug.e("Set background");
 		if(WorldContext.getInstance() == null)
 			Debug.e("WorldContext.getInstance() == null Oo");
+
+        mHUD = new HUD();
 
 		setOnSceneTouchListener(new IOnSceneTouchListener()
 		{
@@ -42,9 +47,8 @@ public final class MainGameScene extends MainScene
 
 				if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_DOWN)
 				{
-					Debug.e("Action Down is enabled");
+					//Debug.e("Action Down is enabled");
 					wc.mPlayer.isMoveLoop = true;
-                    //wc.mPlayer.isMove = true;
 					try
 					{
 						wc.mPlayerContr.move(pSceneTouchEvent);
@@ -57,7 +61,7 @@ public final class MainGameScene extends MainScene
 				}
 				else if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_MOVE)
 				{
-					Debug.e("Action Move is enabled");
+					//Debug.e("Action Move is enabled");
 
 					try
 					{
@@ -70,9 +74,8 @@ public final class MainGameScene extends MainScene
 				}
                 else if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_UP)
                 {
-					Debug.e("Action Up is enabled");
+					//Debug.e("Action Up is enabled");
 					wc.mPlayer.isMoveLoop = false;
-                    //wc.mPlayer.isMove = false;
                 }
 
 				return true;
@@ -95,22 +98,16 @@ public final class MainGameScene extends MainScene
 
 			Debug.e("Get layer 0");
 			TMXLayer ground = WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(GameMap.LAYER_FLOOR);
-			Debug.e("Check layer 0");
-			if(ground == null)
-				Debug.e("WorldContext.getInstance().mWorld.getTMXLayers().get(0) = null Oo");
-			Debug.e(" layer columns =  " + ground.getTileColumns());
-			Debug.e(" layer name =  " + ground.getName());
 			Debug.e("Attach layer 0");
-			if(ground == null)
-				Debug.e("WorldContext.getInstance().mWorld.getTMXLayers().get(0) = null Oo");
 			attachChild(ground);
 			attachChild(WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(GameMap.LAYER_WALLS));
 			attachChild(WorldContext.getInstance().mPlayer);
             for(Door d : WorldContext.getInstance().mWorld.mDoors)
                 attachChild(d);
-            //attachChild(WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(GameMap.LAYER_ABOVE));
 			attachChild(new Text(100, 100, ResourceManager.getInstance().mGameFont, "Main Game", ResourceManager.getInstance().mVBO));
-			Debug.e("1 layer show");
+
+            Debug.e("Set HUD");
+            WorldContext.getInstance().getCamera().setHUD(mHUD);
 		}
 		else
 			Debug.e("world is null");
