@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- From: file:/C:/Users/1/Documents/GitHub/Sleeper/sleeperProject/sleeper/src/main/res/values/strings.xml -->
+    <string-array name="rooms_name">
+        <item>room1.tmx</item>
+        <item>room2.tmx</item>
+        <item>room3.tmx</item>
+    </string-array>
     <!-- From: file:/C:/Users/1/Documents/GitHub/Sleeper/sleeperProject/sleeper/src/main/res/values/dimens.xml -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>

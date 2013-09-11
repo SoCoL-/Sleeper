@@ -44,7 +44,11 @@ public class MainActivity extends BaseGameActivity
 
 		this.mCamera = new BoundCamera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
 
-		return new EngineOptions(true, ScreenOrientation.LANDSCAPE_SENSOR, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), this.mCamera);
+        EngineOptions eo = new EngineOptions(true, ScreenOrientation.LANDSCAPE_SENSOR, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), this.mCamera);
+        eo.getRenderOptions().setDithering(true);
+        eo.getRenderOptions().setMultiSampling(true);
+
+		return eo;
 	}
 
 	@Override

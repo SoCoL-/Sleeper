@@ -77,7 +77,7 @@ public final class LoadScene extends MainScene
 						float heightMap = mWC.mWorld.mTMXMap.getTileRows() * mWC.mWorld.mTMXMap.getTileHeight();
 						float widthMap = mWC.mWorld.mTMXMap.getTileColumns() * mWC.mWorld.mTMXMap.getTileWidth();
 						Debug.e("on LoadScene get width and height of map");
-						mWC.getCamera().setBounds(0, 0, widthMap, heightMap);
+						mWC.getCamera().setBounds(-100, -100, widthMap, heightMap);
 						mWC.getCamera().setBoundsEnabled(true);
 						Debug.e("on LoadScene setup camera bounds");
 						//ScenesManager.getInstance().setScene(new MainGameScene());

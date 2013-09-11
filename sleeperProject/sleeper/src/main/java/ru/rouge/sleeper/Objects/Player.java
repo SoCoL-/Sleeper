@@ -2,8 +2,10 @@ package ru.rouge.sleeper.Objects;
 
 import android.os.SystemClock;
 
+import org.andengine.engine.camera.Camera;
 import org.andengine.entity.text.Text;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
+import org.andengine.opengl.util.GLState;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.debug.Debug;
 
@@ -20,7 +22,7 @@ import ru.rouge.sleeper.WorldContext;
  *
  * Собственно сам игрок
  */
-public final class Player extends BaseAnimObject
+public class Player extends BaseAnimObject
 {
 	//-----------------------------
 	//CONSTANTS

@@ -1,4 +1,4 @@
-﻿package ru.rouge.sleeper.Generator;
+package ru.rouge.sleeper.Generator;
 
 import org.andengine.util.debug.Debug;
 
@@ -41,16 +41,17 @@ public final class WorldGenerator
 	
 	private int getCell(int x, int y)
 	{
-		return wContext.world.getLevel(currLevel).getCell(x, y);
+		//return wContext.world.getLevel(currLevel).getCell(x, y);
+        return 0;
 	}
 	
 	private void setCell(int x, int y, int id)
 	{
-		assert(currLevel < wContext.world.getLevels().size());
+		/*assert(currLevel < wContext.world.getLevels().size());
 		assert(x < wContext.world.getLevel(currLevel).getWidth() && x > 0);
 		assert(y < wContext.world.getLevel(currLevel).getHeight() && y > 0);
 		
-		wContext.world.getLevel(currLevel).setCellID(x, y, id);
+		wContext.world.getLevel(currLevel).setCellID(x, y, id);*/
 	}
 	
 	private void createDoor(int x, int y, int dir, boolean isFree)
@@ -205,7 +206,7 @@ public final class WorldGenerator
 	 * */
 	private boolean setRoom(LevelDoor door)
 	{
-		int x = 0, y = 0;
+		/*int x = 0, y = 0;
 		
 		//Выберем случайную комнаты из списка 
 		int roomID = Utils.getRand(0, wContext.rooms.size()-1);
@@ -276,7 +277,7 @@ public final class WorldGenerator
 					Debug.e(TAG, "Комната не вмещается по ширине: xtemp = " + xtemp + ", levelWidth = " + wContext.world.getLevel(currLevel).getWidth());
 					return false;
 				}
-				if((getCell(xtemp, ytemp) != TILE_NONE) && /*(getCell(xtemp, ytemp) != TILE_WALL)*/(!Utils.typesWall.contains(getCell(xtemp, ytemp))) && (getCell(xtemp, ytemp) != TILE_DOOR))
+				if((getCell(xtemp, ytemp) != TILE_NONE) && (!Utils.typesWall.contains(getCell(xtemp, ytemp))) && (getCell(xtemp, ytemp) != TILE_DOOR))
 				{
 					Debug.e(TAG, "Комната пересекает уникальный тайл по координатам: (" + xtemp + " , " + ytemp + ") с индексом тайла = " + getCell(xtemp, ytemp));
 					return false;
@@ -313,7 +314,7 @@ public final class WorldGenerator
 		
 		//Укажем, что дверь теперь занята, если ее передали в функцию
 		if(door != null)
-			door.isFree = false;
+			door.isFree = false;*/
 		
 		return true;
 	}
@@ -327,7 +328,7 @@ public final class WorldGenerator
 		if(door == null)
 			return false;
 		
-		Debug.i(TAG, "----------------Начинаем генерировать коридор---------------------");
+		/*Debug.i(TAG, "----------------Начинаем генерировать коридор---------------------");
 		int length = Utils.getRand(2, wContext.world.getLevel(currLevel).getWidth()/2)+1;	//Сгенерируем длину коридора = половине ширины уровня; +1 для отрисовки стены в конце коридора
 		Debug.i(TAG, "Длина коридора = " + length);
 		int direction = -1;																	//Направление построения коридора
@@ -484,7 +485,7 @@ public final class WorldGenerator
 			//Отрисовка коридора в одном направлении
 			if(!drawDirCoridor(length, x, y, kx, ky, direction, mCurrLevel))
 				mTurns = 0;
-		}
+		}*/
 		
 		return true;
 	}
@@ -499,7 +500,7 @@ public final class WorldGenerator
 	 * @param mCurrLevel - текущий уровень
 	 * @return false - если наткнулись на препятствие
 	 * */
-	private boolean drawDirCoridor(int length, int x, int y, int kx, int ky, int direction, Level mCurrLevel)
+	/*private boolean drawDirCoridor(int length, int x, int y, int kx, int ky, int direction, Level mCurrLevel)
 	{
 		int oldCurrX = -1, oldCurrY = -1;					//Для отслеживания изменения новой строки в отрисовке коридора
 		int currX = 0, currY = 0;							//Текущий тайл коридора(0,1,2,..)
@@ -636,7 +637,7 @@ public final class WorldGenerator
 			oldCurrY = currY;
 		}
 		return true;
-	}
+	}*/
 	
 	/**Функция правит идентификаторы стен после их установки
 	 * @param width - ширина линии проверяемых тайлов
@@ -655,7 +656,7 @@ public final class WorldGenerator
 		 * нижний = 4
 		 * Сложив все суммы можно будет узнать, какой тайл стены можно будет подставить на текущее место 
 		 */
-		Debug.i(TAG, "*****************************************************************");
+		/*Debug.i(TAG, "*****************************************************************");
 		Debug.i(TAG, "Начали корректировать тайлы");
 		Debug.i(TAG, "isVertical = " + isVertical);
 		Debug.i(TAG, "x = " + x + " , y = " + y);
@@ -707,7 +708,7 @@ public final class WorldGenerator
 			}
 			Debug.i(TAG, "summa = " + summa);
 
-            wallID = summa;
+            wallID = summa;*/
 			/*switch(summa)
 			{
 			case 32:
@@ -750,11 +751,11 @@ public final class WorldGenerator
 				break;
 			}*/
 			
-			setCell(currX, currY, wallID);
+			/*setCell(currX, currY, wallID);
 			summa = 0;
 		}
 		Debug.i(TAG, "Корректировка завершена");
-		Debug.i(TAG, "*****************************************************************");
+		Debug.i(TAG, "*****************************************************************");*/
 	}
 	
 	/**Функция проверяет соседние тайлы на наличаезапрещенных комбинаций и возвращает нужный вес
@@ -764,7 +765,7 @@ public final class WorldGenerator
 	 * */
 	private int getWeight(int x, int y, int direction)
 	{
-		final int WEIGHT_UP = 10;
+		/*final int WEIGHT_UP = 10;
 		final int WEIGHT_LEFT = 15;
 		final int WEIGHT_RIGHT = 17;
 		final int WEIGHT_BOTTOM = 13;
@@ -998,7 +999,7 @@ public final class WorldGenerator
 	
 	public boolean generateNewLevel()
 	{
-		wContext.world = new World();														//Создадим хранилище уровней
+		/*wContext.world = new World();														//Создадим хранилище уровней
 		
 		//for(int i = 0; i < wContext.world.getCountLevels(); i++)							//Создадим карты для всех уровней разом
 		for(int i = 0; i < 1; i++)															//Создадим карты для всех уровней разом
@@ -1064,7 +1065,7 @@ public final class WorldGenerator
 		
 		//Удалим все двери, что свободны
 		clearDoors();
-		Debug.i(TAG, "Сгенерировано объектов на карте = " + objectsMap.size());
+		Debug.i(TAG, "Сгенерировано объектов на карте = " + objectsMap.size());*/
 		
 		return true;
 	}

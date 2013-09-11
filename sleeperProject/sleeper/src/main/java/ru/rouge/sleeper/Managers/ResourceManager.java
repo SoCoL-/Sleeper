@@ -2,6 +2,8 @@ package ru.rouge.sleeper.Managers;
 
 import android.graphics.Color;
 
+import org.andengine.extension.tmx.TMXLoader;
+import org.andengine.extension.tmx.TMXTiledMap;
 import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
 import org.andengine.opengl.texture.ITexture;
@@ -18,6 +20,9 @@ import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.debug.Debug;
 
+import java.util.ArrayList;
+
+import ru.rouge.sleeper.R;
 import ru.rouge.sleeper.WorldContext;
 
 /**
@@ -69,6 +74,8 @@ public final class ResourceManager
     public Font mGameFont;
     private ITexture mGameFontAtlas;
 
+    public ArrayList<TMXTiledMap> mRooms;
+
 	//-----------------------------
 	//CONSTRUCTORS
 	//-----------------------------
@@ -84,6 +91,7 @@ public final class ResourceManager
 	public void setManager(VertexBufferObjectManager vbo)
 	{
 		this.mVBO = vbo;
+        this.mRooms = new ArrayList<TMXTiledMap>();
 	}
 
 	/**
@@ -145,6 +153,7 @@ public final class ResourceManager
 
 	public void unloadMenuRes()
 	{
+        Debug.i("Unload menu resources");
 		if(mMenuBuildableAtlas != null)
 			mMenuBuildableAtlas.unload();
 		mMenuBackground = null;
@@ -154,23 +163,59 @@ public final class ResourceManager
 		mBtnLoad = null;
 		mBtnExit = null;
 		mBtnNew = null;
+        Debug.i("Done unload");
 	}
 
-	/**Загружаем игровые текстуры
+	/**
+     * Загружаем игровые текстуры
 	 * */
 	public void loadGameRes()
 	{
 		WorldContext wc = WorldContext.getInstance();
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 
-        this.mPlayerTexture = new BitmapTextureAtlas(wc.getTextureManager(), 256, 128, TextureOptions.DEFAULT);
+        this.mPlayerTexture = new BitmapTextureAtlas(wc.getTextureManager(), 256, 128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
         this.mHeroTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mPlayerTexture, wc.getAssetManager(), "characters/hero.png", 0, 0, 8, 4);
         this.mPlayerTexture.load();
 
-        this.mDoorsAtlas = new BitmapTextureAtlas(wc.getTextureManager(), 64, 64, TextureOptions.DEFAULT);
+        this.mDoorsAtlas = new BitmapTextureAtlas(wc.getTextureManager(), 64, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
         this.mDoorsTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mDoorsAtlas, wc.getAssetManager(), "door/door1.png", 0, 0, 2, 2);
         this.mDoorsAtlas.load();
+
+        Debug.i("Start load room");
+        final TMXLoader loader = new TMXLoader(wc.getAssetManager(), wc.getTextureManager(), TextureOptions.BILINEAR_PREMULTIPLYALPHA, ResourceManager.getInstance().mVBO);
+        String names[] = wc.getContext().getResources().getStringArray(R.array.rooms_name);
+        try
+        {
+            for(String name : names)
+            {
+                //loader.loadFromAsset("tmx/map_test3.tmx");
+                mRooms.add(loader.loadFromAsset("tmx/" + name));
+                Debug.i("Room loaded with name = " + name);
+            }
+        }
+        catch(Exception e)
+        {
+            Debug.e(e);
+        }
 	}
+
+    /**
+     * Освобождение игровых ресурсов
+     * */
+    public void unloadGameRes()
+    {
+        Debug.i("Unload game resources");
+        mPlayerTexture.unload();
+        mPlayerTexture = null;
+        mHeroTexture = null;
+        mDoorsAtlas.unload();
+        mDoorsAtlas = null;
+        mDoorsTexture = null;
+        mRooms.clear();
+        mRooms = null;
+        Debug.i("Done unload");
+    }
 
 	/**
 	 * Освобождение занятых ресурсов
@@ -183,9 +228,9 @@ public final class ResourceManager
         mGameFontAtlas.unload();
         mGameFontAtlas = null;
 		mHeroTexture = null;
-        mPlayerTexture.unload();
+        //mPlayerTexture.unload();
         mPlayerTexture = null;
-        mDoorsAtlas.unload();
+        //mDoorsAtlas.unload();
         mDoorsAtlas = null;
 
 		if(instance != null)

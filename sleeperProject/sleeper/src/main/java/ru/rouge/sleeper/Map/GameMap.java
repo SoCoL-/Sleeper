@@ -1,11 +1,13 @@
 package ru.rouge.sleeper.Map;
 
+import org.andengine.engine.camera.Camera;
 import org.andengine.extension.tmx.TMXLayer;
 import org.andengine.extension.tmx.TMXLoader;
 import org.andengine.extension.tmx.TMXObject;
 import org.andengine.extension.tmx.TMXObjectGroup;
 import org.andengine.extension.tmx.TMXTiledMap;
 import org.andengine.extension.tmx.util.exception.TMXLoadException;
+import org.andengine.opengl.util.GLState;
 import org.andengine.util.debug.Debug;
 
 import java.util.ArrayList;
@@ -59,7 +61,6 @@ public final class GameMap
 			Debug.e("mTMXMap.getTileColumns() = " + mTMXMap.getTileColumns());
 			Debug.e("mTMXMap.getTileRows() = " + mTMXMap.getTileRows());
 
-			//mWakables = new boolean[mTMXMap.getTileColumns()][mTMXMap.getTileRows()];
             mWakables = new PhysicMapCell[mTMXMap.getTileColumns()][mTMXMap.getTileRows()];
 			for(int i = 0; i < mTMXMap.getTileColumns(); i++)
 				for(int j = 0; j < mTMXMap.getTileRows(); j++)
@@ -99,7 +100,7 @@ public final class GameMap
 		}
 
         //Тест создания уровня вручную
-        //createTestRoom(mTMXMap);
+        createTestRoom(mTMXMap);
 
 		//Инициализация карты проходимости
 		Debug.e("walkable init");
@@ -142,7 +143,14 @@ public final class GameMap
 		Debug.e("playerSpawn.getY() = " + playerSpawn.getY());
 		try
 		{
-			WorldContext.getInstance().mPlayer = new Player(playerSpawn.getX(), playerSpawn.getY(), ResourceManager.getInstance().mHeroTexture, ResourceManager.getInstance().mVBO);
+			WorldContext.getInstance().mPlayer = new Player(playerSpawn.getX(), playerSpawn.getY(), ResourceManager.getInstance().mHeroTexture, ResourceManager.getInstance().mVBO)
+            {
+                protected void preDraw(GLState glState, Camera c)
+                {
+                    super.preDraw(glState, c);
+                    glState.enableDither();
+                }
+            };
             WorldContext.getInstance().getCamera().setChaseEntity(WorldContext.getInstance().mPlayer);
             WorldContext.getInstance().mPlayerContr.setPlayer(WorldContext.getInstance().mPlayer);
 		}
@@ -193,21 +201,17 @@ public final class GameMap
 
     private void createTestRoom(TMXTiledMap map)
     {
-        for(int i = 30; i < 46; i++)//y
+        ResourceManager rm = ResourceManager.getInstance();
+        TMXTiledMap room = rm.mRooms.get(0);
+        //Возьмем первую комнату из списка и добавим в основную карту
+        for(int i = 0; i < room.getTileRows(); i++)
         {
-            for(int j = 1; j < 15; j++)
+            for(int j = 0; j < room.getTileColumns(); j++)
             {
-                map.getTMXLayers().get(LAYER_FLOOR).addTileByGlobalTileID(i, j, 16, null);
+                map.getTMXLayers().get(LAYER_FLOOR).addTileByGlobalTileID(j, i, room.getTMXLayers().get(LAYER_FLOOR).getTMXTile(j, i).getGlobalTileID(), null);
+                map.getTMXLayers().get(LAYER_WALLS).addTileByGlobalTileID(j, i, room.getTMXLayers().get(LAYER_WALLS).getTMXTile(j, i).getGlobalTileID(), null);
             }
         }
-
-        map.getTMXLayers().get(LAYER_FLOOR).addTileByGlobalTileID(26, 16, 16, null);
-        map.getTMXLayers().get(LAYER_WALLS).addTileByGlobalTileID(26, 16, 0, null);
-        map.getTMXLayers().get(LAYER_FLOOR).addTileByGlobalTileID(27, 16, 16, null);
-        map.getTMXLayers().get(LAYER_FLOOR).addTileByGlobalTileID(27, 15, 16, null);
-        map.getTMXLayers().get(LAYER_FLOOR).addTileByGlobalTileID(27, 14, 16, null);
-        map.getTMXLayers().get(LAYER_FLOOR).addTileByGlobalTileID(28, 14, 16, null);
-        map.getTMXLayers().get(LAYER_FLOOR).addTileByGlobalTileID(29, 14, 16, null);
     }
 
 	//-----------------------------

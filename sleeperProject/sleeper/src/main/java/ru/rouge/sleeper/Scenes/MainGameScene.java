@@ -137,6 +137,7 @@ public final class MainGameScene extends MainScene
     public void dispposeScene()
     {
 		Debug.e("on MainGameScene dispose scene");
+        ResourceManager.getInstance().unloadGameRes();
         detachChild(WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(0));
         detachChild(WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(1));
 		detachChild(WorldContext.getInstance().mPlayer);
