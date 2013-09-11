@@ -109,8 +109,11 @@ public final class ResourceManager
 	 */
 	public void unloadSplashRes()
 	{
-		mSplashAtlas.unload();
-		mSplashRegion = null;
+        if(mSplashAtlas != null)
+        {
+            mSplashAtlas.unload();
+            mSplashRegion = null;
+        }
 	}
 
 	public void loadMenuRes()

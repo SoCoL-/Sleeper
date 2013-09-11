@@ -5,6 +5,7 @@ import org.andengine.util.debug.Debug;
 
 import ru.rouge.sleeper.Scenes.IntroScene;
 import ru.rouge.sleeper.Scenes.LoadScene;
+import ru.rouge.sleeper.Scenes.MainGameScene;
 import ru.rouge.sleeper.Scenes.MainScene;
 import ru.rouge.sleeper.Scenes.SceneMenu;
 import ru.rouge.sleeper.WorldContext;
@@ -51,10 +52,46 @@ public final class ScenesManager
 
 	public void disposeSplash()
 	{
-		ResourceManager.getInstance().unloadSplashRes();
-	}
+        if(mSplashScreen != null)
+        {
+            ResourceManager.getInstance().unloadSplashRes();
+            //mSplashScreen.detachSelf();
+            mSplashScreen.dispposeScene();
+            mSplashScreen = null;
+        }
+    }
 
-	/**
+    public void disposeMenuScene()
+    {
+        if(mMenuScene != null)
+        {
+            //mMenuScene.detachSelf();
+            mMenuScene.dispposeScene();
+            mMenuScene = null;
+        }
+    }
+
+    public void disposeLoadScene()
+    {
+        if(mLoadScene != null)
+        {
+            //mLoadScene.detachSelf();
+            mLoadScene.dispposeScene();
+            mLoadScene = null;
+        }
+    }
+
+    public void disposeMainGameScene()
+    {
+        if(mMainGameScene != null)
+        {
+            //mMainGameScene.detachSelf();
+            mMainGameScene.dispposeScene();
+            mMainGameScene = null;
+        }
+    }
+
+    /**
 	 * Освобождение занятых ресурсов
 	 */
 	public void freeResources()
@@ -78,22 +115,6 @@ public final class ScenesManager
 		this.mCurrentSceneType = scene.getSceneType();
 	}
 
-	public void setScene(SceneTypes type)
-	{
-		switch(type)
-		{
-			case SCENE_MENU:
-				setScene(mMenuScene);
-				break;
-			case SCENE_LOAD:
-				setScene(mLoadScene);
-				break;
-			case SCENE_GAME:
-				setScene(mMainGameScene);
-				break;
-		}
-	}
-
 	public void setSplash(IGameInterface.OnCreateSceneCallback i)
 	{
 		ResourceManager.getInstance().loadSplashRes();
@@ -104,16 +125,25 @@ public final class ScenesManager
 
 	public void setMenuScene()
 	{
-		mMenuScene = new SceneMenu();
-		setScene(SceneTypes.SCENE_MENU);
-		disposeSplash();
-	}
+        mMenuScene = new SceneMenu();
+        setScene(mMenuScene);
+        disposeSplash();
+        disposeMainGameScene();
+    }
 
-	public void setMainGameScene()
+	public void setLoadScene()
 	{
 		mLoadScene = new LoadScene();
-		setScene(SceneTypes.SCENE_LOAD);
+        setScene(mLoadScene);
+        disposeMenuScene();
 	}
+
+    public void setGameScene()
+    {
+        mMainGameScene = new MainGameScene();
+        setScene(mMainGameScene);
+        disposeLoadScene();
+    }
 
 	public MainScene getCurrentScene()
 	{

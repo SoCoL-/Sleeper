@@ -80,8 +80,8 @@ public final class LoadScene extends MainScene
 						mWC.getCamera().setBounds(0, 0, widthMap, heightMap);
 						mWC.getCamera().setBoundsEnabled(true);
 						Debug.e("on LoadScene setup camera bounds");
-						ScenesManager.getInstance().setScene(new MainGameScene());
-						dispose();
+						//ScenesManager.getInstance().setScene(new MainGameScene());
+                        ScenesManager.getInstance().setGameScene();
 						super.onPostExecute(s);
 					}
 				}.execute("");
@@ -92,7 +92,7 @@ public final class LoadScene extends MainScene
     @Override
     public void OnKeyBackPressed()
     {
-
+        //TODO Ничего не делаем, игра началась грузиться и прерывать нельзя
     }
 
     @Override
@@ -105,5 +105,8 @@ public final class LoadScene extends MainScene
     public void dispposeScene()
     {
 		Debug.e("on LoadScene dispose scene");
+        this.detachSelf();
+        this.dispose();
+        Debug.e("LoadScene: after disposing");
     }
 }

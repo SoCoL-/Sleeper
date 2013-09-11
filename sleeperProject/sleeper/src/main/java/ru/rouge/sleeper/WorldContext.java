@@ -42,7 +42,6 @@ public final class WorldContext
 	public float mScreenWidth;                          //Текущая ширина экрана
 	public float mScreenHeight;                         //Текущая высота экрана
 
-	//public TMXTiledMap mWorld;							//Весь мир игры =)
 	public GameMap mWorld;								//Весь мир игры =)
 	public Player mPlayer;								//Игрок
 	public boolean isNewGame = true;					//Создали новую или згрузили?

@@ -12,6 +12,7 @@ import org.andengine.input.touch.TouchEvent;
 import org.andengine.util.debug.Debug;
 import org.andengine.util.color.Color;
 
+import ru.rouge.sleeper.MainActivity;
 import ru.rouge.sleeper.Managers.ResourceManager;
 import ru.rouge.sleeper.Managers.ScenesManager;
 import ru.rouge.sleeper.Map.GameMap;
@@ -122,7 +123,8 @@ public final class MainGameScene extends MainScene
     public void OnKeyBackPressed()
     {
         //TODO возврат в игровое меню
-		ScenesManager.getInstance().setScene(ScenesManager.SceneTypes.SCENE_MENU);
+		//ScenesManager.getInstance().setScene(ScenesManager.SceneTypes.SCENE_MENU);
+        ScenesManager.getInstance().setMenuScene();
     }
 
     @Override
@@ -141,7 +143,13 @@ public final class MainGameScene extends MainScene
         WorldContext.getInstance().mWorld.mTMXMap.getTMXTileSets().clear();
         WorldContext.getInstance().mWorld.mTMXMap = null;
         WorldContext.getInstance().mWorld = null;
+        WorldContext.getInstance().getCamera().setHUD(null);
+        WorldContext.getInstance().getCamera().setBoundsEnabled(false);
+        WorldContext.getInstance().getCamera().clearUpdateHandlers();
+        WorldContext.getInstance().getCamera().setChaseEntity(null);
+        WorldContext.getInstance().getCamera().setCenter(MainActivity.CAMERA_WIDTH/2, MainActivity.CAMERA_HEIGHT/2);
 		this.detachSelf();
 		this.dispose();
+        Debug.e("MainGameScene: after disposing");
     }
 }

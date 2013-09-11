@@ -45,9 +45,6 @@ public final class IntroScene extends MainScene
 				glState.enableDither();
 			}
 		};
-
-        //mSplash.setScale(1.5f);
-        //mSplash.setPosition(WorldContext.getInstance().mScreenWidth/2, WorldContext.getInstance().mScreenHeight/2);
         attachChild(mSplash);
 	}
 

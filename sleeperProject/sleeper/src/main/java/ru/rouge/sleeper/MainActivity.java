@@ -21,8 +21,8 @@ import ru.rouge.sleeper.Managers.ScenesManager;
 
 public class MainActivity extends BaseGameActivity
 {
-    final static private int CAMERA_WIDTH = 800;
-    final static private int CAMERA_HEIGHT = 480;
+    final static public int CAMERA_WIDTH = 800;
+    final static public int CAMERA_HEIGHT = 480;
 
 	private BoundCamera mCamera;
 

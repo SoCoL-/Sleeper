@@ -7,6 +7,7 @@ import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.util.GLState;
+import org.andengine.util.debug.Debug;
 
 import ru.rouge.sleeper.Managers.ResourceManager;
 import ru.rouge.sleeper.Managers.ScenesManager;
@@ -51,7 +52,7 @@ public final class SceneMenu extends MainScene implements MenuScene.IOnMenuItemC
 	@Override
 	public void createScene()
 	{
-        WorldContext.getInstance().getCamera().setChaseEntity(null);
+        Debug.e("Menu: createScene()");
 		this.mWorldContext = WorldContext.getInstance();
 		this.mResManager = ResourceManager.getInstance();
 		this.mResManager.loadMenuRes();
@@ -69,22 +70,31 @@ public final class SceneMenu extends MainScene implements MenuScene.IOnMenuItemC
 	@Override
 	public ScenesManager.SceneTypes getSceneType()
 	{
+        Debug.e("Menu: getSceneType()");
 		return ScenesManager.SceneTypes.SCENE_MENU;
 	}
 
 	@Override
 	public void dispposeScene()
 	{
+        Debug.e("Menu: dispposeScene()");
 		this.mResManager.unloadMenuRes();
+        mMenu.detachSelf();
+        mMenu.dispose();
+        this.detachSelf();
+        this.dispose();
 	}
 
 	@Override
 	public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem, float pMenuItemLocalX, float pMenuItemLocalY)
 	{
+        Debug.e("Menu: onMenuItemClicked()");
         switch(pMenuItem.getID())
         {
             case BTN_PLAY:
-                ScenesManager.getInstance().setMainGameScene();
+                //ScenesManager.getInstance().setMainGameScene();
+                //Если нажали "Новая игра", то начнем загружать все сначала
+                ScenesManager.getInstance().setLoadScene();
                 break;
             case BTN_EXIT:
                 destroy();
@@ -100,6 +110,7 @@ public final class SceneMenu extends MainScene implements MenuScene.IOnMenuItemC
 
 	private void createBackground()
 	{
+        Debug.e("Menu: createBackground()");
 		attachChild(new Sprite(mWorldContext.mScreenWidth/2 - mResManager.mMenuBackground.getWidth()/2, mWorldContext.mScreenHeight/2 - mResManager.mMenuBackground.getHeight()/2, mResManager.mMenuBackground.getWidth(), mResManager.mMenuBackground.getHeight(), mResManager.mMenuBackground, mResManager.mVBO)
 		{
 			@Override
@@ -114,6 +125,7 @@ public final class SceneMenu extends MainScene implements MenuScene.IOnMenuItemC
 
 	private void createMenu()
 	{
+        Debug.e("Menu: createMenu()");
 		this.mMenu = new MenuScene(mWorldContext.getCamera());
 		this.mMenu.setPosition(0, 0);
 
@@ -144,6 +156,7 @@ public final class SceneMenu extends MainScene implements MenuScene.IOnMenuItemC
 
     private void destroy()
     {
+        Debug.e("Menu: destroy()");
         ResourceManager.getInstance().freeResources();
         ScenesManager.getInstance().freeResources();
         WorldContext.getInstance().destroy();
