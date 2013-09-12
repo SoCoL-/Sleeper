@@ -5,11 +5,11 @@ import android.os.AsyncTask;
 import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.text.Text;
 import org.andengine.extension.tmx.TMXLoader;
-import org.andengine.extension.tmx.util.exception.TMXLoadException;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.util.color.Color;
 import org.andengine.util.debug.Debug;
 
+import ru.rouge.sleeper.Generator.WorldGenerator;
 import ru.rouge.sleeper.Managers.ResourceManager;
 import ru.rouge.sleeper.Managers.ScenesManager;
 import ru.rouge.sleeper.Map.GameMap;
@@ -23,6 +23,8 @@ public final class LoadScene extends MainScene
 {
 	private WorldContext mWC;
 	private ResourceManager mRM;
+
+    private WorldGenerator mGenerator = new WorldGenerator();
 
     @Override
     public void createScene()
@@ -62,6 +64,11 @@ public final class LoadScene extends MainScene
 							Debug.e("on LoadScene before load map");
 							mWC.mWorld = new GameMap(loader);
 							Debug.e("on LoadScene load map");
+
+                            //Начало генерации уровней - Тестовая версия
+                            mGenerator.startGeneration(0);
+                            mGenerator.generateNewLevel();
+                            //Конец
 						}
 						catch (Exception ex)
 						{

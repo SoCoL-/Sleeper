@@ -12,6 +12,11 @@ import java.util.Random;
  * */
 public final class Utils
 {
+    //Шанс присоединения к свободной двери комнаты
+    public final static int MINCHANCEROOM = 40;
+    public final static int MAXCHANCEROOM = 50;
+
+
 	private static long oldSeed = 0;								//Зерно, для случайной генерации числа
 
 	/**Тут будут расположены множества, определяющие тип поверхности уровня(стены, пол, детали интерьера, двери, т.д.)

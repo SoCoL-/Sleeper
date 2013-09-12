@@ -23,6 +23,7 @@ import org.andengine.util.debug.Debug;
 import java.util.ArrayList;
 
 import ru.rouge.sleeper.R;
+import ru.rouge.sleeper.Utils.Utils;
 import ru.rouge.sleeper.WorldContext;
 
 /**
@@ -182,9 +183,29 @@ public final class ResourceManager
         this.mDoorsTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mDoorsAtlas, wc.getAssetManager(), "door/door1.png", 0, 0, 2, 2);
         this.mDoorsAtlas.load();
 
+        Utils.typesWall.add(1);
+        Utils.typesWall.add(2);
+        Utils.typesWall.add(3);
+        Utils.typesWall.add(4);
+        Utils.typesWall.add(5);
+        Utils.typesWall.add(6);
+        Utils.typesWall.add(7);
+        Utils.typesWall.add(8);
+        Utils.typesWall.add(9);
+        Utils.typesWall.add(10);
+        Utils.typesWall.add(11);
+        Utils.typesWall.add(12);
+        Utils.typesWall.add(13);
+        Utils.typesWall.add(14);
+        Utils.typesWall.add(15);
+
+        Utils.typesFloor.add(16);
+
         Debug.i("Start load room");
         final TMXLoader loader = new TMXLoader(wc.getAssetManager(), wc.getTextureManager(), TextureOptions.BILINEAR_PREMULTIPLYALPHA, ResourceManager.getInstance().mVBO);
         String names[] = wc.getContext().getResources().getStringArray(R.array.rooms_name);
+        if(mRooms == null)
+            mRooms = new ArrayList<TMXTiledMap>(names.length);
         try
         {
             for(String name : names)

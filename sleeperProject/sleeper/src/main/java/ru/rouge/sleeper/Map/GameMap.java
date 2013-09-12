@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import ru.rouge.sleeper.Managers.ResourceManager;
 import ru.rouge.sleeper.Objects.Door;
 import ru.rouge.sleeper.Objects.Player;
+import ru.rouge.sleeper.Utils.Utils;
 import ru.rouge.sleeper.WorldContext;
 
 /**
@@ -40,7 +41,7 @@ public final class GameMap
 	//-----------------------------
 
 	public TMXTiledMap mTMXMap;                 //Графическая часть карты
-	//public boolean[][] mWakables;           //Физическая часть карты (ссылки на массив объектов + проходимость обычная)
+    public ArrayList<TMXTiledMap> mLevels;      //
     public PhysicMapCell[][] mWakables;         //Физическая часть карты (ссылки на массив объектов + проходимость обычная)
 	public ArrayList<TMXObject> mPortals;
 	public ArrayList<TMXObject> mSpawns;
@@ -109,7 +110,7 @@ public final class GameMap
 		{
 			for(int j = 0; j < floor.getTileRows(); j++)
 			{
-				if(floor.getTMXTile(i, j) != null && floor.getTMXTile(i, j).getGlobalTileID() == 16)
+				if(floor.getTMXTile(i, j) != null && Utils.typesFloor.contains(floor.getTMXTile(i, j).getGlobalTileID()))
 				{
 					//Debug.e("i = " + i);
 					//Debug.e("j = " + j);
