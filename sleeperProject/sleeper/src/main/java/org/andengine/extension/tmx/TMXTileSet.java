@@ -59,11 +59,13 @@ public class TMXTileSet implements TMXConstants {
 	// Constructors
 	// ===========================================================
 
-	TMXTileSet(final Attributes pAttributes, final TextureOptions pTextureOptions) {
+	TMXTileSet(final Attributes pAttributes, final TextureOptions pTextureOptions)
+    {
 		this(SAXUtils.getIntAttribute(pAttributes, TMXConstants.TAG_TILESET_ATTRIBUTE_FIRSTGID, 1), pAttributes, pTextureOptions);
 	}
 
-	TMXTileSet(final int pFirstGlobalTileID, final Attributes pAttributes, final TextureOptions pTextureOptions) {
+	TMXTileSet(final int pFirstGlobalTileID, final Attributes pAttributes, final TextureOptions pTextureOptions)
+    {
 		this.mFirstGlobalTileID = pFirstGlobalTileID;
 		this.mName = pAttributes.getValue("", TMXConstants.TAG_TILESET_ATTRIBUTE_NAME);
 		this.mTileWidth = SAXUtils.getIntAttributeOrThrow(pAttributes, TMXConstants.TAG_TILESET_ATTRIBUTE_TILEWIDTH);
@@ -73,6 +75,17 @@ public class TMXTileSet implements TMXConstants {
 
 		this.mTextureOptions = pTextureOptions;
 	}
+
+    public TMXTileSet(final int firstGlobalID, final String name, final int tileW, final int tileH, final int spasing, final int margin, final TextureOptions textureOptions)
+    {
+        this.mFirstGlobalTileID = firstGlobalID;
+        this.mName = name;
+        this.mTileWidth = tileW;
+        this.mTileHeight = tileH;
+        this.mSpacing = spasing;
+        this.mMargin = margin;
+        this.mTextureOptions = textureOptions;
+    }
 
 	// ===========================================================
 	// Getter & Setter

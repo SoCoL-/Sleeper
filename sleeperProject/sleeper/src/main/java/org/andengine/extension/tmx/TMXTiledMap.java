@@ -59,7 +59,7 @@ public class TMXTiledMap implements TMXConstants
 	}
 
 
-	TMXTiledMap(int rows, int columns, int tilewidth, int tileheight)
+	public TMXTiledMap(int rows, int columns, int tilewidth, int tileheight)
 	{
 		this.mOrientation = "orthogonal";
 		this.mTileColumns = columns;

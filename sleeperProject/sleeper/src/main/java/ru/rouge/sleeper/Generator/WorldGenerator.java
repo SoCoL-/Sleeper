@@ -3,6 +3,7 @@ package ru.rouge.sleeper.Generator;
 import android.util.Log;
 
 import org.andengine.extension.tmx.TMXLayer;
+import org.andengine.extension.tmx.TMXTileSet;
 import org.andengine.extension.tmx.TMXTiledMap;
 import org.andengine.util.debug.Debug;
 
@@ -1074,6 +1075,7 @@ public final class WorldGenerator
             newLevel.getTMXLayers().add(floor);
             TMXLayer wall = new TMXLayer(newLevel, width_level, height_level, "wall", ResourceManager.getInstance().mVBO);
             newLevel.getTMXLayers().add(wall);
+            TMXTileSet set = new TMXTileSet();
 			//wContext.world.addLevel(newLevel);
             mGameLevels.add(newLevel);
 			
