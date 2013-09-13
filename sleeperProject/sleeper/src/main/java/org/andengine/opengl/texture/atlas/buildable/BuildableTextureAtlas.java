@@ -163,7 +163,7 @@ public class BuildableTextureAtlas<S extends ITextureAtlasSource, T extends ITex
 	}
 
 	/**
-	 * @see {@link BuildableBitmapTextureAtlas#hasTextureAtlasStateListener()}
+	 * @see {@link org.andengine.opengl.texture.atlas.bitmap.BuildableBitmapTextureAtlas#hasTextureAtlasStateListener()}
 	 */
 	@Deprecated
 	@Override
@@ -177,7 +177,7 @@ public class BuildableTextureAtlas<S extends ITextureAtlasSource, T extends ITex
 	}
 
 	/**
-	 * @see {@link BuildableBitmapTextureAtlas#setTextureStateListener(ITextureAtlasStateListener)}
+	 * @see {@link org.andengine.opengl.texture.atlas.bitmap.BuildableBitmapTextureAtlas#setTextureStateListener(ITextureAtlasStateListener)}
 	 */
 	@Deprecated
 	@Override
@@ -191,7 +191,7 @@ public class BuildableTextureAtlas<S extends ITextureAtlasSource, T extends ITex
 	}
 
 	/**
-	 * @see {@link BuildableBitmapTextureAtlas#setTextureStateListener(ITextureAtlasStateListener)}
+	 * @see {@link org.andengine.opengl.texture.atlas.bitmap.BuildableBitmapTextureAtlas#setTextureStateListener(ITextureAtlasStateListener)}
 	 */
 	@Deprecated
 	@Override

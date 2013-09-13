@@ -8,7 +8,7 @@ import org.andengine.opengl.util.BufferUtils;
 import org.andengine.opengl.vbo.attribute.VertexBufferObjectAttributes;
 
 /**
- * Compared to {@link ZeroMemoryVertexBufferObject}, all {@link SharedMemoryVertexBufferObject}s share a single {@link ByteBuffer} which is used by whichever {@link SharedMemoryVertexBufferObject} instance is currently buffering data,
+ * Compared to {@link ZeroMemoryVertexBufferObject}, all {@link SharedMemoryVertexBufferObject}s share a single {@link java.nio.ByteBuffer} which is used by whichever {@link SharedMemoryVertexBufferObject} instance is currently buffering data,
  * at the cost of expensive data buffering (<b>up to <u>5x</u> slower!</b>) and a little synchronization overhead.
  * <p/>
  * Usually a {@link SharedMemoryVertexBufferObject} is preferred to a {@link ZeroMemoryVertexBufferObject} when the following conditions need to be met:

@@ -41,7 +41,7 @@ public final class GameMap
 	//-----------------------------
 
 	public TMXTiledMap mTMXMap;                 //Графическая часть карты
-    public ArrayList<TMXTiledMap> mLevels;      //
+    public ArrayList<TMXTiledMap> mLevels;      //Уровни подземелья
     public PhysicMapCell[][] mWakables;         //Физическая часть карты (ссылки на массив объектов + проходимость обычная)
 	public ArrayList<TMXObject> mPortals;
 	public ArrayList<TMXObject> mSpawns;
@@ -53,18 +53,21 @@ public final class GameMap
 
 	public GameMap(final TMXLoader loader)
 	{
+        Debug.i("Create GameMap");
 		try
 		{
-			mTMXMap = loader.loadFromAsset("tmx/map_test3.tmx");
+			/*mTMXMap = loader.loadFromAsset("tmx/map_test3.tmx");
 			if(mTMXMap == null)
 				Debug.e("not load map with name = " + "map_test.tmx");
 
 			Debug.e("mTMXMap.getTileColumns() = " + mTMXMap.getTileColumns());
-			Debug.e("mTMXMap.getTileRows() = " + mTMXMap.getTileRows());
+			Debug.e("mTMXMap.getTileRows() = " + mTMXMap.getTileRows());*/
 
-            mWakables = new PhysicMapCell[mTMXMap.getTileColumns()][mTMXMap.getTileRows()];
-			for(int i = 0; i < mTMXMap.getTileColumns(); i++)
-				for(int j = 0; j < mTMXMap.getTileRows(); j++)
+            Debug.i("GameMap : Create mWakables");
+            //mWakables = new PhysicMapCell[mTMXMap.getTileColumns()][mTMXMap.getTileRows()];
+            mWakables = new PhysicMapCell[50][60];
+			for(int i = 0; i < 50; i++)
+				for(int j = 0; j < 60; j++)
                 {
                     mWakables[i][j] = new PhysicMapCell();
 					mWakables[i][j].isWalkable = false;
@@ -73,13 +76,14 @@ public final class GameMap
             Debug.e("Init walkables done! ");
 
             mDoors = new ArrayList<Door>();
+            mSpawns = new ArrayList<TMXObject>();
 
-			prepareMap();
+			//prepareMap();
 		}
-		catch (TMXLoadException e)
+		/*catch (TMXLoadException e)
 		{
 			Debug.e(e);
-		}
+		}*/
 		catch (Exception ex)
 		{
 			Debug.e(ex.toString());
@@ -144,14 +148,7 @@ public final class GameMap
 		Debug.e("playerSpawn.getY() = " + playerSpawn.getY());
 		try
 		{
-			WorldContext.getInstance().mPlayer = new Player(playerSpawn.getX(), playerSpawn.getY(), ResourceManager.getInstance().mHeroTexture, ResourceManager.getInstance().mVBO)
-            {
-                protected void preDraw(GLState glState, Camera c)
-                {
-                    super.preDraw(glState, c);
-                    glState.enableDither();
-                }
-            };
+			WorldContext.getInstance().mPlayer = new Player(playerSpawn.getX(), playerSpawn.getY(), ResourceManager.getInstance().mHeroTexture, ResourceManager.getInstance().mVBO);
             WorldContext.getInstance().getCamera().setChaseEntity(WorldContext.getInstance().mPlayer);
             WorldContext.getInstance().mPlayerContr.setPlayer(WorldContext.getInstance().mPlayer);
 		}

@@ -97,22 +97,22 @@ public class SystemUtils {
 	}
 
 	/**
-	 * @param pBuildVersionCode taken from {@link Build.VERSION_CODES}.
+	 * @param pBuildVersionCode taken from {@link android.os.Build.VERSION_CODES}.
 	 */
 	public static boolean isAndroidVersionOrLower(final int pBuildVersionCode) {
 		return Build.VERSION.SDK_INT <= pBuildVersionCode;
 	}
 
 	/**
-	 * @param pBuildVersionCode taken from {@link Build.VERSION_CODES}.
+	 * @param pBuildVersionCode taken from {@link android.os.Build.VERSION_CODES}.
 	 */
 	public static boolean isAndroidVersionOrHigher(final int pBuildVersionCode) {
 		return Build.VERSION.SDK_INT >= pBuildVersionCode;
 	}
 
 	/**
-	 * @param pBuildVersionCodeMin taken from {@link Build.VERSION_CODES}.
-	 * @param pBuildVersionCodeMax taken from {@link Build.VERSION_CODES}.
+	 * @param pBuildVersionCodeMin taken from {@link android.os.Build.VERSION_CODES}.
+	 * @param pBuildVersionCodeMax taken from {@link android.os.Build.VERSION_CODES}.
 	 */
 	public static boolean isAndroidVersion(final int pBuildVersionCodeMin, final int pBuildVersionCodeMax) {
 		return (Build.VERSION.SDK_INT >= pBuildVersionCodeMin) && (Build.VERSION.SDK_INT <= pBuildVersionCodeMax);
@@ -134,7 +134,7 @@ public class SystemUtils {
 
 	/**
 	 * @return in kiloBytes.
-	 * @throws SystemUtilsException
+	 * @throws org.andengine.util.system.SystemUtils.SystemUtilsException
 	 */
 	public static int getMemoryTotal() throws SystemUtilsException {
 		final MatchResult matchResult = SystemUtils.matchSystemFile("/proc/meminfo", SystemUtils.MEMTOTAL_PATTERN, 1000);
@@ -152,7 +152,7 @@ public class SystemUtils {
 
 	/**
 	 * @return in kiloBytes.
-	 * @throws SystemUtilsException
+	 * @throws org.andengine.util.system.SystemUtils.SystemUtilsException
 	 */
 	public static int getMemoryFree() throws SystemUtilsException {
 		final MatchResult matchResult = SystemUtils.matchSystemFile("/proc/meminfo", SystemUtils.MEMFREE_PATTERN, 1000);
@@ -170,7 +170,7 @@ public class SystemUtils {
 
 	/**
 	 * @return in kiloHertz.
-	 * @throws SystemUtilsException
+	 * @throws org.andengine.util.system.SystemUtils.SystemUtilsException
 	 */
 	public static int getCPUFrequencyCurrent() throws SystemUtilsException {
 		return SystemUtils.readSystemFileAsInt("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq");
@@ -178,7 +178,7 @@ public class SystemUtils {
 
 	/**
 	 * @return in kiloHertz.
-	 * @throws SystemUtilsException
+	 * @throws org.andengine.util.system.SystemUtils.SystemUtilsException
 	 */
 	public static int getCPUFrequencyMin() throws SystemUtilsException {
 		return SystemUtils.readSystemFileAsInt("/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq");
@@ -186,7 +186,7 @@ public class SystemUtils {
 
 	/**
 	 * @return in kiloHertz.
-	 * @throws SystemUtilsException
+	 * @throws org.andengine.util.system.SystemUtils.SystemUtilsException
 	 */
 	public static int getCPUFrequencyMax() throws SystemUtilsException {
 		return SystemUtils.readSystemFileAsInt("/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq");
@@ -194,7 +194,7 @@ public class SystemUtils {
 
 	/**
 	 * @return in kiloHertz.
-	 * @throws SystemUtilsException
+	 * @throws org.andengine.util.system.SystemUtils.SystemUtilsException
 	 */
 	public static int getCPUFrequencyMinScaling() throws SystemUtilsException {
 		return SystemUtils.readSystemFileAsInt("/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
@@ -202,7 +202,7 @@ public class SystemUtils {
 
 	/**
 	 * @return in kiloHertz.
-	 * @throws SystemUtilsException
+	 * @throws org.andengine.util.system.SystemUtils.SystemUtilsException
 	 */
 	public static int getCPUFrequencyMaxScaling() throws SystemUtilsException {
 		return SystemUtils.readSystemFileAsInt("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");

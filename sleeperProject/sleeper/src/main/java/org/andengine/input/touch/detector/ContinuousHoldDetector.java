@@ -10,7 +10,7 @@ import android.speech.tts.TextToSpeech.Engine;
 import android.view.MotionEvent;
 
 /**
- * Note: Needs to be registered as an {@link IUpdateHandler} to the {@link Engine} or {@link Scene} to work properly.
+ * Note: Needs to be registered as an {@link IUpdateHandler} to the {@link android.speech.tts.TextToSpeech.Engine} or {@link Scene} to work properly.
  * 
  * (c) 2010 Nicolas Gramlich
  * (c) 2011 Zynga Inc.
@@ -65,7 +65,7 @@ public class ContinuousHoldDetector extends HoldDetector implements IUpdateHandl
 	}
 
 	/**
-	 * When {@link ContinuousHoldDetector#isHolding()} this method will call through to {@link IHoldDetectorListener#onHoldFinished(HoldDetector, long, int, float, float)}.
+	 * When {@link ContinuousHoldDetector#isHolding()} this method will call through to {@link org.andengine.input.touch.detector.HoldDetector.IHoldDetectorListener#onHoldFinished(HoldDetector, long, int, float, float)}.
 	 */
 	@Override
 	public void reset() {

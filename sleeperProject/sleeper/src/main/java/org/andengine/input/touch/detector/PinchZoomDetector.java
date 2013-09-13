@@ -51,7 +51,7 @@ public class PinchZoomDetector extends BaseDetector {
 	// ===========================================================
 
 	/**
-	 * When {@link PinchZoomDetector#isZooming()} this method will call through to {@link IPinchZoomDetectorListener#onPinchZoomFinished(PinchZoomDetector, TouchEvent, float)}.
+	 * When {@link PinchZoomDetector#isZooming()} this method will call through to {@link org.andengine.input.touch.detector.PinchZoomDetector.IPinchZoomDetectorListener#onPinchZoomFinished(PinchZoomDetector, TouchEvent, float)}.
 	 */
 	@Override
 	public void reset() {

@@ -3,9 +3,9 @@ package org.andengine.entity.scene;
 import org.andengine.input.touch.TouchEvent;
 
 /**
- * An interface for a callback to be invoked when a {@link TouchEvent} is
+ * An interface for a callback to be invoked when a {@link org.andengine.input.touch.TouchEvent} is
  * dispatched to a {@link Scene}. The callback will be invoked
- * after all {@link ITouchArea}s have been checked and none consumed the {@link TouchEvent}.
+ * after all {@link ITouchArea}s have been checked and none consumed the {@link org.andengine.input.touch.TouchEvent}.
  *
  * (c) Zynga 2012
  *
@@ -22,12 +22,12 @@ public interface IOnSceneTouchListener {
 	// ===========================================================
 
 	/**
-	 * Called when a {@link TouchEvent} is dispatched to a {@link Scene}.
+	 * Called when a {@link org.andengine.input.touch.TouchEvent} is dispatched to a {@link Scene}.
 	 * 
-	 * @param pScene The {@link Scene} that the {@link TouchEvent} has been dispatched to.
-	 * @param pSceneTouchEvent The {@link TouchEvent} object containing full information about the event.
+	 * @param pScene The {@link Scene} that the {@link org.andengine.input.touch.TouchEvent} has been dispatched to.
+	 * @param pSceneTouchEvent The {@link org.andengine.input.touch.TouchEvent} object containing full information about the event.
 	 * 
-	 * @return <code>true</code> if this {@link IOnSceneTouchListener} has consumed the {@link TouchEvent}, <code>false</code> otherwise.
+	 * @return <code>true</code> if this {@link IOnSceneTouchListener} has consumed the {@link org.andengine.input.touch.TouchEvent}, <code>false</code> otherwise.
 	 */
 	public boolean onSceneTouchEvent(final Scene pScene, final TouchEvent pSceneTouchEvent);
 }

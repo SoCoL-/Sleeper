@@ -53,7 +53,7 @@ public interface IVertexBufferObject extends IDisposable {
 	 */
 	public int getHeapMemoryByteSize();
 	/**
-	 * @return the number of <code>byte</code>s that are allocated on the native heap (through direct {@link ByteBuffer}s).
+	 * @return the number of <code>byte</code>s that are allocated on the native heap (through direct {@link java.nio.ByteBuffer}s).
 	 */
 	public int getNativeHeapMemoryByteSize();
 	/**

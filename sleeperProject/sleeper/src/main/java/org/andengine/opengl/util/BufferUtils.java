@@ -80,7 +80,7 @@ public class BufferUtils {
 	// ===========================================================
 
 	/**
-	 * @param pCapacity the capacity of the returned {@link ByteBuffer} in bytes.
+	 * @param pCapacity the capacity of the returned {@link java.nio.ByteBuffer} in bytes.
 	 * @return
 	 */
 	public static ByteBuffer allocateDirectByteBuffer(final int pCapacity) {

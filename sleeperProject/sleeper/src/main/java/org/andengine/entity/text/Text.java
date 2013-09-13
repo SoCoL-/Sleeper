@@ -180,7 +180,7 @@ public class Text extends RectangularShape {
 
 	/**
 	 * @param pText
-	 * @throws OutOfCharactersException leaves this {@link Text} object in an undefined state, until {@link Text#setText(CharSequence)} is called again and no {@link OutOfCharactersException} is thrown.
+	 * @throws org.andengine.entity.text.exception.OutOfCharactersException leaves this {@link Text} object in an undefined state, until {@link Text#setText(CharSequence)} is called again and no {@link org.andengine.entity.text.exception.OutOfCharactersException} is thrown.
 	 */
 	public void setText(final CharSequence pText) throws OutOfCharactersException {
 		this.mText = pText;

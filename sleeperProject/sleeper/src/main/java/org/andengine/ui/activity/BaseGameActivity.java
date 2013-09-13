@@ -468,56 +468,56 @@ public abstract class BaseGameActivity extends BaseActivity implements IGameInte
 	}
 
 	/**
-	 * @see {@link Engine#enableLocationSensor(Context, ILocationListener, LocationSensorOptions)}
+	 * @see {@link Engine#enableLocationSensor(android.content.Context, ILocationListener, LocationSensorOptions)}
 	 */
 	protected void enableLocationSensor(final ILocationListener pLocationListener, final LocationSensorOptions pLocationSensorOptions) {
 		this.mEngine.enableLocationSensor(this, pLocationListener, pLocationSensorOptions);
 	}
 
 	/**
-	 * @see {@link Engine#disableLocationSensor(Context)}
+	 * @see {@link Engine#disableLocationSensor(android.content.Context)}
 	 */
 	protected void disableLocationSensor() {
 		this.mEngine.disableLocationSensor(this);
 	}
 
 	/**
-	 * @see {@link Engine#enableAccelerationSensor(Context, IAccelerationListener)}
+	 * @see {@link Engine#enableAccelerationSensor(android.content.Context, IAccelerationListener)}
 	 */
 	protected boolean enableAccelerationSensor(final IAccelerationListener pAccelerationListener) {
 		return this.mEngine.enableAccelerationSensor(this, pAccelerationListener);
 	}
 
 	/**
-	 * @see {@link Engine#enableAccelerationSensor(Context, IAccelerationListener, AccelerationSensorOptions)}
+	 * @see {@link Engine#enableAccelerationSensor(android.content.Context, IAccelerationListener, AccelerationSensorOptions)}
 	 */
 	protected boolean enableAccelerationSensor(final IAccelerationListener pAccelerationListener, final AccelerationSensorOptions pAccelerationSensorOptions) {
 		return this.mEngine.enableAccelerationSensor(this, pAccelerationListener, pAccelerationSensorOptions);
 	}
 
 	/**
-	 * @see {@link Engine#disableAccelerationSensor(Context)}
+	 * @see {@link Engine#disableAccelerationSensor(android.content.Context)}
 	 */
 	protected boolean disableAccelerationSensor() {
 		return this.mEngine.disableAccelerationSensor(this);
 	}
 
 	/**
-	 * @see {@link Engine#enableOrientationSensor(Context, IOrientationListener)}
+	 * @see {@link Engine#enableOrientationSensor(android.content.Context, IOrientationListener)}
 	 */
 	protected boolean enableOrientationSensor(final IOrientationListener pOrientationListener) {
 		return this.mEngine.enableOrientationSensor(this, pOrientationListener);
 	}
 
 	/**
-	 * @see {@link Engine#enableOrientationSensor(Context, IOrientationListener, OrientationSensorOptions)}
+	 * @see {@link Engine#enableOrientationSensor(android.content.Context, IOrientationListener, OrientationSensorOptions)}
 	 */
 	protected boolean enableOrientationSensor(final IOrientationListener pOrientationListener, final OrientationSensorOptions pLocationSensorOptions) {
 		return this.mEngine.enableOrientationSensor(this, pOrientationListener, pLocationSensorOptions);
 	}
 
 	/**
-	 * @see {@link Engine#disableOrientationSensor(Context)}
+	 * @see {@link Engine#disableOrientationSensor(android.content.Context)}
 	 */
 	protected boolean disableOrientationSensor() {
 		return this.mEngine.disableOrientationSensor(this);

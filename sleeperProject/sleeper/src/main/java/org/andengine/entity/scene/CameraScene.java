@@ -28,7 +28,7 @@ public class CameraScene extends Scene {
 	// ===========================================================
 
 	/**
-	 * {@link CameraScene#setCamera(Camera)} needs to be called manually. Otherwise nothing will be drawn.
+	 * {@link CameraScene#setCamera(org.andengine.engine.camera.Camera)} needs to be called manually. Otherwise nothing will be drawn.
 	 */
 	public CameraScene() {
 		this(null);

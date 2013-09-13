@@ -10,8 +10,8 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.debug.Debug;
 
 /**
- * Note: {@link ButtonSprite} needs to be registered as a {@link ITouchArea} to the {@link Scene} via {@link Scene#registerTouchArea(ITouchArea)}, otherwise it won't be clickable.
- * To make {@link ButtonSprite} function properly, you should consider setting {@link Scene#setTouchAreaBindingOnActionDownEnabled(boolean)} to <code>true</code>.
+ * Note: {@link ButtonSprite} needs to be registered as a {@link org.andengine.entity.scene.ITouchArea} to the {@link org.andengine.entity.scene.Scene} via {@link org.andengine.entity.scene.Scene#registerTouchArea(org.andengine.entity.scene.ITouchArea)}, otherwise it won't be clickable.
+ * To make {@link ButtonSprite} function properly, you should consider setting {@link org.andengine.entity.scene.Scene#setTouchAreaBindingOnActionDownEnabled(boolean)} to <code>true</code>.
  *
  * (c) Zynga 2012
  *

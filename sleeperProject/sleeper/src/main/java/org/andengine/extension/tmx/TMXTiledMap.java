@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.andengine.extension.tmx.util.constants.TMXConstants;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.util.SAXUtils;
+import org.andengine.util.debug.Debug;
 import org.xml.sax.Attributes;
 
 import android.util.SparseArray;
@@ -172,18 +173,31 @@ public class TMXTiledMap implements TMXConstants
 		}
 	}
 
-	public ITextureRegion getTextureRegionFromGlobalTileID(final int pGlobalTileID) {
+	public ITextureRegion getTextureRegionFromGlobalTileID(final int pGlobalTileID)
+    {
 		final SparseArray<ITextureRegion> globalTileIDToTextureRegionCache = this.mGlobalTileIDToTextureRegionCache;
 
 		final ITextureRegion cachedTextureRegion = globalTileIDToTextureRegionCache.get(pGlobalTileID);
-		if(cachedTextureRegion != null) {
+		if(cachedTextureRegion != null)
+        {
 			return cachedTextureRegion;
-		} else {
+		}
+        else
+        {
+            Debug.i("TXMTiledMap : cachedTextureRegion == null");
+
 			final ArrayList<TMXTileSet> tmxTileSets = this.mTMXTileSets;
 
-			for(int i = tmxTileSets.size() - 1; i >= 0; i--) {
+            Debug.i("TXMTiledMap : tmxTileSets.size() = " + tmxTileSets.size());
+
+			for(int i = tmxTileSets.size() - 1; i >= 0; i--)
+            {
 				final TMXTileSet tmxTileSet = tmxTileSets.get(i);
-				if(pGlobalTileID >= tmxTileSet.getFirstGlobalTileID()) {
+                Debug.i("TXMTiledMap : tmxTileSet.getName() = " + tmxTileSet.getName());
+                Debug.i("TXMTiledMap : tmxTileSet.getFirstGlobalTileID() = " + tmxTileSet.getFirstGlobalTileID());
+                Debug.i("TXMTiledMap : pGlobalTileID = " + pGlobalTileID);
+				if(pGlobalTileID >= tmxTileSet.getFirstGlobalTileID())
+                {
 					final ITextureRegion textureRegion = tmxTileSet.getTextureRegionFromGlobalTileID(pGlobalTileID);
 					/* Add to cache for the all future pGlobalTileIDs with the same value. */
 					globalTileIDToTextureRegionCache.put(pGlobalTileID, textureRegion);

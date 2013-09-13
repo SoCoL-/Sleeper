@@ -13,7 +13,7 @@ import android.opengl.GLES20;
 
 /**
  * Compared to a {@link HighPerformanceVertexBufferObject} or a {@link LowMemoryVertexBufferObject}, the {@link ZeroMemoryVertexBufferObject} uses <b><u>no</u> permanent heap memory</b>,
- * at the cost of expensive data buffering (<b>up to <u>5x</u> slower!</b>) whenever the bufferdata needs to be updated and higher GC activity, due to the temporary {@link ByteBuffer} allocations.
+ * at the cost of expensive data buffering (<b>up to <u>5x</u> slower!</b>) whenever the bufferdata needs to be updated and higher GC activity, due to the temporary {@link java.nio.ByteBuffer} allocations.
  * <p/>
  * Usually a {@link ZeroMemoryVertexBufferObject} is preferred to a {@link HighPerformanceVertexBufferObject} or a {@link LowMemoryVertexBufferObject} when the following conditions are met:
  * <ol>
@@ -229,8 +229,8 @@ public abstract class ZeroMemoryVertexBufferObject implements IVertexBufferObjec
 	}
 
 	/**
-	 * When a non <code>null</code> {@link ByteBuffer} is returned by this function, it is guaranteed that {@link ZeroMemoryVertexBufferObject#releaseByteBuffer(ByteBuffer)} is called.
-	 * @return a {@link ByteBuffer} to be passed to {@link ZeroMemoryVertexBufferObject#onPopulateBufferData(ByteBuffer)}.
+	 * When a non <code>null</code> {@link java.nio.ByteBuffer} is returned by this function, it is guaranteed that {@link ZeroMemoryVertexBufferObject#releaseByteBuffer(java.nio.ByteBuffer)} is called.
+	 * @return a {@link java.nio.ByteBuffer} to be passed to {@link ZeroMemoryVertexBufferObject#onPopulateBufferData(java.nio.ByteBuffer)}.
 	 */
 	protected ByteBuffer aquireByteBuffer() {
 		final ByteBuffer byteBuffer = BufferUtils.allocateDirectByteBuffer(this.getByteCapacity());

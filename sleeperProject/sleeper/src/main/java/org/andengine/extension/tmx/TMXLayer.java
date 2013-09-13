@@ -21,6 +21,7 @@ import org.andengine.util.algorithm.collision.RectangularShapeCollisionChecker;
 import org.andengine.util.base64.Base64;
 import org.andengine.util.base64.Base64InputStream;
 import org.andengine.util.color.Color;
+import org.andengine.util.debug.Debug;
 import org.andengine.util.exception.AndEngineRuntimeException;
 import org.andengine.util.exception.MethodNotSupportedException;
 import org.andengine.util.math.MathUtils;
@@ -89,14 +90,14 @@ public class TMXLayer extends SpriteBatch implements TMXConstants {
 		this.setAlpha(SAXUtils.getFloatAttribute(pAttributes, TMXConstants.TAG_LAYER_ATTRIBUTE_OPACITY, TMXConstants.TAG_LAYER_ATTRIBUTE_OPACITY_VALUE_DEFAULT));
 	}
 
-	public TMXLayer(final TMXTiledMap pTMXTiledMap, int layerW, int layerH, String name, final VertexBufferObjectManager pVertexBufferObjectManager)
+	public TMXLayer(final TMXTiledMap pTMXTiledMap, int columns, int rows, String name, final VertexBufferObjectManager pVertexBufferObjectManager)
 	{
-		super(null, layerW * layerH, pVertexBufferObjectManager);
+		super(null, columns * rows, pVertexBufferObjectManager);
 
 		this.mTMXTiledMap = pTMXTiledMap;
 		this.mName = name;
-		this.mTileColumns = layerW;
-		this.mTileRows = layerH;
+		this.mTileColumns = columns;
+		this.mTileRows = rows;
 		this.mTMXTiles = new TMXTile[this.mTileRows][this.mTileColumns];
 
 		this.mWidth = pTMXTiledMap.getTileWidth() * this.mTileColumns;
@@ -292,6 +293,7 @@ public class TMXLayer extends SpriteBatch implements TMXConstants {
 		}
 		else  if(pGlobalTileID != 0)
 		{
+            Debug.i("TMXLayer : pGlobalTileID = " + pGlobalTileID);
 			tmxTileTextureRegion = tmxTiledMap.getTextureRegionFromGlobalTileID(pGlobalTileID);
 
 			if(this.mTexture == null)

@@ -61,7 +61,7 @@ public abstract class BaseActivity extends Activity {
 	}
 
 	/**
-	 * Performs a task in the background, showing a {@link ProgressDialog},
+	 * Performs a task in the background, showing a {@link android.app.ProgressDialog},
 	 * while the {@link Callable} is being processed.
 	 * 
 	 * @param <T>
@@ -76,7 +76,7 @@ public abstract class BaseActivity extends Activity {
 	}
 
 	/**
-	 * Performs a task in the background, showing a indeterminate {@link ProgressDialog},
+	 * Performs a task in the background, showing a indeterminate {@link android.app.ProgressDialog},
 	 * while the {@link Callable} is being processed.
 	 * 
 	 * @param <T>
@@ -92,7 +92,7 @@ public abstract class BaseActivity extends Activity {
 	}
 
 	/**
-	 * Performs a task in the background, showing a {@link ProgressDialog} with an ProgressBar,
+	 * Performs a task in the background, showing a {@link android.app.ProgressDialog} with an ProgressBar,
 	 * while the {@link AsyncCallable} is being processed.
 	 * 
 	 * @param <T>
@@ -107,7 +107,7 @@ public abstract class BaseActivity extends Activity {
 	}
 
 	/**
-	 * Performs a task in the background, showing a {@link ProgressDialog} with a ProgressBar,
+	 * Performs a task in the background, showing a {@link android.app.ProgressDialog} with a ProgressBar,
 	 * while the {@link AsyncCallable} is being processed.
 	 * 
 	 * @param <T>
@@ -123,7 +123,7 @@ public abstract class BaseActivity extends Activity {
 	}
 
 	/**
-	 * Performs a task in the background, showing an indeterminate {@link ProgressDialog},
+	 * Performs a task in the background, showing an indeterminate {@link android.app.ProgressDialog},
 	 * while the {@link AsyncCallable} is being processed.
 	 * 
 	 * @param <T>

@@ -176,11 +176,11 @@ public class Scene extends Entity {
 	/**
 	 * Enable or disable the binding of TouchAreas to PointerIDs (fingers).
 	 * When enabled: TouchAreas get bound to a PointerID (finger) when returning true in
-	 * {@link IShape#onAreaTouched(TouchEvent, float, float)} or
-	 * {@link IOnAreaTouchListener#onAreaTouched(TouchEvent, ITouchArea, float, float)}
-	 * with {@link TouchEvent#ACTION_DOWN}, they will receive all subsequent {@link TouchEvent}s
+	 * {@link IShape#onAreaTouched(org.andengine.input.touch.TouchEvent, float, float)} or
+	 * {@link IOnAreaTouchListener#onAreaTouched(org.andengine.input.touch.TouchEvent, ITouchArea, float, float)}
+	 * with {@link org.andengine.input.touch.TouchEvent#ACTION_DOWN}, they will receive all subsequent {@link org.andengine.input.touch.TouchEvent}s
 	 * that are made with the same PointerID (finger)
-	 * <b>even if the {@link TouchEvent} is outside of the actual {@link ITouchArea}</b>!
+	 * <b>even if the {@link org.andengine.input.touch.TouchEvent} is outside of the actual {@link ITouchArea}</b>!
 	 * 
 	 * @param pTouchAreaBindingOnActionDownEnabled
 	 */
@@ -194,11 +194,11 @@ public class Scene extends Entity {
 	/**
 	 * Enable or disable the binding of TouchAreas to PointerIDs (fingers).
 	 * When enabled: TouchAreas get bound to a PointerID (finger) when returning true in
-	 * {@link IShape#onAreaTouched(TouchEvent, float, float)} or
-	 * {@link IOnAreaTouchListener#onAreaTouched(TouchEvent, ITouchArea, float, float)}
-	 * with {@link TouchEvent#ACTION_MOVE}, they will receive all subsequent {@link TouchEvent}s
+	 * {@link IShape#onAreaTouched(org.andengine.input.touch.TouchEvent, float, float)} or
+	 * {@link IOnAreaTouchListener#onAreaTouched(org.andengine.input.touch.TouchEvent, ITouchArea, float, float)}
+	 * with {@link org.andengine.input.touch.TouchEvent#ACTION_MOVE}, they will receive all subsequent {@link org.andengine.input.touch.TouchEvent}s
 	 * that are made with the same PointerID (finger)
-	 * <b>even if the {@link TouchEvent} is outside of the actual {@link ITouchArea}</b>!
+	 * <b>even if the {@link org.andengine.input.touch.TouchEvent} is outside of the actual {@link ITouchArea}</b>!
 	 * 
 	 * @param pTouchAreaBindingOnActionMoveEnabled
 	 */
@@ -216,11 +216,11 @@ public class Scene extends Entity {
 	/**
 	 * Enable or disable the binding of TouchAreas to PointerIDs (fingers).
 	 * When enabled: The OnSceneTouchListener gets bound to a PointerID (finger) when returning true in
-	 * {@link Shape#onAreaTouched(TouchEvent, float, float)} or
-	 * {@link IOnAreaTouchListener#onAreaTouched(TouchEvent, ITouchArea, float, float)}
-	 * with {@link TouchEvent#ACTION_DOWN}, it will receive all subsequent {@link TouchEvent}s
+	 * {@link Shape#onAreaTouched(org.andengine.input.touch.TouchEvent, float, float)} or
+	 * {@link IOnAreaTouchListener#onAreaTouched(org.andengine.input.touch.TouchEvent, ITouchArea, float, float)}
+	 * with {@link org.andengine.input.touch.TouchEvent#ACTION_DOWN}, it will receive all subsequent {@link org.andengine.input.touch.TouchEvent}s
 	 * that are made with the same PointerID (finger)
-	 * <b>even if the {@link TouchEvent} is would belong to an overlaying {@link ITouchArea}</b>!
+	 * <b>even if the {@link org.andengine.input.touch.TouchEvent} is would belong to an overlaying {@link ITouchArea}</b>!
 	 * 
 	 * @param pOnSceneTouchListenerBindingOnActionDownEnabled
 	 */

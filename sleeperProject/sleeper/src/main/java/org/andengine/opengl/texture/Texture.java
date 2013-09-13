@@ -39,7 +39,7 @@ public abstract class Texture implements ITexture {
 	/**
 	 * @param pPixelFormat
 	 * @param pTextureOptions the (quality) settings of the Texture.
-	 * @param pTextureStateListener to be informed when this {@link Texture} is loaded, unloaded or a {@link ITextureAtlasSource} failed to load.
+	 * @param pTextureStateListener to be informed when this {@link Texture} is loaded, unloaded or a {@link org.andengine.opengl.texture.atlas.source.ITextureAtlasSource} failed to load.
 	 */
 	public Texture(final TextureManager pTextureManager, final PixelFormat pPixelFormat, final TextureOptions pTextureOptions, final ITextureStateListener pTextureStateListener) throws IllegalArgumentException {
 		this.mTextureManager = pTextureManager;

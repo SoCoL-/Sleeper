@@ -3,8 +3,10 @@ package ru.rouge.sleeper.Generator;
 import android.util.Log;
 
 import org.andengine.extension.tmx.TMXLayer;
+import org.andengine.extension.tmx.TMXObject;
 import org.andengine.extension.tmx.TMXTileSet;
 import org.andengine.extension.tmx.TMXTiledMap;
+import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.util.debug.Debug;
 
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.HashSet;
 
 import ru.rouge.sleeper.Managers.ResourceManager;
 import ru.rouge.sleeper.Map.GameMap;
+import ru.rouge.sleeper.Objects.Door;
 import ru.rouge.sleeper.Utils.Coord;
 import ru.rouge.sleeper.Utils.Rect;
 import ru.rouge.sleeper.Utils.Size;
@@ -59,7 +62,10 @@ public final class WorldGenerator
 	private int getCell(int x, int y, final int layer)
 	{
 		//return wContext.world.getLevel(currLevel).getCell(x, y);
-        return wContext.mWorld.mLevels.get(currLevel).getTMXLayers().get(layer).getTMXTile(x, y).getGlobalTileID();
+        if(wContext.mWorld.mLevels.get(currLevel).getTMXLayers().get(layer).getTMXTile(x, y) == null)
+            return TILE_NONE;
+        else
+            return wContext.mWorld.mLevels.get(currLevel).getTMXLayers().get(layer).getTMXTile(x, y).getGlobalTileID();
 	}
 	
 	private void setCell(int x, int y, int id, final int layer)
@@ -72,7 +78,16 @@ public final class WorldGenerator
         assert(y < wContext.mWorld.mLevels.get(currLevel).getTileRows() && y > 0);
 		
 		//wContext.world.getLevel(currLevel).setCellID(x, y, id);
-        wContext.mWorld.mLevels.get(currLevel).getTMXLayers().get(layer).addTileByGlobalTileID(x, y, id, null);
+        Debug.i("Set cell by x = " + x + ", y = " + y + ", id = " + id + ", layer = " + layer);
+        try
+        {
+            wContext.mWorld.mLevels.get(currLevel).getTMXLayers().get(layer).addTileByGlobalTileID(x, y, id, null);
+        }
+        catch (Exception e)
+        {
+            Debug.e(e);
+        }
+        Debug.i("Set cell done");
 	}
 	
 	private void createDoor(int x, int y, int dir, boolean isFree)
@@ -219,7 +234,31 @@ public final class WorldGenerator
 		}
 		return true;
 	}
-	
+
+    /**
+     * Создаем дверь, как объект на карте со всей логикой двери
+     * */
+    private void createTiledDoor(LevelDoor door)
+    {
+        createTiledDoor(door.mCoord.getY(), door.mCoord.getX(), door.mDir);
+    }
+
+    private void createTiledDoor(final int x, final int y, final int dir)
+    {
+        boolean isVertical;
+        if(dir == ObjectOnMap.DIR_EAST || dir == ObjectOnMap.DIR_WEST)
+            isVertical = true;
+        else
+            isVertical = false;
+
+        Door newDoor = new Door(x*32, y*32, isVertical, false, ResourceManager.getInstance().mDoorsTexture, ResourceManager.getInstance().mVBO);
+        wContext.mWorld.mDoors.add(newDoor);
+        wContext.mWorld.mWakables[x][y].mIndexObject = wContext.mWorld.mDoors.size()-1;
+        setCell(x, y, TILE_NONE, GameMap.LAYER_WALLS);        //Убрали стену
+        setCell(x, y, 16, GameMap.LAYER_FLOOR);               //Добавили пол
+
+    }
+
 	/**
 	 * Функция устанавливает комнату на уровне и заносит объект в список объектов на уровне. Также происходит проверка на возможность размещения комнате на уровне
 	 * @param door - Свободная дверь, к которой присоединяем коридор
@@ -229,14 +268,16 @@ public final class WorldGenerator
 	{
         Debug.i("setRoom()");
 		int x = 0, y = 0;
-		
+
+        Debug.i("ResourceManager.getInstance().mRooms.size() = " + ResourceManager.getInstance().mRooms.size());
+
 		//Выберем случайную комнату из списка
 		int roomID = Utils.getRand(0, ResourceManager.getInstance().mRooms.size()-1);
-		Log.i(TAG, "Выбрали комнату из списка с идентификатором: roomID = " + roomID);
+		Log.i(TAG, "Choose room from array by id: roomID = " + roomID);
 		TMXTiledMap currRoom = ResourceManager.getInstance().mRooms.get(roomID);//wContext.rooms.get(roomID);
-		Log.i(TAG, "Посчитаем количество выходов для текущей комнаты");
+		Log.i(TAG, "Randomize exit from this room");
 		int countExit = Utils.getRand(2, 4);
-		Log.i(TAG, "Количество выходов у комнаты с индексом (" + roomID + ") = " + countExit);
+		Log.i(TAG, "Count of exits the room by id (" + roomID + ") = " + countExit);
 		
 		if(door == null)
 		{
@@ -246,6 +287,10 @@ public final class WorldGenerator
 			//y = Utils.getRand(0, wContext.world.getLevel(currLevel).getHeight()// - currRoom.getRows*currRoom.getHeight());
 			x = 22;
 			y = 22;
+
+            //Добавим в комнату точку рождения игрока
+            TMXObject playerSpawn = new TMXObject("player_spawn", "player", 23*32, 23*32, 32, 32);
+            wContext.mWorld.mSpawns.add(playerSpawn);
 		}
 		else
 		{
@@ -302,7 +347,7 @@ public final class WorldGenerator
             if(ytemp < 0 || ytemp > wContext.mWorld.mLevels.get(currLevel).getTileRows()-1)
 			{
 				//Debug.e(TAG, "Комната не вмещается по высоте: ytemp = " + ytemp + ", levelHeight = " + wContext.world.getLevel(currLevel).getHeight());
-                Debug.e(TAG, "Комната не вмещается по высоте: ytemp = " + ytemp + ", levelHeight = " + wContext.mWorld.mLevels.get(currLevel).getTileRows());
+                Debug.e(TAG, "The room does not fit by height: ytemp = " + ytemp + ", levelHeight = " + wContext.mWorld.mLevels.get(currLevel).getTileRows());
 				return false;
 			}
 			//for(int xtemp = x; xtemp < x+currRoom.getSize().getWidth(); xtemp++)
@@ -312,19 +357,19 @@ public final class WorldGenerator
                 if(xtemp < 0 || xtemp > wContext.mWorld.mLevels.get(currLevel).getTileColumns()-1)
 				{
 					//Debug.e(TAG, "Комната не вмещается по ширине: xtemp = " + xtemp + ", levelWidth = " + wContext.world.getLevel(currLevel).getWidth());
-                    Debug.e(TAG, "Комната не вмещается по ширине: xtemp = " + xtemp + ", levelWidth = " + wContext.mWorld.mLevels.get(currLevel).getTileColumns());
+                    Debug.e(TAG, "The room does not fit by width: xtemp = " + xtemp + ", levelWidth = " + wContext.mWorld.mLevels.get(currLevel).getTileColumns());
 					return false;
 				}
 				if((getCell(xtemp, ytemp, GameMap.LAYER_WALLS) != TILE_NONE) && (!Utils.typesWall.contains(getCell(xtemp, ytemp, GameMap.LAYER_WALLS))) && (getDoorByCoord(xtemp, ytemp) == null)/*(getCell(xtemp, ytemp) != TILE_DOOR)*/)
 				{
-					Debug.e(TAG, "Комната пересекает уникальный тайл по координатам: (" + xtemp + " , " + ytemp + ") с индексом тайла = " + getCell(xtemp, ytemp, GameMap.LAYER_WALLS));
+					Debug.e(TAG, "The room crosses a unique tile by coordinates : (" + xtemp + " , " + ytemp + ") с индексом тайла = " + getCell(xtemp, ytemp, GameMap.LAYER_WALLS));
 					return false;
 				}
 			}
 		}
         Debug.i(TAG, "Locate done");
 		
-		Debug.i(TAG, "Комната может быть размещена, заполним уровень тайлами комнаты");
+		Debug.i(TAG, "Fill Map by tile of the room");
 		//for(int ytemp = 0; ytemp < currRoom.getSize().getHeight(); ytemp++)
         for(int ytemp = 0; ytemp < currRoom.getTileRows(); ytemp++)
 		{
@@ -335,8 +380,8 @@ public final class WorldGenerator
 				if(ld == null)
                 {
 					//setCell(xtemp + x, ytemp + y, currRoom.getRoomID(xtemp, ytemp));
-                    setCell(xtemp + x, ytemp + y, currRoom.getTMXLayers().get(GameMap.LAYER_FLOOR).getTMXTile(xtemp+x, ytemp+y).getGlobalTileID(), GameMap.LAYER_FLOOR);
-                    setCell(xtemp + x, ytemp + y, currRoom.getTMXLayers().get(GameMap.LAYER_WALLS).getTMXTile(xtemp+x, ytemp+y).getGlobalTileID(), GameMap.LAYER_WALLS);
+                    setCell(xtemp + x, ytemp + y, currRoom.getTMXLayers().get(GameMap.LAYER_FLOOR).getTMXTile(xtemp, ytemp).getGlobalTileID(), GameMap.LAYER_FLOOR);
+                    setCell(xtemp + x, ytemp + y, currRoom.getTMXLayers().get(GameMap.LAYER_WALLS).getTMXTile(xtemp, ytemp).getGlobalTileID(), GameMap.LAYER_WALLS);
                 }
 				else
 					ld.isFree = false;
@@ -346,8 +391,9 @@ public final class WorldGenerator
 		//correctWallIDs(currRoom.getSize().getWidth(), x, (currRoom.getSize().getHeight()-1) + y, true);
 		if(door != null)
 		{
-			Debug.i(TAG, "Нарисуем общую дверь");
-            //TODO Сделать функцию добавления двери в список объектов
+			Debug.i(TAG, "Set common door");
+            //Добавляем общую дверь
+            createTiledDoor(door);
 			//setCell(door.mCoord.getX(), door.mCoord.getY(), TILE_DOOR);
 		}
 		
@@ -376,18 +422,20 @@ public final class WorldGenerator
 		if(door == null)
 			return false;
 		
-		/*Debug.i(TAG, "----------------Начинаем генерировать коридор---------------------");
-		int length = Utils.getRand(2, wContext.world.getLevel(currLevel).getWidth()/2)+1;	//Сгенерируем длину коридора = половине ширины уровня; +1 для отрисовки стены в конце коридора
-		Debug.i(TAG, "Длина коридора = " + length);
+		Debug.i(TAG, "----------------Начинаем генерировать коридор---------------------");
+		//int length = Utils.getRand(2, wContext.world.getLevel(currLevel).getWidth()/2)+1;	//Сгенерируем длину коридора = половине ширины уровня; +1 для отрисовки стены в конце коридора
+        int length = Utils.getRand(2, wContext.mWorld.mLevels.get(currLevel).getTileColumns()/2)+1;	//Сгенерируем длину коридора = половине ширины уровня; +1 для отрисовки стены в конце коридора
+		Debug.i(TAG, "The corridor length = " + length);
 		int direction = -1;																	//Направление построения коридора
 		//int newDirection = -1;															//Если есть повороты, то тут мы определяем новый поворот коридора
 		int x = 0, y = 0;																	//Координаты начала построения коридора
 		int kx = 0, ky = 0;																	//Коэфиценты, позволяющие создать правильное направление генерации коридора
-		Level mCurrLevel = wContext.world.getLevel(currLevel);								//Текущий уровень
+		//Level mCurrLevel = wContext.world.getLevel(currLevel);							//Текущий уровень
+        TMXTiledMap mCurrLevel = wContext.mWorld.mLevels.get(currLevel);					//Текущий уровень
 		int mTurns = Utils.getRand(0, 3);													//Количество поворотов коридора
 		
-		Debug.i(TAG, "Количество переломов коридора = " + mTurns);
-		Debug.i(TAG, "Расчитываем отступы относительно двери");
+		Debug.i(TAG, "Count of rounds of corridor = " + mTurns);
+		Debug.i(TAG, "Calculate margins relative door");
 		direction = door.mDir;
 		//newDirection = direction;
 		door.isFree = false;
@@ -399,13 +447,13 @@ public final class WorldGenerator
 			{
 				x = door.mCoord.getX()+1;
 				kx = 1;
-				Debug.i(TAG, "Рисуем на восток!!!!");
+				Debug.i(TAG, "Draw to east!!!!");
 			}
 			else
 			{
 				x = door.mCoord.getX()-1;
 				kx = -1;
-				Debug.i(TAG, "Рисуем на запад!!!!");
+				Debug.i(TAG, "Draw to west!!!!");
 			}
 			y = door.mCoord.getY() - 1;
 			ky = 1;
@@ -418,13 +466,13 @@ public final class WorldGenerator
 			{
 				y = door.mCoord.getY()+1;
 				ky = 1;
-				Debug.i(TAG, "Рисуем на юг!!!!");
+				Debug.i(TAG, "Draw to south!!!!");
 			}
 			else
 			{
 				y = door.mCoord.getY()-1;
 				ky = -1;
-				Debug.i(TAG, "Рисуем на север!!!!");
+				Debug.i(TAG, "Draw to north!!!!");
 			}
 		}
 		Debug.i(TAG, "kx = " + kx);
@@ -432,8 +480,10 @@ public final class WorldGenerator
 		Debug.i(TAG, "x = " + x);
 		Debug.i(TAG, "y = " + y);
 		
-		Debug.i(TAG, "Нарисуем общую дверь");
-		setCell(door.mCoord.getX(), door.mCoord.getY(), TILE_DOOR);
+		Debug.i(TAG, "Draw common door");
+        //Создание общей двери
+		//setCell(door.mCoord.getX(), door.mCoord.getY(), TILE_DOOR);
+        createTiledDoor(door);
 
 		//Отрисовка коридора в одном направлении
 		if(!drawDirCoridor(length, x, y, kx, ky, direction, mCurrLevel))
@@ -449,7 +499,8 @@ public final class WorldGenerator
 				{
 					direction = ObjectOnMap.DIR_EAST;
 				}
-				else if(x >= mCurrLevel.getWidth()-3)
+				//else if(x >= mCurrLevel.getWidth()-3)
+                else if(x >= mCurrLevel.getTileColumns()-3)
 				{
 					direction = ObjectOnMap.DIR_WEST;
 				}
@@ -468,7 +519,8 @@ public final class WorldGenerator
 				{
 					direction = ObjectOnMap.DIR_SOUTH;
 				}
-				else if(y >= mCurrLevel.getHeight()-3)
+				//else if(y >= mCurrLevel.getHeight()-3)
+                else if(y >= mCurrLevel.getTileRows()-3)
 				{
 					direction = ObjectOnMap.DIR_NORTH;
 				}
@@ -527,13 +579,14 @@ public final class WorldGenerator
 			Debug.i(TAG, "Turn" + t + " : x = " + x);
 			Debug.i(TAG, "Turn" + t + " : y = " + y);
 			
-			length = Utils.getRand(2, wContext.world.getLevel(currLevel).getWidth()/2)+1;
+			//length = Utils.getRand(2, wContext.world.getLevel(currLevel).getWidth()/2)+1;
+            length = Utils.getRand(2, wContext.mWorld.mLevels.get(currLevel).getTileColumns()/2)+1;
 			Debug.i(TAG, "Turn" + t + " : Длина коридора = " + length);
 		
 			//Отрисовка коридора в одном направлении
 			if(!drawDirCoridor(length, x, y, kx, ky, direction, mCurrLevel))
 				mTurns = 0;
-		}*/
+		}
 		
 		return true;
 	}
@@ -548,7 +601,8 @@ public final class WorldGenerator
 	 * @param mCurrLevel - текущий уровень
 	 * @return false - если наткнулись на препятствие
 	 * */
-	/*private boolean drawDirCoridor(int length, int x, int y, int kx, int ky, int direction, Level mCurrLevel)
+	//private boolean drawDirCoridor(int length, int x, int y, int kx, int ky, int direction, Level mCurrLevel)
+    private boolean drawDirCoridor(int length, int x, int y, int kx, int ky, int direction, TMXTiledMap mCurrLevel)
 	{
 		int oldCurrX = -1, oldCurrY = -1;					//Для отслеживания изменения новой строки в отрисовке коридора
 		int currX = 0, currY = 0;							//Текущий тайл коридора(0,1,2,..)
@@ -578,7 +632,8 @@ public final class WorldGenerator
 			//Utils.log(TAG, "--------------------------------------------------");
 			
 			LevelDoor ld = getDoorByCoord(x + currX, y + currY);
-			if((x+currX)>= mCurrLevel.getWidth() || (x+currX) < 0 || (y+currY)>= mCurrLevel.getHeight() || (y+currY)<0)
+			//if((x+currX)>= mCurrLevel.getWidth() || (x+currX) < 0 || (y+currY)>= mCurrLevel.getHeight() || (y+currY)<0)
+            if((x+currX)>= mCurrLevel.getTileColumns() || (x+currX) < 0 || (y+currY)>= mCurrLevel.getTileRows() || (y+currY)<0)
 			{
 				Debug.e(TAG, "Вышли за пределы размеров уровня!! Установим в конце коридора стену");
 				int wallID = -1;
@@ -586,19 +641,19 @@ public final class WorldGenerator
 				int correctX = 0, correctY = 0;
 				if(direction == ObjectOnMap.DIR_NORTH || direction == ObjectOnMap.DIR_SOUTH)
 				{
-					wallID = 7;
+					wallID = 1;
 					isVertical = true;
 					correctX = endX - 1;
 					correctY = endY;
 				}
 				else if(direction == ObjectOnMap.DIR_WEST || direction == ObjectOnMap.DIR_EAST)
 				{
-					wallID = 3;
+					wallID = 2;
 					isVertical = false;
 					correctX = endX;
 					correctY = endY - 1;
 				}
-				setCell(endX, endY, wallID);
+				setCell(endX, endY, wallID, GameMap.LAYER_WALLS);
 				//correctWallIDs(3, correctX, correctY, isVertical);
 				return false;
 			}
@@ -623,7 +678,8 @@ public final class WorldGenerator
 						localEndY = y+1;
 					}
 					createDoor(localEndX, localEndY, direction, false);
-					setCell(localEndX, localEndY, TILE_DOOR);
+					//setCell(localEndX, localEndY, TILE_DOOR);
+                    createTiledDoor(localEndX, localEndY, direction);
 				}
 				else if(isGoNext == 1)//Нам нужно поставить стену
 				{
@@ -633,51 +689,66 @@ public final class WorldGenerator
 					{
 						localEndX = x+1;
 						localEndY = y+currY-1*ky;
-						doorID = 7;
+						doorID = 1;
 					}
 					else if(direction == ObjectOnMap.DIR_EAST || direction == ObjectOnMap.DIR_WEST)
 					{
 						localEndX = x+currX-1*kx;
 						localEndY = y+1;
-						doorID = 3;
+						doorID = 2;
 					}
-					setCell(localEndX, localEndY, doorID);
+					setCell(localEndX, localEndY, doorID, GameMap.LAYER_WALLS);
 				}
 				return false;
 			}
 			else
 			{
 				int what = -1;
+                int layer = 0;
 				if(direction == ObjectOnMap.DIR_EAST || direction == ObjectOnMap.DIR_WEST)
 					if(currY == 0 || currY == (WIDTH_CORIDOR-1))//Тело коридора(стены)
+                    {
 						//what = TILE_WALL;
-						what = 7;
+						what = 1;
+                        layer = GameMap.LAYER_WALLS;
+                    }
 					else if(currY == 1 && Math.abs(currX) == (length-1))//Конец коридора
 					{
 						//what = TILE_WALL;
-						what = 3;
+						what = 2;
+                        layer = GameMap.LAYER_WALLS;
 						//Добавим в конце коридора дверь в список
 						createDoor(x + currX, y + currY, direction, true);
 					}
 					else//Тело коридора(пол)
+                    {
 						//what = TILE_FLOOR;
-						what = 1;
+						what = 16;
+                        layer = GameMap.LAYER_FLOOR;
+                    }
 				else if(direction == ObjectOnMap.DIR_NORTH || direction == ObjectOnMap.DIR_SOUTH)
 					if(currX == 0 || currX == (WIDTH_CORIDOR-1))//Тело коридора(стены)
+                    {
 						//what = TILE_WALL;
-						what = 3;
+						what = 2;
+                        layer = GameMap.LAYER_WALLS;
+                    }
 					else if(currX == 1 && Math.abs(currY) == (length-1))//Конец коридора
 					{
 						//what = TILE_WALL;
-						what = 7;
+						what = 1;
+                        layer = GameMap.LAYER_WALLS;
 						createDoor(x + currX, y + currY, direction, true);
 					}
 					else//Тело коридора(пол)
+                    {
 						//what = TILE_FLOOR;
-						what = 1;
+						what = 16;
+                        layer = GameMap.LAYER_FLOOR;
+                    }
 				
 				if(ld == null)
-					setCell(x + currX, y + currY, what);
+					setCell(x + currX, y + currY, what, layer);
 				else
 					ld.isFree = false;
 			}
@@ -685,7 +756,7 @@ public final class WorldGenerator
 			oldCurrY = currY;
 		}
 		return true;
-	}*/
+	}
 	
 	/**Функция правит идентификаторы стен после их установки
 	 * @param width - ширина линии проверяемых тайлов
@@ -1075,7 +1146,9 @@ public final class WorldGenerator
             newLevel.getTMXLayers().add(floor);
             TMXLayer wall = new TMXLayer(newLevel, width_level, height_level, "wall", ResourceManager.getInstance().mVBO);
             newLevel.getTMXLayers().add(wall);
-            TMXTileSet set = new TMXTileSet();
+            TMXTileSet set = new TMXTileSet(1, "walls_stone", 32, 32, 2, 1, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+            set.setImageSource(wContext.getAssetManager(), wContext.getTextureManager(), "tileset/walls_stone.png", null);
+            newLevel.getTMXTileSets().add(set);
 			//wContext.world.addLevel(newLevel);
             mGameLevels.add(newLevel);
 			

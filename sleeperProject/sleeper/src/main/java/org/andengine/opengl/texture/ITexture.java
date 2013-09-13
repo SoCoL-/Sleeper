@@ -38,7 +38,7 @@ public interface ITexture {
 	 */
 	public void load();
 	/**
-	 * @see {@link TextureManager#loadTexture(GLState, ITexture)}.
+	 * @see {@link TextureManager#loadTexture(org.andengine.opengl.util.GLState, ITexture)}.
 	 */
 	public void load(final GLState pGLState) throws IOException;
 	/**
@@ -46,7 +46,7 @@ public interface ITexture {
 	 */
 	public void unload();
 	/**
-	 * @see {@link TextureManager#unloadTexture(GLState, ITexture)}.
+	 * @see {@link TextureManager#unloadTexture(org.andengine.opengl.util.GLState, ITexture)}.
 	 */
 	public void unload(final GLState pGLState);
 
@@ -56,7 +56,7 @@ public interface ITexture {
 
 	public void bind(final GLState pGLState);
 	/**
-	 * @param pGLActiveTexture from {@link GLES20#GL_TEXTURE0} to {@link GLES20#GL_TEXTURE31}. 
+	 * @param pGLActiveTexture from {@link android.opengl.GLES20#GL_TEXTURE0} to {@link android.opengl.GLES20#GL_TEXTURE31}.
 	 */
 	public void bind(final GLState pGLState, final int pGLActiveTexture);
 

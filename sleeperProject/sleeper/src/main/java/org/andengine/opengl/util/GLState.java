@@ -482,14 +482,14 @@ public class GLState {
 	}
 
 	/**
-	 * @return {@link GLES20#GL_TEXTURE0} to {@link GLES20#GL_TEXTURE31}
+	 * @return {@link android.opengl.GLES20#GL_TEXTURE0} to {@link android.opengl.GLES20#GL_TEXTURE31}
 	 */
 	public int getActiveTexture() {
 		return this.mCurrentActiveTextureIndex + GLES20.GL_TEXTURE0;
 	}
 
 	/**
-	 * @param pGLActiveTexture from {@link GLES20#GL_TEXTURE0} to {@link GLES20#GL_TEXTURE31}.
+	 * @param pGLActiveTexture from {@link android.opengl.GLES20#GL_TEXTURE0} to {@link android.opengl.GLES20#GL_TEXTURE31}.
 	 */
 	public void activeTexture(final int pGLActiveTexture) {
 		final int activeTextureIndex = pGLActiveTexture - GLES20.GL_TEXTURE0;
@@ -500,7 +500,7 @@ public class GLState {
 	}
 
 	/**
-	 * @see {@link GLState#forceBindTexture(GLES20, int)}
+	 * @see {@link GLState#forceBindTexture(android.opengl.GLES20, int)}
 	 * @param GLES20
 	 * @param pHardwareTextureID
 	 */
@@ -628,7 +628,7 @@ public class GLState {
 
 	/**
 	 * <b>Note:</b> does not pre-multiply the alpha channel!</br>
-	 * Except that difference, same as: {@link GLUtils#texSubImage2D(int, int, int, int, Bitmap, int, int)}</br>
+	 * Except that difference, same as: {@link android.opengl.GLUtils#texSubImage2D(int, int, int, int, android.graphics.Bitmap, int, int)}</br>
 	 * </br>
 	 * See topic: '<a href="http://groups.google.com/group/android-developers/browse_thread/thread/baa6c33e63f82fca">PNG loading that doesn't premultiply alpha?</a>'
 	 * @param pBorder
@@ -641,7 +641,7 @@ public class GLState {
 
 	/**
 	 * <b>Note:</b> does not pre-multiply the alpha channel!</br>
-	 * Except that difference, same as: {@link GLUtils#texSubImage2D(int, int, int, int, Bitmap, int, int)}</br>
+	 * Except that difference, same as: {@link android.opengl.GLUtils#texSubImage2D(int, int, int, int, android.graphics.Bitmap, int, int)}</br>
 	 * </br>
 	 * See topic: '<a href="http://groups.google.com/group/android-developers/browse_thread/thread/baa6c33e63f82fca">PNG loading that doesn't premultiply alpha?</a>'
 	 */

@@ -447,7 +447,7 @@ public abstract class QuadTree<B extends IBounds, T extends ISpatialItem<B>> imp
 		}
 
 		/**
-		 * @return the items of this {@link QuadTreeNode} and all children (recursively).
+		 * @return the items of this {@link org.andengine.util.adt.spatial.quadtree.QuadTree.QuadTreeNode} and all children (recursively).
 		 */
 		public <L extends List<T>> L getItemsAndItemsBelow(final L pResult) {
 			if(this.mItems != null) {

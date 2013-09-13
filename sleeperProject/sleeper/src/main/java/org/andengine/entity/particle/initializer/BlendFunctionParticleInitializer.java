@@ -7,7 +7,7 @@ import org.andengine.entity.shape.Shape;
 import android.opengl.GLES20;
 
 /**
- * Sets the blend function used to draw the {@link Particle} during its lifespan. Only applicable to {@link Shape}s.
+ * Sets the blend function used to draw the {@link Particle} during its lifespan. Only applicable to {@link org.andengine.entity.shape.Shape}s.
  * 
  * @author janne.sinivirta
  * 
@@ -30,7 +30,7 @@ public class BlendFunctionParticleInitializer<T extends IShape> implements IPart
 	// ===========================================================
 
 	/**
-	 * Blend function set for each spawned {@link Particle}. Use {@link GLES20} constants for setting functions.
+	 * Blend function set for each spawned {@link Particle}. Use {@link android.opengl.GLES20} constants for setting functions.
 	 */
 	public BlendFunctionParticleInitializer(final int pBlendFunctionSource, final int pBlendFunctionDestination) {
 		this.mBlendFunctionSource = pBlendFunctionSource;

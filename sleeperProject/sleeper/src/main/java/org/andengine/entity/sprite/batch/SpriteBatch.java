@@ -348,7 +348,7 @@ public class SpriteBatch extends Shape {
 	}
 
 	/**
-	 * @see {@link SpriteBatchVertexBufferObject#add(ITextureRegion, float, float, float, float, float)} {@link SpriteBatchVertexBufferObject#add(ITextureRegion, float, float, Transformation, float)}.
+	 * @see {@link SpriteBatchVertexBufferObject#add(ITextureRegion, float, float, float, float, float)} {@link SpriteBatchVertexBufferObject#add(ITextureRegion, float, float, org.andengine.util.adt.transformation.Transformation, float)}.
 	 */
 	public void draw(final Sprite pSprite) {
 		this.draw(pSprite.getTextureRegion(), pSprite, pSprite.getWidth(), pSprite.getHeight(), pSprite.getColor().getABGRPackedFloat());
@@ -359,7 +359,7 @@ public class SpriteBatch extends Shape {
 	}
 
 	/**
-	 * @see {@link SpriteBatchVertexBufferObject#add(ITextureRegion, float, float, float, float, float, float, float, float)} {@link SpriteBatchVertexBufferObject#add(ITextureRegion, float, float, Transformation, float, float, float, float)}.
+	 * @see {@link SpriteBatchVertexBufferObject#add(ITextureRegion, float, float, float, float, float, float, float, float)} {@link SpriteBatchVertexBufferObject#add(ITextureRegion, float, float, org.andengine.util.adt.transformation.Transformation, float, float, float, float)}.
 	 */
 	public void draw(final Sprite pSprite, final float pRed, final float pGreen, final float pBlue, final float pAlpha) {
 		this.draw(pSprite.getTextureRegion(), pSprite, pSprite.getWidth(), pSprite.getHeight(), pRed, pGreen, pBlue, pAlpha);
@@ -370,7 +370,7 @@ public class SpriteBatch extends Shape {
 	}
 
 	/**
-	 * @see {@link SpriteBatchVertexBufferObject#add(ITextureRegion, float, float, float, float, float)} {@link SpriteBatchVertexBufferObject#add(ITextureRegion, float, float, Transformation, float, float, float, float)}.
+	 * @see {@link SpriteBatchVertexBufferObject#add(ITextureRegion, float, float, float, float, float)} {@link SpriteBatchVertexBufferObject#add(ITextureRegion, float, float, org.andengine.util.adt.transformation.Transformation, float, float, float, float)}.
 	 */
 	public void draw(final Sprite pSprite, final float pColorABGRPackedInt) {
 		this.draw(pSprite.getTextureRegion(), pSprite, pSprite.getWidth(), pSprite.getHeight(), pColorABGRPackedInt);
@@ -381,7 +381,7 @@ public class SpriteBatch extends Shape {
 	}
 
 	/**
-	 * @see {@link SpriteBatchVertexBufferObject#add(ITextureRegion, float, float, float, float, float)} {@link SpriteBatchVertexBufferObject#add(ITextureRegion, float, float, Transformation, float)}.
+	 * @see {@link SpriteBatchVertexBufferObject#add(ITextureRegion, float, float, float, float, float)} {@link SpriteBatchVertexBufferObject#add(ITextureRegion, float, float, org.andengine.util.adt.transformation.Transformation, float)}.
 	 */
 	public void draw(final ITextureRegion pTextureRegion, final IEntity pEntity, final float pWidth, final float pHeight) {
 		this.draw(pTextureRegion, pEntity, pWidth, pHeight, pEntity.getColor().getABGRPackedFloat());
@@ -392,7 +392,7 @@ public class SpriteBatch extends Shape {
 	}
 
 	/**
-	 * @see {@link SpriteBatchVertexBufferObject#add(ITextureRegion, float, float, float, float, float, float, float, float)} {@link SpriteBatchVertexBufferObject#add(ITextureRegion, float, float, Transformation, float, float, float, float)}.
+	 * @see {@link SpriteBatchVertexBufferObject#add(ITextureRegion, float, float, float, float, float, float, float, float)} {@link SpriteBatchVertexBufferObject#add(ITextureRegion, float, float, org.andengine.util.adt.transformation.Transformation, float, float, float, float)}.
 	 */
 	public void draw(final ITextureRegion pTextureRegion, final IEntity pEntity, final float pWidth, final float pHeight, final float pRed, final float pGreen, final float pBlue, final float pAlpha) {
 		if(pEntity.isVisible()) {
@@ -423,7 +423,7 @@ public class SpriteBatch extends Shape {
 	}
 
 	/**
-	 * @see {@link SpriteBatchVertexBufferObject#add(ITextureRegion, float, float, float, float, float)} {@link SpriteBatchVertexBufferObject#add(ITextureRegion, float, float, Transformation, float, float, float, float)}.
+	 * @see {@link SpriteBatchVertexBufferObject#add(ITextureRegion, float, float, float, float, float)} {@link SpriteBatchVertexBufferObject#add(ITextureRegion, float, float, org.andengine.util.adt.transformation.Transformation, float, float, float, float)}.
 	 */
 	public void draw(final ITextureRegion pTextureRegion, final IEntity pEntity, final float pWidth, final float pHeight, final float pColorABGRPackedInt) {
 		if(pEntity.isVisible()) {

@@ -2,10 +2,8 @@ package ru.rouge.sleeper.Objects;
 
 import android.os.SystemClock;
 
-import org.andengine.engine.camera.Camera;
 import org.andengine.entity.text.Text;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
-import org.andengine.opengl.util.GLState;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.debug.Debug;
 
@@ -181,7 +179,8 @@ public class Player extends BaseAnimObject
 		Debug.e("x = " + x + ", y = " + y);
 
 		GameMap gm = WorldContext.getInstance().mWorld;
-        float[] coord = gm.mTMXMap.getTMXLayers().get(GameMap.LAYER_FLOOR).convertSceneToLocalCoordinates(getX(), getY());
+        //float[] coord = gm.mTMXMap.getTMXLayers().get(GameMap.LAYER_FLOOR).convertSceneToLocalCoordinates(getX(), getY());
+        float[] coord = gm.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_FLOOR).convertSceneToLocalCoordinates(getX(), getY());
         Debug.e("coord[x] = " + coord[0] + ", coord[y] = " + coord[1]);
 		int TileColumn = (int) x / 32;
 		int TileRow = (int)y / 32;

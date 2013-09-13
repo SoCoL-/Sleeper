@@ -22,7 +22,7 @@ import android.util.SparseArray;
 
 /**
  * The {@link BitmapFont} class is capable of parsing and loading <code>*.fnt</code> fonts.
- * A {@link BitmapFont}, just like a {@link Font} can be used to create {@link Text} objects.
+ * A {@link BitmapFont}, just like a {@link Font} can be used to create {@link org.andengine.entity.text.Text} objects.
  *
  * Use any of these editors to generate <code>*.fnt</code> fonts:
  *

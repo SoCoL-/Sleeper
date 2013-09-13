@@ -1,7 +1,9 @@
 package org.andengine.engine.options.resolutionpolicy;
 
 import org.andengine.opengl.view.RenderSurfaceView;
+import org.andengine.util.debug.Debug;
 
+import android.util.Log;
 import android.view.View.MeasureSpec;
 
 /**

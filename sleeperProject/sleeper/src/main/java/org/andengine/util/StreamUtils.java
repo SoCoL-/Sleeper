@@ -74,7 +74,7 @@ public final class StreamUtils {
 	}
 
 	/**
-	 * @see {@link StreamUtils#streamToBytes(InputStream, int, byte[], int)}
+	 * @see {@link StreamUtils#streamToBytes(java.io.InputStream, int, byte[], int)}
 	 */
 	public static final void streamToBytes(final InputStream pInputStream, final int pByteLimit, final byte[] pData) throws IOException {
 		StreamUtils.streamToBytes(pInputStream, pByteLimit, pData, 0);
@@ -85,7 +85,7 @@ public final class StreamUtils {
 	 * @param pByteLimit the amount of bytes to read.
 	 * @param pData the array to place the read bytes in.
 	 * @param pOffset the offset within pData.
-	 * @throws IOException
+	 * @throws java.io.IOException
 	 */
 	public static final void streamToBytes(final InputStream pInputStream, final int pByteLimit, final byte[] pData, final int pOffset) throws IOException {
 		if(pByteLimit > pData.length - pOffset) {
@@ -139,7 +139,7 @@ public final class StreamUtils {
 	 * @param pOutputStream The output stream to copy to.
 	 * @param pByteLimit not more than so much bytes to read, or unlimited if {@link StreamUtils#END_OF_STREAM}.
 	 *
-	 * @throws IOException If any error occurs during the copy.
+	 * @throws java.io.IOException If any error occurs during the copy.
 	 */
 	public static final void copy(final InputStream pInputStream, final OutputStream pOutputStream, final int pByteLimit) throws IOException {
 		if(pByteLimit == StreamUtils.END_OF_STREAM) {

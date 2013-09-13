@@ -47,9 +47,9 @@ public class BlackPawnTextureAtlasBuilder<T extends ITextureAtlasSource, A exten
 	// ===========================================================
 
 	/**
-	 * @param pTextureAtlasBorderSpacing the minimum spacing between the border of the texture and the {@link ITextureAtlasSource}s. 
-	 * @param pTextureAtlasSourceSpacing the spacing between the different {@link ITextureAtlasSource}s.
-	 * @param pTextureAtlasSourcePadding the transparent padding around each {@link ITextureAtlasSource} (prevents texture bleeding).
+	 * @param pTextureAtlasBorderSpacing the minimum spacing between the border of the texture and the {@link org.andengine.opengl.texture.atlas.source.ITextureAtlasSource}s.
+	 * @param pTextureAtlasSourceSpacing the spacing between the different {@link org.andengine.opengl.texture.atlas.source.ITextureAtlasSource}s.
+	 * @param pTextureAtlasSourcePadding the transparent padding around each {@link org.andengine.opengl.texture.atlas.source.ITextureAtlasSource} (prevents texture bleeding).
 	 */
 	public BlackPawnTextureAtlasBuilder(final int pTextureAtlasBorderSpacing, final int pTextureAtlasSourceSpacing, final int pTextureAtlasSourcePadding) {
 		this.mTextureAtlasBorderSpacing = pTextureAtlasBorderSpacing;

@@ -116,8 +116,8 @@ public class TouchEvent {
 	}
 
 	/**
-	 * Provides the raw {@link MotionEvent} that originally caused this {@link TouchEvent}.
-	 * The coordinates of this {@link MotionEvent} are in surface-coordinates!
+	 * Provides the raw {@link android.view.MotionEvent} that originally caused this {@link TouchEvent}.
+	 * The coordinates of this {@link android.view.MotionEvent} are in surface-coordinates!
 	 * @return
 	 */
 	public MotionEvent getMotionEvent() {

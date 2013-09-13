@@ -373,7 +373,7 @@ public class AnimatedSprite extends TiledSprite {
 		public void onAnimationStarted(final AnimatedSprite pAnimatedSprite, final int pInitialLoopCount);
 		/**
 		 * @param pAnimatedSprite
-		 * @param pOldFrameIndex equals {@link AnimatedSprite#FRAMEINDEX_INVALID}, the first time {@link IAnimationListener#onAnimationFrameChanged(AnimatedSprite, int, int)} is called.
+		 * @param pOldFrameIndex equals {@link AnimatedSprite#FRAMEINDEX_INVALID}, the first time {@link org.andengine.entity.sprite.AnimatedSprite.IAnimationListener#onAnimationFrameChanged(AnimatedSprite, int, int)} is called.
 		 * @param pNewFrameIndex the new frame index of the currently active animation.
 		 */
 		public void onAnimationFrameChanged(final AnimatedSprite pAnimatedSprite, final int pOldFrameIndex, final int pNewFrameIndex);

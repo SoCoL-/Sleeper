@@ -211,7 +211,7 @@ public interface IEntity extends IDrawHandler, IUpdateHandler, IDisposable {
 	public IEntity queryFirst(final IEntityMatcher pEntityMatcher);
 	/**
 	 * @param pEntityMatcher
-	 * @param pResult the {@link List} to put the result into.
+	 * @param pResult the {@link java.util.List} to put the result into.
 	 * @return all children (recursively!) that match the supplied {@link IEntityMatcher}.
 	 */
 	public <L extends List<IEntity>> L query(final IEntityMatcher pEntityMatcher, final L pResult);
@@ -229,7 +229,7 @@ public interface IEntity extends IDrawHandler, IUpdateHandler, IDisposable {
 	public <S extends IEntity> ArrayList<S> queryForSubclass(final IEntityMatcher pEntityMatcher) throws ClassCastException;
 	/**
 	 * @param pEntityMatcher
-	 * @param pResult the {@link List} to put the result into.
+	 * @param pResult the {@link java.util.List} to put the result into.
 	 * @return all children (recursively!) that match the supplied {@link IEntityMatcher}.
 	 * @throws ClassCastException when the supplied {@link IEntityMatcher} matched an {@link IEntity} that was not of the requested subtype.
 	 */
@@ -241,13 +241,13 @@ public interface IEntity extends IDrawHandler, IUpdateHandler, IDisposable {
 	public void sortChildren();
 	/**
 	 * Sorts the {@link IEntity}s based on their ZIndex. Sort is stable.
-	 * In contrast to {@link IEntity#sortChildren()} this method is particularly useful to avoid multiple sorts per frame. 
+	 * In contrast to {@link IEntity#sortChildren()} this method is particularly useful to avoid multiple sorts per frame.
 	 * @param pImmediate if <code>true</code>, the sorting is executed immediately.
-	 * If <code>false</code> the sorting is executed before the next (visible) drawing of the children of this {@link IEntity}. 
+	 * If <code>false</code> the sorting is executed before the next (visible) drawing of the children of this {@link IEntity}.
 	 */
 	public void sortChildren(final boolean pImmediate);
 	/**
-	 * Sorts the {@link IEntity}s based on the {@link Comparator} supplied. Sort is stable.
+	 * Sorts the {@link IEntity}s based on the {@link java.util.Comparator} supplied. Sort is stable.
 	 * @param pEntityComparator
 	 */
 	public void sortChildren(final IEntityComparator pEntityComparator);
@@ -256,32 +256,32 @@ public interface IEntity extends IDrawHandler, IUpdateHandler, IDisposable {
 
 	/**
 	 * <b><i>WARNING:</i> This function should be called from within
-	 * {@link RunnableHandler#postRunnable(Runnable)} which is registered
-	 * to a {@link Scene} or the {@link Engine} itself, because otherwise
+	 * {@link org.andengine.engine.handler.runnable.RunnableHandler#postRunnable(Runnable)} which is registered
+	 * to a {@link org.andengine.entity.scene.Scene} or the {@link org.andengine.engine.Engine} itself, because otherwise
 	 * it may throw an {@link IndexOutOfBoundsException} in the
 	 * Update-Thread or the GL-Thread!</b>
 	 */
 	public boolean detachChild(final IEntity pEntity);
 	/**
 	 * <b><i>WARNING:</i> This function should be called from within
-	 * {@link RunnableHandler#postRunnable(Runnable)} which is registered
-	 * to a {@link Scene} or the {@link Engine} itself, because otherwise
+	 * {@link org.andengine.engine.handler.runnable.RunnableHandler#postRunnable(Runnable)} which is registered
+	 * to a {@link org.andengine.entity.scene.Scene} or the {@link org.andengine.engine.Engine} itself, because otherwise
 	 * it may throw an {@link IndexOutOfBoundsException} in the
 	 * Update-Thread or the GL-Thread!</b>
 	 */
 	public IEntity detachChild(final int pTag);
 	/**
 	 * <b><i>WARNING:</i> This function should be called from within
-	 * {@link RunnableHandler#postRunnable(Runnable)} which is registered
-	 * to a {@link Scene} or the {@link Engine} itself, because otherwise
+	 * {@link org.andengine.engine.handler.runnable.RunnableHandler#postRunnable(Runnable)} which is registered
+	 * to a {@link org.andengine.entity.scene.Scene} or the {@link org.andengine.engine.Engine} itself, because otherwise
 	 * it may throw an {@link IndexOutOfBoundsException} in the
 	 * Update-Thread or the GL-Thread!</b>
 	 */
 	public IEntity detachChild(final IEntityMatcher pEntityMatcher);
 	/**
 	 * <b><i>WARNING:</i> This function should be called from within
-	 * {@link RunnableHandler#postRunnable(Runnable)} which is registered
-	 * to a {@link Scene} or the {@link Engine} itself, because otherwise
+	 * {@link org.andengine.engine.handler.runnable.RunnableHandler#postRunnable(Runnable)} which is registered
+	 * to a {@link org.andengine.entity.scene.Scene} or the {@link org.andengine.engine.Engine} itself, because otherwise
 	 * it may throw an {@link IndexOutOfBoundsException} in the
 	 * Update-Thread or the GL-Thread!</b>
 	 */
@@ -310,7 +310,7 @@ public interface IEntity extends IDrawHandler, IUpdateHandler, IDisposable {
 	 * Will only be performed if {@link IEntity#isCullingEnabled()} is true.
 	 *
 	 * @param pCamera the currently active camera to perform culling checks against.
-	 * @return <code>true</code> when this object is visible by the {@link Camera}, <code>false</code> otherwise.
+	 * @return <code>true</code> when this object is visible by the {@link org.andengine.engine.camera.Camera}, <code>false</code> otherwise.
 	 */
 	public boolean isCulled(final Camera pCamera);
 

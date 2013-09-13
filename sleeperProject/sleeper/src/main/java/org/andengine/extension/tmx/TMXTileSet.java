@@ -14,6 +14,7 @@ import org.andengine.opengl.texture.bitmap.BitmapTextureFormat;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TextureRegion;
 import org.andengine.util.SAXUtils;
+import org.andengine.util.debug.Debug;
 import org.xml.sax.Attributes;
 
 import android.content.res.AssetManager;
@@ -59,32 +60,33 @@ public class TMXTileSet implements TMXConstants {
 	// Constructors
 	// ===========================================================
 
-	TMXTileSet(final Attributes pAttributes, final TextureOptions pTextureOptions)
-    {
+	TMXTileSet(final Attributes pAttributes, final TextureOptions pTextureOptions) {
 		this(SAXUtils.getIntAttribute(pAttributes, TMXConstants.TAG_TILESET_ATTRIBUTE_FIRSTGID, 1), pAttributes, pTextureOptions);
 	}
 
-	TMXTileSet(final int pFirstGlobalTileID, final Attributes pAttributes, final TextureOptions pTextureOptions)
-    {
+	TMXTileSet(final int pFirstGlobalTileID, final Attributes pAttributes, final TextureOptions pTextureOptions) {
 		this.mFirstGlobalTileID = pFirstGlobalTileID;
 		this.mName = pAttributes.getValue("", TMXConstants.TAG_TILESET_ATTRIBUTE_NAME);
-		this.mTileWidth = SAXUtils.getIntAttributeOrThrow(pAttributes, TMXConstants.TAG_TILESET_ATTRIBUTE_TILEWIDTH);
-		this.mTileHeight = SAXUtils.getIntAttributeOrThrow(pAttributes, TMXConstants.TAG_TILESET_ATTRIBUTE_TILEHEIGHT);
+		this.mTileWidth = SAXUtils.getIntAttributeOrThrow(pAttributes, TMXConstants.TAG_TILESET_ATTRIBUTE_TILEWIDTH);;
+		this.mTileHeight = SAXUtils.getIntAttributeOrThrow(pAttributes, TMXConstants.TAG_TILESET_ATTRIBUTE_TILEHEIGHT);;
 		this.mSpacing = SAXUtils.getIntAttribute(pAttributes, TMXConstants.TAG_TILESET_ATTRIBUTE_SPACING, 0);
 		this.mMargin = SAXUtils.getIntAttribute(pAttributes, TMXConstants.TAG_TILESET_ATTRIBUTE_MARGIN, 0);
 
 		this.mTextureOptions = pTextureOptions;
 	}
 
-    public TMXTileSet(final int firstGlobalID, final String name, final int tileW, final int tileH, final int spasing, final int margin, final TextureOptions textureOptions)
+    /**
+     * Ручное создание тайлсета
+     * */
+    public TMXTileSet(final int firstID, final String name, final int tileW, final int tileH, final int spacing, final int margin, final TextureOptions options)
     {
-        this.mFirstGlobalTileID = firstGlobalID;
+        this.mFirstGlobalTileID = firstID;
         this.mName = name;
         this.mTileWidth = tileW;
         this.mTileHeight = tileH;
-        this.mSpacing = spasing;
+        this.mSpacing = spacing;
         this.mMargin = margin;
-        this.mTextureOptions = textureOptions;
+        this.mTextureOptions = options;
     }
 
 	// ===========================================================
@@ -118,6 +120,41 @@ public class TMXTileSet implements TMXConstants {
 	public ITexture getTexture() {
 		return this.mTexture;
 	}
+
+    /**
+     * Для ручного создания тайлсета
+     * */
+    public void setImageSource(final AssetManager pAssetManager, final TextureManager pTextureManager, final String imageSource, final String transpColor)
+    {
+        this.mImageSource = imageSource;
+
+        final AssetBitmapTextureAtlasSource assetBitmapTextureAtlasSource = AssetBitmapTextureAtlasSource.create(pAssetManager, this.mImageSource);
+        this.mTilesHorizontal = TMXTileSet.determineCount(assetBitmapTextureAtlasSource.getTextureWidth(), this.mTileWidth, this.mMargin, this.mSpacing);
+        this.mTilesVertical = TMXTileSet.determineCount(assetBitmapTextureAtlasSource.getTextureHeight(), this.mTileHeight, this.mMargin, this.mSpacing);
+        final BitmapTextureAtlas bitmapTextureAtlas = new BitmapTextureAtlas(pTextureManager, assetBitmapTextureAtlasSource.getTextureWidth(), assetBitmapTextureAtlasSource.getTextureHeight(), BitmapTextureFormat.RGBA_8888, this.mTextureOptions); // TODO Make TextureFormat variable
+
+        final String transparentColor = transpColor;
+        if(transparentColor == null)
+        {
+            BitmapTextureAtlasTextureRegionFactory.createFromSource(bitmapTextureAtlas, assetBitmapTextureAtlasSource, 0, 0);
+        }
+        else
+        {
+            try
+            {
+                final int color = Color.parseColor((transparentColor.charAt(0) == '#') ? transparentColor : "#" + transparentColor);
+                BitmapTextureAtlasTextureRegionFactory.createFromSource(bitmapTextureAtlas, new ColorKeyBitmapTextureAtlasSourceDecorator(assetBitmapTextureAtlasSource, RectangleBitmapTextureAtlasSourceDecoratorShape.getDefaultInstance(), color), 0, 0);
+            }
+            catch (final IllegalArgumentException e)
+            {
+                //new TMXParseException("Illegal value: '" + transparentColor + "' for attribute 'trans' supplied!", e);
+                Debug.e(e);
+            }
+        }
+
+        this.mTexture = bitmapTextureAtlas;
+        this.mTexture.load();
+    }
 
 	public void setImageSource(final AssetManager pAssetManager, final TextureManager pTextureManager, final Attributes pAttributes) throws TMXParseException {
 		this.mImageSource = pAttributes.getValue("", TMXConstants.TAG_IMAGE_ATTRIBUTE_SOURCE);

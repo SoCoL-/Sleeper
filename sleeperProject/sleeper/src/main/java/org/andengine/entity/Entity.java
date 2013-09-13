@@ -1244,7 +1244,7 @@ public class Entity implements IEntity {
 
 	/**
 	 * @param pGLState the currently active {@link GLState} i.e. to apply transformations to.
-	 * @param pCamera the currently active {@link Camera} i.e. to be used for culling.
+	 * @param pCamera the currently active {@link org.andengine.engine.camera.Camera} i.e. to be used for culling.
 	 */
 	protected void preDraw(final GLState pGLState, final Camera pCamera) {
 
@@ -1252,7 +1252,7 @@ public class Entity implements IEntity {
 
 	/**
 	 * @param pGLState the currently active {@link GLState} i.e. to apply transformations to.
-	 * @param pCamera the currently active {@link Camera} i.e. to be used for culling.
+	 * @param pCamera the currently active {@link org.andengine.engine.camera.Camera} i.e. to be used for culling.
 	 */
 	protected void draw(final GLState pGLState, final Camera pCamera) {
 
@@ -1260,7 +1260,7 @@ public class Entity implements IEntity {
 
 	/**
 	 * @param pGLState the currently active {@link GLState} i.e. to apply transformations to.
-	 * @param pCamera the currently active {@link Camera} i.e. to be used for culling.
+	 * @param pCamera the currently active {@link org.andengine.engine.camera.Camera} i.e. to be used for culling.
 	 */
 	protected void postDraw(final GLState pGLState, final Camera pCamera) {
 

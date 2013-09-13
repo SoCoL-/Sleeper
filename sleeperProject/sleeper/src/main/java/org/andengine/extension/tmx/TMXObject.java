@@ -32,7 +32,8 @@ public class TMXObject implements TMXConstants {
 	// Constructors
 	// ===========================================================
 
-	public TMXObject(final Attributes pAttributes) {
+	public TMXObject(final Attributes pAttributes)
+    {
 		this.mName = pAttributes.getValue("", TMXConstants.TAG_OBJECT_ATTRIBUTE_NAME);
 		this.mType = pAttributes.getValue("", TMXConstants.TAG_OBJECT_ATTRIBUTE_TYPE);
 		this.mX = SAXUtils.getIntAttributeOrThrow(pAttributes, TMXConstants.TAG_OBJECT_ATTRIBUTE_X);
@@ -40,6 +41,16 @@ public class TMXObject implements TMXConstants {
 		this.mWidth = SAXUtils.getIntAttribute(pAttributes, TMXConstants.TAG_OBJECT_ATTRIBUTE_WIDTH, 0);
 		this.mHeight = SAXUtils.getIntAttribute(pAttributes, TMXConstants.TAG_OBJECT_ATTRIBUTE_HEIGHT, 0);
 	}
+
+    public TMXObject(final String name, final String type, final int x, final int y, final int w, final int h)
+    {
+        this.mName = name;
+        this.mType = type;
+        this.mX = x;
+        this.mY = y;
+        this.mWidth = w;
+        this.mHeight = h;
+    }
 
 	// ===========================================================
 	// Getter & Setter

@@ -231,7 +231,7 @@ public class ShaderProgram {
 	}
 
 	/**
-	 * TODO Is this actually needed? As the locations of {@link VertexBufferObjectAttribute}s are now 'predefined'.
+	 * TODO Is this actually needed? As the locations of {@link org.andengine.opengl.vbo.attribute.VertexBufferObjectAttribute}s are now 'predefined'.
 	 */
 	@Deprecated
 	private void initAttributeLocations() {
@@ -332,7 +332,7 @@ public class ShaderProgram {
 
 	/**
 	 * @param pUniformName
-	 * @param pTexture the index of the Texture to use. Similar to {@link GLES20#GL_TEXTURE0}, {@link GLES20#GL_TEXTURE1}, ... except that it is <b><code>0</code></b> based.
+	 * @param pTexture the index of the Texture to use. Similar to {@link android.opengl.GLES20#GL_TEXTURE0}, {@link android.opengl.GLES20#GL_TEXTURE1}, ... except that it is <b><code>0</code></b> based.
 	 */
 	public void setTexture(final String pUniformName, final int pTexture) {
 		GLES20.glUniform1i(this.getUniformLocation(pUniformName), pTexture);
@@ -340,7 +340,7 @@ public class ShaderProgram {
 
 	/**
 	 * @param pUniformName
-	 * @param pTexture the index of the Texture to use. Similar to {@link GLES20#GL_TEXTURE0}, {@link GLES20#GL_TEXTURE1}, ... except that it is <b><code>0</code></b> based.
+	 * @param pTexture the index of the Texture to use. Similar to {@link android.opengl.GLES20#GL_TEXTURE0}, {@link android.opengl.GLES20#GL_TEXTURE1}, ... except that it is <b><code>0</code></b> based.
 	 */
 	public void setTextureOptional(final String pUniformName, final int pTexture) {
 		final int location = this.getUniformLocationOptional(pUniformName);

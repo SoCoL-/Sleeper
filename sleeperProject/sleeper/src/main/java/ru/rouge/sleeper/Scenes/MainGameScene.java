@@ -6,8 +6,6 @@ import org.andengine.engine.camera.hud.HUD;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
-import org.andengine.entity.text.Text;
-import org.andengine.extension.tmx.TMXLayer;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.util.debug.Debug;
 import org.andengine.util.color.Color;
@@ -93,7 +91,7 @@ public final class MainGameScene extends MainScene
 		Debug.e("Check world");
 		if(WorldContext.getInstance().mWorld != null)
 		{
-			Debug.e("Check layers");
+			/*Debug.e("Check layers");
 			if(WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers() == null)
 				Debug.e("WorldContext.getInstance().mWorld.getTMXLayers() == null Oo");
 
@@ -101,11 +99,13 @@ public final class MainGameScene extends MainScene
 			TMXLayer ground = WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(GameMap.LAYER_FLOOR);
 			Debug.e("Attach layer 0");
 			attachChild(ground);
-			attachChild(WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(GameMap.LAYER_WALLS));
+			attachChild(WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(GameMap.LAYER_WALLS));*/
+            attachChild(WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_FLOOR));
+            attachChild(WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_WALLS));
 			attachChild(WorldContext.getInstance().mPlayer);
             for(Door d : WorldContext.getInstance().mWorld.mDoors)
                 attachChild(d);
-			attachChild(new Text(100, 100, ResourceManager.getInstance().mGameFont, "Main Game", ResourceManager.getInstance().mVBO));
+			//attachChild(new Text(100, 100, ResourceManager.getInstance().mGameFont, "Main Game", ResourceManager.getInstance().mVBO));
 
             Debug.e("Set HUD");
             WorldContext.getInstance().getCamera().setHUD(mHUD);
@@ -138,11 +138,13 @@ public final class MainGameScene extends MainScene
     {
 		Debug.e("on MainGameScene dispose scene");
         ResourceManager.getInstance().unloadGameRes();
-        detachChild(WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(0));
-        detachChild(WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(1));
+        //detachChild(WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(0));
+        //detachChild(WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(1));
 		detachChild(WorldContext.getInstance().mPlayer);
-        WorldContext.getInstance().mWorld.mTMXMap.getTMXTileSets().clear();
-        WorldContext.getInstance().mWorld.mTMXMap = null;
+        //WorldContext.getInstance().mWorld.mTMXMap.getTMXTileSets().clear();
+        //WorldContext.getInstance().mWorld.mTMXMap = null;
+        WorldContext.getInstance().mWorld.mLevels.clear();
+        WorldContext.getInstance().mWorld.mLevels = null;
         WorldContext.getInstance().mWorld = null;
         WorldContext.getInstance().getCamera().setHUD(null);
         WorldContext.getInstance().getCamera().setBoundsEnabled(false);
