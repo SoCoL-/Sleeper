@@ -88,7 +88,7 @@ public final class LoadScene extends MainScene
                                         //Debug.e("i = " + i);
                                         //Debug.e("j = " + j);
                                         //Debug.e("floor.getTMXTileAT(i, j) = " + floor.getTMXTile(i, j).getGlobalTileID());
-                                        mWC.mWorld.mWakables[j][i].isWalkable = true;
+                                        mWC.mWorld.mWakables[i][j].isWalkable = true;
                                     }
                                 }
                             }

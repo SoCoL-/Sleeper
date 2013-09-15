@@ -185,20 +185,24 @@ public class Player extends BaseAnimObject
 		int TileColumn = (int) x / 32;
 		int TileRow = (int)y / 32;
 		Debug.e("TileColumn = " + TileColumn + ", TileRow = " + TileRow);
-		Debug.e("gm.mWakables[TileRow][TileColumn] = " + gm.mWakables[TileRow][TileColumn].isWalkable);
-        Debug.e("gm.mWakables[TileRow][TileColumn].index = " + gm.mWakables[TileRow][TileColumn].mIndexObject);
+		Debug.e("gm.mWakables[TileRow][TileColumn] = " + gm.mWakables[TileColumn][TileRow].isWalkable);
+        Debug.e("gm.mWakables[TileRow][TileColumn].index = " + gm.mWakables[TileColumn][TileRow].mIndexObject);
 
         boolean isWalk = false;
 
-        if(gm.mWakables[TileRow][TileColumn].mIndexObject == -1)
+        //if(gm.mWakables[TileRow][TileColumn].mIndexObject == -1)
+        if(gm.mWakables[TileColumn][TileRow].mIndexObject == -1)
         {
             Debug.i("Нет объектов на пути, возвращаем значение карты проходимости");
-            isWalk = gm.mWakables[TileRow][TileColumn].isWalkable;
+            //isWalk = gm.mWakables[TileRow][TileColumn].isWalkable;
+            isWalk = gm.mWakables[TileColumn][TileRow].isWalkable;
         }
-        else if(gm.mWakables[TileRow][TileColumn].mIndexObject > -1)
+        //else if(gm.mWakables[TileRow][TileColumn].mIndexObject > -1)
+        else if(gm.mWakables[TileColumn][TileRow].mIndexObject > -1)
         {
             Debug.i("Object!!! Try to identify it");
-            Door d = gm.mDoors.get(gm.mWakables[TileRow][TileColumn].mIndexObject);
+            //Door d = gm.mDoors.get(gm.mWakables[TileRow][TileColumn].mIndexObject);
+            Door d = gm.mDoors.get(gm.mWakables[TileColumn][TileRow].mIndexObject);
             Debug.i("This is door");
             if(d.isOpen())
             {

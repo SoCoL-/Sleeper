@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="10" height="10" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="walls_stone" tilewidth="32" tileheight="32" spacing="2" margin="1">
+  <image source="tileset/walls_stone.png" width="102" height="204"/>
+ </tileset>
+ <layer name="floor" width="10" height="10">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgIB4IEMCj6vCrIwYAACcv22qQAQAA
+  </data>
+ </layer>
+ <layer name="wall" width="10" height="10">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NlYGBgJIDZgJiJgTBgGlWHUx0LA+FwZgdiAEFcYHGQAQAA
+  </data>
+ </layer>
+ <objectgroup name="objects" width="10" height="10"/>
+</map>

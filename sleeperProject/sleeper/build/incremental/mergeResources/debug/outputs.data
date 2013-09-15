@@ -1,11 +1,11 @@
 # incremental data. DO NOT EDIT.
 # format is <lastModified> <length> <SHA-1> <path>
 # Encoding is UTF-8
-1378732825131 356 000b5ba4727a3952cebfe101bb900b4dc50cc9c3 C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\build\res\all\debug\menu\main.xml
-1378732825130 782 d2e6030737d6c0ec46fa51f94e5a78512f7a5839 C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\build\res\all\debug\layout\activity_main.xml
-1378732825245 259 aae6b744e4f2106574c6a8496b48c088de126d7f C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\build\res\all\debug\values-sw720dp-land\values.xml
-1378732825390 11690 91f1090210ab23ec7f48390d6659245b5f777642 C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\build\res\all\debug\drawable-xhdpi\ic_launcher.png
-1378732825565 21977 39094b4ab1d622f3d5913869acfac9e981b371cd C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\build\res\all\debug\drawable-xxhdpi\ic_launcher.png
-1378732825438 4205 2e1c99bbe4f2bdad2a93664fbb2c15d306880c84 C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\build\res\all\debug\drawable-mdpi\ic_launcher.png
-1378732825371 7772 6b86546c1a481e84ea9b7f3ab70b564942f4823a C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\build\res\all\debug\drawable-hdpi\ic_launcher.png
-1378732825242 1144 ffc158d3a7c71976c5194de6a363c1b71706949b C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\build\res\all\debug\values\values.xml
+1378913215976 356 000b5ba4727a3952cebfe101bb900b4dc50cc9c3 C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\build\res\all\debug\menu\main.xml
+1378913215975 782 d2e6030737d6c0ec46fa51f94e5a78512f7a5839 C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\build\res\all\debug\layout\activity_main.xml
+1378913216261 259 aae6b744e4f2106574c6a8496b48c088de126d7f C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\build\res\all\debug\values-sw720dp-land\values.xml
+1378913217976 11690 91f1090210ab23ec7f48390d6659245b5f777642 C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\build\res\all\debug\drawable-xhdpi\ic_launcher.png
+1378913218282 21977 39094b4ab1d622f3d5913869acfac9e981b371cd C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\build\res\all\debug\drawable-xxhdpi\ic_launcher.png
+1378913218139 4205 2e1c99bbe4f2bdad2a93664fbb2c15d306880c84 C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\build\res\all\debug\drawable-mdpi\ic_launcher.png
+1378913217952 7772 6b86546c1a481e84ea9b7f3ab70b564942f4823a C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\build\res\all\debug\drawable-hdpi\ic_launcher.png
+1378913216213 1416 6854b267641b84218427f3604f0a3a1699b3dd4f C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\build\res\all\debug\values\values.xml

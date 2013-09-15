@@ -105,7 +105,6 @@ public final class MainGameScene extends MainScene
 			attachChild(WorldContext.getInstance().mPlayer);
             for(Door d : WorldContext.getInstance().mWorld.mDoors)
                 attachChild(d);
-			//attachChild(new Text(100, 100, ResourceManager.getInstance().mGameFont, "Main Game", ResourceManager.getInstance().mVBO));
 
             Debug.e("Set HUD");
             WorldContext.getInstance().getCamera().setHUD(mHUD);
@@ -138,11 +137,8 @@ public final class MainGameScene extends MainScene
     {
 		Debug.e("on MainGameScene dispose scene");
         ResourceManager.getInstance().unloadGameRes();
-        //detachChild(WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(0));
-        //detachChild(WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(1));
 		detachChild(WorldContext.getInstance().mPlayer);
-        //WorldContext.getInstance().mWorld.mTMXMap.getTMXTileSets().clear();
-        //WorldContext.getInstance().mWorld.mTMXMap = null;
+        detachChildren();
         WorldContext.getInstance().mWorld.mLevels.clear();
         WorldContext.getInstance().mWorld.mLevels = null;
         WorldContext.getInstance().mWorld = null;

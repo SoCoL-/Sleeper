@@ -78,7 +78,7 @@ public final class WorldGenerator
         assert(y < wContext.mWorld.mLevels.get(currLevel).getTileRows() && y > 0);
 		
 		//wContext.world.getLevel(currLevel).setCellID(x, y, id);
-        Debug.i("Set cell by x = " + x + ", y = " + y + ", id = " + id + ", layer = " + layer);
+        //Debug.i("Set cell by x = " + x + ", y = " + y + ", id = " + id + ", layer = " + layer);
         try
         {
             wContext.mWorld.mLevels.get(currLevel).getTMXLayers().get(layer).addTileByGlobalTileID(x, y, id, null);
@@ -87,7 +87,7 @@ public final class WorldGenerator
         {
             Debug.e(e);
         }
-        Debug.i("Set cell done");
+        //Debug.i("Set cell done");
 	}
 	
 	private void createDoor(int x, int y, int dir, boolean isFree)
@@ -240,9 +240,9 @@ public final class WorldGenerator
      * */
     private void createTiledDoor(LevelDoor door)
     {
-        createTiledDoor(door.mCoord.getY(), door.mCoord.getX(), door.mDir);
+        createTiledDoor(door.mCoord.getX(), door.mCoord.getY(), door.mDir);
     }
-
+//TODO
     private void createTiledDoor(final int x, final int y, final int dir)
     {
         boolean isVertical;
@@ -251,12 +251,12 @@ public final class WorldGenerator
         else
             isVertical = false;
 
+        setCell(x, y, 0, GameMap.LAYER_WALLS);                //Убрали стену
+        setCell(x, y, 16, GameMap.LAYER_FLOOR);               //Добавили пол
+
         Door newDoor = new Door(x*32, y*32, isVertical, false, ResourceManager.getInstance().mDoorsTexture, ResourceManager.getInstance().mVBO);
         wContext.mWorld.mDoors.add(newDoor);
         wContext.mWorld.mWakables[x][y].mIndexObject = wContext.mWorld.mDoors.size()-1;
-        setCell(x, y, TILE_NONE, GameMap.LAYER_WALLS);        //Убрали стену
-        setCell(x, y, 16, GameMap.LAYER_FLOOR);               //Добавили пол
-
     }
 
 	/**
@@ -289,8 +289,10 @@ public final class WorldGenerator
 			y = 22;
 
             //Добавим в комнату точку рождения игрока
+            Debug.e(TAG, "Create spawn player point");
             TMXObject playerSpawn = new TMXObject("player_spawn", "player", 23*32, 23*32, 32, 32);
             wContext.mWorld.mSpawns.add(playerSpawn);
+            Debug.e(TAG, "Done spawn player point");
 		}
 		else
 		{
@@ -360,9 +362,9 @@ public final class WorldGenerator
                     Debug.e(TAG, "The room does not fit by width: xtemp = " + xtemp + ", levelWidth = " + wContext.mWorld.mLevels.get(currLevel).getTileColumns());
 					return false;
 				}
-				if((getCell(xtemp, ytemp, GameMap.LAYER_WALLS) != TILE_NONE) && (!Utils.typesWall.contains(getCell(xtemp, ytemp, GameMap.LAYER_WALLS))) && (getDoorByCoord(xtemp, ytemp) == null)/*(getCell(xtemp, ytemp) != TILE_DOOR)*/)
+				if((getCell(xtemp, ytemp, GameMap.LAYER_FLOOR) != TILE_NONE) && (!Utils.typesWall.contains(getCell(xtemp, ytemp, GameMap.LAYER_FLOOR))) && (getDoorByCoord(xtemp, ytemp) == null)/*(getCell(xtemp, ytemp) != TILE_DOOR)*/)
 				{
-					Debug.e(TAG, "The room crosses a unique tile by coordinates : (" + xtemp + " , " + ytemp + ") с индексом тайла = " + getCell(xtemp, ytemp, GameMap.LAYER_WALLS));
+					Debug.e(TAG, "The room crosses a unique tile by coordinates : (" + xtemp + " , " + ytemp + ") with tile id = " + getCell(xtemp, ytemp, GameMap.LAYER_WALLS));
 					return false;
 				}
 			}
@@ -635,7 +637,7 @@ public final class WorldGenerator
 			//if((x+currX)>= mCurrLevel.getWidth() || (x+currX) < 0 || (y+currY)>= mCurrLevel.getHeight() || (y+currY)<0)
             if((x+currX)>= mCurrLevel.getTileColumns() || (x+currX) < 0 || (y+currY)>= mCurrLevel.getTileRows() || (y+currY)<0)
 			{
-				Debug.e(TAG, "Вышли за пределы размеров уровня!! Установим в конце коридора стену");
+				Debug.e(TAG, "Out of bounds of level!! Set wall in the end");
 				int wallID = -1;
 				boolean isVertical = false;
 				int correctX = 0, correctY = 0;
@@ -654,6 +656,7 @@ public final class WorldGenerator
 					correctY = endY - 1;
 				}
 				setCell(endX, endY, wallID, GameMap.LAYER_WALLS);
+                setCell(endX, endY, TILE_NONE, GameMap.LAYER_FLOOR);
 				//correctWallIDs(3, correctX, correctY, isVertical);
 				return false;
 			}
@@ -663,7 +666,7 @@ public final class WorldGenerator
 				isGoNext = isCanGo(x+currX, y, direction);
 			if(isGoNext > 0)
 			{
-				Debug.e(TAG, "Налетели на уникальный тайл. Остановим создание коридора");
+				Debug.e(TAG, "Unique tile!! Stop create corridor");
 				if(isGoNext == 2)//Нам нужна дверь в конце коридора
 				{
 					int localEndX = 0, localEndY = 0;		//Дверь будет ставится на текущем ряду коридора
@@ -698,6 +701,7 @@ public final class WorldGenerator
 						doorID = 2;
 					}
 					setCell(localEndX, localEndY, doorID, GameMap.LAYER_WALLS);
+                    setCell(localEndX, localEndY, TILE_NONE, GameMap.LAYER_FLOOR);
 				}
 				return false;
 			}
@@ -748,7 +752,11 @@ public final class WorldGenerator
                     }
 				
 				if(ld == null)
+                {
+                    setCell(x + currX, y + currY, TILE_NONE, GameMap.LAYER_FLOOR);
+                    setCell(x + currX, y + currY, TILE_NONE, GameMap.LAYER_WALLS);
 					setCell(x + currX, y + currY, what, layer);
+                }
 				else
 					ld.isFree = false;
 			}
@@ -1020,7 +1028,7 @@ public final class WorldGenerator
 				Debug.i(TAG, "isCanGo: 2: " + getCell(x, y+1*ky, GameMap.LAYER_WALLS) + " " + getCell(x+1, y+1*ky, GameMap.LAYER_WALLS) + " " + getCell(x+2, y+1*ky, GameMap.LAYER_WALLS));
 				Debug.i(TAG, "-------------==============------------");
 				//Если следующий ряд свободен от стен и от дверей, то можем поставить на стену дверь
-				if(Utils.typesFloor.contains(getCell(x+1, y+1*ky, GameMap.LAYER_FLOOR)))
+				if(Utils.typesFloor.contains(getCell(x+1, y+1*ky, GameMap.LAYER_FLOOR)) && getDoorByCoord(x+1, y+ky) == null && getCell(x+1, y+1*ky, GameMap.LAYER_WALLS) == TILE_NONE)
 					return 2;
 				else if(getCell(x+1, y+1*ky, GameMap.LAYER_WALLS) == TILE_NONE)//Если строим поворот, то начнем со стены, потому тут продолжим строительство
 					return 0;
@@ -1046,7 +1054,7 @@ public final class WorldGenerator
 				Debug.i(TAG, "isCanGo: 1: " + getCell(x, y, GameMap.LAYER_WALLS) + " " + getCell(x, y+1, GameMap.LAYER_WALLS) + " " + getCell(x, y+2, GameMap.LAYER_WALLS));
 				Debug.i(TAG, "isCanGo: 2: " + getCell(x+1*kx, y, GameMap.LAYER_WALLS) + " " + getCell(x+1*kx, y+2, GameMap.LAYER_WALLS) + " " + getCell(x+1*kx, y+2, GameMap.LAYER_WALLS));
 				Debug.i(TAG, "-------------==============------------");
-				if(Utils.typesFloor.contains(getCell(x+1*kx, y+1, GameMap.LAYER_FLOOR)))
+				if(Utils.typesFloor.contains(getCell(x+1*kx, y+1, GameMap.LAYER_FLOOR)) && getDoorByCoord(x+kx, y+1) == null)
 					return 2;
 				else if(getCell(x+1*kx, y+1, GameMap.LAYER_WALLS) == TILE_NONE)
 					return 0;
@@ -1064,7 +1072,7 @@ public final class WorldGenerator
 	 * */
 	private LevelDoor getFreeDoor()
 	{
-		Debug.i(TAG, "Пытаемся получить свободную дверь");
+		Debug.i(TAG, "Try to get free door");
 		if(mLevelDoors.size() == 0)
 			return null;
 		
@@ -1072,12 +1080,12 @@ public final class WorldGenerator
 		{
 			if(ld.isFree)
 			{
-				Debug.i(TAG, "Получили дверь по координатам: (" + ld.mCoord.getX() + ", " + ld.mCoord.getY() + ")");
+				Debug.i(TAG, "Get door by coords: (" + ld.mCoord.getX() + ", " + ld.mCoord.getY() + ")");
 				return ld;			//Вернем свободную комнату
 			}
 			else 
 			{
-				Debug.e(TAG, "Дверь по координатам: (" + ld.mCoord.getX() + ", " + ld.mCoord.getY() + ") занята!");
+				Debug.e(TAG, "Door by coords: (" + ld.mCoord.getX() + ", " + ld.mCoord.getY() + ") is not free!");
 			}
 		}
 		return null;
@@ -1169,7 +1177,9 @@ public final class WorldGenerator
 				if(mLD == null)
 				{
 					//Если нет дверей на карте и нет объектов, то поставим первой комнату
+                    Debug.i(TAG, "-----------=================Create new first Room=======================------------------");
 					setRoom(mLD);
+                    Debug.i(TAG, "-----------=================First Room created=======================------------------");
 				}
 				else if(mLD != null)
 				{
@@ -1178,12 +1188,16 @@ public final class WorldGenerator
 					if(chance <= chanceRoom)
 					{
 						//Выпала комната, поставим ее
+                        Debug.i(TAG, "-----------=================Create new Room, objectsMap.size() = " + objectsMap.size() + "=======================------------------");
 						setRoom(mLD);
+                        Debug.i(TAG, "-----------=================New Room created=======================------------------");
 					}
 					else if(chance > chanceRoom && chance <= 100)
 					{
 						//Выпал коридор, поставим его
+                        Debug.i(TAG, "-----------=================Create new Corridor, objectsMap.size() = " + objectsMap.size() + "=======================------------------");
 						setCorridor(mLD);
+                        Debug.i(TAG, "-----------=================New Corridor created=======================------------------");
 					}
 				}
 				
@@ -1196,7 +1210,7 @@ public final class WorldGenerator
 		
 		//Удалим все двери, что свободны
 		clearDoors();
-		Debug.i(TAG, "Сгенерировано объектов на карте = " + objectsMap.size());
+		Debug.i(TAG, "Number of generated objects = " + objectsMap.size());
 		
 		return true;
 	}

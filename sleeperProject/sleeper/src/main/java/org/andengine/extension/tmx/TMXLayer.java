@@ -229,9 +229,12 @@ public class TMXLayer extends SpriteBatch implements TMXConstants {
 		final int firstRow = MathUtils.bringToBounds(0, tileRows - 1, (int)Math.floor(firstRowRaw));
 		final int lastRow = MathUtils.bringToBounds(0, tileRows - 1, (int)Math.floor(firstRowRaw + cameraHeight / scaledTileHeight));
 
-		for(int row = firstRow; row <= lastRow; row++) {
-			for(int column = firstColumn; column <= lastColumn; column++) {
-				this.mSpriteBatchVertexBufferObject.draw(GLES20.GL_TRIANGLE_STRIP, this.getSpriteBatchIndex(column, row) * SpriteBatch.VERTICES_PER_SPRITE, SpriteBatch.VERTICES_PER_SPRITE);
+		for(int row = firstRow; row <= lastRow; row++)
+        {
+			for(int column = firstColumn; column <= lastColumn; column++)
+            {
+                if(mTMXTiles[row][column] != null && (mTMXTiles[row][column].mGlobalTileID != 0))
+				    this.mSpriteBatchVertexBufferObject.draw(GLES20.GL_TRIANGLE_STRIP, this.getSpriteBatchIndex(column, row) * SpriteBatch.VERTICES_PER_SPRITE, SpriteBatch.VERTICES_PER_SPRITE);
 			}
 		}
 	}
@@ -288,8 +291,28 @@ public class TMXLayer extends SpriteBatch implements TMXConstants {
 		final ITextureRegion tmxTileTextureRegion;
 		if(pGlobalTileID == 0)
 		{
-			final TMXTile tmxTile = new TMXTile(pGlobalTileID, column, row, tileWidth, tileHeight, null);
-			tmxTiles[row][column] = tmxTile;
+            Debug.i("Set tile with id = 0, column = " + tilecol + ", row = " + tilerow);
+
+            if(mTMXTiles[row][column] == null)
+            {
+                Debug.i("mTMXTiles[row][column] == null");
+			    final TMXTile tmxTile = new TMXTile(pGlobalTileID, column, row, tileWidth, tileHeight, null);
+                mTMXTiles[row][column] = tmxTile;
+            }
+            else
+            {
+                Debug.i("mTMXTiles[row][column] != null");
+                //tmxTiles[row][column] = tmxTile;
+                mTMXTiles[row][column].mTextureRegion = null;
+                mTMXTiles[row][column].mGlobalTileID = 0;
+                reset();
+                //mTMXTiles[row][column] = tmxTile;
+                //mTMXTiles[row][column].setGlobalTileID(tmxTiledMap, 0);
+
+                //this.setIndex(this.getSpriteBatchIndex(column, row));
+                //this.drawWithoutChecks(null, tmxTile.getTileX(), tmxTile.getTileY(), tileWidth, tileHeight, Color.WHITE_ABGR_PACKED_FLOAT);
+                this.submit(); // TODO Doesn't need to be called here, but should rather be called in a "init" step, when parsing the XML is complete.
+            }
 		}
 		else  if(pGlobalTileID != 0)
 		{

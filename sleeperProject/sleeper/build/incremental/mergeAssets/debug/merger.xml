@@ -7,9 +7,6 @@
                 name="fonts/NeverwinterNights.ttf"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\fonts\NeverwinterNights.ttf" />
             <file
-                name="gfx/characters/32it45.png"
-                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\gfx\characters\32it45.png" />
-            <file
                 name="gfx/characters/hero.png"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\gfx\characters\hero.png" />
             <file
@@ -76,6 +73,9 @@
                 name="tileset/walls_stone.png"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\tileset\walls_stone.png" />
             <file
+                name="tileset/walls_stone1.png"
+                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\tileset\walls_stone1.png" />
+            <file
                 name="tmx/map_test.tmx"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\tmx\map_test.tmx" />
             <file
@@ -84,6 +84,15 @@
             <file
                 name="tmx/map_test3.tmx"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\tmx\map_test3.tmx" />
+            <file
+                name="tmx/room1.tmx"
+                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\tmx\room1.tmx" />
+            <file
+                name="tmx/room2.tmx"
+                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\tmx\room2.tmx" />
+            <file
+                name="tmx/room3.tmx"
+                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\tmx\room3.tmx" />
         </source>
     </dataSet>
     <dataSet config="debug" >

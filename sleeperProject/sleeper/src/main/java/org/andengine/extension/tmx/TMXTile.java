@@ -82,7 +82,10 @@ public class TMXTile
 	 */
 	public void setGlobalTileID(final TMXTiledMap pTMXTiledMap, final int pGlobalTileID) {
 		this.mGlobalTileID = pGlobalTileID;
-		this.mTextureRegion = pTMXTiledMap.getTextureRegionFromGlobalTileID(pGlobalTileID);
+        if(pGlobalTileID == 0)
+            this.mTextureRegion = null;
+        else
+		    this.mTextureRegion = pTMXTiledMap.getTextureRegionFromGlobalTileID(pGlobalTileID);
 	}
 
 	/**

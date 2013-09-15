@@ -44,6 +44,18 @@
             <file
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\res\values\strings.xml"
                 qualifiers="" >
+                <string-array name="rooms_name" >
+                    <item>
+room1.tmx
+                    </item>
+                    <item>
+room2.tmx
+                    </item>
+                    <item>
+room3.tmx
+                    </item>
+                </string-array>
+
                 <string name="action_settings" >Settings
                 </string>
                 <string name="app_name" >Sleeper
