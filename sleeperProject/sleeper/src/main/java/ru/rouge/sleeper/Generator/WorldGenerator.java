@@ -38,6 +38,7 @@ public final class WorldGenerator
 
 	private ArrayList<ObjectOnMap> objectsMap;		//Для последующего добавления предметов на карту, сундуков, монстров и т.д.
 	private ArrayList<LevelDoor> mLevelDoors;		//Для соединения всех комнат + разнообразие коридоров
+    private int[] mCheckTile;                       //Вспомогательный массив, указывающий на то, что тайл проверен или нет
 
 	public WorldGenerator(WorldContext cont)
 	{
@@ -766,241 +767,293 @@ public final class WorldGenerator
 		return true;
 	}
 	
-	/**Функция правит идентификаторы стен после их установки
-	 * @param width - ширина линии проверяемых тайлов
-	 * @param x - координата начала проверяемой линии
-	 * @param y - координата начала проверяемой линии
-	 * @param isVertical - направление строительства комнаты/коридора
+	/**
+     * Функция правит идентификаторы стен после их установки
 	 * */
-	public void correctWallIDs(int width, int x, int y, boolean isVertical)
+	public void correctWallIDs()
 	{
-		/*Описание:
-		 * каждому тайлу стены вокруг текущего(если текущий тайл = стене и идентификаторы соседнего тайла и текущего не равны)
-		 * предоставляется свой вес. 
-		 * Верхний = 1,
-		 * левый = 2,
-		 * правый = 8,
-		 * нижний = 4
-		 * Сложив все суммы можно будет узнать, какой тайл стены можно будет подставить на текущее место 
-		 */
-		/*Debug.i(TAG, "*****************************************************************");
-		Debug.i(TAG, "Начали корректировать тайлы");
-		Debug.i(TAG, "isVertical = " + isVertical);
-		Debug.i(TAG, "x = " + x + " , y = " + y);
-		Debug.i(TAG, "width = " + width);
-		
-		int currX = 0, currY = 0;															//Координаты текущего идентификатора
-		int summa = 0;																		//Сумма всех весов
-		int wallID = -1;
-		for(int i = 0; i < width; i++)
-		{
-			if(isVertical)
-			{
-				currX = x + i;
-				currY = y;
-			}
-			else
-			{
-				currX = x;
-				currY = y + i;
-			}
-			if(currX < 0 || currX >= wContext.world.getLevel(currLevel).getWidth())
-			{
-				Debug.e(TAG, "Ошибка(х). Координаты вышли за пределы игрового поля!!!!!! :(currX, currY) = (" + currX + " , " + currY + ")");
-				return;
-			}
-			if(currY < 0 || currY >= wContext.world.getLevel(currLevel).getHeight())
-			{
-				Debug.e(TAG, "Ошибка(y). Координаты вышли за пределы игрового поля!!!!!! :(currX, currY) = (" + currX + " , " + currY + ")");
-				return;
-			}
-			
-			Debug.i(TAG, "getCell(currX, currY) = " + getCell(currX, currY));
-			Debug.i(TAG, "currX = " + currX + " , currY = " + currY);
-			wallID = getCell(currX, currY);	//Если суммы нет в списке, то не меняем тайл
-			if(Utils.typesWall.contains(getCell(currX, currY)))
-			{
-				if(currX != 0 && Utils.typesWall.contains(getCell(currX-1, currY)))//Если текущий тайл не самый левый, то посмотрим на тайл слева
-					summa += 2;//Если тайл слева - стена, то прибавим к сумме вес
-					//summa += getWeight(currX-1, currY, ObjectOnMap.DIR_WEST);
-				if(currY != 0 && Utils.typesWall.contains(getCell(currX, currY-1)))//Если текущий тайл не самый верхний, то посмотрим на тайл сверху
-					summa += 1;//Если тайл сверху - стена, то прибавим к сумме вес
-					//summa += getWeight(currX, currY-1, ObjectOnMap.DIR_NORTH);
-				if((currX < wContext.world.getLevel(currLevel).getWidth()-1) && Utils.typesWall.contains(getCell(currX+1, currY)))//Если текущий тайл не самый правый, то посмотрим на тайл справа
-					summa += 8;//Если тайл справа - стена, то прибавим к сумме вес
-					//summa += getWeight(currX+1, currY, ObjectOnMap.DIR_EAST);
-				if((currY < wContext.world.getLevel(currLevel).getHeight()-1) && Utils.typesWall.contains(getCell(currX, currY+1)))//Если текущий тайл не самый нижний, то посмотрим на тайл снизу
-					summa += 4;//Если тайл снизу - стена, то прибавим к сумме вес
-					//summa += getWeight(currX, currY+1, ObjectOnMap.DIR_SOUTH);
-			}
-			Debug.i(TAG, "summa = " + summa);
+        Debug.i("Start correct tiles ids");
+        Debug.i("********************/BEGIN/***********************");
 
-            wallID = summa;*/
-			/*switch(summa)
-			{
-			case 32:
-				wallID = 7;
-				break;
-			case 23:
-				wallID = 3;
-				break;
-			case 27:
-				wallID = 4;
-				break;
-			case 28:
-				wallID = 8;
-				break;
-			case 30:
-				wallID = 6;
-				break;
-			case 25:
-				wallID = 9;
-				break;
-			case 45:
-				wallID = 10;
-				break;
-			case 42:
-				wallID = 11;
-				break;
-			case 38:
-				break;
-			case 40:
-				break;
-			case 55:
-				break;
-			case 15:
-				break;
-			case 17:
-				break;
-			case 13:
-				break;
-			case 10:
-				break;
-			}*/
-			
-			/*setCell(currX, currY, wallID);
-			summa = 0;
-		}
-		Debug.i(TAG, "Корректировка завершена");
-		Debug.i(TAG, "*****************************************************************");*/
+        TMXTiledMap mCurrLevel = wContext.mWorld.mLevels.get(currLevel);
+        int length = mCurrLevel.getTileColumns() * mCurrLevel.getTileRows();
+
+        for(int i = 0; i < length; i++)
+        {
+            int row = i / mCurrLevel.getTileColumns();
+            int column = i % mCurrLevel.getTileColumns();
+
+            //Считаем для тайла, если над ним нет стены, нет двери и сам тайл - пол
+            if(getCell(column, row, GameMap.LAYER_WALLS) == TILE_NONE && getCell(column,row, GameMap.LAYER_FLOOR) != TILE_NONE && getDoorByCoord(column, row)==null)
+            {
+                //Считаем идентификаторы для группы тайлов вокруг текущего
+                calculateIDS(column, row);
+            }
+        }
+
+        Debug.i("********************/END/***********************");
 	}
 	
-	/**Функция проверяет соседние тайлы на наличаезапрещенных комбинаций и возвращает нужный вес
-	 * @param x - координата тайла, относительно которого будет происходить проверка
-	 * @param y - координата тайла, относительно которого будет происходить проверка
-	 * @param direction - слева или справа от изначального тайла проверяем
+	/**
+     * Подсчет по шаблонам номеров тайлов вокруг заданного базового
+     * @param column - x координата базового тайла
+     * @param row - y координата базового тайла
 	 * */
-	private int getWeight(int x, int y, int direction)
+	private void calculateIDS(int column, int row)
 	{
-		/*final int WEIGHT_UP = 10;
-		final int WEIGHT_LEFT = 15;
-		final int WEIGHT_RIGHT = 17;
-		final int WEIGHT_BOTTOM = 13;
-		
-		int localWeight = 0;			//Вес для опрееления учитывания текущего проверяемого тайла(-1 и 0, то учитываем)
-		
-		if(direction == ObjectOnMap.DIR_EAST || direction == ObjectOnMap.DIR_WEST)
-		{
-			if(y == 0)//Если проверяем на верхнем краю карты
-			{
-				if(Utils.typesWall.contains(getCell(x, y+1)))
-					localWeight += 1;
-				else if(Utils.typesFloor.contains(getCell(x, y+1)) || getCell(x, y+1) == TILE_DOOR)
-					localWeight += -1;
-				//else localWeight += 0;
-			}
-			else if(y == wContext.world.getLevel(currLevel).getHeight()-1)//если проверяем на нижнем краю карты
-			{
-				if(Utils.typesWall.contains(getCell(x, y-1)))
-					localWeight += 1;
-				else if(Utils.typesFloor.contains(getCell(x, y-1)) || getCell(x, y-1) == TILE_DOOR)
-					localWeight += -1;
-			}
-			else//если проверяем не с краев
-			{
-				//Проверим верхний тайл
-				if(Utils.typesWall.contains(getCell(x, y-1)))
-					localWeight += 1;
-				else if(Utils.typesFloor.contains(getCell(x, y-1)) || getCell(x, y-1) == TILE_DOOR)
-					localWeight += -1;
-				//ПРроверим нижний тайл
-				if(Utils.typesWall.contains(getCell(x, y+1)))
-					localWeight += 1;
-				else if(Utils.typesFloor.contains(getCell(x, y+1)) || getCell(x, y+1) == TILE_DOOR)
-					localWeight += -1;
-			}
-		}
-		else if(direction == ObjectOnMap.DIR_SOUTH || direction == ObjectOnMap.DIR_NORTH)
-		{
-			if(x == 0)//если проверяем на левом краю карты
-			{
-				if(Utils.typesWall.contains(getCell(x+1, y)))
-					localWeight += 1;
-				else if(Utils.typesFloor.contains(getCell(x+1, y)) || getCell(x+1, y) == TILE_DOOR)
-					localWeight += -1;
-			}
-			else if(x == wContext.world.getLevel(currLevel).getWidth()-1)//если проверяем на правом краю карты
-			{
-				if(Utils.typesWall.contains(getCell(x-1, y)))
-					localWeight += 1;
-				else if(Utils.typesFloor.contains(getCell(x-1, y)) || getCell(x-1, y) == TILE_DOOR)
-					localWeight += -1;
-			}
-			else//если проверяем не с краев карты
-			{
-				//Проверим левый тайл
-				if(Utils.typesWall.contains(getCell(x-1, y)))
-					localWeight += 1;
-				else if(Utils.typesFloor.contains(getCell(x-1, y)) || getCell(x-1, y) == TILE_DOOR)
-					localWeight += -1;
-				//Проверим правый тайл
-				if(Utils.typesWall.contains(getCell(x+1, y)))
-					localWeight += 1;
-				else if(Utils.typesFloor.contains(getCell(x+1, y)) || getCell(x+1, y) == TILE_DOOR)
-					localWeight += -1;
-			}
-		}
-		
-		if(localWeight > 0)
-			return 0;
-		if(localWeight <= 0)
-		{
-			if(direction == ObjectOnMap.DIR_EAST)
-				return WEIGHT_RIGHT;
-			if(direction == ObjectOnMap.DIR_WEST)
-				return WEIGHT_LEFT;
-			if(direction == ObjectOnMap.DIR_NORTH)
-				return WEIGHT_UP;
-			if(direction == ObjectOnMap.DIR_SOUTH)
-				return WEIGHT_BOTTOM;
-		}
-		
-		/*if(isVertical)
-		{
-			if(y == 0 && Utils.typesWall.contains(getCell(x, y+1)))
-				return 0;
-			else if(y == 0 && !Utils.typesWall.contains(getCell(x, y+1)))
-			{
-				if(left)
-					return WEIGHT_LEFT;
-				else
-					return WEIGHT_RIGHT;
-			}
-				
-				
-			if(y != 0 && Utils.typesWall.contains(getCell(x, y-1)))
-			{
-				if(y < wContext.world.getLevel(currLevel).getHeight()-1)
-					
-			}
-		}
-		else
-		{
-			
-		}*/
-		
-		return -1;
+        //final int NUMBER_TURNS = 8; // Вокруг базового тайла находятся 8, которым и надо посчитать
+        //Придется вручную перебрать 8 вариантов тайлов
+
+        //Первый тайл верхний левый: column - 1; row -1
+        //Для него проверка по нижнему и правому тайлам: (column-1; row) и (column; row-1)
+        if(Utils.typesWall.contains(getCell(column-1, row-1, GameMap.LAYER_WALLS)))
+        {
+            int numWalls = 0;//0 - нет тайлов вокруг(нет информации, не меняем ничего), 1 - вертикальная стена, 2 - горизонтальная стена, 3 - угол(низ, право)
+            //Проверим первый тайл
+            if(Utils.typesWall.contains(getCell(column-1, row, GameMap.LAYER_WALLS)) || (Utils.typesFloor.contains(getCell(column-1, row, GameMap.LAYER_FLOOR)) && getDoorByCoord(column-1, row) != null))
+            {
+                numWalls += 1;
+            }
+            //Проверим второй тайл
+            if(Utils.typesWall.contains(getCell(column, row-1, GameMap.LAYER_WALLS)) || (Utils.typesFloor.contains(getCell(column, row-1, GameMap.LAYER_FLOOR)) && getDoorByCoord(column, row-1) != null))
+            {
+                numWalls += 2;
+            }
+            //Применим шаблон
+            if(numWalls == 1)
+                setCell(column-1, row-1, 2, GameMap.LAYER_WALLS);
+            else if(numWalls == 2)
+                setCell(column-1, row-1, 1, GameMap.LAYER_WALLS);
+            else if(numWalls == 3)
+                setCell(column-1, row-1, 5, GameMap.LAYER_WALLS);
+        }
+
+        //2ой тайл верхний средний: column; row -1
+        if(Utils.typesWall.contains(getCell(column, row-1, GameMap.LAYER_WALLS)))
+        {
+            int numWalls = 0;//0 - нет тайлов вокруг(тупик вниз), 1 - тупик вправо, 2 - тупик влево, 3 - гориз стена
+            //Проверим первый тайл
+            if(Utils.typesWall.contains(getCell(column-1, row-1, GameMap.LAYER_WALLS)) || (Utils.typesFloor.contains(getCell(column-1, row-1, GameMap.LAYER_FLOOR)) && getDoorByCoord(column-1, row-1) != null))
+            {
+                numWalls += 1;
+            }
+            //Проверим второй тайл
+            if(Utils.typesWall.contains(getCell(column+1, row-1, GameMap.LAYER_WALLS)) || (Utils.typesFloor.contains(getCell(column+1, row-1, GameMap.LAYER_FLOOR)) && getDoorByCoord(column+1, row-1) != null))
+            {
+                numWalls += 2;
+            }
+            //Применим шаблон
+            if(numWalls == 0)
+                setCell(column, row-1, 10, GameMap.LAYER_WALLS);
+            else if(numWalls == 1)
+                setCell(column, row-1, 8, GameMap.LAYER_WALLS);
+            else if(numWalls == 2)
+                setCell(column, row-1, 9, GameMap.LAYER_WALLS);
+            else if(numWalls == 3)
+                setCell(column, row-1, 1, GameMap.LAYER_WALLS);
+        }
+
+        //3ий тайл верхний правый: column+1; row -1
+        if(Utils.typesWall.contains(getCell(column+1, row-1, GameMap.LAYER_WALLS)))
+        {
+            Debug.i("Calculate 3 tile id");
+            Debug.i("1:(x;y-1).id = " + getCell(column, row-1, GameMap.LAYER_WALLS));
+            Debug.i("1:(x;y-1).hasDoor = " + (getDoorByCoord(column, row-1) != null));
+            Debug.i("2:(x+1;y).id = " + getCell(column+1, row, GameMap.LAYER_WALLS));
+            Debug.i("2:(x+1;y).hasDoor = " + (getDoorByCoord(column+1, row) != null));
+            int numWalls = 0;//0 - нет тайлов вокруг(ничего не делаем), 1 - горизонтальный, 2 - вертикальный, 3 - угол(лево, вниз)
+            //Проверим первый тайл
+            if(Utils.typesWall.contains(getCell(column, row-1, GameMap.LAYER_WALLS)) || (Utils.typesFloor.contains(getCell(column, row-1, GameMap.LAYER_FLOOR)) && getDoorByCoord(column, row-1) != null))
+            {
+                numWalls += 1;
+            }
+            //Проверим второй тайл
+            if(Utils.typesWall.contains(getCell(column+1, row, GameMap.LAYER_WALLS)) || (Utils.typesFloor.contains(getCell(column+1, row, GameMap.LAYER_FLOOR)) && getDoorByCoord(column+1, row) != null))
+            {
+                numWalls += 2;
+            }
+            //Применим шаблон
+            if(numWalls == 1)
+                setCell(column+1, row-1, 1, GameMap.LAYER_WALLS);
+            else if(numWalls == 2)
+                setCell(column+1, row-1, 2, GameMap.LAYER_WALLS);
+            else if(numWalls == 3)
+                setCell(column+1, row-1, 6, GameMap.LAYER_WALLS);
+        }
+
+        //4ый тайл средний левый: column-1; row
+        if(Utils.typesWall.contains(getCell(column-1, row, GameMap.LAYER_WALLS)))
+        {
+            int numWalls = 0;//0 - нет тайлов вокруг(тупик вправо), 1 - тупик вниз, 2 - тупик вверх, 3 - вертикальный
+            //Проверим первый тайл
+            if(Utils.typesWall.contains(getCell(column-1, row-1, GameMap.LAYER_WALLS)) || (Utils.typesFloor.contains(getCell(column-1, row-1, GameMap.LAYER_FLOOR)) && getDoorByCoord(column-1, row-1) != null))
+            {
+                numWalls += 1;
+            }
+            //Проверим второй тайл
+            if(Utils.typesWall.contains(getCell(column-1, row+1, GameMap.LAYER_WALLS)) || (Utils.typesFloor.contains(getCell(column-1, row+1, GameMap.LAYER_FLOOR)) && getDoorByCoord(column-1, row+1) != null))
+            {
+                numWalls += 2;
+            }
+            //Применим шаблон
+            if(numWalls == 0)
+                setCell(column-1, row, 8, GameMap.LAYER_WALLS);
+            else if(numWalls == 1)
+                setCell(column-1, row, 10, GameMap.LAYER_WALLS);
+            else if(numWalls == 2)
+                setCell(column-1, row, 11, GameMap.LAYER_WALLS);
+            else if(numWalls == 3)
+                setCell(column-1, row, 2, GameMap.LAYER_WALLS);
+        }
+
+        //5ый тайл средний правый: column-1; row
+        if(Utils.typesWall.contains(getCell(column+1, row, GameMap.LAYER_WALLS)))
+        {
+            int numWalls = 0;//0 - нет тайлов вокруг(тупик влево), 1 - тупик вниз, 2 - тупик вверх, 3 - вертикальный
+            //Проверим первый тайл
+            if(Utils.typesWall.contains(getCell(column+1, row-1, GameMap.LAYER_WALLS)) || (Utils.typesFloor.contains(getCell(column+1, row-1, GameMap.LAYER_FLOOR)) && getDoorByCoord(column+1, row-1) != null))
+            {
+                numWalls += 1;
+            }
+            //Проверим второй тайл
+            if(Utils.typesWall.contains(getCell(column+1, row+1, GameMap.LAYER_WALLS)) || (Utils.typesFloor.contains(getCell(column+1, row+1, GameMap.LAYER_FLOOR)) && getDoorByCoord(column+1, row+1) != null))
+            {
+                numWalls += 2;
+            }
+            //Применим шаблон
+            if(numWalls == 0)
+                setCell(column+1, row, 9, GameMap.LAYER_WALLS);
+            else if(numWalls == 1)
+                setCell(column+1, row, 10, GameMap.LAYER_WALLS);
+            else if(numWalls == 2)
+                setCell(column+1, row, 11, GameMap.LAYER_WALLS);
+            else if(numWalls == 3)
+                setCell(column+1, row, 2, GameMap.LAYER_WALLS);
+        }
+
+        //6ой тайл нижний левый: column-1; row+1
+        if(Utils.typesWall.contains(getCell(column-1, row+1, GameMap.LAYER_WALLS)))
+        {
+            int numWalls = 0;//0 - нет тайлов вокруг(ничего не ставим), 1 - вертикальный, 2 - горизонтальный, 3 - угол(верх, право)
+            //Проверим первый тайл
+            if(Utils.typesWall.contains(getCell(column-1, row, GameMap.LAYER_WALLS)) || (Utils.typesFloor.contains(getCell(column-1, row, GameMap.LAYER_FLOOR)) && getDoorByCoord(column-1, row) != null))
+            {
+                numWalls += 1;
+            }
+            //Проверим второй тайл
+            if(Utils.typesWall.contains(getCell(column, row+1, GameMap.LAYER_WALLS)) || (Utils.typesFloor.contains(getCell(column, row+1, GameMap.LAYER_FLOOR)) && getDoorByCoord(column, row+1) != null))
+            {
+                numWalls += 2;
+            }
+            //Применим шаблон
+            if(numWalls == 1)
+                setCell(column-1, row+1, 2, GameMap.LAYER_WALLS);
+            else if(numWalls == 2)
+                setCell(column-1, row+1, 1, GameMap.LAYER_WALLS);
+            else if(numWalls == 3)
+                setCell(column-1, row+1, 4, GameMap.LAYER_WALLS);
+        }
+
+        //7ой тайл нижний средний: column; row+1
+        if(Utils.typesWall.contains(getCell(column, row+1, GameMap.LAYER_WALLS)))
+        {
+            int numWalls = 0;//0 - нет тайлов вокруг(тупик вверх), 1 - тупик вправо, 2 - тупик влево, 3 - горизонтальный
+            //Проверим первый тайл
+            if(Utils.typesWall.contains(getCell(column-1, row+1, GameMap.LAYER_WALLS)) || (Utils.typesFloor.contains(getCell(column-1, row+1, GameMap.LAYER_FLOOR)) && getDoorByCoord(column-1, row+1) != null))
+            {
+                numWalls += 1;
+            }
+            //Проверим второй тайл
+            if(Utils.typesWall.contains(getCell(column+1, row+1, GameMap.LAYER_WALLS)) || (Utils.typesFloor.contains(getCell(column+1, row+1, GameMap.LAYER_FLOOR)) && getDoorByCoord(column+1, row+1) != null))
+            {
+                numWalls += 2;
+            }
+            //Применим шаблон
+            if(numWalls == 0)
+                setCell(column, row+1, 11, GameMap.LAYER_WALLS);
+            else if(numWalls == 1)
+                setCell(column, row+1, 8, GameMap.LAYER_WALLS);
+            else if(numWalls == 2)
+                setCell(column, row+1, 9, GameMap.LAYER_WALLS);
+            else if(numWalls == 3)
+                setCell(column, row+1, 1, GameMap.LAYER_WALLS);
+        }
+
+        //8ой тайл нижний правый: column+1; row+1
+        if(Utils.typesWall.contains(getCell(column+1, row+1, GameMap.LAYER_WALLS)))
+        {
+            int numWalls = 0;//0 - нет тайлов вокруг(ничего не ставим), 1 - горизонтальный, 2 - вертикальный, 3 - угол(лево, вверх)
+            //Проверим первый тайл
+            if(Utils.typesWall.contains(getCell(column, row+1, GameMap.LAYER_WALLS)) || (Utils.typesFloor.contains(getCell(column, row+1, GameMap.LAYER_FLOOR)) && getDoorByCoord(column, row+1) != null))
+            {
+                numWalls += 1;
+            }
+            //Проверим второй тайл
+            if(Utils.typesWall.contains(getCell(column+1, row, GameMap.LAYER_WALLS)) || (Utils.typesFloor.contains(getCell(column+1, row, GameMap.LAYER_FLOOR)) && getDoorByCoord(column+1, row) != null))
+            {
+                numWalls += 2;
+            }
+            //Применим шаблон
+            else if(numWalls == 1)
+                setCell(column+1, row+1, 1, GameMap.LAYER_WALLS);
+            else if(numWalls == 2)
+                setCell(column+1, row+1, 2, GameMap.LAYER_WALLS);
+            else if(numWalls == 3)
+                setCell(column+1, row+1, 7, GameMap.LAYER_WALLS);
+        }
 	}
+
+    /**
+     * Испльзуя шаблоны, получаем настоящий идентификатор тайла. Передаем идентификаторы записанный в массиве тайлов карты и посчитанный функцией calculateIDS()
+     * Работает только со слоем стен.
+     * @param current - идентификатор тайла сохраненный на карте
+     * @param calculated - идентификатор тайла посчитанный функцией calculateIDS()
+     * @param column - х координата тайла
+     * @param row - y координата тайла
+     * @param quad - 0 - верх/верх-лево, 1- низ/верх-право, 2 - лево/низ-лево, 3 - право/низ-право
+     * */
+    private void modifyTileIDS(final int current, final int calculated, final int column, final int row, final int quad)
+    {
+        //Если не проверяли тайл ранее, то перепишем на посчитанный и отметим, как проверенный
+        if(mCheckTile[row + column*row] == 0)
+        {
+            setCell(column, row, calculated, GameMap.LAYER_WALLS);
+            mCheckTile[row + column*row] = 1;
+        }
+        else
+        {
+            //Если проверяли ранее, то смотрим на шаблоны
+
+            //Исключения
+            if(calculated == current)   //Если идентификаторы равны, то и менять нечего
+                return;
+
+            if(current == 3) //Если сохраненный = крестику, то не меняем его
+                return;
+
+            //Изменения
+            switch (current)
+            {
+                case 1:
+                    switch (calculated)
+                    {
+                        case 5:
+                        case 4:
+                            setCell(column, row, 14, GameMap.LAYER_WALLS);
+                            break;
+                    }
+                    break;
+                case 4:
+                    switch (calculated)
+                    {
+                        case 5:
+                            setCell(column, row, 14, GameMap.LAYER_WALLS);
+                            break;
+                    }
+                    break;
+            }
+        }
+    }
 	
 	/** Функция проверяет, что находится перед коридором и говорит можно ли дальше его строить
 	 * @param x - Координата х
@@ -1143,8 +1196,19 @@ public final class WorldGenerator
 			int width_level = 50;															//Ширина уровня(х)
 			//int height_level = Utils.getRand(World.MINLEVELHEIGHT, World.MAXLEVELHEIGHT);	//Высота уровня(y)
 			int height_level = 60;															//Высота уровня(y)
-			
-			//int tries = 0;					//Количество попыток поставить объект на карте =)
+
+            Debug.i("Init mCheckTile");
+            if(mCheckTile == null)
+            {
+                mCheckTile = new int[wContext.mWorld.mLevels.get(currLevel).getTileColumns() * wContext.mWorld.mLevels.get(currLevel).getTileRows()];
+                for(int k = 0; k < wContext.mWorld.mLevels.get(currLevel).getTileColumns() * wContext.mWorld.mLevels.get(currLevel).getTileRows(); k++)
+                {
+                    mCheckTile[k] = 0;
+                }
+            }
+            Debug.i("Init done");
+
+            //int tries = 0;					//Количество попыток поставить объект на карте =)
 			//boolean isFreePlace = true;		//Если еще свободное место на карте(можно ли еще воткнуть туда хоть что-то из комнат)
 			//boolean isFreeObjects = true;		//Если нет свободных объектов, то завершим формирование уровня
 			int countObjects = 0;				//Текущее количество объектов на карте
@@ -1209,7 +1273,10 @@ public final class WorldGenerator
 		}
 		
 		//Удалим все двери, что свободны
+        Debug.i("Delete all free doors");
 		clearDoors();
+        Debug.i("Calculate ids of tiles in level");
+        correctWallIDs();
 		Debug.i(TAG, "Number of generated objects = " + objectsMap.size());
 		
 		return true;
