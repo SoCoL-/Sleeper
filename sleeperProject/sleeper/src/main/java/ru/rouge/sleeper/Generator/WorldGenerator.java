@@ -808,7 +808,8 @@ public final class WorldGenerator
         //Для него проверка по нижнему и правому тайлам: (column-1; row) и (column; row-1)
         if(Utils.typesWall.contains(getCell(column-1, row-1, GameMap.LAYER_WALLS)))
         {
-            int numWalls = 0;//0 - нет тайлов вокруг(нет информации, не меняем ничего), 1 - вертикальная стена, 2 - горизонтальная стена, 3 - угол(низ, право)
+            //int numWalls = 0;//0 - нет тайлов вокруг(нет информации, не меняем ничего), 1 - вертикальная стена, 2 - горизонтальная стена, 3 - угол(низ, право)
+            int numWalls = 0;//0 - нет информации, не меняем, 1 - нет информации, не меняем, 2 - нет информации, не меняем, 3 - угол(низ, право)
             //Проверим первый тайл
             if(Utils.typesWall.contains(getCell(column-1, row, GameMap.LAYER_WALLS)) || (Utils.typesFloor.contains(getCell(column-1, row, GameMap.LAYER_FLOOR)) && getDoorByCoord(column-1, row) != null))
             {
@@ -820,12 +821,13 @@ public final class WorldGenerator
                 numWalls += 2;
             }
             //Применим шаблон
-            if(numWalls == 1)
+            /*if(numWalls == 1)
                 setCell(column-1, row-1, 2, GameMap.LAYER_WALLS);
             else if(numWalls == 2)
                 setCell(column-1, row-1, 1, GameMap.LAYER_WALLS);
-            else if(numWalls == 3)
-                setCell(column-1, row-1, 5, GameMap.LAYER_WALLS);
+            else */if(numWalls == 3)
+                modifyTileIDS(getCell(column-1, row-1, GameMap.LAYER_WALLS), 5, column-1, row-1, 0);
+                //setCell(column-1, row-1, 5, GameMap.LAYER_WALLS);
         }
 
         //2ой тайл верхний средний: column; row -1
@@ -844,13 +846,17 @@ public final class WorldGenerator
             }
             //Применим шаблон
             if(numWalls == 0)
-                setCell(column, row-1, 10, GameMap.LAYER_WALLS);
+                modifyTileIDS(getCell(column, row-1, GameMap.LAYER_WALLS), 10, column, row-1, 0);
+                //setCell(column, row-1, 10, GameMap.LAYER_WALLS);
             else if(numWalls == 1)
-                setCell(column, row-1, 8, GameMap.LAYER_WALLS);
+                modifyTileIDS(getCell(column, row-1, GameMap.LAYER_WALLS), 8, column, row-1, 0);
+                //setCell(column, row-1, 8, GameMap.LAYER_WALLS);
             else if(numWalls == 2)
-                setCell(column, row-1, 9, GameMap.LAYER_WALLS);
+                modifyTileIDS(getCell(column, row-1, GameMap.LAYER_WALLS), 9, column, row-1, 0);
+                //setCell(column, row-1, 9, GameMap.LAYER_WALLS);
             else if(numWalls == 3)
-                setCell(column, row-1, 1, GameMap.LAYER_WALLS);
+                modifyTileIDS(getCell(column, row-1, GameMap.LAYER_WALLS), 1, column, row-1, 0);
+                //setCell(column, row-1, 1, GameMap.LAYER_WALLS);
         }
 
         //3ий тайл верхний правый: column+1; row -1
@@ -873,12 +879,15 @@ public final class WorldGenerator
                 numWalls += 2;
             }
             //Применим шаблон
-            if(numWalls == 1)
-                setCell(column+1, row-1, 1, GameMap.LAYER_WALLS);
+            /*if(numWalls == 1)
+                //setCell(column+1, row-1, 1, GameMap.LAYER_WALLS);
+                modifyTileIDS(getCell(column+1, row-1, GameMap.LAYER_WALLS), 1, column+1, row-1, 1);
             else if(numWalls == 2)
-                setCell(column+1, row-1, 2, GameMap.LAYER_WALLS);
-            else if(numWalls == 3)
-                setCell(column+1, row-1, 6, GameMap.LAYER_WALLS);
+                //setCell(column+1, row-1, 2, GameMap.LAYER_WALLS);
+                modifyTileIDS(getCell(column+1, row-1, GameMap.LAYER_WALLS), 2, column+1, row-1, 1);
+            else*/ if(numWalls == 3)
+                modifyTileIDS(getCell(column+1, row-1, GameMap.LAYER_WALLS), 6, column+1, row-1, 1);
+                //setCell(column+1, row-1, 6, GameMap.LAYER_WALLS);
         }
 
         //4ый тайл средний левый: column-1; row
@@ -897,13 +906,17 @@ public final class WorldGenerator
             }
             //Применим шаблон
             if(numWalls == 0)
-                setCell(column-1, row, 8, GameMap.LAYER_WALLS);
+                modifyTileIDS(getCell(column-1, row, GameMap.LAYER_WALLS), 8, column-1, row, 2);
+                //setCell(column-1, row, 8, GameMap.LAYER_WALLS);
             else if(numWalls == 1)
-                setCell(column-1, row, 10, GameMap.LAYER_WALLS);
+                modifyTileIDS(getCell(column-1, row, GameMap.LAYER_WALLS), 10, column-1, row, 2);
+                //setCell(column-1, row, 10, GameMap.LAYER_WALLS);
             else if(numWalls == 2)
-                setCell(column-1, row, 11, GameMap.LAYER_WALLS);
+                modifyTileIDS(getCell(column-1, row, GameMap.LAYER_WALLS), 11, column-1, row, 2);
+                //setCell(column-1, row, 11, GameMap.LAYER_WALLS);
             else if(numWalls == 3)
-                setCell(column-1, row, 2, GameMap.LAYER_WALLS);
+                modifyTileIDS(getCell(column-1, row, GameMap.LAYER_WALLS), 2, column-1, row, 2);
+                //setCell(column-1, row, 2, GameMap.LAYER_WALLS);
         }
 
         //5ый тайл средний правый: column-1; row
@@ -922,19 +935,24 @@ public final class WorldGenerator
             }
             //Применим шаблон
             if(numWalls == 0)
-                setCell(column+1, row, 9, GameMap.LAYER_WALLS);
+                modifyTileIDS(getCell(column+1, row, GameMap.LAYER_WALLS), 9, column+1, row, 3);
+                //setCell(column+1, row, 9, GameMap.LAYER_WALLS);
             else if(numWalls == 1)
-                setCell(column+1, row, 10, GameMap.LAYER_WALLS);
+                modifyTileIDS(getCell(column+1, row, GameMap.LAYER_WALLS), 10, column+1, row, 3);
+                //setCell(column+1, row, 10, GameMap.LAYER_WALLS);
             else if(numWalls == 2)
-                setCell(column+1, row, 11, GameMap.LAYER_WALLS);
+                modifyTileIDS(getCell(column+1, row, GameMap.LAYER_WALLS), 11, column+1, row, 3);
+                //setCell(column+1, row, 11, GameMap.LAYER_WALLS);
             else if(numWalls == 3)
-                setCell(column+1, row, 2, GameMap.LAYER_WALLS);
+                modifyTileIDS(getCell(column+1, row, GameMap.LAYER_WALLS), 2, column+1, row, 3);
+                //setCell(column+1, row, 2, GameMap.LAYER_WALLS);
         }
 
         //6ой тайл нижний левый: column-1; row+1
         if(Utils.typesWall.contains(getCell(column-1, row+1, GameMap.LAYER_WALLS)))
         {
-            int numWalls = 0;//0 - нет тайлов вокруг(ничего не ставим), 1 - вертикальный, 2 - горизонтальный, 3 - угол(верх, право)
+            //int numWalls = 0;//0 - нет тайлов вокруг(ничего не ставим), 1 - вертикальный, 2 - горизонтальный, 3 - угол(верх, право)
+            int numWalls = 0;//0 - нет тайлов вокруг(ничего не ставим), 1 - нет информации, ничего, 2 - нет информации, ничего, 3 - угол(верх, право)
             //Проверим первый тайл
             if(Utils.typesWall.contains(getCell(column-1, row, GameMap.LAYER_WALLS)) || (Utils.typesFloor.contains(getCell(column-1, row, GameMap.LAYER_FLOOR)) && getDoorByCoord(column-1, row) != null))
             {
@@ -946,12 +964,13 @@ public final class WorldGenerator
                 numWalls += 2;
             }
             //Применим шаблон
-            if(numWalls == 1)
+            /*if(numWalls == 1)
                 setCell(column-1, row+1, 2, GameMap.LAYER_WALLS);
             else if(numWalls == 2)
                 setCell(column-1, row+1, 1, GameMap.LAYER_WALLS);
-            else if(numWalls == 3)
-                setCell(column-1, row+1, 4, GameMap.LAYER_WALLS);
+            else*/ if(numWalls == 3)
+                modifyTileIDS(getCell(column-1, row+1, GameMap.LAYER_WALLS), 4, column-1, row+1, 2);
+                //setCell(column-1, row+1, 4, GameMap.LAYER_WALLS);
         }
 
         //7ой тайл нижний средний: column; row+1
@@ -970,19 +989,24 @@ public final class WorldGenerator
             }
             //Применим шаблон
             if(numWalls == 0)
-                setCell(column, row+1, 11, GameMap.LAYER_WALLS);
+                modifyTileIDS(getCell(column, row+1, GameMap.LAYER_WALLS), 11, column, row+1, 1);
+                //setCell(column, row+1, 11, GameMap.LAYER_WALLS);
             else if(numWalls == 1)
-                setCell(column, row+1, 8, GameMap.LAYER_WALLS);
+                modifyTileIDS(getCell(column, row+1, GameMap.LAYER_WALLS), 8, column, row+1, 1);
+                //setCell(column, row+1, 8, GameMap.LAYER_WALLS);
             else if(numWalls == 2)
-                setCell(column, row+1, 9, GameMap.LAYER_WALLS);
+                modifyTileIDS(getCell(column, row+1, GameMap.LAYER_WALLS), 9, column, row+1, 1);
+                //setCell(column, row+1, 9, GameMap.LAYER_WALLS);
             else if(numWalls == 3)
-                setCell(column, row+1, 1, GameMap.LAYER_WALLS);
+                modifyTileIDS(getCell(column, row+1, GameMap.LAYER_WALLS), 1, column, row+1, 1);
+                //setCell(column, row+1, 1, GameMap.LAYER_WALLS);
         }
 
         //8ой тайл нижний правый: column+1; row+1
         if(Utils.typesWall.contains(getCell(column+1, row+1, GameMap.LAYER_WALLS)))
         {
-            int numWalls = 0;//0 - нет тайлов вокруг(ничего не ставим), 1 - горизонтальный, 2 - вертикальный, 3 - угол(лево, вверх)
+            //int numWalls = 0;//0 - нет тайлов вокруг(ничего не ставим), 1 - горизонтальный, 2 - вертикальный, 3 - угол(лево, вверх)
+            int numWalls = 0;//0 - нет тайлов вокруг(ничего не ставим), 1 - нет информации, ничего, 2 - нет информации, ничего, 3 - угол(лево, вверх)
             //Проверим первый тайл
             if(Utils.typesWall.contains(getCell(column, row+1, GameMap.LAYER_WALLS)) || (Utils.typesFloor.contains(getCell(column, row+1, GameMap.LAYER_FLOOR)) && getDoorByCoord(column, row+1) != null))
             {
@@ -994,12 +1018,13 @@ public final class WorldGenerator
                 numWalls += 2;
             }
             //Применим шаблон
-            else if(numWalls == 1)
+            /*else if(numWalls == 1)
                 setCell(column+1, row+1, 1, GameMap.LAYER_WALLS);
             else if(numWalls == 2)
                 setCell(column+1, row+1, 2, GameMap.LAYER_WALLS);
-            else if(numWalls == 3)
-                setCell(column+1, row+1, 7, GameMap.LAYER_WALLS);
+            else*/ if(numWalls == 3)
+                modifyTileIDS(getCell(column+1, row+1, GameMap.LAYER_WALLS), 7, column+1, row+1, 3);
+                //setCell(column+1, row+1, 7, GameMap.LAYER_WALLS);
         }
 	}
 
@@ -1028,28 +1053,84 @@ public final class WorldGenerator
             if(calculated == current)   //Если идентификаторы равны, то и менять нечего
                 return;
 
-            if(current == 3) //Если сохраненный = крестику, то не меняем его
-                return;
-
             //Изменения
             switch (current)
             {
                 case 1:
-                    switch (calculated)
-                    {
-                        case 5:
-                        case 4:
-                            setCell(column, row, 14, GameMap.LAYER_WALLS);
-                            break;
-                    }
+                    if(calculated == 4 || calculated == 7)
+                        setCell(column, row, 13, GameMap.LAYER_WALLS);
+                    else if(calculated == 5 || calculated == 6)
+                        setCell(column, row, 12, GameMap.LAYER_WALLS);
+                    break;
+                case 2:
+                    if(calculated == 4 || calculated == 5)
+                        setCell(column, row, 14, GameMap.LAYER_WALLS);
+                    else if(calculated == 7 || calculated == 6)
+                        setCell(column, row, 15, GameMap.LAYER_WALLS);
                     break;
                 case 4:
-                    switch (calculated)
-                    {
-                        case 5:
-                            setCell(column, row, 14, GameMap.LAYER_WALLS);
-                            break;
-                    }
+                    if(calculated == 1 || calculated == 7)
+                        setCell(column, row, 13, GameMap.LAYER_WALLS);
+                    else if(calculated == 2 || calculated == 5)
+                        setCell(column, row, 14, GameMap.LAYER_WALLS);
+                    break;
+                case 5:
+                    if(calculated == 2 || calculated == 4)
+                        setCell(column, row, 14, GameMap.LAYER_WALLS);
+                    else if(calculated == 1 || calculated == 6)
+                        setCell(column, row, 12, GameMap.LAYER_WALLS);
+                    break;
+                case 6:
+                    if(calculated == 1 || calculated == 5)
+                        setCell(column, row, 12, GameMap.LAYER_WALLS);
+                    else if(calculated == 2 || calculated == 7)
+                        setCell(column, row, 15, GameMap.LAYER_WALLS);
+                    break;
+                case 7:
+                    if(calculated == 2 || calculated == 6)
+                        setCell(column, row, 15, GameMap.LAYER_WALLS);
+                    else if(calculated == 1 || calculated == 4)
+                        setCell(column, row, 13, GameMap.LAYER_WALLS);
+                    break;
+                case 8:
+                    if(calculated == 11)
+                        setCell(column, row, 6, GameMap.LAYER_WALLS);
+                    else if(calculated == 10)
+                        setCell(column, row, 7, GameMap.LAYER_WALLS);
+                    break;
+                case 9:
+                    if(calculated == 11)
+                        setCell(column, row, 5, GameMap.LAYER_WALLS);
+                    else if(calculated == 10)
+                        setCell(column, row, 4, GameMap.LAYER_WALLS);
+                    break;
+                case 10:
+                    if(calculated == 8)
+                        setCell(column, row, 7, GameMap.LAYER_WALLS);
+                    else if(calculated == 9)
+                        setCell(column, row, 4, GameMap.LAYER_WALLS);
+                    break;
+                case 11:
+                    if(calculated == 9)
+                        setCell(column, row, 5, GameMap.LAYER_WALLS);
+                    else if(calculated == 8)
+                        setCell(column, row, 6, GameMap.LAYER_WALLS);
+                    break;
+                case 12:
+                    if(calculated == 7 || calculated == 4 || calculated == 2 || calculated == 11)
+                        setCell(column, row, 3, GameMap.LAYER_WALLS);
+                    break;
+                case 13:
+                    if(calculated == 6 || calculated == 5 || calculated == 2 || calculated == 10)
+                        setCell(column, row, 3, GameMap.LAYER_WALLS);
+                    break;
+                case 14:
+                    if(calculated == 6 || calculated == 7 || calculated == 1 || calculated == 9)
+                        setCell(column, row, 3, GameMap.LAYER_WALLS);
+                    break;
+                case 15:
+                    if(calculated == 4 || calculated == 5 || calculated == 1 || calculated == 8)
+                        setCell(column, row, 3, GameMap.LAYER_WALLS);
                     break;
             }
         }
@@ -1200,8 +1281,10 @@ public final class WorldGenerator
             Debug.i("Init mCheckTile");
             if(mCheckTile == null)
             {
-                mCheckTile = new int[wContext.mWorld.mLevels.get(currLevel).getTileColumns() * wContext.mWorld.mLevels.get(currLevel).getTileRows()];
-                for(int k = 0; k < wContext.mWorld.mLevels.get(currLevel).getTileColumns() * wContext.mWorld.mLevels.get(currLevel).getTileRows(); k++)
+                Debug.i("mCheckTile create by length = " + (width_level * height_level));
+                mCheckTile = new int[width_level * height_level];
+                Debug.i("mCheckTile created, init it");
+                for(int k = 0; k < width_level * height_level; k++)
                 {
                     mCheckTile[k] = 0;
                 }
