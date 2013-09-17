@@ -3,6 +3,7 @@ package ru.rouge.sleeper.Scenes;
 import android.view.MotionEvent;
 
 import org.andengine.engine.camera.hud.HUD;
+import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
@@ -24,6 +25,7 @@ import ru.rouge.sleeper.WorldContext;
 public final class MainGameScene extends MainScene
 {
 
+    private boolean isShowWalls = true;             //Для отладки
     public HUD mHUD;
 
 	@Override
@@ -105,6 +107,31 @@ public final class MainGameScene extends MainScene
 			attachChild(WorldContext.getInstance().mPlayer);
             for(Door d : WorldContext.getInstance().mWorld.mDoors)
                 attachChild(d);
+
+            final Rectangle btnHud = new Rectangle(5, 5, 32, 32, ResourceManager.getInstance().mVBO)
+            {
+                @Override
+                public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY)
+                {
+                    Debug.i("Click by rectangle in the HUD");
+                    Debug.i("pSceneTouchEvent.isActionDown() = " + pSceneTouchEvent.isActionDown());
+                    Debug.i("pSceneTouchEvent.isActionUp() = " + pSceneTouchEvent.isActionUp());
+                    Debug.i("pSceneTouchEvent.isActionOutside() = " + pSceneTouchEvent.isActionOutside());
+                    if(pSceneTouchEvent.isActionDown())
+                    {
+                        Debug.i("Before change isShowWalls = " + isShowWalls);
+                        isShowWalls = !isShowWalls;
+                        WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_WALLS).setVisible(isShowWalls);
+                        Debug.i("After change isShowWalls = " + isShowWalls);
+                    }
+
+                    //return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
+                    return true;
+                }
+            };
+
+            mHUD.registerTouchArea(btnHud);
+            mHUD.attachChild(btnHud);
 
             Debug.e("Set HUD");
             WorldContext.getInstance().getCamera().setHUD(mHUD);
