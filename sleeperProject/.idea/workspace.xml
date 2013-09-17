@@ -125,7 +125,7 @@
       <file leaf-file-name="MainGameScene.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Scenes/MainGameScene.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="106" column="31" selection-start="3011" selection-end="3011" vertical-scroll-proportion="0.0" vertical-offset="1802" max-vertical-offset="2720">
+            <state line="133" column="31" selection-start="4470" selection-end="4470" vertical-scroll-proportion="0.0" vertical-offset="2261" max-vertical-offset="3179">
               <folding />
             </state>
           </provider>
@@ -134,9 +134,9 @@
       <file leaf-file-name="WorldGenerator.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Generator/WorldGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1076" column="23" selection-start="45590" selection-end="45590" vertical-scroll-proportion="-1.0803739" vertical-offset="18547" max-vertical-offset="23188">
+            <state line="440" column="190" selection-start="19412" selection-end="19412" vertical-scroll-proportion="1.1757009" vertical-offset="6511" max-vertical-offset="25415">
               <folding>
-                <element signature="e#53383#53394#0" expanded="true" />
+                <element signature="e#62163#62174#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1382,16 +1382,16 @@
     <property name="recentsLimit" value="5" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="DEBUGGABLE_DEVICE" value="CB511YTDA5" />
     <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="DEBUGGABLE_DEVICE" value="CB511YTDA5" />
     <property name="DEBUGGABLE_PROCESS" value="ru.rouge.sleeper" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
+    <property name="FullScreen" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -1582,7 +1582,11 @@
       <created>1378920851059</created>
       <updated>1378920851087</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Правка идентификаторов талов, часть 2. Надо подумать о проверке тайлов со стороны двери...">
+      <created>1379352280017</created>
+      <updated>1379352280017</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1630,7 +1634,8 @@
     <MESSAGE value="new map" />
     <MESSAGE value="Поправлено создание текстур для героя и дверей, загрузка комнат для генератора, тестовая отрисовка комнаты на уровень, поменял текстуру героя" />
     <MESSAGE value="Ручное создание тайлсетов" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ручное создание тайлсетов" />
+    <MESSAGE value="Правка идентификаторов талов, часть 2. Надо подумать о проверке тайлов со стороны двери..." />
+    <option name="LAST_COMMIT_MESSAGE" value="Правка идентификаторов талов, часть 2. Надо подумать о проверке тайлов со стороны двери..." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1638,7 +1643,9 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/org/andengine/extension/tmx/TSXParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="11" selection-start="1629" selection-end="1629" vertical-scroll-proportion="0.0" vertical-offset="629" max-vertical-offset="1955" />
+        <state line="53" column="11" selection-start="1629" selection-end="1629" vertical-scroll-proportion="0.0" vertical-offset="629" max-vertical-offset="1955">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Objects/Player.java">
@@ -1691,7 +1698,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Scenes/MainGameScene.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="106" column="31" selection-start="3011" selection-end="3011" vertical-scroll-proportion="0.0" vertical-offset="1020" max-vertical-offset="2380">
+        <state line="133" column="31" selection-start="4470" selection-end="4470" vertical-scroll-proportion="0.0" vertical-offset="2261" max-vertical-offset="3179">
           <folding />
         </state>
       </provider>
@@ -1727,9 +1734,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Generator/WorldGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1076" column="23" selection-start="45590" selection-end="45590" vertical-scroll-proportion="-1.0803739" vertical-offset="18547" max-vertical-offset="23188">
+        <state line="440" column="190" selection-start="19412" selection-end="19412" vertical-scroll-proportion="1.1757009" vertical-offset="6511" max-vertical-offset="25415">
           <folding>
-            <element signature="e#53383#53394#0" expanded="true" />
+            <element signature="e#62163#62174#0" expanded="true" />
           </folding>
         </state>
       </provider>
