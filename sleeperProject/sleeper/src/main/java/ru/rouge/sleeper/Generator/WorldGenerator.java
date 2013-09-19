@@ -85,9 +85,23 @@ public final class WorldGenerator
             Debug.e(e);
         }
 	}
-	
+
+    /**
+     * Создание вспомогательной двери
+     * @param x - Координата двери
+     * @param y - Координата двери
+     * @param dir - направление двери
+     * @param isFree - Свободна ли дверь
+     * */
 	private void createDoor(int x, int y, int dir, boolean isFree)
 	{
+        //Проверка перед созданием двери:
+        //если дверь на самом краю уровня или в 1 тайл от него, то не создаем дверь
+        if(x == 0 || x == 1 || x == wContext.mWorld.mLevels.get(currLevel).getTileColumns() || x == wContext.mWorld.mLevels.get(currLevel).getTileColumns()-1)
+            return;
+        if(y == 0 || y == 1 || y == wContext.mWorld.mLevels.get(currLevel).getTileRows() || y == wContext.mWorld.mLevels.get(currLevel).getTileRows()-1)
+            return;
+
 		LevelDoor ld = new LevelDoor();
 		ld.mCoord = new Coord(x, y);
 		ld.mDir = dir;
@@ -1359,7 +1373,8 @@ public final class WorldGenerator
 		return 1;
 	}
 	
-	/**Функция проверяет наличие свободных комнат и возвращает первую свободную из списка
+	/**
+     * Функция проверяет наличие свободных комнат и возвращает первую свободную из списка
 	 * */
 	private LevelDoor getFreeDoor()
 	{
