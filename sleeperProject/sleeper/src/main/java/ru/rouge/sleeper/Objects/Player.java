@@ -51,7 +51,7 @@ public class Player extends BaseAnimObject
 	public Player(float pX, float pY, ITiledTextureRegion pTiledTextureRegion, VertexBufferObjectManager pVertexBufferObjectManager)
 	{
 		super(pX, pY, pTiledTextureRegion, pVertexBufferObjectManager);
-		mSpeed = 1f;
+		mSpeed = 2f;
 		this.isMove = false;
 		mDir = Directions.DIR_NONE;
 		mOldDir = Directions.DIR_EAST;
