@@ -54,6 +54,7 @@ public final class ScenesManager
 	{
         if(mSplashScreen != null)
         {
+            Debug.i("Try to dispose mSplashScreen");
             ResourceManager.getInstance().unloadSplashRes();
             //mSplashScreen.detachSelf();
             mSplashScreen.dispposeScene();
@@ -65,6 +66,7 @@ public final class ScenesManager
     {
         if(mMenuScene != null)
         {
+            Debug.i("Try to dispose mMenuScene");
             //mMenuScene.detachSelf();
             mMenuScene.dispposeScene();
             mMenuScene = null;
@@ -75,6 +77,7 @@ public final class ScenesManager
     {
         if(mLoadScene != null)
         {
+            Debug.i("Try to dispose mLoadScene");
             //mLoadScene.detachSelf();
             mLoadScene.dispposeScene();
             mLoadScene = null;
@@ -85,6 +88,7 @@ public final class ScenesManager
     {
         if(mMainGameScene != null)
         {
+            Debug.i("Try to dispose mMainGameScene");
             //mMainGameScene.detachSelf();
             mMainGameScene.dispposeScene();
             mMainGameScene = null;
@@ -125,10 +129,14 @@ public final class ScenesManager
 
 	public void setMenuScene()
 	{
+        Debug.i("Create and show mMenuScene");
         mMenuScene = new SceneMenu();
+        Debug.i("Set scene to engine");
         setScene(mMenuScene);
+        Debug.i("disposing");
         disposeSplash();
         disposeMainGameScene();
+        Debug.i("end show mMenuScene");
     }
 
 	public void setLoadScene()

@@ -148,8 +148,7 @@ public final class MainGameScene extends MainScene
     @Override
     public void OnKeyBackPressed()
     {
-        //TODO возврат в игровое меню
-		//ScenesManager.getInstance().setScene(ScenesManager.SceneTypes.SCENE_MENU);
+        //Возврат в игровое меню
         ScenesManager.getInstance().setMenuScene();
     }
 
