@@ -25,11 +25,9 @@
       <config />
     </shared>
   </component>
-  <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8da921f-051e-42dc-8ddc-0e333efe6852" name="Default" comment="">
+    <list default="true" id="a8da921f-051e-42dc-8ddc-0e333efe6852" name="Default" comment="Issue #17, и еще пара багов при генерации дверей">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sleeper/src/main/assets/tmx/room4.tmx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/.gradle/1.7/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/.gradle/1.7/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/.gradle/1.7/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/.gradle/1.7/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/drawable-hdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/drawable-hdpi/ic_launcher.png" />
@@ -53,9 +51,11 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/incremental/mergeResources/debug/merger.xml" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/incremental/mergeResources/debug/merger.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/layout/offices_fragment.xml" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/layout/offices_fragment.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/incremental/mergeResources/debug/outputs.data" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/incremental/mergeResources/debug/outputs.data" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sleeper/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/sleeper/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/layout/tab.xml" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/layout/tab.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/drawable/tab_style.xml" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/drawable/tab_style.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/values/values.xml" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/values/values.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sleeper/build/res/all/debug/values/values.xml" afterPath="$PROJECT_DIR$/sleeper/build/res/all/debug/values/values.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -151,7 +151,7 @@
       <file leaf-file-name="MainGameScene.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Scenes/MainGameScene.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="133" column="31" selection-start="4470" selection-end="4470" vertical-scroll-proportion="0.0" vertical-offset="2261" max-vertical-offset="3179">
+            <state line="132" column="31" selection-start="4426" selection-end="4426" vertical-scroll-proportion="0.0" vertical-offset="2244" max-vertical-offset="3162">
               <folding />
             </state>
           </provider>
@@ -160,15 +160,12 @@
       <file leaf-file-name="WorldGenerator.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Generator/WorldGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="101" column="0" selection-start="3730" selection-end="3730" vertical-scroll-proportion="-9.75514" vertical-offset="6596" max-vertical-offset="25908">
+            <state line="992" column="21" selection-start="41823" selection-end="41823" vertical-scroll-proportion="0.9869159" vertical-offset="15996" max-vertical-offset="27302">
               <folding>
-                <element signature="e#4413#4422#0" expanded="true" />
-                <element signature="e#16346#16435#0" expanded="false" />
-                <element signature="e#33231#33268#0" expanded="false" />
-                <element signature="e#33534#33567#0" expanded="false" />
-                <element signature="e#63220#63231#0" expanded="true" />
-                <element signature="e#64259#64331#0" expanded="false" />
-                <element signature="e#64663#64733#0" expanded="false" />
+                <element signature="e#4083#4092#0" expanded="true" />
+                <element signature="e#67883#67894#0" expanded="true" />
+                <element signature="e#68922#68994#0" expanded="false" />
+                <element signature="e#69326#69396#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -603,7 +600,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/sleeper/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/sleeper/src/main/assets/tmx/room1.tmx" />
         <option value="$PROJECT_DIR$/sleeper/src/main/assets/tmx/room2.tmx" />
         <option value="$PROJECT_DIR$/sleeper/src/main/assets/tmx/room3.tmx" />
@@ -617,8 +613,9 @@
         <option value="$PROJECT_DIR$/sleeper/src/main/java/org/andengine/extension/tmx/TMXTile.java" />
         <option value="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Scenes/MainGameScene.java" />
         <option value="$PROJECT_DIR$/sleeper/src/main/java/org/andengine/extension/tmx/TMXLayer.java" />
-        <option value="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Generator/WorldGenerator.java" />
         <option value="$PROJECT_DIR$/sleeper/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/sleeper/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Generator/WorldGenerator.java" />
       </list>
     </option>
   </component>
@@ -654,7 +651,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1194,98 +1190,6 @@
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="andengine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sleeper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GitHub" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sleeper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sleeperProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sleeper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="andengine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="extension" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tmx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sleeper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GitHub" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sleeper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sleeperProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sleeper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="andengine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="extension" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -1399,6 +1303,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -1414,16 +1319,16 @@
     <property name="recentsLimit" value="5" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="DEBUGGABLE_DEVICE" value="CB511YTDA5" />
     <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="DEBUGGABLE_DEVICE" value="CB511YTDA5" />
     <property name="DEBUGGABLE_PROCESS" value="ru.rouge.sleeper" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
+    <property name="FullScreen" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -1459,6 +1364,19 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -1484,19 +1402,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -1643,7 +1548,11 @@
       <created>1379436919088</created>
       <updated>1379436919088</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Issue #5">
+      <created>1379611344379</created>
+      <updated>1379611344380</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1669,11 +1578,11 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25769854" sideWeight="0.67134506" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32748538" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32865497" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1693,24 +1602,13 @@
     <MESSAGE value="Ручное создание тайлсетов" />
     <MESSAGE value="Правка идентификаторов талов, часть 2. Надо подумать о проверке тайлов со стороны двери..." />
     <MESSAGE value="Правка расстановки дверей для комнат." />
-    <option name="LAST_COMMIT_MESSAGE" value="Правка расстановки дверей для комнат." />
+    <MESSAGE value="Issue #5" />
+    <option name="LAST_COMMIT_MESSAGE" value="Issue #5" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Objects/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="188" column="86" selection-start="5885" selection-end="5885" vertical-scroll-proportion="0.0" vertical-offset="2707" max-vertical-offset="5763">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/org/andengine/entity/sprite/batch/vbo/ISpriteBatchVertexBufferObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="16" selection-start="746" selection-end="746" vertical-scroll-proportion="0.45833334" vertical-offset="0" max-vertical-offset="816" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/org/andengine/extension/tmx/TMXTile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="87" column="12" selection-start="2375" selection-end="2375" vertical-scroll-proportion="0.5625" vertical-offset="1020" max-vertical-offset="2040">
@@ -1749,7 +1647,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Scenes/MainGameScene.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="133" column="31" selection-start="4470" selection-end="4470" vertical-scroll-proportion="0.0" vertical-offset="2261" max-vertical-offset="3179">
+        <state line="132" column="31" selection-start="4426" selection-end="4426" vertical-scroll-proportion="0.0" vertical-offset="2244" max-vertical-offset="3162">
           <folding />
         </state>
       </provider>
@@ -1790,17 +1688,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/sleeper/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="19" selection-start="354" selection-end="354" vertical-scroll-proportion="0.24607961" vertical-offset="0" max-vertical-offset="829">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sleeper/src/main/assets/tmx/room4.tmx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="548">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Generator/WorldGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="101" column="0" selection-start="3730" selection-end="3730" vertical-scroll-proportion="-9.75514" vertical-offset="6596" max-vertical-offset="25908">
+        <state line="992" column="21" selection-start="41823" selection-end="41823" vertical-scroll-proportion="0.9869159" vertical-offset="15996" max-vertical-offset="27302">
           <folding>
-            <element signature="e#4413#4422#0" expanded="true" />
-            <element signature="e#16346#16435#0" expanded="false" />
-            <element signature="e#33231#33268#0" expanded="false" />
-            <element signature="e#33534#33567#0" expanded="false" />
-            <element signature="e#63220#63231#0" expanded="true" />
-            <element signature="e#64259#64331#0" expanded="false" />
-            <element signature="e#64663#64733#0" expanded="false" />
+            <element signature="e#4083#4092#0" expanded="true" />
+            <element signature="e#67883#67894#0" expanded="true" />
+            <element signature="e#68922#68994#0" expanded="false" />
+            <element signature="e#69326#69396#0" expanded="false" />
           </folding>
         </state>
       </provider>

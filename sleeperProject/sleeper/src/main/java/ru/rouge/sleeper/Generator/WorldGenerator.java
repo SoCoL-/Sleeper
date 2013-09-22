@@ -136,7 +136,7 @@ public final class WorldGenerator
 						{
 							if(dir == ObjectOnMap.DIR_NORTH)
 							{
-                                if(Utils.typesWall.contains(getCell(room.mCoord.getX() + place, room.mCoord.getY()+1, GameMap.LAYER_WALLS)) || getDoorByCoord(room.mCoord.getX() + place, room.mCoord.getY()+1) == null)  //Посмотрим, что напротив двери внутри комнаты
+                                if(Utils.typesWall.contains(getCell(room.mCoord.getX() + place, room.mCoord.getY()+1, GameMap.LAYER_WALLS)) || getDoorByCoord(room.mCoord.getX() + place, room.mCoord.getY()+1) != null)  //Посмотрим, что напротив двери внутри комнаты
                                 {
                                     Debug.w(TAG, "Inner wall blocks to setup door");
                                     //Случайно сдвинемся на один тайл от внутренней стены
@@ -160,7 +160,7 @@ public final class WorldGenerator
                             }
 							else// if(dir == ObjectOnMap.DIR_SOUTH)
 							{
-                                if(Utils.typesWall.contains(getCell(room.mCoord.getX() + place, room.mCoord.getY() + (room.mSize.getHeight()-1) - 1, GameMap.LAYER_WALLS)) || getDoorByCoord(room.mCoord.getX() + place, room.mCoord.getY() + (room.mSize.getHeight()-1) - 1) == null)  //Посмотрим, что напротив двери внутри комнаты
+                                if(Utils.typesWall.contains(getCell(room.mCoord.getX() + place, room.mCoord.getY() + (room.mSize.getHeight()-1) - 1, GameMap.LAYER_WALLS)) || getDoorByCoord(room.mCoord.getX() + place, room.mCoord.getY() + (room.mSize.getHeight()-1) - 1) != null)  //Посмотрим, что напротив двери внутри комнаты
                                 {
                                     Debug.w(TAG, "Inner wall blocks to setup door");
                                     //Случайно сдвинемся на один тайл от внутренней стены
@@ -194,7 +194,7 @@ public final class WorldGenerator
 						{
 							if(dir == ObjectOnMap.DIR_WEST)
 							{
-                                if(Utils.typesWall.contains(getCell(room.mCoord.getX() + 1, room.mCoord.getY() + place, GameMap.LAYER_WALLS)) || getDoorByCoord(room.mCoord.getX() + 1, room.mCoord.getY() + place) == null)  //Посмотрим, что напротив двери внутри комнаты
+                                if(Utils.typesWall.contains(getCell(room.mCoord.getX() + 1, room.mCoord.getY() + place, GameMap.LAYER_WALLS)) || getDoorByCoord(room.mCoord.getX() + 1, room.mCoord.getY() + place) != null)  //Посмотрим, что напротив двери внутри комнаты
                                 {
                                     Debug.w(TAG, "Inner wall blocks to setup door");
                                     //Случайно сдвинемся на один тайл от внутренней стены
@@ -219,7 +219,7 @@ public final class WorldGenerator
 							}
 							else// if(dir == ObjectOnMap.DIR_EAST)
 							{
-                                if(Utils.typesWall.contains(getCell(room.mCoord.getX() + (room.mSize.getWidth()-1) - 1, room.mCoord.getY() + place, GameMap.LAYER_WALLS)) || getDoorByCoord(room.mCoord.getX() + (room.mSize.getWidth()-1) - 1, room.mCoord.getY() + place) == null)  //Посмотрим, что напротив двери внутри комнаты
+                                if(Utils.typesWall.contains(getCell(room.mCoord.getX() + (room.mSize.getWidth()-1) - 1, room.mCoord.getY() + place, GameMap.LAYER_WALLS)) || getDoorByCoord(room.mCoord.getX() + (room.mSize.getWidth()-1) - 1, room.mCoord.getY() + place) != null)  //Посмотрим, что напротив двери внутри комнаты
                                 {
                                     Debug.w(TAG, "Inner wall blocks to setup door");
                                     //Случайно сдвинемся на один тайл от внутренней стены
@@ -426,14 +426,16 @@ public final class WorldGenerator
                         //Случайно сдвинемся на один тайл от внутренней стены
                         if(Utils.getRand(0,1) == 0)
                         {
-                            if(place != 1)
+                            //if(place != 1)
+                            if(place != min)
                                 place = place - 1;
                             else
                                 place = place + 1;
                         }
                         else
                         {
-                            if(place != currRoom.getTileColumns()-2)
+                            //if(place != currRoom.getTileColumns()-2)
+                            if(place != max)
                                 place = place + 1;
                             else
                                 place = place - 1;
@@ -451,14 +453,16 @@ public final class WorldGenerator
                         //Случайно сдвинемся на один тайл от внутренней стены
                         if(Utils.getRand(0,1) == 0)
                         {
-                            if(place != 1)
+                            //if(place != 1)
+                            if(place != min)
                                 place = place - 1;
                             else
                                 place = place + 1;
                         }
                         else
                         {
-                            if(place != currRoom.getTileColumns()-2)
+                            //if(place != currRoom.getTileColumns()-2)
+                            if(place != max)
                                 place = place + 1;
                             else
                                 place = place - 1;
@@ -504,20 +508,22 @@ public final class WorldGenerator
                 //Проверка на препятствия внутри комнаты напротив двери
                 if(door.mDir == ObjectOnMap.DIR_EAST)
                 {
-                    if(Utils.typesWall.contains(getCell(door.mCoord.getX()+1, door.mCoord.getY() - place, GameMap.LAYER_WALLS)) || getDoorByCoord(door.mCoord.getX()+1, door.mCoord.getY() - place) == null)  //Посмотрим, что напротив двери внутри комнаты
+                    if(Utils.typesWall.contains(getCell(door.mCoord.getX()+1, door.mCoord.getY() - place, GameMap.LAYER_WALLS)) || getDoorByCoord(door.mCoord.getX()+1, door.mCoord.getY() - place) != null)  //Посмотрим, что напротив двери внутри комнаты
                     {
                         Debug.w(TAG, "setRoom: Inner wall blocks to setup door, DIR_EAST");
                         //Случайно сдвинемся на один тайл от внутренней стены
                         if(Utils.getRand(0,1) == 0)
                         {
-                            if(place != 1)
+                            //if(place != 1)
+                            if(place != min)
                                 place = place - 1;
                             else
                                 place = place + 1;
                         }
                         else
                         {
-                            if(place != currRoom.getTileRows()-2)
+                            //if(place != currRoom.getTileRows()-2)
+                            if(place != max)
                                 place = place + 1;
                             else
                                 place = place - 1;
@@ -529,20 +535,22 @@ public final class WorldGenerator
                 }
                 else if(door.mDir == ObjectOnMap.DIR_WEST)
                 {
-                    if(Utils.typesWall.contains(getCell(door.mCoord.getX() - (currRoom.getTileColumns() - 1) - 1, door.mCoord.getY() - place, GameMap.LAYER_WALLS)) || getDoorByCoord(door.mCoord.getX()-1, door.mCoord.getY() - place) == null)  //Посмотрим, что напротив двери внутри комнаты
+                    if(Utils.typesWall.contains(getCell(door.mCoord.getX() - (currRoom.getTileColumns() - 1) - 1, door.mCoord.getY() - place, GameMap.LAYER_WALLS)) || getDoorByCoord(door.mCoord.getX()-1, door.mCoord.getY() - place) != null)  //Посмотрим, что напротив двери внутри комнаты
                     {
                         Debug.w(TAG, "setRoom: Inner wall blocks to setup door, DIR_WEST");
                         //Случайно сдвинемся на один тайл от внутренней стены
                         if(Utils.getRand(0,1) == 0)
                         {
-                            if(place != 1)
+                            //if(place != 1)
+                            if(place != min)
                                 place = place - 1;
                             else
                                 place = place + 1;
                         }
                         else
                         {
-                            if(place != currRoom.getTileRows()-2)
+                            //if(place != currRoom.getTileRows()-2)
+                            if(place != max)
                                 place = place + 1;
                             else
                                 place = place - 1;
@@ -853,7 +861,7 @@ public final class WorldGenerator
 				currX = (i % WIDTH_CORIDOR) * kx;
 				currY = (i / WIDTH_CORIDOR) * ky;
 				endX = x + 1;
-				endY = y + currY - 1 * ky;
+				endY = y + currY - ky;
 				//Utils.log(TAG, "currX = " + currX);
 				//Utils.log(TAG, "currY = " + currY);
 			}
@@ -861,7 +869,7 @@ public final class WorldGenerator
 			{
 				currX = (i / WIDTH_CORIDOR) * kx;
 				currY = (i % WIDTH_CORIDOR) * ky;
-				endX = x + currX - 1 * kx;
+				endX = x + currX - kx;
 				endY = y + 1;
 				//Utils.log(TAG, "currX = " + i);
 				//Utils.log(TAG, "currY = " + currY);
@@ -874,21 +882,21 @@ public final class WorldGenerator
 			{
 				Debug.e(TAG, "Out of bounds of level!! Set wall in the end");
 				int wallID = -1;
-				boolean isVertical = false;
-				int correctX = 0, correctY = 0;
+				//boolean isVertical = false;
+				//int correctX = 0, correctY = 0;
 				if(direction == ObjectOnMap.DIR_NORTH || direction == ObjectOnMap.DIR_SOUTH)
 				{
 					wallID = 1;
-					isVertical = true;
-					correctX = endX - 1;
-					correctY = endY;
+					//isVertical = true;
+					//correctX = endX - 1;
+					//correctY = endY;
 				}
 				else if(direction == ObjectOnMap.DIR_WEST || direction == ObjectOnMap.DIR_EAST)
 				{
 					wallID = 2;
-					isVertical = false;
-					correctX = endX;
-					correctY = endY - 1;
+					//isVertical = false;
+					//correctX = endX;
+					//correctY = endY - 1;
 				}
 				setCell(endX, endY, wallID, GameMap.LAYER_WALLS);
                 setCell(endX, endY, TILE_NONE, GameMap.LAYER_FLOOR);
@@ -926,12 +934,12 @@ public final class WorldGenerator
 					if(direction == ObjectOnMap.DIR_NORTH || direction == ObjectOnMap.DIR_SOUTH)
 					{
 						localEndX = x+1;
-						localEndY = y+currY-1*ky;
+						localEndY = y+currY-ky;
 						doorID = 1;
 					}
 					else if(direction == ObjectOnMap.DIR_EAST || direction == ObjectOnMap.DIR_WEST)
 					{
-						localEndX = x+currX-1*kx;
+						localEndX = x+currX-kx;
 						localEndY = y+1;
 						doorID = 2;
 					}
@@ -995,7 +1003,10 @@ public final class WorldGenerator
 					setCell(x + currX, y + currY, what, layer);
                 }
 				else
+                {
+                    //TODO проверить, не на углу ли коридора дверь, если так, то удаляем ее
 					ld.isFree = false;
+                }
 			}
 			oldCurrX = currX;
 			oldCurrY = currY;
@@ -1384,18 +1395,24 @@ public final class WorldGenerator
 			{
 				Debug.i(TAG, "-------------==============------------");
 				Debug.i(TAG, "isCanGo: x = " + x + ", y = " + y);
-				Debug.i(TAG, "isCanGo: 0: " + getCell(x, y-1*ky, GameMap.LAYER_WALLS) + " " + getCell(x+1, y-1*ky, GameMap.LAYER_WALLS) + " " + getCell(x+2, y-1*ky, GameMap.LAYER_WALLS));
-				Debug.i(TAG, "isCanGo: 1: " + getCell(x, y, GameMap.LAYER_WALLS) + " " + getCell(x+1, y, GameMap.LAYER_WALLS) + " " + getCell(x+2, y, GameMap.LAYER_WALLS));
-				Debug.i(TAG, "isCanGo: 2: " + getCell(x, y+1*ky, GameMap.LAYER_WALLS) + " " + getCell(x+1, y+1*ky, GameMap.LAYER_WALLS) + " " + getCell(x+2, y+1*ky, GameMap.LAYER_WALLS));
+				Debug.i(TAG, "isCanGo: -1: " + getCell(x, y-1*ky, GameMap.LAYER_WALLS) + " " + getCell(x+1, y-1*ky, GameMap.LAYER_WALLS) + " " + getCell(x+2, y-1*ky, GameMap.LAYER_WALLS));
+				Debug.i(TAG, "isCanGo:  0: " + getCell(x, y, GameMap.LAYER_WALLS) + " " + getCell(x+1, y, GameMap.LAYER_WALLS) + " " + getCell(x+2, y, GameMap.LAYER_WALLS));
+				Debug.i(TAG, "isCanGo:  1: " + getCell(x, y+1*ky, GameMap.LAYER_WALLS) + " " + getCell(x+1, y+1*ky, GameMap.LAYER_WALLS) + " " + getCell(x+2, y+1*ky, GameMap.LAYER_WALLS));
 				Debug.i(TAG, "-------------==============------------");
 				//Если следующий ряд свободен от стен и от дверей, то можем поставить на стену дверь
-				if(Utils.typesFloor.contains(getCell(x+1, y+1*ky, GameMap.LAYER_FLOOR)) && getDoorByCoord(x+1, y+ky) == null && getCell(x+1, y+1*ky, GameMap.LAYER_WALLS) == TILE_NONE)
+				if(Utils.typesFloor.contains(getCell(x+1, y+ky, GameMap.LAYER_FLOOR)) && getDoorByCoord(x+1, y+ky) == null && getCell(x+1, y+ky, GameMap.LAYER_WALLS) == TILE_NONE)
 					return 2;
 				else if(getCell(x+1, y+1*ky, GameMap.LAYER_WALLS) == TILE_NONE)//Если строим поворот, то начнем со стены, потому тут продолжим строительство
 					return 0;
-				else if(Utils.typesWall.contains(getCell(x, y+1*ky, GameMap.LAYER_WALLS)) && Utils.typesWall.contains(getCell(x+1, y+1*ky, GameMap.LAYER_WALLS)) && Utils.typesWall.contains(getCell(x+2, y+1*ky, GameMap.LAYER_WALLS)))
-					return 0;
+				//else if(Utils.typesWall.contains(getCell(x, y+1*ky, GameMap.LAYER_WALLS)) && Utils.typesWall.contains(getCell(x+1, y+1*ky, GameMap.LAYER_WALLS)) && Utils.typesWall.contains(getCell(x+2, y+1*ky, GameMap.LAYER_WALLS)))
+					//return 0;
 			}
+            //Если перед коридором стоит стена и посреди дверь, то остановим просто строительство коридора
+            else if(Utils.typesWall.contains(getCell(x, y, GameMap.LAYER_WALLS)) && getDoorByCoord(x+1, y) != null && Utils.typesWall.contains(getCell(x+2, y, GameMap.LAYER_WALLS)))
+            {
+                Debug.i("Stop. Wall with door in the center.");
+                return 3;
+            }
 			else
 				return 1;
 		}
@@ -1411,17 +1428,23 @@ public final class WorldGenerator
 			{
 				Debug.i(TAG, "-------------==============------------");
 				Debug.i(TAG, "isCanGo: x = " + x + ", y = " + y);
-				Debug.i(TAG, "isCanGo: 0: " + getCell(x-1*kx, y, GameMap.LAYER_WALLS) + " " + getCell(x-1*kx, y+1, GameMap.LAYER_WALLS) + " " + getCell(x-1*kx, y+2, GameMap.LAYER_WALLS));
-				Debug.i(TAG, "isCanGo: 1: " + getCell(x, y, GameMap.LAYER_WALLS) + " " + getCell(x, y+1, GameMap.LAYER_WALLS) + " " + getCell(x, y+2, GameMap.LAYER_WALLS));
-				Debug.i(TAG, "isCanGo: 2: " + getCell(x+1*kx, y, GameMap.LAYER_WALLS) + " " + getCell(x+1*kx, y+2, GameMap.LAYER_WALLS) + " " + getCell(x+1*kx, y+2, GameMap.LAYER_WALLS));
+				Debug.i(TAG, "isCanGo: -1: " + getCell(x-1*kx, y, GameMap.LAYER_WALLS) + " " + getCell(x-1*kx, y+1, GameMap.LAYER_WALLS) + " " + getCell(x-1*kx, y+2, GameMap.LAYER_WALLS));
+				Debug.i(TAG, "isCanGo:  0: " + getCell(x, y, GameMap.LAYER_WALLS) + " " + getCell(x, y+1, GameMap.LAYER_WALLS) + " " + getCell(x, y+2, GameMap.LAYER_WALLS));
+				Debug.i(TAG, "isCanGo:  1: " + getCell(x+1*kx, y, GameMap.LAYER_WALLS) + " " + getCell(x+1*kx, y+2, GameMap.LAYER_WALLS) + " " + getCell(x+1*kx, y+2, GameMap.LAYER_WALLS));
 				Debug.i(TAG, "-------------==============------------");
 				if(Utils.typesFloor.contains(getCell(x+1*kx, y+1, GameMap.LAYER_FLOOR)) && getDoorByCoord(x+kx, y+1) == null)
 					return 2;
 				else if(getCell(x+1*kx, y+1, GameMap.LAYER_WALLS) == TILE_NONE)
 					return 0;
-				else if(Utils.typesWall.contains(getCell(x+1*kx, y, GameMap.LAYER_WALLS)) && Utils.typesWall.contains(getCell(x+1*kx, y+1, GameMap.LAYER_WALLS)) && Utils.typesWall.contains(getCell(x+1*kx, y+2, GameMap.LAYER_WALLS)))
-					return 0;
+				//else if(Utils.typesWall.contains(getCell(x+1*kx, y, GameMap.LAYER_WALLS)) && Utils.typesWall.contains(getCell(x+1*kx, y+1, GameMap.LAYER_WALLS)) && Utils.typesWall.contains(getCell(x+1*kx, y+2, GameMap.LAYER_WALLS)))
+					//return 0;
 			}
+            //Если перед коридором стоит стена и посреди дверь, то остановим просто строительство коридора
+            else if(Utils.typesWall.contains(getCell(x, y, GameMap.LAYER_WALLS)) && getDoorByCoord(x, y+1) != null && Utils.typesWall.contains(getCell(x, y+2, GameMap.LAYER_WALLS)))
+            {
+                Debug.i("Stop. Wall with door in the center.");
+                return 3;
+            }
 			else
 				return 1;
 		}
