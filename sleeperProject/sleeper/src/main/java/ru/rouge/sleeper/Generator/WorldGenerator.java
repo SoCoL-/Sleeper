@@ -131,7 +131,7 @@ public final class WorldGenerator
 					{
 						Debug.i(TAG, "Choose place on wall: from 1 till " + (room.mSize.getWidth()-1));
 						place = Utils.getRand(1, room.mSize.getWidth()-2);//Выбираем место на стене, исключая угловые тайлы
-						Debug.i(TAG, "Место выбрано: " + place);
+						Debug.i(TAG, "The place was chosen: " + place);
 						if(isCanSetTile(room, dir, place))
 						{
 							if(dir == ObjectOnMap.DIR_NORTH)
@@ -381,7 +381,7 @@ public final class WorldGenerator
             Debug.i(TAG, "room.x = " + currRoom.getTileColumns() + ", room.y = " + currRoom.getTileRows());
 			//Вычислим координаты для комнаты, относительно двери
 			
-			int place = 0;
+			int place;
             Debug.i("=============Calculate place=============");
 			//Вычислим тайл, на котором поставим дверь
 			if(door.mDir == ObjectOnMap.DIR_NORTH || door.mDir == ObjectOnMap.DIR_SOUTH)
@@ -392,7 +392,7 @@ public final class WorldGenerator
                     Debug.e(TAG, "Room not fit in row from door coords. NORTH");
                     return false;
                 }
-                if(currRoom.getTileRows() > (mCurrLevel.getTileRows() - door.mCoord.getX()))
+                if(currRoom.getTileRows() > (mCurrLevel.getTileRows() - door.mCoord.getY()))
                 {
                     Debug.e(TAG, "Room not fit in row from door coords. SOUTH");
                     return false;
@@ -408,7 +408,7 @@ public final class WorldGenerator
                 else if(currRoom.getTileColumns() > (mCurrLevel.getTileColumns() - door.mCoord.getX()))
                 {
                     min = currRoom.getTileColumns() - (mCurrLevel.getTileColumns() - door.mCoord.getX());
-                    max = currRoom.getTileColumns()-1;
+                    max = currRoom.getTileColumns()-2;
                 }
                 else
                 {
@@ -420,7 +420,9 @@ public final class WorldGenerator
                 //Проверка на препятствия внутри комнаты напротив двери
                 if(door.mDir == ObjectOnMap.DIR_NORTH)
                 {
-                    if(Utils.typesWall.contains(getCell(door.mCoord.getX() - place, door.mCoord.getY() - (currRoom.getTileRows() - 1)-1, GameMap.LAYER_WALLS)) || getDoorByCoord(door.mCoord.getX() - place, door.mCoord.getY() - (currRoom.getTileRows() - 1)-1) != null)  //Посмотрим, что напротив двери внутри комнаты
+                    //if(Utils.typesWall.contains(getCell(door.mCoord.getX() - place, door.mCoord.getY() - (currRoom.getTileRows() - 1)-1, GameMap.LAYER_WALLS)) || getDoorByCoord(door.mCoord.getX() - place, door.mCoord.getY() - (currRoom.getTileRows() - 1)-1) != null)  //Посмотрим, что напротив двери внутри комнаты
+                    //if(Utils.typesWall.contains(getCell(door.mCoord.getX(), door.mCoord.getY() - 1, GameMap.LAYER_WALLS)) || getDoorByCoord(door.mCoord.getX(), door.mCoord.getY() - 1) != null)  //Посмотрим, что напротив двери внутри комнаты
+                    if(Utils.typesWall.contains(currRoom.getTMXLayers().get(GameMap.LAYER_WALLS).getTMXTile(place, (currRoom.getTileRows() - 1)-1).getGlobalTileID()) || getDoorByCoord(door.mCoord.getX(), door.mCoord.getY() - 1) != null)  //Посмотрим, что напротив двери внутри комнаты
                     {
                         Debug.w(TAG, "setRoom: Inner wall blocks to setup door, DIR_EAST");
                         //Случайно сдвинемся на один тайл от внутренней стены
@@ -447,7 +449,9 @@ public final class WorldGenerator
                 }
                 else if(door.mDir == ObjectOnMap.DIR_SOUTH)
                 {
-                    if(Utils.typesWall.contains(getCell(door.mCoord.getX() - place, door.mCoord.getY()+1, GameMap.LAYER_WALLS)) || getDoorByCoord(door.mCoord.getX() - place, door.mCoord.getY()+1) != null)  //Посмотрим, что напротив двери внутри комнаты
+                    //if(Utils.typesWall.contains(getCell(door.mCoord.getX() - place, door.mCoord.getY()+1, GameMap.LAYER_WALLS)) || getDoorByCoord(door.mCoord.getX() - place, door.mCoord.getY()+1) != null)  //Посмотрим, что напротив двери внутри комнаты
+                    //if(Utils.typesWall.contains(getCell(door.mCoord.getX(), door.mCoord.getY()+1, GameMap.LAYER_WALLS)) || getDoorByCoord(door.mCoord.getX(), door.mCoord.getY()+1) != null)  //Посмотрим, что напротив двери внутри комнаты
+                    if(Utils.typesWall.contains(currRoom.getTMXLayers().get(GameMap.LAYER_WALLS).getTMXTile(place, 1).getGlobalTileID()) || getDoorByCoord(door.mCoord.getX(), door.mCoord.getY()+1) != null)  //Посмотрим, что напротив двери внутри комнаты
                     {
                         Debug.w(TAG, "setRoom: Inner wall blocks to setup door, DIR_EAST");
                         //Случайно сдвинемся на один тайл от внутренней стены
@@ -496,7 +500,7 @@ public final class WorldGenerator
                 else if(currRoom.getTileRows() > (mCurrLevel.getTileRows() - door.mCoord.getY()))
                 {
                     min = currRoom.getTileRows() - (mCurrLevel.getTileRows() - door.mCoord.getY());
-                    max = currRoom.getTileRows()-1;
+                    max = currRoom.getTileRows()-2;
                 }
                 else
                 {
@@ -508,7 +512,9 @@ public final class WorldGenerator
                 //Проверка на препятствия внутри комнаты напротив двери
                 if(door.mDir == ObjectOnMap.DIR_EAST)
                 {
-                    if(Utils.typesWall.contains(getCell(door.mCoord.getX()+1, door.mCoord.getY() - place, GameMap.LAYER_WALLS)) || getDoorByCoord(door.mCoord.getX()+1, door.mCoord.getY() - place) != null)  //Посмотрим, что напротив двери внутри комнаты
+                    //if(Utils.typesWall.contains(getCell(door.mCoord.getX()+1, door.mCoord.getY() - place, GameMap.LAYER_WALLS)) || getDoorByCoord(door.mCoord.getX()+1, door.mCoord.getY() - place) != null)  //Посмотрим, что напротив двери внутри комнаты
+                    //if(Utils.typesWall.contains(getCell(door.mCoord.getX()+1, door.mCoord.getY(), GameMap.LAYER_WALLS)) || getDoorByCoord(door.mCoord.getX()+1, door.mCoord.getY()) != null)  //Посмотрим, что напротив двери внутри комнаты
+                    if(Utils.typesWall.contains(currRoom.getTMXLayers().get(GameMap.LAYER_WALLS).getTMXTile(1, place).getGlobalTileID()) || getDoorByCoord(door.mCoord.getX()+1, door.mCoord.getY()) != null)  //Посмотрим, что напротив двери внутри комнаты
                     {
                         Debug.w(TAG, "setRoom: Inner wall blocks to setup door, DIR_EAST");
                         //Случайно сдвинемся на один тайл от внутренней стены
@@ -535,7 +541,9 @@ public final class WorldGenerator
                 }
                 else if(door.mDir == ObjectOnMap.DIR_WEST)
                 {
-                    if(Utils.typesWall.contains(getCell(door.mCoord.getX() - (currRoom.getTileColumns() - 1) - 1, door.mCoord.getY() - place, GameMap.LAYER_WALLS)) || getDoorByCoord(door.mCoord.getX()-1, door.mCoord.getY() - place) != null)  //Посмотрим, что напротив двери внутри комнаты
+                    //if(Utils.typesWall.contains(getCell(door.mCoord.getX() - (currRoom.getTileColumns() - 1) - 1, door.mCoord.getY() - place, GameMap.LAYER_WALLS)) || getDoorByCoord(door.mCoord.getX()-1, door.mCoord.getY() - place) != null)  //Посмотрим, что напротив двери внутри комнаты
+                    //if(Utils.typesWall.contains(getCell(door.mCoord.getX() - 1, door.mCoord.getY(), GameMap.LAYER_WALLS)) || getDoorByCoord(door.mCoord.getX()-1, door.mCoord.getY()) != null)  //Посмотрим, что напротив двери внутри комнаты
+                    if(Utils.typesWall.contains(currRoom.getTMXLayers().get(GameMap.LAYER_WALLS).getTMXTile((currRoom.getTileColumns() - 1) - 1, place).getGlobalTileID()) || getDoorByCoord(door.mCoord.getX()-1, door.mCoord.getY()) != null)  //Посмотрим, что напротив двери внутри комнаты
                     {
                         Debug.w(TAG, "setRoom: Inner wall blocks to setup door, DIR_WEST");
                         //Случайно сдвинемся на один тайл от внутренней стены
@@ -584,7 +592,6 @@ public final class WorldGenerator
 			{
                 if(xtemp < 0 || xtemp > wContext.mWorld.mLevels.get(currLevel).getTileColumns()-1)
 				{
-					//Debug.e(TAG, "Комната не вмещается по ширине: xtemp = " + xtemp + ", levelWidth = " + wContext.world.getLevel(currLevel).getWidth());
                     Debug.e(TAG, "The room does not fit by width: xtemp = " + xtemp + ", levelWidth = " + wContext.mWorld.mLevels.get(currLevel).getTileColumns());
 					return false;
 				}
@@ -744,7 +751,6 @@ public final class WorldGenerator
 				{
 					direction = ObjectOnMap.DIR_EAST;
 				}
-				//else if(x >= mCurrLevel.getWidth()-3)
                 else if(x >= mCurrLevel.getTileColumns()-3)
 				{
 					direction = ObjectOnMap.DIR_WEST;
@@ -764,7 +770,6 @@ public final class WorldGenerator
 				{
 					direction = ObjectOnMap.DIR_SOUTH;
 				}
-				//else if(y >= mCurrLevel.getHeight()-3)
                 else if(y >= mCurrLevel.getTileRows()-3)
 				{
 					direction = ObjectOnMap.DIR_NORTH;
@@ -783,7 +788,7 @@ public final class WorldGenerator
 			//Расчитаем коэфиценты и начальные координаты коридора
 			if(direction == ObjectOnMap.DIR_NORTH || direction == ObjectOnMap.DIR_SOUTH)
 			{
-				int buf = 0;
+				int buf;
 				if(kx > 0)
 					buf = (length - WIDTH_CORIDOR) * kx;
 				else
@@ -802,7 +807,7 @@ public final class WorldGenerator
 			}
 			else if(direction == ObjectOnMap.DIR_EAST || direction == ObjectOnMap.DIR_WEST)
 			{
-				int buf = 0;
+				int buf;
 				if(ky > 0)
 					buf = (length - WIDTH_CORIDOR) * ky;
 				else
@@ -824,7 +829,6 @@ public final class WorldGenerator
 			Debug.i(TAG, "Turn" + t + " : x = " + x);
 			Debug.i(TAG, "Turn" + t + " : y = " + y);
 			
-			//length = Utils.getRand(2, wContext.world.getLevel(currLevel).getWidth()/2)+1;
             length = Utils.getRand(2, wContext.mWorld.mLevels.get(currLevel).getTileColumns()/2)+1;
 			Debug.i(TAG, "Turn" + t + " : Длина коридора = " + length);
 		
@@ -846,7 +850,6 @@ public final class WorldGenerator
 	 * @param mCurrLevel - текущий уровень
 	 * @return false - если наткнулись на препятствие
 	 * */
-	//private boolean drawDirCoridor(int length, int x, int y, int kx, int ky, int direction, Level mCurrLevel)
     private boolean drawDirCoridor(int length, int x, int y, int kx, int ky, int direction, TMXTiledMap mCurrLevel)
 	{
 		int oldCurrX = -1, oldCurrY = -1;					//Для отслеживания изменения новой строки в отрисовке коридора
@@ -862,8 +865,6 @@ public final class WorldGenerator
 				currY = (i / WIDTH_CORIDOR) * ky;
 				endX = x + 1;
 				endY = y + currY - ky;
-				//Utils.log(TAG, "currX = " + currX);
-				//Utils.log(TAG, "currY = " + currY);
 			}
 			else if (direction == ObjectOnMap.DIR_EAST || direction == ObjectOnMap.DIR_WEST)
 			{
@@ -871,36 +872,23 @@ public final class WorldGenerator
 				currY = (i % WIDTH_CORIDOR) * ky;
 				endX = x + currX - kx;
 				endY = y + 1;
-				//Utils.log(TAG, "currX = " + i);
-				//Utils.log(TAG, "currY = " + currY);
 			}
-			//Utils.log(TAG, "--------------------------------------------------");
-			
+
 			LevelDoor ld = getDoorByCoord(x + currX, y + currY);
-			//if((x+currX)>= mCurrLevel.getWidth() || (x+currX) < 0 || (y+currY)>= mCurrLevel.getHeight() || (y+currY)<0)
             if((x+currX)>= mCurrLevel.getTileColumns() || (x+currX) < 0 || (y+currY)>= mCurrLevel.getTileRows() || (y+currY)<0)
 			{
 				Debug.e(TAG, "Out of bounds of level!! Set wall in the end");
 				int wallID = -1;
-				//boolean isVertical = false;
-				//int correctX = 0, correctY = 0;
 				if(direction == ObjectOnMap.DIR_NORTH || direction == ObjectOnMap.DIR_SOUTH)
 				{
 					wallID = 1;
-					//isVertical = true;
-					//correctX = endX - 1;
-					//correctY = endY;
 				}
 				else if(direction == ObjectOnMap.DIR_WEST || direction == ObjectOnMap.DIR_EAST)
 				{
 					wallID = 2;
-					//isVertical = false;
-					//correctX = endX;
-					//correctY = endY - 1;
 				}
 				setCell(endX, endY, wallID, GameMap.LAYER_WALLS);
                 setCell(endX, endY, TILE_NONE, GameMap.LAYER_FLOOR);
-				//correctWallIDs(3, correctX, correctY, isVertical);
 				return false;
 			}
 			if((direction == ObjectOnMap.DIR_NORTH || direction == ObjectOnMap.DIR_SOUTH) && oldCurrY != currY)
@@ -912,19 +900,33 @@ public final class WorldGenerator
 				Debug.e(TAG, "Unique tile!! Stop create corridor");
 				if(isGoNext == 2)//Нам нужна дверь в конце коридора
 				{
+                    //TODO проверить, не на углу ли коридора дверь, если так, то удаляем ее
 					int localEndX = 0, localEndY = 0;		//Дверь будет ставится на текущем ряду коридора
 					if(direction == ObjectOnMap.DIR_NORTH || direction == ObjectOnMap.DIR_SOUTH)
 					{
 						localEndX = x+1;
 						localEndY = y+currY;
+                        LevelDoor door = getDoorByCoord(x, localEndY);
+                        if(door != null)
+                            deleteDoor(door);
+
+                        door = getDoorByCoord(x+2, localEndY);
+                        if(door != null)
+                            deleteDoor(door);
 					}
 					else if(direction == ObjectOnMap.DIR_EAST || direction == ObjectOnMap.DIR_WEST)
 					{
 						localEndX = x+currX;
 						localEndY = y+1;
+                        LevelDoor door = getDoorByCoord(localEndX, y);
+                        if(door != null)
+                            deleteDoor(door);
+
+                        door = getDoorByCoord(localEndX, y+2);
+                        if(door != null)
+                            deleteDoor(door);
 					}
 					createDoor(localEndX, localEndY, direction, false);
-					//setCell(localEndX, localEndY, TILE_DOOR);
                     createTiledDoor(localEndX, localEndY, direction);
 				}
 				else if(isGoNext == 1)//Нам нужно поставить стену
@@ -955,43 +957,35 @@ public final class WorldGenerator
 				if(direction == ObjectOnMap.DIR_EAST || direction == ObjectOnMap.DIR_WEST)
 					if(currY == 0 || currY == (WIDTH_CORIDOR-1))//Тело коридора(стены)
                     {
-						//what = TILE_WALL;
 						what = 1;
                         layer = GameMap.LAYER_WALLS;
                     }
 					else if(currY == 1 && Math.abs(currX) == (length-1))//Конец коридора
 					{
-						//what = TILE_WALL;
 						what = 2;
                         layer = GameMap.LAYER_WALLS;
 						//Добавим в конце коридора дверь в список
-                        //TODO Если x+currX близко к границе карты(1-3 клетки), то не добавляем дверь, либо добавляем ее в другом направлении
 						createDoor(x + currX, y + currY, direction, true);
 					}
 					else//Тело коридора(пол)
                     {
-						//what = TILE_FLOOR;
 						what = 16;
                         layer = GameMap.LAYER_FLOOR;
                     }
 				else if(direction == ObjectOnMap.DIR_NORTH || direction == ObjectOnMap.DIR_SOUTH)
 					if(currX == 0 || currX == (WIDTH_CORIDOR-1))//Тело коридора(стены)
                     {
-						//what = TILE_WALL;
 						what = 2;
                         layer = GameMap.LAYER_WALLS;
                     }
 					else if(currX == 1 && Math.abs(currY) == (length-1))//Конец коридора
 					{
-						//what = TILE_WALL;
 						what = 1;
                         layer = GameMap.LAYER_WALLS;
-                        //TODO Если y+currY близко к границе карты(1-3 клетки), то не добавляем дверь, либо добавляем ее в другом направлении
 						createDoor(x + currX, y + currY, direction, true);
 					}
 					else//Тело коридора(пол)
                     {
-						//what = TILE_FLOOR;
 						what = 16;
                         layer = GameMap.LAYER_FLOOR;
                     }
@@ -1004,7 +998,6 @@ public final class WorldGenerator
                 }
 				else
                 {
-                    //TODO проверить, не на углу ли коридора дверь, если так, то удаляем ее
 					ld.isFree = false;
                 }
 			}
@@ -1378,7 +1371,7 @@ public final class WorldGenerator
 	 * @param x - Координата х
 	 * @param y - Координата у
 	 * @param dir - Направление построения
-	 * @return 0 - Можно продолжить строительство, 1 - нельзя и нужна стена, 2 - нельзя и нужна дверь
+	 * @return 0 - Можно продолжить строительство, 1 - нельзя и нужна стена, 2 - нельзя и нужна дверь, 3 - стоп строительство без стен и дверей
 	 * */
 	private int isCanGo(int x, int y, int dir)
 	{
@@ -1395,15 +1388,17 @@ public final class WorldGenerator
 			{
 				Debug.i(TAG, "-------------==============------------");
 				Debug.i(TAG, "isCanGo: x = " + x + ", y = " + y);
-				Debug.i(TAG, "isCanGo: -1: " + getCell(x, y-1*ky, GameMap.LAYER_WALLS) + " " + getCell(x+1, y-1*ky, GameMap.LAYER_WALLS) + " " + getCell(x+2, y-1*ky, GameMap.LAYER_WALLS));
+				Debug.i(TAG, "isCanGo: -1: " + getCell(x, y-ky, GameMap.LAYER_WALLS) + " " + getCell(x+1, y-ky, GameMap.LAYER_WALLS) + " " + getCell(x+2, y-ky, GameMap.LAYER_WALLS));
 				Debug.i(TAG, "isCanGo:  0: " + getCell(x, y, GameMap.LAYER_WALLS) + " " + getCell(x+1, y, GameMap.LAYER_WALLS) + " " + getCell(x+2, y, GameMap.LAYER_WALLS));
-				Debug.i(TAG, "isCanGo:  1: " + getCell(x, y+1*ky, GameMap.LAYER_WALLS) + " " + getCell(x+1, y+1*ky, GameMap.LAYER_WALLS) + " " + getCell(x+2, y+1*ky, GameMap.LAYER_WALLS));
+				Debug.i(TAG, "isCanGo:  1: " + getCell(x, y+ky, GameMap.LAYER_WALLS) + " " + getCell(x+1, y+ky, GameMap.LAYER_WALLS) + " " + getCell(x+2, y+ky, GameMap.LAYER_WALLS));
 				Debug.i(TAG, "-------------==============------------");
 				//Если следующий ряд свободен от стен и от дверей, то можем поставить на стену дверь
 				if(Utils.typesFloor.contains(getCell(x+1, y+ky, GameMap.LAYER_FLOOR)) && getDoorByCoord(x+1, y+ky) == null && getCell(x+1, y+ky, GameMap.LAYER_WALLS) == TILE_NONE)
 					return 2;
-				else if(getCell(x+1, y+1*ky, GameMap.LAYER_WALLS) == TILE_NONE)//Если строим поворот, то начнем со стены, потому тут продолжим строительство
+				else if(getCell(x+1, y+ky, GameMap.LAYER_WALLS) == TILE_NONE)//Если строим поворот, то начнем со стены, потому тут продолжим строительство
 					return 0;
+                else if(Utils.typesWall.contains(getCell(x+1, y+ky, GameMap.LAYER_WALLS)))//Если по всей ширинет стена и посреди на следующем шаге стена, то заканчиваем строительство коридора
+                    return 1;
 				//else if(Utils.typesWall.contains(getCell(x, y+1*ky, GameMap.LAYER_WALLS)) && Utils.typesWall.contains(getCell(x+1, y+1*ky, GameMap.LAYER_WALLS)) && Utils.typesWall.contains(getCell(x+2, y+1*ky, GameMap.LAYER_WALLS)))
 					//return 0;
 			}
@@ -1428,14 +1423,16 @@ public final class WorldGenerator
 			{
 				Debug.i(TAG, "-------------==============------------");
 				Debug.i(TAG, "isCanGo: x = " + x + ", y = " + y);
-				Debug.i(TAG, "isCanGo: -1: " + getCell(x-1*kx, y, GameMap.LAYER_WALLS) + " " + getCell(x-1*kx, y+1, GameMap.LAYER_WALLS) + " " + getCell(x-1*kx, y+2, GameMap.LAYER_WALLS));
+				Debug.i(TAG, "isCanGo: -1: " + getCell(x-kx, y, GameMap.LAYER_WALLS) + " " + getCell(x-kx, y+1, GameMap.LAYER_WALLS) + " " + getCell(x-kx, y+2, GameMap.LAYER_WALLS));
 				Debug.i(TAG, "isCanGo:  0: " + getCell(x, y, GameMap.LAYER_WALLS) + " " + getCell(x, y+1, GameMap.LAYER_WALLS) + " " + getCell(x, y+2, GameMap.LAYER_WALLS));
-				Debug.i(TAG, "isCanGo:  1: " + getCell(x+1*kx, y, GameMap.LAYER_WALLS) + " " + getCell(x+1*kx, y+2, GameMap.LAYER_WALLS) + " " + getCell(x+1*kx, y+2, GameMap.LAYER_WALLS));
+				Debug.i(TAG, "isCanGo:  1: " + getCell(x+kx, y, GameMap.LAYER_WALLS) + " " + getCell(x+kx, y+2, GameMap.LAYER_WALLS) + " " + getCell(x+kx, y+2, GameMap.LAYER_WALLS));
 				Debug.i(TAG, "-------------==============------------");
-				if(Utils.typesFloor.contains(getCell(x+1*kx, y+1, GameMap.LAYER_FLOOR)) && getDoorByCoord(x+kx, y+1) == null)
+				if(Utils.typesFloor.contains(getCell(x+kx, y+1, GameMap.LAYER_FLOOR)) && getDoorByCoord(x+kx, y+1) == null)
 					return 2;
-				else if(getCell(x+1*kx, y+1, GameMap.LAYER_WALLS) == TILE_NONE)
+				else if(getCell(x+kx, y+1, GameMap.LAYER_WALLS) == TILE_NONE)
 					return 0;
+                else if(Utils.typesWall.contains(getCell(x+kx, y+1, GameMap.LAYER_WALLS)))
+                    return 1;
 				//else if(Utils.typesWall.contains(getCell(x+1*kx, y, GameMap.LAYER_WALLS)) && Utils.typesWall.contains(getCell(x+1*kx, y+1, GameMap.LAYER_WALLS)) && Utils.typesWall.contains(getCell(x+1*kx, y+2, GameMap.LAYER_WALLS)))
 					//return 0;
 			}
