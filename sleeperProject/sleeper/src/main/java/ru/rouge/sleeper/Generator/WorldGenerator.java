@@ -900,24 +900,27 @@ public final class WorldGenerator
 				Debug.e(TAG, "Unique tile!! Stop create corridor");
 				if(isGoNext == 2)//Нам нужна дверь в конце коридора
 				{
-                    //TODO проверить, не на углу ли коридора дверь, если так, то удаляем ее
 					int localEndX = 0, localEndY = 0;		//Дверь будет ставится на текущем ряду коридора
 					if(direction == ObjectOnMap.DIR_NORTH || direction == ObjectOnMap.DIR_SOUTH)
 					{
 						localEndX = x+1;
 						localEndY = y+currY;
+
+                        //Проверка, не на углу ли коридора дверь, если так, то удаляем ее
                         LevelDoor door = getDoorByCoord(x, localEndY);
-                        if(door != null)
+                        if(door != null && door.isFree)
                             deleteDoor(door);
 
                         door = getDoorByCoord(x+2, localEndY);
-                        if(door != null)
+                        if(door != null && door.isFree)
                             deleteDoor(door);
 					}
 					else if(direction == ObjectOnMap.DIR_EAST || direction == ObjectOnMap.DIR_WEST)
 					{
 						localEndX = x+currX;
 						localEndY = y+1;
+
+                        //Проверка, не на углу ли коридора дверь, если так, то удаляем ее
                         LevelDoor door = getDoorByCoord(localEndX, y);
                         if(door != null)
                             deleteDoor(door);
@@ -926,9 +929,34 @@ public final class WorldGenerator
                         if(door != null)
                             deleteDoor(door);
 					}
-					createDoor(localEndX, localEndY, direction, false);
-                    createTiledDoor(localEndX, localEndY, direction);
-				}
+                    //Если мы попали в ранее выствленную дверь
+                    LevelDoor d = getDoorByCoord(localEndX, localEndY);
+                    if(d != null && d.isFree)
+                        deleteDoor(d);
+                    if(d == null || d.isFree)
+                    {
+                        if(i > 1)
+                        {
+                            createDoor(localEndX, localEndY, direction, false);
+                            createTiledDoor(localEndX, localEndY, direction);
+                        }
+                        else//Если за дверью сразу стена, то просто удалим стену и создадим там пол
+                        {
+                            if(direction == ObjectOnMap.DIR_NORTH || direction == ObjectOnMap.DIR_SOUTH)
+                            {
+                                localEndX = x+1;
+                                localEndY = y+currY+currY;
+                            }
+                            else if(direction == ObjectOnMap.DIR_EAST || direction == ObjectOnMap.DIR_WEST)
+                            {
+                                localEndX = x+currX + currX;
+                                localEndY = y+1;
+                            }
+                            setCell(localEndX, localEndY, TILE_NONE, GameMap.LAYER_WALLS);
+                            setCell(localEndX, localEndY, 16, GameMap.LAYER_FLOOR);
+                        }
+                    }
+                }
 				else if(isGoNext == 1)//Нам нужно поставить стену
 				{
 					int localEndX = 0, localEndY = 0;		//Стена поставится на предыдущем ряду коридора
@@ -1052,12 +1080,8 @@ public final class WorldGenerator
 	 * */
 	private void calculateIDS(int column, int row)
 	{
-        //final int NUMBER_TURNS = 8; // Вокруг базового тайла находятся 8, которым и надо посчитать
-        //Придется вручную перебрать 8 вариантов тайлов
-
         //Первый тайл верхний левый: column - 1; row -1
         //Для него проверка по нижнему и правому тайлам: (column-1; row) и (column; row-1)
-
         Debug.i("Modify Tiles", "calculateIDS: getCell("+column+", "+row+", GameMap.LAYER_FLOOR) = " + getCell(column, row, GameMap.LAYER_FLOOR));
         Debug.i("Modify Tiles", "calculateIDS: getCell("+column+", "+row+", GameMap.LAYER_WALLS) = " + getCell(column, row, GameMap.LAYER_WALLS));
 
@@ -1112,11 +1136,6 @@ public final class WorldGenerator
         if(Utils.typesWall.contains(getCell(column+1, row-1, GameMap.LAYER_WALLS)))
         {
             Debug.i("Modify Tiles", "calculateIDS: 3 tile with column = " + (column+1) + " row = " + (row-1));
-            /*Debug.i("Calculate 3 tile id");
-            Debug.i("1:(x;y-1).id = " + getCell(column, row-1, GameMap.LAYER_WALLS));
-            Debug.i("1:(x;y-1).hasDoor = " + (getDoorByCoord(column, row-1) != null));
-            Debug.i("2:(x+1;y).id = " + getCell(column+1, row, GameMap.LAYER_WALLS));
-            Debug.i("2:(x+1;y).hasDoor = " + (getDoorByCoord(column+1, row) != null));*/
             int numWalls = 0;//0 - нет тайлов вокруг(ничего не делаем), 1 - горизонтальный, 2 - вертикальный, 3 - угол(лево, вниз)
             //Проверим первый тайл
             if(Utils.typesWall.contains(getCell(column, row-1, GameMap.LAYER_WALLS)) || (Utils.typesFloor.contains(getCell(column, row-1, GameMap.LAYER_FLOOR)) && getDoorByCoord(column, row-1) != null))
@@ -1304,24 +1323,32 @@ public final class WorldGenerator
                         setCell(column, row, 13, GameMap.LAYER_WALLS);
                     else if(calculated == 2 || calculated == 5)
                         setCell(column, row, 14, GameMap.LAYER_WALLS);
+                    else if(calculated == 6)
+                        setCell(column, row, 3, GameMap.LAYER_WALLS);
                     break;
                 case 5:
                     if(calculated == 2 || calculated == 4)
                         setCell(column, row, 14, GameMap.LAYER_WALLS);
                     else if(calculated == 1 || calculated == 6)
                         setCell(column, row, 12, GameMap.LAYER_WALLS);
+                    else if(calculated == 7)
+                        setCell(column, row, 3, GameMap.LAYER_WALLS);
                     break;
                 case 6:
                     if(calculated == 1 || calculated == 5)
                         setCell(column, row, 12, GameMap.LAYER_WALLS);
                     else if(calculated == 2 || calculated == 7)
                         setCell(column, row, 15, GameMap.LAYER_WALLS);
+                    else if(calculated == 4)
+                        setCell(column, row, 3, GameMap.LAYER_WALLS);
                     break;
                 case 7:
                     if(calculated == 2 || calculated == 6)
                         setCell(column, row, 15, GameMap.LAYER_WALLS);
                     else if(calculated == 1 || calculated == 4)
                         setCell(column, row, 13, GameMap.LAYER_WALLS);
+                    else if(calculated == 5)
+                        setCell(column, row, 3, GameMap.LAYER_WALLS);
                     break;
                 case 8:
                     if(calculated == 11)
@@ -1375,7 +1402,7 @@ public final class WorldGenerator
 	 * */
 	private int isCanGo(int x, int y, int dir)
 	{
-		int kx = 0, ky = 0;
+		int kx, ky;
 		if(dir == ObjectOnMap.DIR_NORTH || dir == ObjectOnMap.DIR_SOUTH)
 		{
 			if(dir == ObjectOnMap.DIR_NORTH)
@@ -1397,8 +1424,18 @@ public final class WorldGenerator
 					return 2;
 				else if(getCell(x+1, y+ky, GameMap.LAYER_WALLS) == TILE_NONE)//Если строим поворот, то начнем со стены, потому тут продолжим строительство
 					return 0;
-                else if(Utils.typesWall.contains(getCell(x+1, y+ky, GameMap.LAYER_WALLS)))//Если по всей ширинет стена и посреди на следующем шаге стена, то заканчиваем строительство коридора
+                else if(Utils.typesWall.contains(getCell(x+1, y+ky, GameMap.LAYER_WALLS)))//Если по всей ширине стена и посреди на следующем шаге стена, то заканчиваем строительство коридора
+                {
+                    //Если побокам коридора есть дверь в конце его создания, то удалим такие
+                    LevelDoor ld = getDoorByCoord(x, y);
+                    if(ld != null)
+                        deleteDoor(ld);
+
+                    ld = getDoorByCoord(x+2, y);
+                    if(ld != null)
+                        deleteDoor(ld);
                     return 1;
+                }
 				//else if(Utils.typesWall.contains(getCell(x, y+1*ky, GameMap.LAYER_WALLS)) && Utils.typesWall.contains(getCell(x+1, y+1*ky, GameMap.LAYER_WALLS)) && Utils.typesWall.contains(getCell(x+2, y+1*ky, GameMap.LAYER_WALLS)))
 					//return 0;
 			}
@@ -1409,7 +1446,17 @@ public final class WorldGenerator
                 return 3;
             }
 			else
+            {
+                //Если побокам коридора есть дверь в конце его создания, то удалим такие
+                LevelDoor ld = getDoorByCoord(x, y);
+                if(ld != null)
+                    deleteDoor(ld);
+
+                ld = getDoorByCoord(x+2, y);
+                if(ld != null)
+                    deleteDoor(ld);
 				return 1;
+            }
 		}
 		else if(dir == ObjectOnMap.DIR_WEST || dir == ObjectOnMap.DIR_EAST)
 		{
@@ -1432,7 +1479,17 @@ public final class WorldGenerator
 				else if(getCell(x+kx, y+1, GameMap.LAYER_WALLS) == TILE_NONE)
 					return 0;
                 else if(Utils.typesWall.contains(getCell(x+kx, y+1, GameMap.LAYER_WALLS)))
+                {
+                    //Если побокам коридора есть дверь в конце его создания, то удалим такие
+                    LevelDoor ld = getDoorByCoord(x, y);
+                    if(ld != null)
+                        deleteDoor(ld);
+
+                    ld = getDoorByCoord(x, y+2);
+                    if(ld != null)
+                        deleteDoor(ld);
                     return 1;
+                }
 				//else if(Utils.typesWall.contains(getCell(x+1*kx, y, GameMap.LAYER_WALLS)) && Utils.typesWall.contains(getCell(x+1*kx, y+1, GameMap.LAYER_WALLS)) && Utils.typesWall.contains(getCell(x+1*kx, y+2, GameMap.LAYER_WALLS)))
 					//return 0;
 			}
@@ -1443,7 +1500,17 @@ public final class WorldGenerator
                 return 3;
             }
 			else
+            {
+                //Если побокам коридора есть дверь в конце его создания, то удалим такие
+                LevelDoor ld = getDoorByCoord(x, y);
+                if(ld != null)
+                    deleteDoor(ld);
+
+                ld = getDoorByCoord(x, y+2);
+                if(ld != null)
+                    deleteDoor(ld);
 				return 1;
+            }
 		}
 			
 		return 1;
@@ -1492,7 +1559,8 @@ public final class WorldGenerator
      * */
     private void deleteDoor(LevelDoor d)
     {
-        mLevelDoors.remove(d);
+        if(d != null)
+            mLevelDoors.remove(d);
     }
 	
 	private void clearDoors()
@@ -1526,7 +1594,7 @@ public final class WorldGenerator
 		for(int i = 0; i < 1; i++)															//Создадим карты для всех уровней разом
 		{
 			//numObjects = Utils.getRand(wContext.world.MINROOMS, wContext.world.MAXROOMS);	//Определимся с максимальным количеством объектов на уровне
-			numObjects = 5;
+			numObjects = 9;
 			chanceRoom = Utils.getRand(Utils.MINCHANCEROOM, Utils.MAXCHANCEROOM);			//Шанс выпадения комнаты
 			//chanceCorridor = 100 - chanceRoom;											//Шанс выпадение коридора
 			//int width_level = Utils.getRand(World.MINLEVELWIDTH, World.MAXLEVELWIDTH);	//Ширина уровня(х)

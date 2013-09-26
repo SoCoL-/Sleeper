@@ -6,6 +6,7 @@ import android.content.res.Resources;
 
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.BoundCamera;
+import org.andengine.entity.util.FPSCounter;
 import org.andengine.opengl.font.FontManager;
 import org.andengine.opengl.texture.TextureManager;
 
@@ -37,7 +38,9 @@ public final class WorldContext
     private AssetManager    mAssetManager;              //Менеджер файлов в assets
 
 	public Resources mResourceManager;					//Менеджер ресурсов фндроида
-	public PlayerControllers mPlayerContr;
+	public PlayerControllers mPlayerContr;              //Обработчик действий игрока
+
+    public FPSCounter mFPSCounter;                      //Счетчик фпс
 
 	public float mScreenWidth;                          //Текущая ширина экрана
 	public float mScreenHeight;                         //Текущая высота экрана

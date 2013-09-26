@@ -3,10 +3,14 @@ package ru.rouge.sleeper.Scenes;
 import android.view.MotionEvent;
 
 import org.andengine.engine.camera.hud.HUD;
+import org.andengine.engine.handler.timer.ITimerCallback;
+import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
+import org.andengine.entity.text.Text;
+import org.andengine.entity.util.FPSCounter;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.util.debug.Debug;
 import org.andengine.util.color.Color;
@@ -93,15 +97,6 @@ public final class MainGameScene extends MainScene
 		Debug.e("Check world");
 		if(WorldContext.getInstance().mWorld != null)
 		{
-			/*Debug.e("Check layers");
-			if(WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers() == null)
-				Debug.e("WorldContext.getInstance().mWorld.getTMXLayers() == null Oo");
-
-			Debug.e("Get layer 0");
-			TMXLayer ground = WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(GameMap.LAYER_FLOOR);
-			Debug.e("Attach layer 0");
-			attachChild(ground);
-			attachChild(WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(GameMap.LAYER_WALLS));*/
             attachChild(WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_FLOOR));
             attachChild(WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_WALLS));
 			attachChild(WorldContext.getInstance().mPlayer);
@@ -132,6 +127,21 @@ public final class MainGameScene extends MainScene
 
             mHUD.registerTouchArea(btnHud);
             mHUD.attachChild(btnHud);
+
+            //Test add text to HUD. Need Class!!!
+            WorldContext.getInstance().mFPSCounter = new FPSCounter();
+            WorldContext.getInstance().getEngine().registerUpdateHandler(WorldContext.getInstance().mFPSCounter);
+
+            final Text mTextFPS = new Text(50, 5, ResourceManager.getInstance().mGameFont, "FPS: ", "FPS: XXXXX".length(), ResourceManager.getInstance().mVBO);
+            mHUD.attachChild(mTextFPS);
+            registerUpdateHandler(new TimerHandler(1 / 20.0f, true, new ITimerCallback()
+            {
+                @Override
+                public void onTimePassed(TimerHandler pTimerHandler)
+                {
+                    mTextFPS.setText("FPS: " + String.format("%.2f", WorldContext.getInstance().mFPSCounter.getFPS()));
+                }
+            }));
 
             Debug.e("Set HUD");
             WorldContext.getInstance().getCamera().setHUD(mHUD);
