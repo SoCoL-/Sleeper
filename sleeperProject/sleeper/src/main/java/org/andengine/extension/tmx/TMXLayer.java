@@ -21,7 +21,6 @@ import org.andengine.util.algorithm.collision.RectangularShapeCollisionChecker;
 import org.andengine.util.base64.Base64;
 import org.andengine.util.base64.Base64InputStream;
 import org.andengine.util.color.Color;
-import org.andengine.util.debug.Debug;
 import org.andengine.util.exception.AndEngineRuntimeException;
 import org.andengine.util.exception.MethodNotSupportedException;
 import org.andengine.util.math.MathUtils;
@@ -291,32 +290,11 @@ public class TMXLayer extends SpriteBatch implements TMXConstants {
 		final ITextureRegion tmxTileTextureRegion;
 		if(pGlobalTileID == 0)
 		{
-            Debug.i("Set tile with id = 0, column = " + tilecol + ", row = " + tilerow);
-
-            if(mTMXTiles[row][column] == null)
-            {
-                Debug.i("mTMXTiles[row][column] == null");
-			    final TMXTile tmxTile = new TMXTile(pGlobalTileID, column, row, tileWidth, tileHeight, null);
-                mTMXTiles[row][column] = tmxTile;
-            }
-            else
-            {
-                Debug.i("mTMXTiles[row][column] != null");
-                //tmxTiles[row][column] = tmxTile;
-                mTMXTiles[row][column].mTextureRegion = null;
-                mTMXTiles[row][column].mGlobalTileID = 0;
-                reset();
-                //mTMXTiles[row][column] = tmxTile;
-                //mTMXTiles[row][column].setGlobalTileID(tmxTiledMap, 0);
-
-                //this.setIndex(this.getSpriteBatchIndex(column, row));
-                //this.drawWithoutChecks(null, tmxTile.getTileX(), tmxTile.getTileY(), tileWidth, tileHeight, Color.WHITE_ABGR_PACKED_FLOAT);
-                this.submit(); // TODO Doesn't need to be called here, but should rather be called in a "init" step, when parsing the XML is complete.
-            }
+    	    final TMXTile tmxTile = new TMXTile(pGlobalTileID, column, row, tileWidth, tileHeight, null);
+            mTMXTiles[row][column] = tmxTile;
 		}
 		else  if(pGlobalTileID != 0)
 		{
-            Debug.i("TMXLayer : pGlobalTileID = " + pGlobalTileID);
 			tmxTileTextureRegion = tmxTiledMap.getTextureRegionFromGlobalTileID(pGlobalTileID);
 
 			if(this.mTexture == null)
@@ -348,7 +326,6 @@ public class TMXLayer extends SpriteBatch implements TMXConstants {
 				}
 			}
 		}
-		//this.mTilesAdded++;
 	}
 
 	private void addTileByGlobalTileID(final int pGlobalTileID, final ITMXTilePropertiesListener pTMXTilePropertyListener)
