@@ -13,6 +13,7 @@ import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.util.FPSLogger;
 import org.andengine.ui.activity.BaseGameActivity;
+import org.andengine.util.debug.Debug;
 
 import java.io.IOException;
 
@@ -54,9 +55,16 @@ public class MainActivity extends BaseGameActivity
 	@Override
 	public void onCreateResources(OnCreateResourcesCallback pOnCreateResourcesCallback) throws IOException
 	{
-		ResourceManager.getInstance().setManager(getVertexBufferObjectManager());
-		WorldContext.getInstance().setWorldContext(this.mCamera, this.getTextureManager(), this, this.getEngine(), this.getFontManager(), this.getAssets());
-		pOnCreateResourcesCallback.onCreateResourcesFinished();
+        try
+        {
+		    ResourceManager.getInstance().setManager(getVertexBufferObjectManager());
+		    WorldContext.getInstance().setWorldContext(this.mCamera, this.getTextureManager(), this, this.getEngine(), this.getFontManager(), this.getAssets());
+        }
+        catch(Exception e)
+        {
+            Debug.e(e);
+        }
+        pOnCreateResourcesCallback.onCreateResourcesFinished();
 	}
 
 	@Override

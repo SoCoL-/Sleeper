@@ -39,6 +39,7 @@ public final class WorldContext
 
 	public Resources mResourceManager;					//Менеджер ресурсов фндроида
 	public PlayerControllers mPlayerContr;              //Обработчик действий игрока
+    public Settings mSettings;
 
     public FPSCounter mFPSCounter;                      //Счетчик фпс
 
@@ -72,6 +73,7 @@ public final class WorldContext
 
 		this.mResourceManager = this.mContext.getResources();
 		this.mPlayerContr = new PlayerControllers();
+        this.mSettings = new Settings();
     }
 
 	/**

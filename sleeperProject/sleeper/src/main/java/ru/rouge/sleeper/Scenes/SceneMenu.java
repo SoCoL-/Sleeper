@@ -92,9 +92,11 @@ public final class SceneMenu extends MainScene implements MenuScene.IOnMenuItemC
         switch(pMenuItem.getID())
         {
             case BTN_PLAY:
-                //ScenesManager.getInstance().setMainGameScene();
                 //Если нажали "Новая игра", то начнем загружать все сначала
                 ScenesManager.getInstance().setLoadScene();
+                break;
+            case BTN_OPTIONS:
+                ScenesManager.getInstance().setSettingsScene();
                 break;
             case BTN_EXIT:
                 destroy();
