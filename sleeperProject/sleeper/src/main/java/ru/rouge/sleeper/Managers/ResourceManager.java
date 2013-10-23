@@ -64,16 +64,15 @@ public final class ResourceManager
 	//Characters
     private BitmapTextureAtlas              mPlayerTexture;
 	public TiledTextureRegion 				mHeroTexture;
-	//public  TiledTextureRegion              mEnemy1Texture;
-	//public  TiledTextureRegion              mEnemy2Texture;
-	//public  TiledTextureRegion              mEnemy3Texture;
-	//private TexturePackTextureRegionLibrary mCharactersTexturePackLibrary;
 
     private BitmapTextureAtlas              mDoorsAtlas;
     public  TiledTextureRegion              mDoorsTexture;
 
     public Font mGameFont;
     private ITexture mGameFontAtlas;
+
+    public Font mMenuFont;
+    private ITexture mMenuFontAtlas;
 
     public ArrayList<TMXTiledMap> mRooms;
 
@@ -93,7 +92,7 @@ public final class ResourceManager
 	{
 		this.mVBO = vbo;
         this.mRooms = new ArrayList<TMXTiledMap>();
-	}
+    }
 
 	/**
 	 * Загружаем ресурсы экрана заставки
@@ -106,12 +105,15 @@ public final class ResourceManager
 		mSplashRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mSplashAtlas, wc.getContext(), "logo.png", 0, 0);
 		mSplashAtlas.load();
 
-		//TODO Перенести нафиг в начальную инициализацию
-		FontFactory.setAssetBasePath("fonts/");
-		mGameFontAtlas = new BitmapTextureAtlas(WorldContext.getInstance().getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		mGameFont = FontFactory.createFromAsset(WorldContext.getInstance().getFontManager(), mGameFontAtlas, WorldContext.getInstance().getAssetManager(), "NeverwinterNights.ttf", 24, true, Color.WHITE);
-		mGameFont.load();
-	}
+        FontFactory.setAssetBasePath("fonts/");
+        mGameFontAtlas = new BitmapTextureAtlas(WorldContext.getInstance().getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+        mGameFont = FontFactory.createFromAsset(WorldContext.getInstance().getFontManager(), mGameFontAtlas, WorldContext.getInstance().getAssetManager(), "NeverwinterNights.ttf", 24, true, Color.WHITE);
+        mGameFont.load();
+
+        mMenuFontAtlas = new BitmapTextureAtlas(WorldContext.getInstance().getTextureManager(), 512, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+        mMenuFont = FontFactory.createFromAsset(WorldContext.getInstance().getFontManager(), mGameFontAtlas, WorldContext.getInstance().getAssetManager(), "Droid.ttf", 38, true, Color.WHITE);
+        mMenuFont.load();
+    }
 
 	/**
 	 * Освобождаем память от ресурсов экрана заставки
@@ -243,11 +245,14 @@ public final class ResourceManager
 	 */
 	public void freeResources()
 	{
-		//TODO Тут будем освобождать ресурсы игры
         mGameFont.unload();
         mGameFont = null;
         mGameFontAtlas.unload();
         mGameFontAtlas = null;
+        mMenuFont.unload();
+        mMenuFont = null;
+        mMenuFontAtlas.unload();
+        mMenuFontAtlas = null;
 		mHeroTexture = null;
         //mPlayerTexture.unload();
         mPlayerTexture = null;

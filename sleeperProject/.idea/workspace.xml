@@ -27,7 +27,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8da921f-051e-42dc-8ddc-0e333efe6852" name="Default" comment="Issue #17, и еще пара багов при генерации дверей">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sleeper/src/main/assets/tmx/room4.tmx" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sleeper/src/main/assets/fonts/Droid.ttf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/drawable-hdpi/arrow.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/drawable-mdpi/arrow.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/drawable-xhdpi/arrow.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/drawable-mdpi/ic_menu_calc.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/drawable-mdpi/ic_tab_calculator.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/drawable-mdpi/ic_tab_contact.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/drawable-mdpi/ic_tab_delivery.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/drawable-mdpi/ic_tab_departure.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/layout/child_view.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/menu/context_menu.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/layout/deliv_info_content.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/layout/group_view.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/drawable/red_button.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/.gradle/1.7/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/.gradle/1.7/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/.gradle/1.7/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/.gradle/1.7/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/drawable-hdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/drawable-hdpi/ic_launcher.png" />
@@ -37,25 +50,37 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/.gradle/1.7/taskArtifacts/outputFileStates.bin" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/.gradle/1.7/taskArtifacts/outputFileStates.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/.gradle/1.7/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/.gradle/1.7/taskArtifacts/taskArtifacts.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/manifests/debug/AndroidManifest.xml" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/manifests/debug/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sleeper/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/sleeper/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sleeper/build/source/buildConfig/debug/ru/rouge/sleeper/BuildConfig.java" afterPath="$PROJECT_DIR$/sleeper/build/source/buildConfig/debug/ru/rouge/sleeper/BuildConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/src/main/java/ru/deliver/deliverApp/CallFragment.java" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/src/main/java/ru/deliver/deliverApp/CallFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/DeliveryApplication.iml" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/DeliveryApplication.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/MyApplicationProject.iml" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/MyApplicationProject.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/src/main/java/ru/deliver/deliverApp/OfficesFragment.java" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/src/main/java/ru/deliver/deliverApp/OfficesFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Objects/Player.java" afterPath="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Objects/Player.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/source/r/debug/ru/deliver/deliverApp/R.java" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/source/r/debug/ru/deliver/deliverApp/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Generator/WorldGenerator.java" afterPath="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Generator/WorldGenerator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Managers/ResourceManager.java" afterPath="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Managers/ResourceManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Managers/ScenesManager.java" afterPath="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Managers/ScenesManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/layout/calculator_fragment.xml" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/layout/calculator_fragment.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/layout/call_fragment.xml" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/layout/call_fragment.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/layout/deliver_fragment.xml" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/layout/deliver_fragment.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/layout/deliver_info_fragment.xml" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/layout/deliver_info_fragment.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/layout/fav_item.xml" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/layout/fav_item.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/drawable/gradient.xml" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/drawable/gradient.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/incremental/dex/debug/inputs.data" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/incremental/dex/debug/inputs.data" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/incremental/mergeResources/debug/inputs.data" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/incremental/mergeResources/debug/inputs.data" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/incremental/mergeResources/debug/merger.xml" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/incremental/mergeResources/debug/merger.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/.idea/misc.xml" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/layout/offices_fragment.xml" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/layout/offices_fragment.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/incremental/mergeResources/debug/outputs.data" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/incremental/mergeResources/debug/outputs.data" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sleeper/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/sleeper/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sleeper/sleeper.iml" afterPath="$PROJECT_DIR$/sleeper/sleeper.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sleeperProject.iml" afterPath="$PROJECT_DIR$/sleeperProject.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/layout/tab.xml" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/layout/tab.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/drawable/tab_style.xml" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/drawable/tab_style.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/layout/text_pic_adapter.xml" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/layout/text_pic_adapter.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/values/values.xml" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/DeliveryApplication/build/res/all/debug/values/values.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sleeper/build/res/all/debug/values/values.xml" afterPath="$PROJECT_DIR$/sleeper/build/res/all/debug/values/values.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sleeper/build/res/all/debug/values-sw720dp-land/values.xml" afterPath="$PROJECT_DIR$/sleeper/build/res/all/debug/values-sw720dp-land/values.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../Deliver/MyApplicationProject/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -124,25 +149,25 @@
       <file leaf-file-name="Player.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Objects/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="188" column="86" selection-start="5885" selection-end="5885" vertical-scroll-proportion="0.0" vertical-offset="3196" max-vertical-offset="5967">
+            <state line="313" column="37" selection-start="9249" selection-end="9249" vertical-scroll-proportion="0.0" vertical-offset="4320" max-vertical-offset="5950">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameMap.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Map/GameMap.java">
+      <file leaf-file-name="ScenesManager.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Managers/ScenesManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="67" column="48" selection-start="2350" selection-end="2352" vertical-scroll-proportion="0.0" vertical-offset="1139" max-vertical-offset="3876">
+            <state line="101" column="43" selection-start="2408" selection-end="2408" vertical-scroll-proportion="0.0" vertical-offset="1020" max-vertical-offset="3162">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoadScene.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Scenes/LoadScene.java">
+      <file leaf-file-name="SceneMenu.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Scenes/SceneMenu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="89" column="42" selection-start="3482" selection-end="3482" vertical-scroll-proportion="0.0" vertical-offset="1513" max-vertical-offset="2839">
+            <state line="98" column="22" selection-start="2671" selection-end="2671" vertical-scroll-proportion="0.0" vertical-offset="1020" max-vertical-offset="2890">
               <folding />
             </state>
           </provider>
@@ -151,46 +176,66 @@
       <file leaf-file-name="MainGameScene.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Scenes/MainGameScene.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="132" column="31" selection-start="4426" selection-end="4426" vertical-scroll-proportion="0.0" vertical-offset="2244" max-vertical-offset="3162">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WorldGenerator.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Generator/WorldGenerator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="992" column="21" selection-start="41823" selection-end="41823" vertical-scroll-proportion="0.9869159" vertical-offset="15996" max-vertical-offset="27302">
+            <state line="115" column="21" selection-start="3529" selection-end="3586" vertical-scroll-proportion="0.0" vertical-offset="1377" max-vertical-offset="2907">
               <folding>
-                <element signature="e#4083#4092#0" expanded="true" />
-                <element signature="e#67883#67894#0" expanded="true" />
-                <element signature="e#68922#68994#0" expanded="false" />
-                <element signature="e#69326#69396#0" expanded="false" />
+                <element signature="e#1400#2325#0" expanded="true" />
+                <element signature="e#2320#2321#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="walls_stone.png" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sleeper/src/main/assets/tileset/walls_stone.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
+      <file leaf-file-name="CheckBox.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Utils/Views/CheckBox.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="39" column="22" selection-start="1274" selection-end="1274" vertical-scroll-proportion="0.0" vertical-offset="325" max-vertical-offset="1258">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TMXLayer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/org/andengine/extension/tmx/TMXLayer.java">
+      <file leaf-file-name="ResourceManager.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Managers/ResourceManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="235" column="96" selection-start="8694" selection-end="8694" vertical-scroll-proportion="0.0" vertical-offset="3995" max-vertical-offset="7463">
+            <state line="90" column="16" selection-start="2780" selection-end="2780" vertical-scroll-proportion="0.0" vertical-offset="851" max-vertical-offset="4522">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TMXTiledMap.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/org/andengine/extension/tmx/TMXTiledMap.java">
+      <file leaf-file-name="SettingsScene.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Scenes/SettingsScene.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="205" column="0" selection-start="7170" selection-end="7170" vertical-scroll-proportion="0.0" vertical-offset="3485" max-vertical-offset="3723">
+            <state line="36" column="38" selection-start="1198" selection-end="1198" vertical-scroll-proportion="0.9550562" vertical-offset="0" max-vertical-offset="1037">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WorldContext.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/WorldContext.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="75" column="40" selection-start="2589" selection-end="2589" vertical-scroll-proportion="0.0" vertical-offset="459" max-vertical-offset="2754">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Settings.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Settings.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="29" selection-start="245" selection-end="258" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="561">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="66" column="8" selection-start="2346" selection-end="2346" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="1445">
               <folding />
             </state>
           </provider>
@@ -592,7 +637,7 @@
     <option name="modificationStamps">
       <map>
         <entry key="C:\Users\1\Documents\GitHub" value="1376995931967" />
-        <entry key="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject" value="1378902642026" />
+        <entry key="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject" value="1382086548478" />
         <entry key="C:\Users\1\Documents\GitHub\sleeperProject" value="1375794824274" />
       </map>
     </option>
@@ -600,22 +645,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/sleeper/src/main/assets/tmx/room1.tmx" />
-        <option value="$PROJECT_DIR$/sleeper/src/main/assets/tmx/room2.tmx" />
-        <option value="$PROJECT_DIR$/sleeper/src/main/assets/tmx/room3.tmx" />
-        <option value="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/MainActivity.java" />
-        <option value="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Map/GameMap.java" />
-        <option value="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Managers/ResourceManager.java" />
-        <option value="$PROJECT_DIR$/sleeper/src/main/java/org/andengine/extension/tmx/TMXTileSet.java" />
-        <option value="$PROJECT_DIR$/sleeper/src/main/java/org/andengine/extension/tmx/TMXTiledMap.java" />
-        <option value="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Objects/Player.java" />
         <option value="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Scenes/LoadScene.java" />
         <option value="$PROJECT_DIR$/sleeper/src/main/java/org/andengine/extension/tmx/TMXTile.java" />
-        <option value="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Scenes/MainGameScene.java" />
         <option value="$PROJECT_DIR$/sleeper/src/main/java/org/andengine/extension/tmx/TMXLayer.java" />
         <option value="$PROJECT_DIR$/sleeper/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/sleeper/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Generator/WorldGenerator.java" />
+        <option value="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Scenes/MainGameScene.java" />
+        <option value="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Scenes/SceneMenu.java" />
+        <option value="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Managers/ScenesManager.java" />
+        <option value="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Managers/ResourceManager.java" />
+        <option value="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/MainActivity.java" />
+        <option value="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Utils/Views/CheckBox.java" />
+        <option value="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Settings.java" />
+        <option value="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/WorldContext.java" />
+        <option value="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Objects/Player.java" />
+        <option value="$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Scenes/SettingsScene.java" />
       </list>
     </option>
   </component>
@@ -943,6 +988,52 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="Utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sleeper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GitHub" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sleeper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sleeperProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sleeper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sleeper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="Scenes" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -1224,10 +1315,6 @@
               <option name="myItemId" value="assets" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tmx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -1263,48 +1350,14 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="tileset" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sleeper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GitHub" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sleeper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sleeperProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sleeper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
+              <option name="myItemId" value="fonts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1329,9 +1382,12 @@
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="OverrideImplement.overriding.sorted" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\fonts" />
       <recent name="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\gfx\characters" />
       <recent name="C:\Users\1\Documents\GitHub\sleeperProject\sleeper\src\main\java" />
       <recent name="C:\Users\1\Documents\GitHub\sleeperProject\sleeper\src\main" />
@@ -1354,6 +1410,7 @@
       <option name="NETWORK_SPEED" value="full" />
       <option name="NETWORK_LATENCY" value="none" />
       <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
       <method />
     </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
@@ -1362,19 +1419,6 @@
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
@@ -1402,6 +1446,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -1452,6 +1509,7 @@
       <option name="NETWORK_SPEED" value="full" />
       <option name="NETWORK_LATENCY" value="none" />
       <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
       <method />
     </configuration>
     <configuration default="false" name="sleeper" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -1468,6 +1526,7 @@
       <option name="NETWORK_SPEED" value="full" />
       <option name="NETWORK_LATENCY" value="none" />
       <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
       <RunnerSettings RunnerId="AndroidDebugRunner" />
       <ConfigurationWrapper RunnerId="AndroidDebugRunner" />
       <method />
@@ -1552,7 +1611,11 @@
       <created>1379611344379</created>
       <updated>1379611344380</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Issue #13">
+      <created>1382370171661</created>
+      <updated>1382370171661</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1560,7 +1623,7 @@
     <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32865497" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3282532" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -1569,22 +1632,49 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32942554" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32865497" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.90877193" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3282532" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.908558" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25769854" sideWeight="0.67134506" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32748538" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2706645" sideWeight="0.6717468" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3270809" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32865497" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32865497" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32942554" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32942554" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2706645" sideWeight="0.09144197" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3270809" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32865497" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3282532" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.908558" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -1603,114 +1693,129 @@
     <MESSAGE value="Правка идентификаторов талов, часть 2. Надо подумать о проверке тайлов со стороны двери..." />
     <MESSAGE value="Правка расстановки дверей для комнат." />
     <MESSAGE value="Issue #5" />
-    <option name="LAST_COMMIT_MESSAGE" value="Issue #5" />
+    <MESSAGE value="Issue #13" />
+    <option name="LAST_COMMIT_MESSAGE" value="Issue #13" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/org/andengine/extension/tmx/TMXTile.java">
+    <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/org/andengine/util/progress/ProgressMonitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="87" column="12" selection-start="2375" selection-end="2375" vertical-scroll-proportion="0.5625" vertical-offset="1020" max-vertical-offset="2040">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/org/andengine/entity/Entity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1171" column="16" selection-start="29984" selection-end="29984" vertical-scroll-proportion="-0.29166666" vertical-offset="19856" max-vertical-offset="23936" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/org/andengine/entity/shape/Shape.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="129" column="17" selection-start="3775" selection-end="3775" vertical-scroll-proportion="0.35416666" vertical-offset="1751" max-vertical-offset="2788" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/org/andengine/entity/sprite/batch/SpriteBatch.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="123" column="33" selection-start="7106" selection-end="7106" vertical-scroll-proportion="1.8541666" vertical-offset="238" max-vertical-offset="12631" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Map/GameMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="48" selection-start="2350" selection-end="2352" vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="3604">
+        <state line="14" column="13" selection-start="273" selection-end="273" vertical-scroll-proportion="-0.3783784" vertical-offset="495" max-vertical-offset="1462">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Scenes/LoadScene.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="89" column="42" selection-start="3482" selection-end="3482" vertical-scroll-proportion="0.0" vertical-offset="527" max-vertical-offset="2465">
+        <state line="149" column="32" selection-start="6105" selection-end="6105" vertical-scroll-proportion="0.0" vertical-offset="1651" max-vertical-offset="2465">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Scenes/MainScene.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="38" selection-start="933" selection-end="946" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="1122">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Managers/ScenesManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="101" column="43" selection-start="2408" selection-end="2408" vertical-scroll-proportion="0.0" vertical-offset="1020" max-vertical-offset="3162">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/org/andengine/ui/activity/BaseGameActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="221" column="0" selection-start="7675" selection-end="7675" vertical-scroll-proportion="1.3992629" vertical-offset="1887" max-vertical-offset="8279">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Managers/ResourceManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="90" column="16" selection-start="2780" selection-end="2780" vertical-scroll-proportion="0.0" vertical-offset="851" max-vertical-offset="4522">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="66" column="8" selection-start="2346" selection-end="2346" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="1445">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Utils/Views/CheckBox.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="22" selection-start="1274" selection-end="1274" vertical-scroll-proportion="0.0" vertical-offset="325" max-vertical-offset="1258">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Scenes/SceneMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="98" column="22" selection-start="2671" selection-end="2671" vertical-scroll-proportion="0.0" vertical-offset="918" max-vertical-offset="2890">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Scenes/MainGameScene.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="132" column="31" selection-start="4426" selection-end="4426" vertical-scroll-proportion="0.0" vertical-offset="2244" max-vertical-offset="3162">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/org/andengine/extension/tmx/TMXTileSet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="13" selection-start="1366" selection-end="1366" vertical-scroll-proportion="-3.5208333" vertical-offset="3417" max-vertical-offset="4233" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/org/andengine/extension/tmx/TMXTiledMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="205" column="0" selection-start="7170" selection-end="7170" vertical-scroll-proportion="0.0" vertical-offset="2635" max-vertical-offset="3604">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/org/andengine/extension/tmx/TMXLayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="235" column="96" selection-start="8694" selection-end="8694" vertical-scroll-proportion="0.0" vertical-offset="3043" max-vertical-offset="7004">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sleeper/src/main/assets/tileset/walls_stone.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/org/andengine/entity/scene/Scene.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="259" column="0" selection-start="9358" selection-end="9358" vertical-scroll-proportion="0.51593137" vertical-offset="3727" max-vertical-offset="7922" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sleeper/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="31" selection-start="199" selection-end="199" vertical-scroll-proportion="0.08202654" vertical-offset="0" max-vertical-offset="829">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sleeper/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="19" selection-start="354" selection-end="354" vertical-scroll-proportion="0.24607961" vertical-offset="0" max-vertical-offset="829">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sleeper/src/main/assets/tmx/room4.tmx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="548">
-          <folding />
+        <state line="115" column="21" selection-start="3529" selection-end="3586" vertical-scroll-proportion="0.0" vertical-offset="1377" max-vertical-offset="2907">
+          <folding>
+            <element signature="e#1400#2325#0" expanded="true" />
+            <element signature="e#2320#2321#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Generator/WorldGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="992" column="21" selection-start="41823" selection-end="41823" vertical-scroll-proportion="0.9869159" vertical-offset="15996" max-vertical-offset="27302">
+        <state line="902" column="30" selection-start="39889" selection-end="39889" vertical-scroll-proportion="0.0" vertical-offset="14059" max-vertical-offset="28458">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Settings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="29" selection-start="245" selection-end="258" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="561">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Controllers/PlayerControllers.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="19" selection-start="337" selection-end="337" vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="1751">
           <folding>
-            <element signature="e#4083#4092#0" expanded="true" />
-            <element signature="e#67883#67894#0" expanded="true" />
-            <element signature="e#68922#68994#0" expanded="false" />
-            <element signature="e#69326#69396#0" expanded="false" />
+            <element signature="imports" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/WorldContext.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="75" column="40" selection-start="2589" selection-end="2589" vertical-scroll-proportion="0.0" vertical-offset="459" max-vertical-offset="2754">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Objects/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="313" column="37" selection-start="9249" selection-end="9249" vertical-scroll-proportion="0.0" vertical-offset="4320" max-vertical-offset="5950">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sleeper/src/main/java/ru/rouge/sleeper/Scenes/SettingsScene.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="38" selection-start="1198" selection-end="1198" vertical-scroll-proportion="0.9550562" vertical-offset="0" max-vertical-offset="1037">
+          <folding />
         </state>
       </provider>
     </entry>

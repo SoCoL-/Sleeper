@@ -4,6 +4,9 @@
     <dataSet config="main" >
         <source path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets" >
             <file
+                name="fonts/Droid.ttf"
+                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\fonts\Droid.ttf" />
+            <file
                 name="fonts/NeverwinterNights.ttf"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\fonts\NeverwinterNights.ttf" />
             <file
@@ -27,6 +30,9 @@
             <file
                 name="gfx/door/door1.png"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\gfx\door\door1.png" />
+            <file
+                name="gfx/ic_btton_hud.png"
+                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\gfx\ic_btton_hud.png" />
             <file
                 name="menu/background.png"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\menu\background.png" />
@@ -93,6 +99,9 @@
             <file
                 name="tmx/room3.tmx"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\tmx\room3.tmx" />
+            <file
+                name="tmx/room4.tmx"
+                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\tmx\room4.tmx" />
         </source>
     </dataSet>
     <dataSet config="debug" >

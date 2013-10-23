@@ -29,7 +29,9 @@ public class Player extends BaseAnimObject
 	final private long STEP_TIME = 10;					//Время одного шага в миллисекундах
 	final private int NEXT_DESTINATION_TILE_WIDTH;		//Размер пути( = ширина тайла) на который надо переместиться за один раз
 	//Время анимации каждого кадра бега в одном направлении
-	final private long[] ANIM_TIMINGS_RUN = {130, 130, 130, 130, 130, 130, 130, 130};
+	final private long[] ANIM_TIMINGS_RUN = {100, 100, 100, 100, 100, 100, 100, 100};
+    final private long[] ANIM_TIMINGS_RUN_FAST = {50, 50, 50, 50, 50, 50, 50, 50};
+    private long[] mCurrRun;
 
 	//-----------------------------
 	//VARIABLES
@@ -51,7 +53,16 @@ public class Player extends BaseAnimObject
 	public Player(float pX, float pY, ITiledTextureRegion pTiledTextureRegion, VertexBufferObjectManager pVertexBufferObjectManager)
 	{
 		super(pX, pY, pTiledTextureRegion, pVertexBufferObjectManager);
-		mSpeed = 2f;
+        if(WorldContext.getInstance().mSettings.isFastPlayer())
+        {
+            mSpeed = 2f;
+            mCurrRun = ANIM_TIMINGS_RUN_FAST;
+        }
+        else
+        {
+            mSpeed = 1f;
+            mCurrRun = ANIM_TIMINGS_RUN;
+        }
 		this.isMove = false;
 		mDir = Directions.DIR_NONE;
 		mOldDir = Directions.DIR_EAST;
@@ -279,28 +290,28 @@ public class Player extends BaseAnimObject
 		switch (mDir)
 		{
 			case DIR_EAST:
-				this.animate(ANIM_TIMINGS_RUN, 8, 15, true);//run right
+				this.animate(mCurrRun, 8, 15, true);//run right
 
 				mKY = 0;
 				mKX = 1;
 
 				break;
 			case DIR_WEST:
-				this.animate(ANIM_TIMINGS_RUN, 0, 7, true);//run left
+				this.animate(mCurrRun, 0, 7, true);//run left
 
 				mKY = 0;
 				mKX = -1;
 
 				break;
 			case DIR_SOUTH:
-				this.animate(ANIM_TIMINGS_RUN, 24, 31, true);//run down
+				this.animate(mCurrRun, 24, 31, true);//run down
 
 				mKX = 0;
                 mKY = 1;
 
 				break;
 			case DIR_NORTH:
-				this.animate(ANIM_TIMINGS_RUN, 16, 23, true);//run up
+				this.animate(mCurrRun, 16, 23, true);//run up
 
 				mKX = 0;
                 mKY = -1;

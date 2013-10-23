@@ -4,8 +4,6 @@
     <!-- From: file:/C:/Users/1/Documents/GitHub/Sleeper/sleeperProject/sleeper/src/main/res/values/strings.xml -->
     <string-array name="rooms_name">
         <item>room1.tmx</item>
-        <item>room2.tmx</item>
-        <item>room3.tmx</item>
         <item>room4.tmx</item>
     </string-array>
     <!-- From: file:/C:/Users/1/Documents/GitHub/Sleeper/sleeperProject/sleeper/src/main/res/values/dimens.xml -->

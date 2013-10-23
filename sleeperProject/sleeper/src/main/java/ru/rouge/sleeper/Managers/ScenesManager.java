@@ -8,6 +8,7 @@ import ru.rouge.sleeper.Scenes.LoadScene;
 import ru.rouge.sleeper.Scenes.MainGameScene;
 import ru.rouge.sleeper.Scenes.MainScene;
 import ru.rouge.sleeper.Scenes.SceneMenu;
+import ru.rouge.sleeper.Scenes.SettingsScene;
 import ru.rouge.sleeper.WorldContext;
 
 /**
@@ -26,6 +27,7 @@ public final class ScenesManager
 		SCENE_MENU,
 		SCENE_LOAD,
 		SCENE_GAME,
+        SCENE_SETTINGS,
 	}
 
 	//-----------------------------
@@ -38,6 +40,7 @@ public final class ScenesManager
 	private MainScene mSplashScreen;
     private MainScene mLoadScene;
     private MainScene mMainGameScene;
+    private MainScene mSettingsScene;
 
 	private SceneTypes mCurrentSceneType;
 	private MainScene mCurrentScene;
@@ -56,7 +59,6 @@ public final class ScenesManager
         {
             Debug.i("Try to dispose mSplashScreen");
             ResourceManager.getInstance().unloadSplashRes();
-            //mSplashScreen.detachSelf();
             mSplashScreen.dispposeScene();
             mSplashScreen = null;
         }
@@ -67,7 +69,6 @@ public final class ScenesManager
         if(mMenuScene != null)
         {
             Debug.i("Try to dispose mMenuScene");
-            //mMenuScene.detachSelf();
             mMenuScene.dispposeScene();
             mMenuScene = null;
         }
@@ -78,7 +79,6 @@ public final class ScenesManager
         if(mLoadScene != null)
         {
             Debug.i("Try to dispose mLoadScene");
-            //mLoadScene.detachSelf();
             mLoadScene.dispposeScene();
             mLoadScene = null;
         }
@@ -89,9 +89,18 @@ public final class ScenesManager
         if(mMainGameScene != null)
         {
             Debug.i("Try to dispose mMainGameScene");
-            //mMainGameScene.detachSelf();
             mMainGameScene.dispposeScene();
             mMainGameScene = null;
+        }
+    }
+
+    public void disposeSettingsScene()
+    {
+        if(mSettingsScene != null)
+        {
+            Debug.i("Try to dispose mSettingsScene");
+            mSettingsScene.dispposeScene();
+            mSettingsScene = null;
         }
     }
 
@@ -100,8 +109,6 @@ public final class ScenesManager
 	 */
 	public void freeResources()
 	{
-		//TODO Тут освободим занятые ресурсы
-
 		if(instance != null)
 			instance = null;
 	}
@@ -136,6 +143,7 @@ public final class ScenesManager
         Debug.i("disposing");
         disposeSplash();
         disposeMainGameScene();
+        disposeSettingsScene();
         Debug.i("end show mMenuScene");
     }
 
@@ -151,6 +159,12 @@ public final class ScenesManager
         mMainGameScene = new MainGameScene();
         setScene(mMainGameScene);
         disposeLoadScene();
+    }
+
+    public void setSettingsScene()
+    {
+        mSettingsScene = new SettingsScene();
+        setScene(mSettingsScene);
     }
 
 	public MainScene getCurrentScene()
