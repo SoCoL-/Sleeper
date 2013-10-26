@@ -13,5 +13,10 @@
    H4sIAAAAAAAAC2NlYGBgJIDZgJiJgTBgGlWHUx0LA+FwZgdiAEFcYHGQAQAA
   </data>
  </layer>
+ <layer name="above" width="10" height="10">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWDCQAADA0iRpABAAA=
+  </data>
+ </layer>
  <objectgroup name="objects" width="10" height="10"/>
 </map>

@@ -159,7 +159,9 @@ public final class MainGameScene extends MainScene
     public void OnKeyBackPressed()
     {
         //Возврат в игровое меню
+        Debug.e("back press");
         ScenesManager.getInstance().setMenuScene();
+        Debug.e("back press done");
     }
 
     @Override

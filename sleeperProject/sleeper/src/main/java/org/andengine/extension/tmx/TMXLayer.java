@@ -21,12 +21,15 @@ import org.andengine.util.algorithm.collision.RectangularShapeCollisionChecker;
 import org.andengine.util.base64.Base64;
 import org.andengine.util.base64.Base64InputStream;
 import org.andengine.util.color.Color;
+import org.andengine.util.debug.Debug;
 import org.andengine.util.exception.AndEngineRuntimeException;
 import org.andengine.util.exception.MethodNotSupportedException;
 import org.andengine.util.math.MathUtils;
 import org.xml.sax.Attributes;
 
 import android.opengl.GLES20;
+
+import ru.rouge.sleeper.WorldContext;
 
 /**
  * (c) 2010 Nicolas Gramlich
@@ -199,7 +202,8 @@ public class TMXLayer extends SpriteBatch implements TMXConstants {
 	}
 
 	@Override
-	protected void draw(final GLState pGLState, final Camera pCamera) {
+	protected void draw(final GLState pGLState, final Camera pCamera)
+    {
 		final int tileColumns = this.mTileColumns;
 		final int tileRows = this.mTileRows;
 		final float tileWidth = this.mTMXTiledMap.getTileWidth();
@@ -232,7 +236,7 @@ public class TMXLayer extends SpriteBatch implements TMXConstants {
         {
 			for(int column = firstColumn; column <= lastColumn; column++)
             {
-                if(mTMXTiles[row][column] != null && (mTMXTiles[row][column].mGlobalTileID != 0))
+                if(mTMXTiles[row][column] != null && (mTMXTiles[row][column].mGlobalTileID != 0) && ((mTMXTiles[row][column].isVisible() && WorldContext.getInstance().mSettings.isWarFog()) || !WorldContext.getInstance().mSettings.isWarFog()))
 				    this.mSpriteBatchVertexBufferObject.draw(GLES20.GL_TRIANGLE_STRIP, this.getSpriteBatchIndex(column, row) * SpriteBatch.VERTICES_PER_SPRITE, SpriteBatch.VERTICES_PER_SPRITE);
 			}
 		}
@@ -272,6 +276,28 @@ public class TMXLayer extends SpriteBatch implements TMXConstants {
 			StreamUtils.close(dataIn);
 		}
 	}
+
+    /**Выставляем видимость тайлов относительно позиции игрока
+     * @param tilecol - координата героя на карте
+     * @param tilerow - координата героя на карте
+     * */
+    public void setVisibleTiles(final int tilecol, final int tilerow)
+    {
+        Debug.i("Start visible tiles");
+        for(int row = tilerow-1; row <= tilerow+1; row++)
+            for(int col = tilecol-1; col <= tilecol+1; col++)
+            {
+                Debug.i("row = " + row);
+                Debug.i("col = " + col);
+                Debug.i("mTMXTiles[row][col] = " + mTMXTiles[row][col]);
+                if(mTMXTiles[row][col] != null && (mTMXTiles[row][col].mGlobalTileID != 0))
+                {
+                    Debug.i("Tile row = " + row + ", col = " + col);
+                    mTMXTiles[row][col].setVisible(true);
+                }
+            }
+        Debug.i("End visible tiles");
+    }
 
 	public void addTileByGlobalTileID(final int tilecol, final int tilerow, final int pGlobalTileID, final ITMXTilePropertiesListener pTMXTilePropertyListener)
 	{

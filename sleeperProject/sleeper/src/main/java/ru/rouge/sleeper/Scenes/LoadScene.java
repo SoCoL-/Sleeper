@@ -102,6 +102,8 @@ public final class LoadScene extends MainScene
                                 WorldContext.getInstance().mPlayer = new Player(playerSpawn.getX(), playerSpawn.getY(), ResourceManager.getInstance().mHeroTexture, ResourceManager.getInstance().mVBO);
                                 WorldContext.getInstance().getCamera().setChaseEntity(WorldContext.getInstance().mPlayer);
                                 WorldContext.getInstance().mPlayerContr.setPlayer(WorldContext.getInstance().mPlayer);
+                                //WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(GameMap.LAYER_FLOOR).setVisibleTiles(playerSpawn.getX(), playerSpawn.getY());
+                                //WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(GameMap.LAYER_WALLS).setVisibleTiles(playerSpawn.getX(), playerSpawn.getY());
                             }
                             catch(Exception e)
                             {

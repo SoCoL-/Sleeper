@@ -24,6 +24,7 @@ public class TMXTile
 	private final int mTileColumn;
 	private final float mTileWidth;
 	private final float mTileHeight;
+    private boolean isVisible;
 	ITextureRegion mTextureRegion;
 
 	// ===========================================================
@@ -37,6 +38,7 @@ public class TMXTile
 		this.mTileWidth = pTileWidth;
 		this.mTileHeight = pTileHeight;
 		this.mTextureRegion = pTextureRegion;
+        this.isVisible = false;
 	}
 
 	// ===========================================================
@@ -71,6 +73,11 @@ public class TMXTile
 		return this.mTileHeight;
 	}
 
+    public boolean isVisible()
+    {
+        return this.isVisible;
+    }
+
 	public ITextureRegion getTextureRegion() {
 		return this.mTextureRegion;
 	}
@@ -87,6 +94,11 @@ public class TMXTile
         else
 		    this.mTextureRegion = pTMXTiledMap.getTextureRegionFromGlobalTileID(pGlobalTileID);
 	}
+
+    public void setVisible(boolean visible)
+    {
+        this.isVisible = visible;
+    }
 
 	/**
 	 * You'd probably want to call {@link TMXTile#setGlobalTileID(org.andengine.extension.tmx.TMXTiledMap, int)} instead.

@@ -8,11 +8,13 @@ package ru.rouge.sleeper;
 public class Settings
 {
     private boolean isFastPlayer;
+    private boolean isWarFog;
 
     public Settings()
     {
         //Set by Default
         isFastPlayer = false;
+        isWarFog = true;
     }
 
     public void setFastPlayer(boolean isFast)
@@ -23,5 +25,15 @@ public class Settings
     public boolean isFastPlayer()
     {
         return isFastPlayer;
+    }
+
+    public boolean isWarFog()
+    {
+        return isWarFog;
+    }
+
+    public void setWarFog(boolean warFog)
+    {
+        isWarFog = warFog;
     }
 }

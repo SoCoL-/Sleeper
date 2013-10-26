@@ -66,9 +66,9 @@ public final class ScenesManager
 
     public void disposeMenuScene()
     {
+        Debug.i("Try to dispose mMenuScene");
         if(mMenuScene != null)
         {
-            Debug.i("Try to dispose mMenuScene");
             mMenuScene.dispposeScene();
             mMenuScene = null;
         }
@@ -76,9 +76,9 @@ public final class ScenesManager
 
     public void disposeLoadScene()
     {
+        Debug.i("Try to dispose mLoadScene");
         if(mLoadScene != null)
         {
-            Debug.i("Try to dispose mLoadScene");
             mLoadScene.dispposeScene();
             mLoadScene = null;
         }
@@ -86,9 +86,9 @@ public final class ScenesManager
 
     public void disposeMainGameScene()
     {
+        Debug.i("Try to dispose mMainGameScene");
         if(mMainGameScene != null)
         {
-            Debug.i("Try to dispose mMainGameScene");
             mMainGameScene.dispposeScene();
             mMainGameScene = null;
         }
@@ -96,9 +96,9 @@ public final class ScenesManager
 
     public void disposeSettingsScene()
     {
+        Debug.i("Try to dispose mSettingsScene");
         if(mSettingsScene != null)
         {
-            Debug.i("Try to dispose mSettingsScene");
             mSettingsScene.dispposeScene();
             mSettingsScene = null;
         }

@@ -9,16 +9,11 @@ package ru.rouge.sleeper;
 
 public final class R {
     public static final class array {
-        /**  From: file:/C:/Users/1/Documents/GitHub/Sleeper/sleeperProject/sleeper/src/main/res/values/strings.xml 
-         */
         public static final int rooms_name=0x7f040000;
     }
     public static final class attr {
     }
     public static final class dimen {
-        /**  From: file:/C:/Users/1/Documents/GitHub/Sleeper/sleeperProject/sleeper/src/main/res/values/dimens.xml 
- From: file:/C:/Users/1/Documents/GitHub/Sleeper/sleeperProject/sleeper/src/main/res/values-sw720dp-land/dimens.xml 
-         */
         public static final int activity_horizontal_margin=0x7f050000;
         public static final int activity_vertical_margin=0x7f050001;
     }
@@ -35,15 +30,12 @@ public final class R {
         public static final int main=0x7f080000;
     }
     public static final class string {
-        /**  From: file:/C:/Users/1/Documents/GitHub/Sleeper/sleeperProject/sleeper/src/main/res/values/strings.xml 
-         */
         public static final int action_settings=0x7f060000;
         public static final int app_name=0x7f060001;
         public static final int hello_world=0x7f060002;
     }
     public static final class style {
-        /**  From: file:/C:/Users/1/Documents/GitHub/Sleeper/sleeperProject/sleeper/src/main/res/values/styles.xml 
-
+        /** 
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.

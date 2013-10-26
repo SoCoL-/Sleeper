@@ -4,7 +4,6 @@ import android.util.Log;
 
 import org.andengine.extension.tmx.TMXLayer;
 import org.andengine.extension.tmx.TMXObject;
-import org.andengine.extension.tmx.TMXTile;
 import org.andengine.extension.tmx.TMXTileSet;
 import org.andengine.extension.tmx.TMXTiledMap;
 import org.andengine.opengl.texture.TextureOptions;
@@ -363,16 +362,16 @@ public final class WorldGenerator
 		{
             Debug.i(TAG, "door == null");
 			//Вычислим координаты для первой комнаты, чтобы она была гарантированно в пределах уровня
-			//x = Utils.getRand(0, wContext.world.getLevel(currLevel).getWidth()// - currRoom.getColumns*currRoom.getWidth());
-			//y = Utils.getRand(0, wContext.world.getLevel(currLevel).getHeight()// - currRoom.getRows*currRoom.getHeight());
-			x = 22;
-			y = 22;
+			x = Utils.getRand(0, wContext.mWorld.mLevels.get(currLevel).getTMXLayers().get(GameMap.LAYER_WALLS).getTileColumns() - currRoom.getTMXLayers().get(GameMap.LAYER_WALLS).getTileColumns());
+			y = Utils.getRand(0, wContext.mWorld.mLevels.get(currLevel).getTMXLayers().get(GameMap.LAYER_WALLS).getTileRows() - currRoom.getTMXLayers().get(GameMap.LAYER_WALLS).getTileRows());
+			//x = 22;
+			//y = 22;
 
             //Добавим в комнату точку рождения игрока
-            Debug.e(TAG, "Create spawn player point");
+            /*Debug.e(TAG, "Create spawn player point");
             TMXObject playerSpawn = new TMXObject("player_spawn", "player", 23*32, 23*32, 32, 32);
             wContext.mWorld.mSpawns.add(playerSpawn);
-            Debug.e(TAG, "Done spawn player point");
+            Debug.e(TAG, "Done spawn player point");*/
 		}
 		else
 		{
@@ -1581,6 +1580,42 @@ public final class WorldGenerator
 			}
 		}
 	}
+
+    /**
+     * Ставим игрока в случайную комнату или в комнату с подъемом
+     * */
+    private void setupPlayer()
+    {
+        boolean isExit = false;//Для выхода из цикла нахождения свободного тайла
+
+        if(currLevel == 0)//У нас нет спуска на первом уровне
+        {
+            //Выбираем случайную комнату из списка
+            int number = Utils.getRand(0, objectsMap.size()-1);
+            Debug.i("number = " + number);
+            ObjectOnMap roomInfo = objectsMap.get(number);
+
+            //Выберем координаты, по которым есть свободное место в комнате
+            int randX = 0, randY = 0;
+            while(!isExit)
+            {
+                randX = Utils.getRand(1, roomInfo.getSize().getWidth()-1);
+                randY = Utils.getRand(1, roomInfo.getSize().getHeight()-1);
+                randX = randX + roomInfo.getBegin().getX();
+                randY = randY + roomInfo.getBegin().getY();
+                if(getCell(randX, randY, GameMap.LAYER_WALLS) == TILE_NONE && getDoorByCoord(randX, randY) == null)
+                    isExit = true;
+            }
+
+            //Поставим игрока на выбранное место и высветим участок вокруг него
+            Debug.e(TAG, "Create spawn player point");
+            TMXObject playerSpawn = new TMXObject("player_spawn", "player", randX*32, randY*32, 32, 32);
+            wContext.mWorld.mSpawns.add(playerSpawn);
+            Debug.e(TAG, "Done spawn player point");
+            WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_FLOOR).setVisibleTiles(randX, randY);
+            WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_WALLS).setVisibleTiles(randX, randY);
+        }
+    }
 	
 	public boolean generateNewLevel()
 	{
@@ -1612,6 +1647,8 @@ public final class WorldGenerator
             newLevel.getTMXLayers().add(floor);
             TMXLayer wall = new TMXLayer(newLevel, width_level, height_level, "wall", ResourceManager.getInstance().mVBO);
             newLevel.getTMXLayers().add(wall);
+            TMXLayer above = new TMXLayer(newLevel, width_level, height_level, "above", ResourceManager.getInstance().mVBO);
+            newLevel.getTMXLayers().add(above);
             TMXTileSet set = new TMXTileSet(1, "walls_stone", 32, 32, 2, 1, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
             set.setImageSource(wContext.getAssetManager(), wContext.getTextureManager(), "tileset/walls_stone.png", null);
             newLevel.getTMXTileSets().add(set);
@@ -1672,6 +1709,8 @@ public final class WorldGenerator
         Debug.i("Calculate ids of tiles in level");
         correctWallIDs();
 		Debug.i(TAG, "Number of generated objects = " + objectsMap.size());
+
+        setupPlayer();
 		
 		return true;
 	}

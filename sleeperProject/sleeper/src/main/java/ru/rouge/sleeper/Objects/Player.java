@@ -86,7 +86,7 @@ public class Player extends BaseAnimObject
             //Debug.e("isMove");
             if(SystemClock.elapsedRealtime() >= mCurrentStepTime + STEP_TIME)//Определяет скорость движения
 			{
-				if(mLength <= 0)
+				if(mLength <= 0)//если прошли тайл
 				{
 					//Debug.e("Stop move!");
                     if(isMoveLoop)
@@ -129,6 +129,25 @@ public class Player extends BaseAnimObject
                         return;
 					}
 				}
+
+                try
+                {
+                    if(mLength == NEXT_DESTINATION_TILE_WIDTH/2)
+                    {
+                        int column = (int)getX()/32;
+                        if(mKX == 1)
+                            column += 1;
+                        int row = (int)getY()/32;
+                        if(mKY == 1)
+                            row += 1;
+                        WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_FLOOR).setVisibleTiles(column, row);
+                        WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_WALLS).setVisibleTiles(column, row);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.e(e);
+                }
 
 				//Debug.e("Step");
 				float nextCoordX = getX() + mSpeed*mKX;

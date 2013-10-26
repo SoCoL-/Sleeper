@@ -14,12 +14,12 @@ import ru.rouge.sleeper.WorldContext;
  */
 public class SettingsScene extends MainScene
 {
-    private CheckBox mPlayerSpeed;
+    private CheckBox mPlayerSpeed, mWarFog;
 
     @Override
     public void createScene()
     {
-        mPlayerSpeed = new CheckBox(50, 100, WorldContext.getInstance().mScreenWidth, 60, "Fast Player", ResourceManager.getInstance().mVBO)
+        mPlayerSpeed = new CheckBox(50, 30, WorldContext.getInstance().mScreenWidth, 60, "Fast Player", ResourceManager.getInstance().mVBO)
         {
             @Override
             public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY)
@@ -33,11 +33,29 @@ public class SettingsScene extends MainScene
             }
         };
 
+        mWarFog = new CheckBox(50, 80, WorldContext.getInstance().mScreenWidth, 60, "Fog of war", ResourceManager.getInstance().mVBO)
+        {
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY)
+            {
+                if(pSceneTouchEvent.isActionDown())
+                {
+                    mWarFog.setCheck(!mWarFog.isCheck());
+                    WorldContext.getInstance().mSettings.setWarFog(mWarFog.isCheck());
+                }
+                return true;
+            }
+        };
+
         if(WorldContext.getInstance().mSettings.isFastPlayer())
             mPlayerSpeed.setCheck(true);
+        if(WorldContext.getInstance().mSettings.isWarFog())
+            mWarFog.setCheck(true);
 
         registerTouchArea(mPlayerSpeed);
+        registerTouchArea(mWarFog);
         attachChild(mPlayerSpeed);
+        attachChild(mWarFog);
     }
 
     @Override
