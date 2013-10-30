@@ -233,7 +233,23 @@ public class Player extends BaseAnimObject
         else if(WorldContext.getInstance().mWorld.mWakables[playerPosX][playerPosY].isWalkable && WorldContext.getInstance().mWorld.mWakables[playerPosX][playerPosY].mIndexObject != -1)
         {
             Debug.i("Интерактивный объект!!!!!");
-            //TODO Сделать контроллер объектов
+            if(WorldContext.getInstance().mObjectController.workWithObject(WorldContext.getInstance().mWorld.mWakables[playerPosX][playerPosY].mIndexObject))
+            {
+                //Продолжаем движение покарте
+                mNextX = getX() + 32 * mKX;
+                mNextY = getY() + 32 * mKY;
+                Debug.i("mNextX = " + mNextX + ", mNextY = " + mNextY);
+
+                Debug.i("Есть объект, на него можно зайти");
+                setMove(true);
+            }
+            else
+            {
+                mNextX = getX();
+                mNextY = getY();
+                Debug.i("Объект непроходим!!!!");
+                setMove(false);
+            }
         }
     }
 	//-----------------------------

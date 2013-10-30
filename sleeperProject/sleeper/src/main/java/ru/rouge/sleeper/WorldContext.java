@@ -10,6 +10,7 @@ import org.andengine.entity.util.FPSCounter;
 import org.andengine.opengl.font.FontManager;
 import org.andengine.opengl.texture.TextureManager;
 
+import ru.rouge.sleeper.Controllers.ObjectController;
 import ru.rouge.sleeper.Controllers.PlayerControllers;
 import ru.rouge.sleeper.Map.GameMap;
 import ru.rouge.sleeper.Objects.Player;
@@ -39,6 +40,7 @@ public final class WorldContext
 
 	public Resources mResourceManager;					//Менеджер ресурсов фндроида
 	public PlayerControllers mPlayerContr;              //Обработчик действий игрока
+    public ObjectController mObjectController;          //Обработчик действий над интерактивными объектами
     public Settings mSettings;
 
     public FPSCounter mFPSCounter;                      //Счетчик фпс
@@ -73,6 +75,7 @@ public final class WorldContext
 
 		this.mResourceManager = this.mContext.getResources();
 		this.mPlayerContr = new PlayerControllers();
+        this.mObjectController = new ObjectController();
         this.mSettings = new Settings();
     }
 
