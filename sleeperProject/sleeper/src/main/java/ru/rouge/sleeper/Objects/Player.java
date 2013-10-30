@@ -2,15 +2,11 @@ package ru.rouge.sleeper.Objects;
 
 import android.os.SystemClock;
 
-import org.andengine.entity.text.Text;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.debug.Debug;
 
-import ru.rouge.sleeper.Managers.ResourceManager;
-import ru.rouge.sleeper.Managers.ScenesManager;
 import ru.rouge.sleeper.Map.GameMap;
-import ru.rouge.sleeper.Scenes.MainGameScene;
 import ru.rouge.sleeper.Utils.Directions;
 import ru.rouge.sleeper.WorldContext;
 
@@ -26,12 +22,10 @@ public class Player extends BaseAnimObject
 	//CONSTANTS
 	//-----------------------------
 
-	final private long STEP_TIME = 10;					//Время одного шага в миллисекундах
-	final private int NEXT_DESTINATION_TILE_WIDTH;		//Размер пути( = ширина тайла) на который надо переместиться за один раз
+    private final static long STEP_TIME = 10;					//Время одного шага в миллисекундах
 	//Время анимации каждого кадра бега в одном направлении
-	final private long[] ANIM_TIMINGS_RUN = {100, 100, 100, 100, 100, 100, 100, 100};
-    final private long[] ANIM_TIMINGS_RUN_FAST = {50, 50, 50, 50, 50, 50, 50, 50};
-    private long[] mCurrRun;
+    private final static long[] ANIM_TIMINGS_RUN = {100, 100, 100, 100, 100, 100, 100, 100};
+    private final static long[] ANIM_TIMINGS_RUN_FAST = {50, 50, 50, 50, 50, 50, 50, 50};
 
 	//-----------------------------
 	//VARIABLES
@@ -39,12 +33,12 @@ public class Player extends BaseAnimObject
 
 	private Directions mDir;							//Направление движения персонажа
 	private Directions mOldDir;							//Старое направление движения
-	public boolean isMove;								//Движется ли персонаж
-	public boolean isMoveLoop;							//Если мы нажали и не отпускаем, то персонаж движется все время в заданном направлении
-	private float mLength;								//Длина пути персонажа
+    private Directions mNextDir;                        //Следующее направление движения, если еще доходим до середины тайла
+    public float mNextX, mNextY;                        //Координаты назначения игрока
+	private boolean isMove;								//Движется ли персонаж
 	private int mKX, mKY;								//Коэфиценты для движения персонажа(отнимать или прибавлять скорость покоординатно)
 	private long mCurrentStepTime;						//Прошедшее время с момента последнего шага
-
+    private long[] mCurrRun;                            //Текущая скорость перемещения
 
 	//-----------------------------
 	//CONSTRUCTORS
@@ -66,11 +60,12 @@ public class Player extends BaseAnimObject
 		this.isMove = false;
 		mDir = Directions.DIR_NONE;
 		mOldDir = Directions.DIR_EAST;
+        mNextDir = Directions.DIR_NONE;
 		mKX = 0;
 		mKY = 0;
-		mLength = 0;
+        mNextX = pX;
+        mNextY = pY;
 		mCurrentStepTime = 0;
-		NEXT_DESTINATION_TILE_WIDTH = 32;
 		setAnimateDirection();
 	}
 
@@ -81,87 +76,56 @@ public class Player extends BaseAnimObject
 	@Override
 	protected void onManagedUpdate(float pSecondsElapsed)
 	{
-		if(isMove)			//Обработка движения персонажа
-		{
-            //Debug.e("isMove");
+        if(getX() != mNextX || getY() != mNextY)//Если есть куда двигаться, то будем двигать героя
+        {
             if(SystemClock.elapsedRealtime() >= mCurrentStepTime + STEP_TIME)//Определяет скорость движения
-			{
-				if(mLength <= 0)//если прошли тайл
-				{
-					//Debug.e("Stop move!");
-                    if(isMoveLoop)
-                    {
-                        //Debug.i("isMoveLoop = " + isMoveLoop);
-                        boolean isGo = isCanGo();
-                        if(isGo)
-                        {
-                            //Debug.e("Resume move!");
-                            if(mOldDir != mDir)
-                                animatePlayer();
-
-                            mLength = NEXT_DESTINATION_TILE_WIDTH;
-                        }
-                        else
-                        {
-                           // Debug.e("Not Resume move!");
-                            isMove = false;
-                            isMoveLoop = false;
-                            mLength = 0;
-                            mOldDir = mDir;
-                            mDir = Directions.DIR_NONE;
-                            mKX = 0;
-                            mKY = 0;
-                            stopAnimation();
-                            setAnimateDirection();
-                            return;
-                        }
-                    }
-					else
-					{
-						//Debug.e("Stop animation!!!!!!");
-						isMove = false;
-						mOldDir = mDir;
-						mDir = Directions.DIR_NONE;
-                        mKX = 0;
-                        mKY = 0;
-						stopAnimation();
-						setAnimateDirection();
-                        return;
-					}
-				}
-
-                try
+            {
+                //Debug.i("getX() = " + getX() + " , getY() = " + getY());
+                //Debug.i("mNextX = " + mNextX + " , mNextY = " + mNextY);
+                //Открываем неисследованные тайлы
+                if(((getX() == mNextX + mKX * 32/2)||(getY() == mNextY + mKY * 32/2)) && WorldContext.getInstance().mSettings.isWarFog())
                 {
-                    if(mLength == NEXT_DESTINATION_TILE_WIDTH/2)
-                    {
-                        int column = (int)getX()/32;
-                        if(mKX == 1)
-                            column += 1;
-                        int row = (int)getY()/32;
-                        if(mKY == 1)
-                            row += 1;
-                        WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_FLOOR).setVisibleTiles(column, row);
-                        WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_WALLS).setVisibleTiles(column, row);
-                    }
-                }
-                catch (Exception e)
-                {
-                    Debug.e(e);
+                    int column = (int)getX()/32;
+                    if(mKX == 1)
+                        column += 1;
+                    int row = (int)getY()/32;
+                    if(mKY == 1)
+                        row += 1;
+                    WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_FLOOR).setVisibleTiles(column, row);
+                    WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_WALLS).setVisibleTiles(column, row);
                 }
 
-				//Debug.e("Step");
-				float nextCoordX = getX() + mSpeed*mKX;
-				float nextCoordY = getY() + mSpeed*mKY;
-                //Debug.e("nextCoordX = " + nextCoordX);
-                //Debug.e("nextCoordY = " + nextCoordY);
+                float nextCoordX = getX() + mSpeed*mKX;
+                float nextCoordY = getY() + mSpeed*mKY;
+                setPosition(nextCoordX, nextCoordY);
 
-				setPosition(nextCoordX, nextCoordY);
+                mCurrentStepTime = SystemClock.elapsedRealtime();
+            }
+        }
+        else if(getX() == mNextX && getY() == mNextY && isMove)
+        {
+            Debug.i("Движение продолжается, посчитаем следующие тайлы");
 
-				mCurrentStepTime = SystemClock.elapsedRealtime();
-				mLength -= mSpeed;
-                //Debug.e("mLength = " + mLength);
-			}
-		}
+            //Проверим, было ли изменение в движении
+            if(mNextDir != Directions.DIR_NONE && mNextDir != mDir)
+            {
+                setNewDirection(mNextDir);
+                animatePlayer();
+            }
+
+            checkFreeTile();
+        }
+        else if(!isMove)
+        {
+            //Если пришли на место, то остановим анимацию
+            if(isAnimationRunning())
+            {
+                stopAnimation();
+                setAnimateDirection();
+                mNextX = getX();
+                mNextY = getY();
+            }
+        }
 
 		super.onManagedUpdate(pSecondsElapsed);
 	}
@@ -169,95 +133,6 @@ public class Player extends BaseAnimObject
 	//-----------------------------
 	//CLASS METHODS
 	//-----------------------------
-
-	/**
-	 * Можно ли пройти на тайл по координатам
-	 * @return true - можно идти, иначе нет
-	 * */
-	private boolean isCanGo()
-	{
-		float x, y;
-		int kx = 0, ky = 0;
-
-		Debug.e("isCanGo");
-		if(mDir == Directions.DIR_EAST)
-		{
-			ky = 0;
-			kx = 1;
-		}
-		else if(mDir == Directions.DIR_NORTH)
-		{
-			kx = 0;
-			ky = -1;
-		}
-		else if(mDir == Directions.DIR_SOUTH)
-		{
-			kx = 0;
-			ky = 1;
-		}
-		else if(mDir == Directions.DIR_WEST)
-		{
-			ky = 0;
-			kx = -1;
-		}
-
-		Debug.e("kx = " + kx + ", ky = " + ky);
-		Debug.e("PlayerX = " + getX() + ", PlayerY = " + getY());
-
-		x = getX() + 32 * kx;
-		y = getY() + 32 * ky;
-		Debug.e("x = " + x + ", y = " + y);
-
-		GameMap gm = WorldContext.getInstance().mWorld;
-        //float[] coord = gm.mTMXMap.getTMXLayers().get(GameMap.LAYER_FLOOR).convertSceneToLocalCoordinates(getX(), getY());
-        float[] coord = gm.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_FLOOR).convertSceneToLocalCoordinates(getX(), getY());
-        Debug.e("coord[x] = " + coord[0] + ", coord[y] = " + coord[1]);
-		int TileColumn = (int) x / 32;
-		int TileRow = (int)y / 32;
-		Debug.e("TileColumn = " + TileColumn + ", TileRow = " + TileRow);
-		Debug.e("gm.mWakables[TileRow][TileColumn] = " + gm.mWakables[TileColumn][TileRow].isWalkable);
-        Debug.e("gm.mWakables[TileRow][TileColumn].index = " + gm.mWakables[TileColumn][TileRow].mIndexObject);
-
-        boolean isWalk = false;
-
-        //if(gm.mWakables[TileRow][TileColumn].mIndexObject == -1)
-        if(gm.mWakables[TileColumn][TileRow].mIndexObject == -1)
-        {
-            Debug.i("Нет объектов на пути, возвращаем значение карты проходимости");
-            //isWalk = gm.mWakables[TileRow][TileColumn].isWalkable;
-            isWalk = gm.mWakables[TileColumn][TileRow].isWalkable;
-        }
-        //else if(gm.mWakables[TileRow][TileColumn].mIndexObject > -1)
-        else if(gm.mWakables[TileColumn][TileRow].mIndexObject > -1)
-        {
-            Debug.i("Object!!! Try to identify it");
-            //Door d = gm.mDoors.get(gm.mWakables[TileRow][TileColumn].mIndexObject);
-            Door d = gm.mDoors.get(gm.mWakables[TileColumn][TileRow].mIndexObject);
-            Debug.i("This is door");
-            if(d.isOpen())
-            {
-                Debug.i("Door is Open, move enable");
-                isWalk = true;
-            }
-            else
-            {
-                if(!d.isLocked())
-                {
-                    Debug.i("Door is Closed, move disable, open door");
-                    d.setOpen(true);
-                    isWalk = false;
-                }
-                else
-                {
-                    Debug.i("Door is Locked, move disable, can't open door");
-                    Text errorText = new Text(0, 10, ResourceManager.getInstance().mGameFont, "This door is locked!!", ResourceManager.getInstance().mVBO);
-                    ((MainGameScene)ScenesManager.getInstance().getCurrentScene()).mHUD.attachChild(errorText);
-                }
-            }
-        }
-
-        return  isWalk;
-	}
 
 	/**
 	*  Функция приводит персонаж на первый кадр выбранного направления, если он не движется
@@ -303,57 +178,139 @@ public class Player extends BaseAnimObject
 	 * */
 	public void animatePlayer()
 	{
-		//Debug.e("Calculate animation direction");
-		this.isMove = true;
-
 		switch (mDir)
 		{
 			case DIR_EAST:
 				this.animate(mCurrRun, 8, 15, true);//run right
-
-				mKY = 0;
-				mKX = 1;
-
 				break;
 			case DIR_WEST:
 				this.animate(mCurrRun, 0, 7, true);//run left
-
-				mKY = 0;
-				mKX = -1;
-
 				break;
 			case DIR_SOUTH:
 				this.animate(mCurrRun, 24, 31, true);//run down
-
-				mKX = 0;
-                mKY = 1;
-
 				break;
 			case DIR_NORTH:
 				this.animate(mCurrRun, 16, 23, true);//run up
-
-				mKX = 0;
-                mKY = -1;
-
 				break;
 		}
 	}
 
+    /**
+     * Проверка на проходимость тайла. Каждый раз после завершения хотьбы до следующего тайла.
+     * */
+    private void checkFreeTile()
+    {
+        int playerPosX, playerPosY;
+
+        //Определим координаты игрока
+        playerPosX = (int)getX()/32;
+        playerPosY = (int)getY()/32;
+        Debug.i("Игрок стоит на месте в x = " + playerPosX + ", y = " + playerPosY);
+
+        //проверим тайл, куда попасть пытаемся
+        playerPosX += mKX;
+        playerPosY += mKY;
+        Debug.i("Проверяем проходимость для x = " + playerPosX + ", y = " + playerPosY);
+
+        if(WorldContext.getInstance().mWorld.mWakables[playerPosX][playerPosY].isWalkable && WorldContext.getInstance().mWorld.mWakables[playerPosX][playerPosY].mIndexObject == -1)
+        {
+            //Продолжаем движение покарте
+            mNextX = getX() + 32 * mKX;
+            mNextY = getY() + 32 * mKY;
+            Debug.i("mNextX = " + mNextX + ", mNextY = " + mNextY);
+
+            Debug.i("Нет препятствий");
+            setMove(true);
+        }
+        else if(!WorldContext.getInstance().mWorld.mWakables[playerPosX][playerPosY].isWalkable)
+        {
+            mNextX = getX();
+            mNextY = getY();
+            Debug.i("Препятствие!!!!!");
+            setMove(false);
+
+        }
+        else if(WorldContext.getInstance().mWorld.mWakables[playerPosX][playerPosY].isWalkable && WorldContext.getInstance().mWorld.mWakables[playerPosX][playerPosY].mIndexObject != -1)
+        {
+            Debug.i("Интерактивный объект!!!!!");
+            //TODO Сделать контроллер объектов
+        }
+    }
 	//-----------------------------
 	//GETTERS/SETTERS
 	//-----------------------------
 
 	/**
 	 * Меняем направление движения персонажа
+     * @param dir - новое направление
 	 * */
 	public void setNewDirection(Directions dir)
 	{
-		if(mDir == Directions.DIR_NONE)
-			isMove = true;
+        Debug.i("Меняем направление движения");
+        //Debug.i("getX() = " + getX() + " , mNextX = " + mNextX + " , getY() = " + getY() + " , mNextY = " + mNextY);
+        if(getX() != mNextX || getY() != mNextY)
+        {
+            mNextDir = dir;
+            Debug.i("Player: Еще движемся и потому запомним направление");
+            Debug.i("Player: mNextDir = " + mNextDir);
+        }
+        else
+        {
+            mOldDir = mDir;
+            mDir = dir;
+            mNextDir = dir;
 
-		mOldDir = mDir;
-		mDir = dir;
+            if(dir == Directions.DIR_EAST)
+            {
+                Debug.i("Player: Восток");
+                mKY = 0;
+                mKX = 1;
+            }
+            else if(dir == Directions.DIR_WEST)
+            {
+                Debug.i("Player: Запад");
+                mKY = 0;
+                mKX = -1;
+            }
+            else if(dir == Directions.DIR_NORTH)
+            {
+                Debug.i("Player: Север");
+                mKX = 0;
+                mKY = -1;
+            }
+            else if(dir == Directions.DIR_SOUTH)
+            {
+                Debug.i("Player: Юг");
+                mKX = 0;
+                mKY = 1;
+            }
+            else if(dir == Directions.DIR_NONE)
+            {
+                Debug.i("Player: Без направления");
+                mKX = 0;
+                mKY = 0;
+            }
+        }
 	}
+
+    /**
+     * Начинаем движение персонажа или заканчиваем его
+     * @param isMove - Флаг движения персонажа, если false, то стоит на месте
+     * */
+    public void setMove(boolean isMove)
+    {
+        if(isMove)
+        {
+            Debug.i("Начали движение игрока");
+            this.isMove = true;
+            animatePlayer();
+        }
+        else
+        {
+            Debug.i("Стоп! Доходим до последней точки.");
+            this.isMove = false;
+        }
+    }
 
 	/**
 	 * Находится ли в движении персонаж?

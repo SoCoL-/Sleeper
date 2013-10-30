@@ -2,6 +2,8 @@ package org.andengine.extension.tmx;
 
 import org.andengine.opengl.texture.region.ITextureRegion;
 
+import ru.rouge.sleeper.WorldContext;
+
 /**
  * (c) 2010 Nicolas Gramlich
  * (c) 2011 Zynga Inc.
@@ -38,7 +40,10 @@ public class TMXTile
 		this.mTileWidth = pTileWidth;
 		this.mTileHeight = pTileHeight;
 		this.mTextureRegion = pTextureRegion;
-        this.isVisible = false;
+        if(WorldContext.getInstance().mSettings.isWarFog())
+            this.isVisible = false;
+        else
+            this.isVisible = true;
 	}
 
 	// ===========================================================

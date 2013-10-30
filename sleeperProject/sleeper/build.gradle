@@ -24,4 +24,6 @@ android {
 
 dependencies {
     compile 'com.android.support:support-v4:13.0.+'
+    compile files('libs/HockeySDK-3.0.1.jar')
+    compile files('libs/acra-4.4.0.jar')
 }

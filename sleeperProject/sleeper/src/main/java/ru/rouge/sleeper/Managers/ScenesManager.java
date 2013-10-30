@@ -136,15 +136,22 @@ public final class ScenesManager
 
 	public void setMenuScene()
 	{
-        Debug.i("Create and show mMenuScene");
-        mMenuScene = new SceneMenu();
-        Debug.i("Set scene to engine");
-        setScene(mMenuScene);
-        Debug.i("disposing");
-        disposeSplash();
-        disposeMainGameScene();
-        disposeSettingsScene();
-        Debug.i("end show mMenuScene");
+        try
+        {
+            Debug.i("Create and show mMenuScene");
+            mMenuScene = new SceneMenu();
+            Debug.i("Set scene to engine");
+            setScene(mMenuScene);
+            Debug.i("disposing");
+            disposeSplash();
+            disposeMainGameScene();
+            disposeSettingsScene();
+            Debug.i("end show mMenuScene");
+        }
+        catch (Exception e)
+        {
+            Debug.e(e);
+        }
     }
 
 	public void setLoadScene()

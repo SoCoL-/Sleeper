@@ -7,15 +7,34 @@ package ru.rouge.sleeper;
  */
 public class Settings
 {
+    //-----------------------------
+    //CONSTANTS
+    //-----------------------------
+    public final static int TILE_SIZE = 32;             //Глобальное значение размера тайла в игре
+
+    //-----------------------------
+    //VARIABLES
+    //-----------------------------
     private boolean isFastPlayer;
     private boolean isWarFog;
 
+    //-----------------------------
+    //CONSTRUCTORS
+    //-----------------------------
     public Settings()
     {
         //Set by Default
         isFastPlayer = false;
         isWarFog = true;
     }
+
+    //-----------------------------
+    //CLASS METHODS
+    //-----------------------------
+
+    //-----------------------------
+    //GETTERS/SETTERS
+    //-----------------------------
 
     public void setFastPlayer(boolean isFast)
     {
@@ -36,4 +55,8 @@ public class Settings
     {
         isWarFog = warFog;
     }
+
+    //-----------------------------
+    //INNER CLASSES
+    //-----------------------------
 }

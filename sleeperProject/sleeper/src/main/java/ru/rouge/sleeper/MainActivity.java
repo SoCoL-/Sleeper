@@ -2,6 +2,9 @@ package ru.rouge.sleeper;
 
 import android.view.KeyEvent;
 
+import net.hockeyapp.android.CrashManager;
+import net.hockeyapp.android.UpdateManager;
+
 import org.andengine.engine.Engine;
 import org.andengine.engine.LimitedFPSEngine;
 import org.andengine.engine.camera.BoundCamera;
@@ -98,4 +101,23 @@ public class MainActivity extends BaseGameActivity
 
 		return false;
 	}
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        checkForCrashes();
+        checkForUpdates();
+    }
+
+    private void checkForCrashes()
+    {
+        CrashManager.register(this, "b3cbd1392a0294f91925467d52cfe1b0");
+    }
+
+    private void checkForUpdates()
+    {
+        // Remove this for store builds!
+        UpdateManager.register(this, "b3cbd1392a0294f91925467d52cfe1b0");
+    }
 }

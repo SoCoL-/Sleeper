@@ -48,7 +48,8 @@ public final class MainGameScene extends MainScene
 			@Override
 			public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent)
 			{
-				WorldContext wc = WorldContext.getInstance();
+                WorldContext.getInstance().mPlayerContr.move(pSceneTouchEvent);
+				/*WorldContext wc = WorldContext.getInstance();
 
 				if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_DOWN)
 				{
@@ -81,7 +82,7 @@ public final class MainGameScene extends MainScene
                 {
 					//Debug.e("Action Up is enabled");
 					wc.mPlayer.isMoveLoop = false;
-                }
+                }*/
 
 				return true;
 			}
@@ -160,7 +161,14 @@ public final class MainGameScene extends MainScene
     {
         //Возврат в игровое меню
         Debug.e("back press");
-        ScenesManager.getInstance().setMenuScene();
+        try
+        {
+            ScenesManager.getInstance().setMenuScene();
+        }
+        catch (Exception e)
+        {
+            Debug.e(e);
+        }
         Debug.e("back press done");
     }
 

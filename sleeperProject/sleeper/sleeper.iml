@@ -69,7 +69,9 @@
     </content>
     <orderEntry type="jdk" jdkName="Android 4.2.2 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="support-v4-13.0.0" level="project" />
+    <orderEntry type="library" name="support-v4-13.0.0" level="project" />
+    <orderEntry type="library" name="acra-4.4.0" level="project" />
+    <orderEntry type="library" name="HockeySDK-3.0.1" level="project" />
   </component>
 </module>
 

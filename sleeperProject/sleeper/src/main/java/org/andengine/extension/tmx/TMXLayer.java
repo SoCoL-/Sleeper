@@ -283,20 +283,16 @@ public class TMXLayer extends SpriteBatch implements TMXConstants {
      * */
     public void setVisibleTiles(final int tilecol, final int tilerow)
     {
-        Debug.i("Start visible tiles");
+        //Debug.i("Start visible tiles");
         for(int row = tilerow-1; row <= tilerow+1; row++)
             for(int col = tilecol-1; col <= tilecol+1; col++)
             {
-                Debug.i("row = " + row);
-                Debug.i("col = " + col);
-                Debug.i("mTMXTiles[row][col] = " + mTMXTiles[row][col]);
                 if(mTMXTiles[row][col] != null && (mTMXTiles[row][col].mGlobalTileID != 0))
                 {
-                    Debug.i("Tile row = " + row + ", col = " + col);
                     mTMXTiles[row][col].setVisible(true);
                 }
             }
-        Debug.i("End visible tiles");
+        //Debug.i("End visible tiles");
     }
 
 	public void addTileByGlobalTileID(final int tilecol, final int tilerow, final int pGlobalTileID, final ITMXTilePropertiesListener pTMXTilePropertyListener)

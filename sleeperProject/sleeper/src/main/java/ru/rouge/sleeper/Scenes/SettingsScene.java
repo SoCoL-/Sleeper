@@ -74,6 +74,7 @@ public class SettingsScene extends MainScene
     @Override
     public void dispposeScene()
     {
+        this.detachChildren();
         this.detachSelf();
     }
 }

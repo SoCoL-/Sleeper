@@ -7,7 +7,6 @@ import org.andengine.extension.tmx.TMXTiledMap;
 import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
 import org.andengine.opengl.texture.ITexture;
-import org.andengine.opengl.texture.Texture;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
@@ -111,7 +110,7 @@ public final class ResourceManager
         mGameFont.load();
 
         mMenuFontAtlas = new BitmapTextureAtlas(WorldContext.getInstance().getTextureManager(), 512, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-        mMenuFont = FontFactory.createFromAsset(WorldContext.getInstance().getFontManager(), mGameFontAtlas, WorldContext.getInstance().getAssetManager(), "Droid.ttf", 38, true, Color.WHITE);
+        mMenuFont = FontFactory.createFromAsset(WorldContext.getInstance().getFontManager(), mMenuFontAtlas, WorldContext.getInstance().getAssetManager(), "menu_font_1.ttf", 38, true, Color.WHITE);
         mMenuFont.load();
     }
 
