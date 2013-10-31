@@ -7,7 +7,6 @@ import org.andengine.input.touch.TouchEvent;
 
 import ru.rouge.sleeper.Managers.ResourceManager;
 import ru.rouge.sleeper.Managers.ScenesManager;
-import ru.rouge.sleeper.Settings;
 import ru.rouge.sleeper.Utils.Views.CheckBox;
 import ru.rouge.sleeper.WorldContext;
 
@@ -25,7 +24,7 @@ public class SettingsScene extends MainScene
     {
         mWContext = WorldContext.getInstance();
 
-        loadSettings();
+        //loadSettings();
 
         mPlayerSpeed = new CheckBox(50, 30, mWContext.mScreenWidth, 60, "Fast Player", ResourceManager.getInstance().mVBO)
         {
@@ -64,14 +63,6 @@ public class SettingsScene extends MainScene
         registerTouchArea(mWarFog);
         attachChild(mPlayerSpeed);
         attachChild(mWarFog);
-    }
-
-    private void loadSettings()
-    {
-        SharedPreferences preferences = mWContext.getContext().getSharedPreferences("GameSettings", Context.MODE_PRIVATE);
-
-        mWContext.mSettings.setFastPlayer(preferences.getBoolean("FastPlayer", false));
-        mWContext.mSettings.setWarFog(preferences.getBoolean("WarFog", true));
     }
 
     private void saveSettings()

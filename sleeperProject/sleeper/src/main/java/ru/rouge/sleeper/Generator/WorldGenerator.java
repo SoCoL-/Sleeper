@@ -14,7 +14,10 @@ import java.util.HashSet;
 
 import ru.rouge.sleeper.Managers.ResourceManager;
 import ru.rouge.sleeper.Map.GameMap;
+import ru.rouge.sleeper.Map.PhysicMapCell;
+import ru.rouge.sleeper.Objects.BaseObject;
 import ru.rouge.sleeper.Objects.Door;
+import ru.rouge.sleeper.Objects.Stair;
 import ru.rouge.sleeper.Utils.Coord;
 import ru.rouge.sleeper.Utils.Rect;
 import ru.rouge.sleeper.Utils.Size;
@@ -26,10 +29,9 @@ public final class WorldGenerator
 	private final static String TAG = "WorldGenerator";
 	
 	public final static int TILE_NONE = 0;
-	//public final static int TILE_DOOR = 0;		    //Надо будет заменить списком идентификаторов дверей
-	
+
 	public final static int WIDTH_CORIDOR = 3;		    //Минимальная ширина коридора
-    public final static int MIN_LENGTH_CORRIDOR = 3;    //Минимальная длинна коридора
+    public final static int MIN_LENGTH_CORRIDOR = 3;    //Минимальная длина коридора
 	
 	private int chanceRoom = 0;     				    //Шансы выпадения комнаты и корридора
 	private int numObjects = 0;						    //Количество комнат на карте
@@ -41,12 +43,12 @@ public final class WorldGenerator
 	private ArrayList<LevelDoor> mLevelDoors;		    //Для соединения всех комнат + разнообразие коридоров
     private int[] mCheckTile;                           //Вспомогательный массив, указывающий на то, что тайл проверен или нет
 
-	public WorldGenerator(WorldContext cont)
+	/*public WorldGenerator(WorldContext cont)
 	{
 		this.wContext = cont;
 		objectsMap = new ArrayList<ObjectOnMap>();//ArrayList<ObjectOnMap>();
 		mLevelDoors = new ArrayList<LevelDoor>();
-	}
+	}*/
 
     public WorldGenerator()
     {
@@ -333,8 +335,8 @@ public final class WorldGenerator
         setCell(x, y, 16, GameMap.LAYER_FLOOR);               //Добавили пол
 
         Door newDoor = new Door(x*32, y*32, isVertical, false, ResourceManager.getInstance().mDoorsTexture, ResourceManager.getInstance().mVBO);
-        wContext.mWorld.mDoors.add(newDoor);
-        wContext.mWorld.mWakables[x][y].mIndexObject = wContext.mWorld.mDoors.size()-1;
+        wContext.mWorld.mObjects.get(currLevel).add(newDoor);
+        wContext.mWorld.mWakables.get(currLevel)[x][y].mIndexObject = wContext.mWorld.mObjects.get(currLevel).size()-1;
     }
 
 	/**
@@ -651,7 +653,7 @@ public final class WorldGenerator
 		Debug.i(TAG, "----------------Начинаем генерировать коридор---------------------");
         int length = Utils.getRand(3, wContext.mWorld.mLevels.get(currLevel).getTileColumns()/2)+1;	//Сгенерируем длину коридора = половине ширины уровня; +1 для отрисовки стены в конце коридора
 		Debug.i(TAG, "The corridor length = " + length);
-		int direction = -1;																	//Направление построения коридора
+		int direction;  																	//Направление построения коридора
 		//int newDirection = -1;															//Если есть повороты, то тут мы определяем новый поворот коридора
 		int x = 0, y = 0;																	//Координаты начала построения коридора
 		int kx = 0, ky = 0;																	//Коэфиценты, позволяющие создать правильное направление генерации коридора
@@ -1101,7 +1103,7 @@ public final class WorldGenerator
             //Применим шаблон
             Debug.i("Modify Tiles", "calculateIDS: numWalls = " + numWalls);
             if(numWalls == 3)
-                modifyTileIDS(getCell(column-1, row-1, GameMap.LAYER_WALLS), 5, column-1, row-1, 0);
+                modifyTileIDS(getCell(column-1, row-1, GameMap.LAYER_WALLS), 5, column-1, row-1);
         }
 
         //2ой тайл верхний средний: column; row -1
@@ -1122,13 +1124,13 @@ public final class WorldGenerator
             //Применим шаблон
             Debug.i("Modify Tiles", "calculateIDS: numWalls = " + numWalls);
             if(numWalls == 0)
-                modifyTileIDS(getCell(column, row - 1, GameMap.LAYER_WALLS), 10, column, row - 1, 0);
+                modifyTileIDS(getCell(column, row - 1, GameMap.LAYER_WALLS), 10, column, row - 1);
             else if(numWalls == 1)
-                modifyTileIDS(getCell(column, row - 1, GameMap.LAYER_WALLS), 8, column, row - 1, 0);
+                modifyTileIDS(getCell(column, row - 1, GameMap.LAYER_WALLS), 8, column, row - 1);
             else if(numWalls == 2)
-                modifyTileIDS(getCell(column, row - 1, GameMap.LAYER_WALLS), 9, column, row - 1, 0);
+                modifyTileIDS(getCell(column, row - 1, GameMap.LAYER_WALLS), 9, column, row - 1);
             else if(numWalls == 3)
-                modifyTileIDS(getCell(column, row - 1, GameMap.LAYER_WALLS), 1, column, row - 1, 0);
+                modifyTileIDS(getCell(column, row - 1, GameMap.LAYER_WALLS), 1, column, row - 1);
         }
 
         //3ий тайл верхний правый: column+1; row -1
@@ -1149,7 +1151,7 @@ public final class WorldGenerator
             //Применим шаблон
             Debug.i("Modify Tiles", "calculateIDS: numWalls = " + numWalls);
             if(numWalls == 3)
-                modifyTileIDS(getCell(column+1, row-1, GameMap.LAYER_WALLS), 6, column+1, row-1, 1);
+                modifyTileIDS(getCell(column+1, row-1, GameMap.LAYER_WALLS), 6, column+1, row-1);
         }
 
         //4ый тайл средний левый: column-1; row
@@ -1170,13 +1172,13 @@ public final class WorldGenerator
             //Применим шаблон
             Debug.i("Modify Tiles", "calculateIDS: numWalls = " + numWalls);
             if(numWalls == 0)
-                modifyTileIDS(getCell(column - 1, row, GameMap.LAYER_WALLS), 8, column - 1, row, 2);
+                modifyTileIDS(getCell(column - 1, row, GameMap.LAYER_WALLS), 8, column - 1, row);
             else if(numWalls == 1)
-                modifyTileIDS(getCell(column - 1, row, GameMap.LAYER_WALLS), 10, column - 1, row, 2);
+                modifyTileIDS(getCell(column - 1, row, GameMap.LAYER_WALLS), 10, column - 1, row);
             else if(numWalls == 2)
-                modifyTileIDS(getCell(column - 1, row, GameMap.LAYER_WALLS), 11, column - 1, row, 2);
+                modifyTileIDS(getCell(column - 1, row, GameMap.LAYER_WALLS), 11, column - 1, row);
             else if(numWalls == 3)
-                modifyTileIDS(getCell(column - 1, row, GameMap.LAYER_WALLS), 2, column - 1, row, 2);
+                modifyTileIDS(getCell(column - 1, row, GameMap.LAYER_WALLS), 2, column - 1, row);
         }
 
         //5ый тайл средний правый: column-1; row
@@ -1197,13 +1199,13 @@ public final class WorldGenerator
             //Применим шаблон
             Debug.i("Modify Tiles", "calculateIDS: numWalls = " + numWalls);
             if(numWalls == 0)
-                modifyTileIDS(getCell(column + 1, row, GameMap.LAYER_WALLS), 9, column + 1, row, 3);
+                modifyTileIDS(getCell(column + 1, row, GameMap.LAYER_WALLS), 9, column + 1, row);
             else if(numWalls == 1)
-                modifyTileIDS(getCell(column + 1, row, GameMap.LAYER_WALLS), 10, column + 1, row, 3);
+                modifyTileIDS(getCell(column + 1, row, GameMap.LAYER_WALLS), 10, column + 1, row);
             else if(numWalls == 2)
-                modifyTileIDS(getCell(column + 1, row, GameMap.LAYER_WALLS), 11, column + 1, row, 3);
+                modifyTileIDS(getCell(column + 1, row, GameMap.LAYER_WALLS), 11, column + 1, row);
             else if(numWalls == 3)
-                modifyTileIDS(getCell(column + 1, row, GameMap.LAYER_WALLS), 2, column + 1, row, 3);
+                modifyTileIDS(getCell(column + 1, row, GameMap.LAYER_WALLS), 2, column + 1, row);
         }
 
         //6ой тайл нижний левый: column-1; row+1
@@ -1224,7 +1226,7 @@ public final class WorldGenerator
             //Применим шаблон
             Debug.i("Modify Tiles", "calculateIDS: numWalls = " + numWalls);
             if(numWalls == 3)
-                modifyTileIDS(getCell(column-1, row+1, GameMap.LAYER_WALLS), 4, column-1, row+1, 2);
+                modifyTileIDS(getCell(column-1, row+1, GameMap.LAYER_WALLS), 4, column-1, row+1);
         }
 
         //7ой тайл нижний средний: column; row+1
@@ -1245,13 +1247,13 @@ public final class WorldGenerator
             //Применим шаблон
             Debug.i("Modify Tiles", "calculateIDS: numWalls = " + numWalls);
             if(numWalls == 0)
-                modifyTileIDS(getCell(column, row + 1, GameMap.LAYER_WALLS), 11, column, row + 1, 1);
+                modifyTileIDS(getCell(column, row + 1, GameMap.LAYER_WALLS), 11, column, row + 1);
             else if(numWalls == 1)
-                modifyTileIDS(getCell(column, row + 1, GameMap.LAYER_WALLS), 8, column, row + 1, 1);
+                modifyTileIDS(getCell(column, row + 1, GameMap.LAYER_WALLS), 8, column, row + 1);
             else if(numWalls == 2)
-                modifyTileIDS(getCell(column, row + 1, GameMap.LAYER_WALLS), 9, column, row + 1, 1);
+                modifyTileIDS(getCell(column, row + 1, GameMap.LAYER_WALLS), 9, column, row + 1);
             else if(numWalls == 3)
-                modifyTileIDS(getCell(column, row + 1, GameMap.LAYER_WALLS), 1, column, row + 1, 1);
+                modifyTileIDS(getCell(column, row + 1, GameMap.LAYER_WALLS), 1, column, row + 1);
         }
 
         //8ой тайл нижний правый: column+1; row+1
@@ -1272,7 +1274,7 @@ public final class WorldGenerator
             //Применим шаблон
             Debug.i("Modify Tiles", "calculateIDS: numWalls = " + numWalls);
             if(numWalls == 3)
-                modifyTileIDS(getCell(column+1, row+1, GameMap.LAYER_WALLS), 7, column+1, row+1, 3);
+                modifyTileIDS(getCell(column+1, row+1, GameMap.LAYER_WALLS), 7, column+1, row+1);
         }
 	}
 
@@ -1283,9 +1285,8 @@ public final class WorldGenerator
      * @param calculated - идентификатор тайла посчитанный функцией calculateIDS()
      * @param column - х координата тайла
      * @param row - y координата тайла
-     * @param quad - 0 - верх/верх-лево, 1- низ/верх-право, 2 - лево/низ-лево, 3 - право/низ-право
      * */
-    private void modifyTileIDS(final int current, final int calculated, final int column, final int row, final int quad)
+    private void modifyTileIDS(final int current, final int calculated, final int column, final int row)
     {
         //Если не проверяли тайл ранее, то перепишем на посчитанный и отметим, как проверенный
         if(mCheckTile[column + row*wContext.mWorld.mLevels.get(currLevel).getTileColumns()] == 0)
@@ -1588,7 +1589,7 @@ public final class WorldGenerator
     {
         boolean isExit = false;//Для выхода из цикла нахождения свободного тайла
 
-        if(currLevel == 0)//У нас нет спуска на первом уровне
+        if(currLevel == 0)//У нас нет подъема на первом уровне
         {
             //Выбираем случайную комнату из списка
             int number = Utils.getRand(0, objectsMap.size()-1);
@@ -1610,20 +1611,49 @@ public final class WorldGenerator
             //Поставим игрока на выбранное место и высветим участок вокруг него
             Debug.e(TAG, "Create spawn player point");
             TMXObject playerSpawn = new TMXObject("player_spawn", "player", randX*32, randY*32, 32, 32);
-            wContext.mWorld.mSpawns.add(playerSpawn);
+            wContext.mWorld.mSpawns.get(currLevel).add(playerSpawn);
             Debug.e(TAG, "Done spawn player point");
             WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_FLOOR).setVisibleTiles(randX, randY);
             WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_WALLS).setVisibleTiles(randX, randY);
         }
     }
+
+    private void setupStairs()
+    {
+        boolean isExit = false;//Для выхода из цикла нахождения свободного тайла
+
+        if(currLevel == 0) //Для первого уровня только спуск
+        {
+            //Выбираем случайную комнату из списка
+            int number = Utils.getRand(0, objectsMap.size()-1);
+            Debug.i("number = " + number);
+            ObjectOnMap roomInfo = objectsMap.get(number);
+
+            //Выберем координаты, по которым есть свободное место в комнате
+            int randX = 0, randY = 0;
+            while(!isExit)
+            {
+                randX = Utils.getRand(1, roomInfo.getSize().getWidth()-1);
+                randY = Utils.getRand(1, roomInfo.getSize().getHeight()-1);
+                randX = randX + roomInfo.getBegin().getX();
+                randY = randY + roomInfo.getBegin().getY();
+                if(getCell(randX, randY, GameMap.LAYER_WALLS) == TILE_NONE && getDoorByCoord(randX, randY) == null)
+                    isExit = true;
+            }
+
+            Stair down = new Stair(randX*32, randY*32, false, ResourceManager.getInstance().mStairsTexture, ResourceManager.getInstance().mVBO);
+            WorldContext.getInstance().mWorld.mObjects.get(currLevel).add(down);
+            wContext.mWorld.mWakables.get(currLevel)[randX][randY].mIndexObject = wContext.mWorld.mObjects.get(currLevel).size()-1;
+        }
+
+    }
 	
 	public boolean generateNewLevel()
 	{
         Debug.i("generateNewLevel()");
-        ArrayList<TMXTiledMap> mGameLevels;
-
-        wContext.mWorld.mLevels = new ArrayList<TMXTiledMap>();           //Временное решение создания списка уровней
-        mGameLevels = wContext.mWorld.mLevels;
+        ArrayList<TMXTiledMap> mGameLevels = wContext.mWorld.mLevels;
+        currLevel = wContext.mWorld.mCurrentLevel;
+        PhysicMapCell[][] mWalkable;
 		
 		//for(int i = 0; i < wContext.world.getCountLevels(); i++)							//Создадим карты для всех уровней разом
 		for(int i = 0; i < 1; i++)															//Создадим карты для всех уровней разом
@@ -1631,7 +1661,6 @@ public final class WorldGenerator
 			//numObjects = Utils.getRand(wContext.world.MINROOMS, wContext.world.MAXROOMS);	//Определимся с максимальным количеством объектов на уровне
 			numObjects = 9;
 			chanceRoom = Utils.getRand(Utils.MINCHANCEROOM, Utils.MAXCHANCEROOM);			//Шанс выпадения комнаты
-			//chanceCorridor = 100 - chanceRoom;											//Шанс выпадение коридора
 			//int width_level = Utils.getRand(World.MINLEVELWIDTH, World.MAXLEVELWIDTH);	//Ширина уровня(х)
 			int width_level = 50;															//Ширина уровня(х)
 			//int height_level = Utils.getRand(World.MINLEVELHEIGHT, World.MAXLEVELHEIGHT);	//Высота уровня(y)
@@ -1640,7 +1669,7 @@ public final class WorldGenerator
             //int tries = 0;					//Количество попыток поставить объект на карте =)
 			//boolean isFreePlace = true;		//Если еще свободное место на карте(можно ли еще воткнуть туда хоть что-то из комнат)
 			//boolean isFreeObjects = true;		//Если нет свободных объектов, то завершим формирование уровня
-			int countObjects = 0;				//Текущее количество объектов на карте
+			int countObjects;   				//Текущее количество объектов на карте
 			
 			TMXTiledMap newLevel = new TMXTiledMap(height_level, width_level, 32, 32);						//Создадим уровень
             TMXLayer floor = new TMXLayer(newLevel, width_level, height_level, "floor", ResourceManager.getInstance().mVBO);
@@ -1652,15 +1681,28 @@ public final class WorldGenerator
             TMXTileSet set = new TMXTileSet(1, "walls_stone", 32, 32, 2, 1, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
             set.setImageSource(wContext.getAssetManager(), wContext.getTextureManager(), "tileset/walls_stone.png", null);
             newLevel.getTMXTileSets().add(set);
-			//wContext.world.addLevel(newLevel);
             mGameLevels.add(newLevel);
+
+
+            mWalkable = new PhysicMapCell[width_level][height_level];
+            for(int k = 0; k < 50; k++)
+                for(int m = 0; m < 60; m++)
+                {
+                    mWalkable[k][m] = new PhysicMapCell();
+                    mWalkable[k][m].isWalkable = false;
+                    mWalkable[k][m].mIndexObject = -1;
+                }
+            wContext.mWorld.mWakables.add(mWalkable);
+
+            ArrayList<BaseObject> objects = new ArrayList<BaseObject>();
+            wContext.mWorld.mObjects.add(objects);
+
+            ArrayList<TMXObject> spawn = new ArrayList<TMXObject>();
+            wContext.mWorld.mSpawns.add(spawn);
 			
 			while(true)//Займемся добавлением всех объектов на уровень, пока у нас есть свободное место
 			{
-				//ObjectOnMap currObject;				//Первый свободный объект на уровне, к которому будем прибавлять новые объекты
-				LevelDoor mLD = null;
-				
-				//currObject = getFreeObject();
+				LevelDoor mLD;          //Свободная дверь, к которой будем присоединять комнаты, коридоры
 				mLD = getFreeDoor();
 				
 				if(mLD == null && objectsMap.size() > 0)
@@ -1673,10 +1715,10 @@ public final class WorldGenerator
 				{
 					//Если нет дверей на карте и нет объектов, то поставим первой комнату
                     Debug.i(TAG, "-----------=================Create new first Room=======================------------------");
-					setRoom(mLD);
+					setRoom(null);
                     Debug.i(TAG, "-----------=================First Room created=======================------------------");
 				}
-				else if(mLD != null)
+				else// if(mLD != null)
 				{
 					//Если есть дверь, то вычислим, что дальше ставить на уровень
 					int chance = Utils.getRand(0, 100);		//Посчитаем шанс выпадения
@@ -1710,8 +1752,9 @@ public final class WorldGenerator
         correctWallIDs();
 		Debug.i(TAG, "Number of generated objects = " + objectsMap.size());
 
+        setupStairs();
         setupPlayer();
-		
+
 		return true;
 	}
 	

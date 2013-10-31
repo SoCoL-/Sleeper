@@ -7,6 +7,7 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.debug.Debug;
 
 import ru.rouge.sleeper.Map.GameMap;
+import ru.rouge.sleeper.Map.PhysicMapCell;
 import ru.rouge.sleeper.Utils.Directions;
 import ru.rouge.sleeper.WorldContext;
 
@@ -201,6 +202,7 @@ public class Player extends BaseAnimObject
     private void checkFreeTile()
     {
         int playerPosX, playerPosY;
+        PhysicMapCell[][] mWalkable = WorldContext.getInstance().mWorld.mWakables.get(WorldContext.getInstance().mWorld.mCurrentLevel);
 
         //Определим координаты игрока
         playerPosX = (int)getX()/32;
@@ -212,7 +214,7 @@ public class Player extends BaseAnimObject
         playerPosY += mKY;
         Debug.i("Проверяем проходимость для x = " + playerPosX + ", y = " + playerPosY);
 
-        if(WorldContext.getInstance().mWorld.mWakables[playerPosX][playerPosY].isWalkable && WorldContext.getInstance().mWorld.mWakables[playerPosX][playerPosY].mIndexObject == -1)
+        if(mWalkable[playerPosX][playerPosY].isWalkable && mWalkable[playerPosX][playerPosY].mIndexObject == -1)
         {
             //Продолжаем движение покарте
             mNextX = getX() + 32 * mKX;
@@ -222,18 +224,17 @@ public class Player extends BaseAnimObject
             Debug.i("Нет препятствий");
             setMove(true);
         }
-        else if(!WorldContext.getInstance().mWorld.mWakables[playerPosX][playerPosY].isWalkable)
+        else if(!mWalkable[playerPosX][playerPosY].isWalkable)
         {
             mNextX = getX();
             mNextY = getY();
             Debug.i("Препятствие!!!!!");
             setMove(false);
-
         }
-        else if(WorldContext.getInstance().mWorld.mWakables[playerPosX][playerPosY].isWalkable && WorldContext.getInstance().mWorld.mWakables[playerPosX][playerPosY].mIndexObject != -1)
+        else if(mWalkable[playerPosX][playerPosY].isWalkable && mWalkable[playerPosX][playerPosY].mIndexObject != -1)
         {
             Debug.i("Интерактивный объект!!!!!");
-            if(WorldContext.getInstance().mObjectController.workWithObject(WorldContext.getInstance().mWorld.mWakables[playerPosX][playerPosY].mIndexObject))
+            if(WorldContext.getInstance().mObjectController.workWithObject(mWalkable[playerPosX][playerPosY].mIndexObject))
             {
                 //Продолжаем движение покарте
                 mNextX = getX() + 32 * mKX;

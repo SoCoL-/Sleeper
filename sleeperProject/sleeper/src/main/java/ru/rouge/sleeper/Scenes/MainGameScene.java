@@ -1,7 +1,5 @@
 package ru.rouge.sleeper.Scenes;
 
-import android.view.MotionEvent;
-
 import org.andengine.engine.camera.hud.HUD;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
@@ -19,7 +17,9 @@ import ru.rouge.sleeper.MainActivity;
 import ru.rouge.sleeper.Managers.ResourceManager;
 import ru.rouge.sleeper.Managers.ScenesManager;
 import ru.rouge.sleeper.Map.GameMap;
+import ru.rouge.sleeper.Objects.BaseObject;
 import ru.rouge.sleeper.Objects.Door;
+import ru.rouge.sleeper.Objects.Stair;
 import ru.rouge.sleeper.WorldContext;
 
 /**
@@ -49,41 +49,6 @@ public final class MainGameScene extends MainScene
 			public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent)
 			{
                 WorldContext.getInstance().mPlayerContr.move(pSceneTouchEvent);
-				/*WorldContext wc = WorldContext.getInstance();
-
-				if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_DOWN)
-				{
-					//Debug.e("Action Down is enabled");
-					wc.mPlayer.isMoveLoop = true;
-					try
-					{
-						wc.mPlayerContr.move(pSceneTouchEvent);
-					}
-					catch(Exception e)
-					{
-						Debug.e(e);
-					}
-
-				}
-				else if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_MOVE)
-				{
-					//Debug.e("Action Move is enabled");
-
-					try
-					{
-						wc.mPlayerContr.move(pSceneTouchEvent);
-					}
-					catch(Exception e)
-					{
-						Debug.e(e);
-					}
-				}
-                else if(pSceneTouchEvent.getAction() == MotionEvent.ACTION_UP)
-                {
-					//Debug.e("Action Up is enabled");
-					wc.mPlayer.isMoveLoop = false;
-                }*/
-
 				return true;
 			}
 		});
@@ -93,16 +58,24 @@ public final class MainGameScene extends MainScene
 
 	public void showWorld()
 	{
+        final int currLevel = WorldContext.getInstance().mWorld.mCurrentLevel;
+        Debug.e("Уровень подземелья = " + currLevel);
         try
         {
 		Debug.e("Check world");
 		if(WorldContext.getInstance().mWorld != null)
 		{
-            attachChild(WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_FLOOR));
-            attachChild(WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_WALLS));
+            attachChild(WorldContext.getInstance().mWorld.mLevels.get(currLevel).getTMXLayers().get(GameMap.LAYER_FLOOR));
+            attachChild(WorldContext.getInstance().mWorld.mLevels.get(currLevel).getTMXLayers().get(GameMap.LAYER_WALLS));
+            for(BaseObject d : WorldContext.getInstance().mWorld.mObjects.get(currLevel))
+            {
+                if(!(d instanceof Door))
+                    attachChild(d);
+            }
 			attachChild(WorldContext.getInstance().mPlayer);
-            for(Door d : WorldContext.getInstance().mWorld.mDoors)
-                attachChild(d);
+            for(BaseObject d : WorldContext.getInstance().mWorld.mObjects.get(currLevel))
+                if(d instanceof Door)
+                    attachChild(d);
 
             final Rectangle btnHud = new Rectangle(5, 5, 32, 32, ResourceManager.getInstance().mVBO)
             {
@@ -110,9 +83,6 @@ public final class MainGameScene extends MainScene
                 public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY)
                 {
                     Debug.i("Click by rectangle in the HUD");
-                    Debug.i("pSceneTouchEvent.isActionDown() = " + pSceneTouchEvent.isActionDown());
-                    Debug.i("pSceneTouchEvent.isActionUp() = " + pSceneTouchEvent.isActionUp());
-                    Debug.i("pSceneTouchEvent.isActionOutside() = " + pSceneTouchEvent.isActionOutside());
                     if(pSceneTouchEvent.isActionDown())
                     {
                         Debug.i("Before change isShowWalls = " + isShowWalls);
@@ -133,14 +103,14 @@ public final class MainGameScene extends MainScene
             WorldContext.getInstance().mFPSCounter = new FPSCounter();
             WorldContext.getInstance().getEngine().registerUpdateHandler(WorldContext.getInstance().mFPSCounter);
 
-            final Text mTextFPS = new Text(50, 5, ResourceManager.getInstance().mGameFont, "FPS: ", "FPS: XXXXX".length(), ResourceManager.getInstance().mVBO);
+            final Text mTextFPS = new Text(50, 5, ResourceManager.getInstance().mGameFont, "FPS: , ", "FPS: XXXXX, X".length(), ResourceManager.getInstance().mVBO);
             mHUD.attachChild(mTextFPS);
             registerUpdateHandler(new TimerHandler(1 / 20.0f, true, new ITimerCallback()
             {
                 @Override
                 public void onTimePassed(TimerHandler pTimerHandler)
                 {
-                    mTextFPS.setText("FPS: " + String.format("%.2f", WorldContext.getInstance().mFPSCounter.getFPS()));
+                    mTextFPS.setText("FPS: " + String.format("%.2f", WorldContext.getInstance().mFPSCounter.getFPS()) + ", " + currLevel);
                 }
             }));
 

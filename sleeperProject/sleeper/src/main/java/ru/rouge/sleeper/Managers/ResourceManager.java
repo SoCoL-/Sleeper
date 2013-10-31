@@ -35,7 +35,7 @@ public final class ResourceManager
 	//CONSTANTS
 	//-----------------------------
 	//Временно
-	public static final int PLAYER_ID = 0;
+	//public static final int PLAYER_ID = 0;
 
 	//-----------------------------
 	//VARIABLES
@@ -57,7 +57,7 @@ public final class ResourceManager
 	public ITextureRegion mBtnCredits;
 	public ITextureRegion mBtnExit;
 
-	private BitmapTextureAtlas	mMenuBackgroundAtlas;
+	//private BitmapTextureAtlas	mMenuBackgroundAtlas;
 	public ITextureRegion 		mMenuBackground;
 
 	//Characters
@@ -66,6 +66,9 @@ public final class ResourceManager
 
     private BitmapTextureAtlas              mDoorsAtlas;
     public  TiledTextureRegion              mDoorsTexture;
+
+    private BitmapTextureAtlas              mStairsTextureAtlas;
+    public  TiledTextureRegion              mStairsTexture;
 
     public Font mGameFont;
     private ITexture mGameFontAtlas;
@@ -138,7 +141,7 @@ public final class ResourceManager
 		mBtnExit = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mMenuBuildableAtlas, wc.getContext(), "btn_exit.png");
 		mBtnNew = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mMenuBuildableAtlas, wc.getContext(), "btn_new.png");
 
-		mMenuBackgroundAtlas = new BitmapTextureAtlas(wc.getTextureManager(), 400, 400, TextureOptions.BILINEAR);
+        BitmapTextureAtlas mMenuBackgroundAtlas = new BitmapTextureAtlas(wc.getTextureManager(), 400, 400, TextureOptions.BILINEAR);
 		mMenuBackground = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mMenuBackgroundAtlas, wc.getContext(), "background.png", 0, 0);
         mMenuBackgroundAtlas.load();
 
@@ -183,6 +186,10 @@ public final class ResourceManager
         this.mDoorsAtlas = new BitmapTextureAtlas(wc.getTextureManager(), 64, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
         this.mDoorsTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mDoorsAtlas, wc.getAssetManager(), "door/door1.png", 0, 0, 2, 2);
         this.mDoorsAtlas.load();
+
+        this.mStairsTextureAtlas = new BitmapTextureAtlas(wc.getTextureManager(), 64, 32, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+        this.mStairsTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mStairsTextureAtlas, wc.getAssetManager(), "stairs.png", 0, 0, 2, 1);
+        this.mStairsTextureAtlas.load();
 
         Utils.typesWall.add(1);
         Utils.typesWall.add(2);
@@ -234,6 +241,9 @@ public final class ResourceManager
         mDoorsAtlas.unload();
         mDoorsAtlas = null;
         mDoorsTexture = null;
+        mStairsTextureAtlas.unload();
+        mStairsTextureAtlas = null;
+        mStairsTexture = null;
         mRooms.clear();
         mRooms = null;
         Debug.i("Done unload");

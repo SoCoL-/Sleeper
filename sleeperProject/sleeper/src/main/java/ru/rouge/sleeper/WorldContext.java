@@ -12,6 +12,7 @@ import org.andengine.opengl.texture.TextureManager;
 
 import ru.rouge.sleeper.Controllers.ObjectController;
 import ru.rouge.sleeper.Controllers.PlayerControllers;
+import ru.rouge.sleeper.Managers.LevelManager;
 import ru.rouge.sleeper.Map.GameMap;
 import ru.rouge.sleeper.Objects.Player;
 
@@ -29,7 +30,7 @@ public final class WorldContext
 	// VARIABLES
 	//---------------------------------------------
 
-	private static WorldContext instance;
+	private static WorldContext instance;               //Указатель на класс контекста игры
 
 	private BoundCamera     mCamera;                    //Камера игры
 	private TextureManager  mTextureManager;            //Менеджер текстур
@@ -38,10 +39,11 @@ public final class WorldContext
     private FontManager     mFontManager;               //Менеджер шрифтов
     private AssetManager    mAssetManager;              //Менеджер файлов в assets
 
-	public Resources mResourceManager;					//Менеджер ресурсов фндроида
+	public Resources mResourceManager;					//Менеджер ресурсов андроида
 	public PlayerControllers mPlayerContr;              //Обработчик действий игрока
     public ObjectController mObjectController;          //Обработчик действий над интерактивными объектами
     public Settings mSettings;
+    public LevelManager mLevelManager;                  //Менеджер уровней
 
     public FPSCounter mFPSCounter;                      //Счетчик фпс
 
@@ -50,7 +52,7 @@ public final class WorldContext
 
 	public GameMap mWorld;								//Весь мир игры =)
 	public Player mPlayer;								//Игрок
-	public boolean isNewGame = true;					//Создали новую или згрузили?
+	public boolean isNewGame;	        				//Создали новую или згрузили?
 
 	//-----------------------------
 	//CONSTRUCTORS
@@ -74,9 +76,11 @@ public final class WorldContext
         this.mAssetManager = am;
 
 		this.mResourceManager = this.mContext.getResources();
+        this.mWorld = new GameMap();
 		this.mPlayerContr = new PlayerControllers();
         this.mObjectController = new ObjectController();
         this.mSettings = new Settings();
+        this.mLevelManager = new LevelManager();
     }
 
 	/**
@@ -90,6 +94,8 @@ public final class WorldContext
         this.mEngine = null;
         this.mFontManager = null;
         this.mAssetManager = null;
+        this.mSettings = null;
+        this.mLevelManager = null;
 
 		if(instance != null)
 			instance = null;

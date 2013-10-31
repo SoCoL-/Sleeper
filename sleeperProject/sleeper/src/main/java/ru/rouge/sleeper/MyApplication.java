@@ -32,8 +32,8 @@ public class MyApplication extends Application
     @Override
     public void onCreate()
     {
-        ACRA.init(this);
-        ACRA.getErrorReporter().setReportSender(new HockeySender());
+        //ACRA.init(this);
+        //ACRA.getErrorReporter().setReportSender(new HockeySender());
 
         super.onCreate();
     }

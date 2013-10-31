@@ -105,6 +105,17 @@ public final class ScenesManager
     }
 
     /**
+     * Обновляем карту уровня
+     * */
+    public void updateMainScene()
+    {
+        if(mMainGameScene != null)
+        {
+            ((MainGameScene)mMainGameScene).showWorld();
+        }
+    }
+
+    /**
 	 * Освобождение занятых ресурсов
 	 */
 	public void freeResources()

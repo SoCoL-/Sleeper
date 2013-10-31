@@ -4,29 +4,23 @@
     <dataSet config="main" >
         <source path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets" >
             <file
+                name="fonts/arthur_gothic.ttf"
+                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\fonts\arthur_gothic.ttf" />
+            <file
                 name="fonts/Droid.ttf"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\fonts\Droid.ttf" />
+            <file
+                name="fonts/menu_font_1.ttf"
+                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\fonts\menu_font_1.ttf" />
             <file
                 name="fonts/NeverwinterNights.ttf"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\fonts\NeverwinterNights.ttf" />
             <file
+                name="fonts/verona_gothic_regular.ttf"
+                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\fonts\verona_gothic_regular.ttf" />
+            <file
                 name="gfx/characters/hero.png"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\gfx\characters\hero.png" />
-            <file
-                name="gfx/characters/hero1.png"
-                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\gfx\characters\hero1.png" />
-            <file
-                name="gfx/characters/hero2.png"
-                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\gfx\characters\hero2.png" />
-            <file
-                name="gfx/characters/lisichka.png"
-                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\gfx\characters\lisichka.png" />
-            <file
-                name="gfx/characters/tigrik.png"
-                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\gfx\characters\tigrik.png" />
-            <file
-                name="gfx/characters/trol.png"
-                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\gfx\characters\trol.png" />
             <file
                 name="gfx/door/door1.png"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\gfx\door\door1.png" />
@@ -34,11 +28,11 @@
                 name="gfx/ic_btton_hud.png"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\gfx\ic_btton_hud.png" />
             <file
+                name="gfx/stairs.png"
+                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\gfx\stairs.png" />
+            <file
                 name="menu/background.png"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\menu\background.png" />
-            <file
-                name="menu/btns.pdn"
-                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\menu\btns.pdn" />
             <file
                 name="menu/btn_credits.png"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\menu\btn_credits.png" />
@@ -48,9 +42,6 @@
             <file
                 name="menu/btn_load.png"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\menu\btn_load.png" />
-            <file
-                name="menu/btn_new(2).png"
-                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\menu\btn_new(2).png" />
             <file
                 name="menu/btn_new.png"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\menu\btn_new.png" />
@@ -64,32 +55,8 @@
                 name="menu/logo.png"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\menu\logo.png" />
             <file
-                name="tileset/dors.png"
-                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\tileset\dors.png" />
-            <file
-                name="tileset/dsf.png"
-                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\tileset\dsf.png" />
-            <file
-                name="tileset/floor.png"
-                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\tileset\floor.png" />
-            <file
-                name="tileset/walls.png"
-                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\tileset\walls.png" />
-            <file
                 name="tileset/walls_stone.png"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\tileset\walls_stone.png" />
-            <file
-                name="tileset/walls_stone1.png"
-                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\tileset\walls_stone1.png" />
-            <file
-                name="tmx/map_test.tmx"
-                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\tmx\map_test.tmx" />
-            <file
-                name="tmx/map_test2.tmx"
-                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\tmx\map_test2.tmx" />
-            <file
-                name="tmx/map_test3.tmx"
-                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\tmx\map_test3.tmx" />
             <file
                 name="tmx/room1.tmx"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\tmx\room1.tmx" />

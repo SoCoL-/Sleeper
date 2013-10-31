@@ -112,12 +112,12 @@ public class MainActivity extends BaseGameActivity
 
     private void checkForCrashes()
     {
-        CrashManager.register(this, "b3cbd1392a0294f91925467d52cfe1b0");
+        //CrashManager.register(this, "b3cbd1392a0294f91925467d52cfe1b0");
     }
 
     private void checkForUpdates()
     {
         // Remove this for store builds!
-        UpdateManager.register(this, "b3cbd1392a0294f91925467d52cfe1b0");
+        //UpdateManager.register(this, "b3cbd1392a0294f91925467d52cfe1b0");
     }
 }

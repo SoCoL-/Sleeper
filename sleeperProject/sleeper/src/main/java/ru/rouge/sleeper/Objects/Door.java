@@ -1,21 +1,15 @@
 package ru.rouge.sleeper.Objects;
 
-import org.andengine.engine.camera.Camera;
-import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
-import org.andengine.opengl.util.GLState;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.debug.Debug;
-
-import ru.rouge.sleeper.Map.GameMap;
-import ru.rouge.sleeper.WorldContext;
 
 /**
  * Created by Evgenij on 09.09.13.
  *
  * Описание двери
  */
-public class Door extends TiledSprite
+public class Door extends BaseObject
 {
     //-----------------------------
     //Constants
@@ -47,16 +41,6 @@ public class Door extends TiledSprite
     //-----------------------------
     //Methods
     //-----------------------------
-
-    @Override
-    protected void draw(GLState pGLState, Camera pCamera)
-    {
-        int col = (int) X/32;
-        int row = (int) Y/32;
-        if(WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_FLOOR).getTMXTile(col, row).isVisible())
-            super.draw(pGLState, pCamera);
-    }
-
     /**
      * После открытия/закрытия двери выставляет нужный тайл двери для отрисовки
      * */

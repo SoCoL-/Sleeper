@@ -49,6 +49,12 @@
 room1.tmx
                     </item>
                     <item>
+room2.tmx
+                    </item>
+                    <item>
+room3.tmx
+                    </item>
+                    <item>
 room4.tmx
                     </item>
                 </string-array>

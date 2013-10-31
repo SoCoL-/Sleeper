@@ -2,7 +2,9 @@ package ru.rouge.sleeper.Controllers;
 
 import java.util.ArrayList;
 
+import ru.rouge.sleeper.Objects.BaseObject;
 import ru.rouge.sleeper.Objects.Door;
+import ru.rouge.sleeper.Objects.Stair;
 import ru.rouge.sleeper.WorldContext;
 
 /**
@@ -35,25 +37,45 @@ public class ObjectController
         boolean rez = false;
 
         //Получим наш объект из списка
-        ArrayList<Door> doors = WorldContext.getInstance().mWorld.mDoors;
-        Door currObject = doors.get(index);
+        ArrayList<BaseObject> objects = WorldContext.getInstance().mWorld.mObjects.get(WorldContext.getInstance().mWorld.mCurrentLevel);
+        BaseObject currObject = objects.get(index);
 
         //Определим, что за объект
+        if(currObject instanceof Door)//Попробуем выполнить над ним действие
+            rez = openDoor((Door)currObject);
+        else if(currObject instanceof Stair)
+            rez = doStair((Stair) currObject);
 
-        //Попробуем выполнить над ним действие
-        if(currObject.isOpen())
+        return rez;
+    }
+
+    /**
+     * Пытаемся открыть дверь
+     * @param door - дверь, что открываем
+     * @return true - если открыли, иначе false
+     * */
+    private boolean openDoor(Door door)
+    {
+        boolean rez = false;
+        if(door.isOpen())
             rez = true;
-        else if(currObject.isLocked())
+        else if(door.isLocked())
         {
             rez = false;
             //TODO сделать сообщение в HUD
         }
-        else if(!currObject.isOpen() && !currObject.isLocked())
+        else if(!door.isOpen() && !door.isLocked())
         {
-            currObject.setOpen(true);
+            door.setOpen(true);
             rez = true;
         }
+        return rez;
+    }
 
+    private boolean doStair(Stair s)
+    {
+        boolean rez = true;
+        //rez = s.doOnStair();
         return rez;
     }
 

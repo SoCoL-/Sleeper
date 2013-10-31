@@ -5,9 +5,7 @@ import android.os.AsyncTask;
 import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.text.Text;
 import org.andengine.extension.tmx.TMXLayer;
-import org.andengine.extension.tmx.TMXLoader;
 import org.andengine.extension.tmx.TMXObject;
-import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.util.color.Color;
 import org.andengine.util.debug.Debug;
 
@@ -45,7 +43,7 @@ public final class LoadScene extends MainScene
 
 	public void loadingGameStructures()
 	{
-		//TODO Загружаем уровни и всякие другие классы
+		//Загружаем уровни и всякие другие классы
 		Debug.e("in load map, start AsyncTask");
 
 		mWC.getContext().runOnUiThread(new Runnable()
@@ -61,21 +59,22 @@ public final class LoadScene extends MainScene
 					{
 						mRM.loadGameRes();
 
-						final TMXLoader loader = new TMXLoader(mWC.getAssetManager(), mWC.getTextureManager(), TextureOptions.BILINEAR_PREMULTIPLYALPHA, ResourceManager.getInstance().mVBO);
 						Debug.e("on LoadScene load TMXLoader");
 						try
 						{
 							Debug.e("on LoadScene before load map");
-							mWC.mWorld = new GameMap(loader);
+                            if(mWC.mWorld == null)
+							    mWC.mWorld = new GameMap();
 							Debug.e("on LoadScene load map");
 
+                            mWC.mLevelManager.nextLevel();
+
                             //Начало генерации уровней - Тестовая версия
-                            mGenerator.startGeneration(0);
-                            mGenerator.generateNewLevel();
+                            //mGenerator.startGeneration(0);
+                            //mGenerator.generateNewLevel();
 
                             //Инициализация карты проходимости
                             Debug.e("walkable init");
-                            //TMXLayer floor = mTMXMap.getTMXLayers().get(LAYER_FLOOR);
                             TMXLayer floor = mWC.mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_FLOOR);
                             Debug.e("floor.getTileColumns() = " + floor.getTileColumns());
                             Debug.e("floor.getTileRows() = " + floor.getTileRows());
@@ -85,31 +84,18 @@ public final class LoadScene extends MainScene
                                 {
                                     if(floor.getTMXTile(i, j) != null && Utils.typesFloor.contains(floor.getTMXTile(i, j).getGlobalTileID()))
                                     {
-                                        //Debug.e("i = " + i);
-                                        //Debug.e("j = " + j);
-                                        //Debug.e("floor.getTMXTileAT(i, j) = " + floor.getTMXTile(i, j).getGlobalTileID());
-                                        mWC.mWorld.mWakables[i][j].isWalkable = true;
+                                        mWC.mWorld.mWakables.get(mWC.mWorld.mCurrentLevel)[i][j].isWalkable = true;
                                     }
                                 }
                             }
                             Debug.e("Walkable map is done!");
 
-                            TMXObject playerSpawn = mWC.mWorld.mSpawns.get(0);
+                            TMXObject playerSpawn = mWC.mWorld.mSpawns.get(mWC.mWorld.mCurrentLevel).get(0);
                             Debug.e("playerSpawn.getX() = " + playerSpawn.getX());
                             Debug.e("playerSpawn.getY() = " + playerSpawn.getY());
-                            try
-                            {
-                                WorldContext.getInstance().mPlayer = new Player(playerSpawn.getX(), playerSpawn.getY(), ResourceManager.getInstance().mHeroTexture, ResourceManager.getInstance().mVBO);
-                                WorldContext.getInstance().getCamera().setChaseEntity(WorldContext.getInstance().mPlayer);
-                                WorldContext.getInstance().mPlayerContr.setPlayer(WorldContext.getInstance().mPlayer);
-                                //WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(GameMap.LAYER_FLOOR).setVisibleTiles(playerSpawn.getX(), playerSpawn.getY());
-                                //WorldContext.getInstance().mWorld.mTMXMap.getTMXLayers().get(GameMap.LAYER_WALLS).setVisibleTiles(playerSpawn.getX(), playerSpawn.getY());
-                            }
-                            catch(Exception e)
-                            {
-                                Debug.e(e);
-                            }
-
+                            WorldContext.getInstance().mPlayer = new Player(playerSpawn.getX(), playerSpawn.getY(), ResourceManager.getInstance().mHeroTexture, ResourceManager.getInstance().mVBO);
+                            WorldContext.getInstance().getCamera().setChaseEntity(WorldContext.getInstance().mPlayer);
+                            WorldContext.getInstance().mPlayerContr.setPlayer(WorldContext.getInstance().mPlayer);
                             //Конец
 						}
 						catch (Exception ex)
@@ -123,15 +109,12 @@ public final class LoadScene extends MainScene
 					protected void onPostExecute(String s)
 					{
 						Debug.e("Loaded map");
-						//float heightMap = mWC.mWorld.mTMXMap.getTileRows() * mWC.mWorld.mTMXMap.getTileHeight();
                         float heightMap = mWC.mWorld.mLevels.get(0).getTileRows() * mWC.mWorld.mLevels.get(0).getTileHeight();
-						//float widthMap = mWC.mWorld.mTMXMap.getTileColumns() * mWC.mWorld.mTMXMap.getTileWidth();
                         float widthMap = mWC.mWorld.mLevels.get(0).getTileColumns() * mWC.mWorld.mLevels.get(0).getTileWidth();
 						Debug.e("on LoadScene get width and height of map");
-						mWC.getCamera().setBounds(-100, -100, widthMap, heightMap);
+						mWC.getCamera().setBounds(-150, -150, widthMap+150, heightMap+150);
 						mWC.getCamera().setBoundsEnabled(true);
 						Debug.e("on LoadScene setup camera bounds");
-						//ScenesManager.getInstance().setScene(new MainGameScene());
                         ScenesManager.getInstance().setGameScene();
 						super.onPostExecute(s);
 					}
@@ -143,7 +126,7 @@ public final class LoadScene extends MainScene
     @Override
     public void OnKeyBackPressed()
     {
-        //TODO Ничего не делаем, игра началась грузиться и прерывать нельзя
+        //TODO Ничего не делаем, игра начала грузиться и прерывать нельзя
     }
 
     @Override

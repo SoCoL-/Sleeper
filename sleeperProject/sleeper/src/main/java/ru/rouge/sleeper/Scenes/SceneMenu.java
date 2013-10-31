@@ -1,5 +1,8 @@
 package ru.rouge.sleeper.Scenes;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.item.IMenuItem;
@@ -58,6 +61,7 @@ public final class SceneMenu extends MainScene implements MenuScene.IOnMenuItemC
 		this.mResManager.loadMenuRes();
 		createBackground();
 		createMenu();
+        loadSettings();
 	}
 
 	@Override
@@ -93,7 +97,11 @@ public final class SceneMenu extends MainScene implements MenuScene.IOnMenuItemC
         {
             case BTN_PLAY:
                 //Если нажали "Новая игра", то начнем загружать все сначала
+                WorldContext.getInstance().isNewGame = true;
                 ScenesManager.getInstance().setLoadScene();
+                break;
+            case BTN_LOAD:
+                WorldContext.getInstance().isNewGame = false;
                 break;
             case BTN_OPTIONS:
                 ScenesManager.getInstance().setSettingsScene();
@@ -155,6 +163,14 @@ public final class SceneMenu extends MainScene implements MenuScene.IOnMenuItemC
 
 		setChildScene(mMenu);
 	}
+
+    private void loadSettings()
+    {
+        SharedPreferences preferences = mWorldContext.getContext().getSharedPreferences("GameSettings", Context.MODE_PRIVATE);
+
+        mWorldContext.mSettings.setFastPlayer(preferences.getBoolean("FastPlayer", false));
+        mWorldContext.mSettings.setWarFog(preferences.getBoolean("WarFog", true));
+    }
 
     private void destroy()
     {
