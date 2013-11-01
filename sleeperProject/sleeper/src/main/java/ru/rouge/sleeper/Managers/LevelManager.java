@@ -1,6 +1,9 @@
 package ru.rouge.sleeper.Managers;
 
+import org.andengine.extension.tmx.TMXObject;
 import org.andengine.util.debug.Debug;
+
+import java.util.ArrayList;
 
 import ru.rouge.sleeper.Generator.WorldGenerator;
 import ru.rouge.sleeper.Map.GameMap;
@@ -69,7 +72,25 @@ public class LevelManager
             mGameWorld.mCurrentLevel ++;
         }
 
-        //TODO Надо найти все точки возрождения на уровне, поставить туда игрока
+        //Надо найти все точки возрождения на уровне, поставить туда игрока
+        ArrayList<TMXObject> playerSpawn = WorldContext.getInstance().mWorld.mSpawns.get(WorldContext.getInstance().mWorld.mCurrentLevel);
+        for(TMXObject spawn : playerSpawn)
+        {
+            if(spawn.getName().contains("player_spawn") && spawn.getType().equals("down"))
+            {
+                String name_spawn = spawn.getName();
+                //name_spawn = name_spawn.concat("player_spawn_");
+                name_spawn = name_spawn.substring("player_spawn_".length(), name_spawn.length());
+                Debug.i("Вырезали все лишнее из названия точки респа = " + name_spawn);
+                int num = Integer.parseInt(name_spawn);
+                if(num == mGameWorld.mCurrentLevel)
+                {
+                    Debug.i("Нашли нужный респ, поставим игрока в (" + spawn.getX() + ", " + spawn.getY() + ")");
+                    WorldContext.getInstance().mPlayer.setPlayerPosition(spawn.getX(), spawn.getY());
+                    Debug.i("Игрока поставили на место");
+                }
+            }
+        }
 
         //Обновим сцену с новым уровнем
         ScenesManager.getInstance().updateMainScene();

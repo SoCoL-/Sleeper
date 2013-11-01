@@ -57,7 +57,8 @@ public final class LoadScene extends MainScene
 					@Override
 					protected String doInBackground(String... strings)
 					{
-						mRM.loadGameRes();
+                        if(!mRM.isGameResLoad())
+						    mRM.loadGameRes();
 
 						Debug.e("on LoadScene load TMXLoader");
 						try
@@ -68,35 +69,6 @@ public final class LoadScene extends MainScene
 							Debug.e("on LoadScene load map");
 
                             mWC.mLevelManager.nextLevel();
-
-                            //Начало генерации уровней - Тестовая версия
-                            //mGenerator.startGeneration(0);
-                            //mGenerator.generateNewLevel();
-
-                            //Инициализация карты проходимости
-                            Debug.e("walkable init");
-                            TMXLayer floor = mWC.mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_FLOOR);
-                            Debug.e("floor.getTileColumns() = " + floor.getTileColumns());
-                            Debug.e("floor.getTileRows() = " + floor.getTileRows());
-                            for(int i = 0; i < floor.getTileColumns(); i++)
-                            {
-                                for(int j = 0; j < floor.getTileRows(); j++)
-                                {
-                                    if(floor.getTMXTile(i, j) != null && Utils.typesFloor.contains(floor.getTMXTile(i, j).getGlobalTileID()))
-                                    {
-                                        mWC.mWorld.mWakables.get(mWC.mWorld.mCurrentLevel)[i][j].isWalkable = true;
-                                    }
-                                }
-                            }
-                            Debug.e("Walkable map is done!");
-
-                            TMXObject playerSpawn = mWC.mWorld.mSpawns.get(mWC.mWorld.mCurrentLevel).get(0);
-                            Debug.e("playerSpawn.getX() = " + playerSpawn.getX());
-                            Debug.e("playerSpawn.getY() = " + playerSpawn.getY());
-                            WorldContext.getInstance().mPlayer = new Player(playerSpawn.getX(), playerSpawn.getY(), ResourceManager.getInstance().mHeroTexture, ResourceManager.getInstance().mVBO);
-                            WorldContext.getInstance().getCamera().setChaseEntity(WorldContext.getInstance().mPlayer);
-                            WorldContext.getInstance().mPlayerContr.setPlayer(WorldContext.getInstance().mPlayer);
-                            //Конец
 						}
 						catch (Exception ex)
 						{

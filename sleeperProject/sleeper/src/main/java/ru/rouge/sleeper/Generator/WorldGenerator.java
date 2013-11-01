@@ -341,6 +341,7 @@ public final class WorldGenerator
         setCell(x, y, 0, GameMap.LAYER_WALLS);                //Убрали стену
         setCell(x, y, 16, GameMap.LAYER_FLOOR);               //Добавили пол
         setCell(x, y, above_id, GameMap.LAYER_ABOVE);         //Добавили порог
+        wContext.mWorld.mWakables.get(currLevel)[x][y].isWalkable = true;
 
         Door newDoor = new Door(x*32, y*32, isVertical, false, ResourceManager.getInstance().mDoorsTexture, ResourceManager.getInstance().mVBO);
         wContext.mWorld.mObjects.get(currLevel).add(newDoor);
@@ -622,6 +623,8 @@ public final class WorldGenerator
 				if(ld == null)
                 {
                     setCell(xtemp + x, ytemp + y, currRoom.getTMXLayers().get(GameMap.LAYER_FLOOR).getTMXTile(xtemp, ytemp).getGlobalTileID(), GameMap.LAYER_FLOOR);
+                    if(Utils.typesFloor.contains(currRoom.getTMXLayers().get(GameMap.LAYER_FLOOR).getTMXTile(xtemp, ytemp).getGlobalTileID()))
+                        wContext.mWorld.mWakables.get(currLevel)[xtemp + x][ytemp + y].isWalkable = true;
                     setCell(xtemp + x, ytemp + y, currRoom.getTMXLayers().get(GameMap.LAYER_WALLS).getTMXTile(xtemp, ytemp).getGlobalTileID(), GameMap.LAYER_WALLS);
                 }
 				else
@@ -898,6 +901,7 @@ public final class WorldGenerator
 				}
 				setCell(endX, endY, wallID, GameMap.LAYER_WALLS);
                 setCell(endX, endY, TILE_NONE, GameMap.LAYER_FLOOR);
+                wContext.mWorld.mWakables.get(currLevel)[endX][endY].isWalkable = false;
 				return false;
 			}
 			if((direction == ObjectOnMap.DIR_NORTH || direction == ObjectOnMap.DIR_SOUTH) && oldCurrY != currY)
@@ -963,6 +967,7 @@ public final class WorldGenerator
                             }
                             setCell(localEndX, localEndY, TILE_NONE, GameMap.LAYER_WALLS);
                             setCell(localEndX, localEndY, 16, GameMap.LAYER_FLOOR);
+                            wContext.mWorld.mWakables.get(currLevel)[localEndX][localEndY].isWalkable = true;
                         }
                     }
                 }
@@ -984,6 +989,7 @@ public final class WorldGenerator
 					}
 					setCell(localEndX, localEndY, doorID, GameMap.LAYER_WALLS);
                     setCell(localEndX, localEndY, TILE_NONE, GameMap.LAYER_FLOOR);
+                    wContext.mWorld.mWakables.get(currLevel)[localEndX][localEndY].isWalkable = false;
 				}
 				return false;
 			}
@@ -1008,6 +1014,7 @@ public final class WorldGenerator
                     {
 						what = 16;
                         layer = GameMap.LAYER_FLOOR;
+                        wContext.mWorld.mWakables.get(currLevel)[currX + x][currY + y].isWalkable = true;
                     }
 				else if(direction == ObjectOnMap.DIR_NORTH || direction == ObjectOnMap.DIR_SOUTH)
 					if(currX == 0 || currX == (WIDTH_CORIDOR-1))//Тело коридора(стены)
@@ -1025,6 +1032,7 @@ public final class WorldGenerator
                     {
 						what = 16;
                         layer = GameMap.LAYER_FLOOR;
+                        wContext.mWorld.mWakables.get(currLevel)[currX + x][currY + y].isWalkable = true;
                     }
 				
 				if(ld == null)
@@ -1618,7 +1626,7 @@ public final class WorldGenerator
 
             //Поставим игрока на выбранное место и высветим участок вокруг него
             Debug.e(TAG, "Create spawn player point");
-            TMXObject playerSpawn = new TMXObject("player_spawn_"+currLevel+"_down", "player", randX*32, randY*32, 32, 32);
+            TMXObject playerSpawn = new TMXObject("player_spawn_"+currLevel, "down", randX*32, randY*32, 32, 32);
             wContext.mWorld.mSpawns.get(currLevel).add(playerSpawn);
             Debug.e(TAG, "Done spawn player point");
             WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_FLOOR).setVisibleTiles(randX, randY);

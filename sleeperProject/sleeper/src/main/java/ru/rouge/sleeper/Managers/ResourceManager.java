@@ -21,6 +21,7 @@ import org.andengine.util.debug.Debug;
 
 import java.util.ArrayList;
 
+import ru.rouge.sleeper.Objects.Player;
 import ru.rouge.sleeper.R;
 import ru.rouge.sleeper.Utils.Utils;
 import ru.rouge.sleeper.WorldContext;
@@ -78,6 +79,8 @@ public final class ResourceManager
 
     public ArrayList<TMXTiledMap> mRooms;
 
+    private boolean isGameResLoad;                                  //Загружены ли ресурсы игры
+
 	//-----------------------------
 	//CONSTRUCTORS
 	//-----------------------------
@@ -94,6 +97,7 @@ public final class ResourceManager
 	{
 		this.mVBO = vbo;
         this.mRooms = new ArrayList<TMXTiledMap>();
+        isGameResLoad = false;
     }
 
 	/**
@@ -227,6 +231,12 @@ public final class ResourceManager
         {
             Debug.e(e);
         }
+
+        WorldContext.getInstance().mPlayer = new Player(0, 0, ResourceManager.getInstance().mHeroTexture, ResourceManager.getInstance().mVBO);
+        WorldContext.getInstance().getCamera().setChaseEntity(WorldContext.getInstance().mPlayer);
+        WorldContext.getInstance().mPlayerContr.setPlayer(WorldContext.getInstance().mPlayer);
+
+        isGameResLoad = true;
 	}
 
     /**
@@ -246,6 +256,7 @@ public final class ResourceManager
         mStairsTexture = null;
         mRooms.clear();
         mRooms = null;
+        isGameResLoad = false;
         Debug.i("Done unload");
     }
 
@@ -287,7 +298,17 @@ public final class ResourceManager
         return instance;
     }
 
-	//-----------------------------
+    public boolean isGameResLoad()
+    {
+        return isGameResLoad;
+    }
+
+    public void setGameResLoad(boolean isGameResLoad)
+    {
+        this.isGameResLoad = isGameResLoad;
+    }
+
+    //-----------------------------
 	//INNER CLASSES
 	//-----------------------------
 }

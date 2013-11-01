@@ -1,5 +1,7 @@
 package ru.rouge.sleeper.Controllers;
 
+import org.andengine.util.debug.Debug;
+
 import java.util.ArrayList;
 
 import ru.rouge.sleeper.Objects.BaseObject;
@@ -74,8 +76,9 @@ public class ObjectController
 
     private boolean doStair(Stair s)
     {
-        boolean rez = true;
-        //rez = s.doOnStair();
+        Debug.i("Лестница, сгенерируем новый уровень!!");
+        boolean rez;
+        rez = s.doOnStair();
         return rez;
     }
 

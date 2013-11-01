@@ -13,6 +13,7 @@ import org.andengine.opengl.texture.TextureManager;
 import ru.rouge.sleeper.Controllers.ObjectController;
 import ru.rouge.sleeper.Controllers.PlayerControllers;
 import ru.rouge.sleeper.Managers.LevelManager;
+import ru.rouge.sleeper.Managers.ResourceManager;
 import ru.rouge.sleeper.Map.GameMap;
 import ru.rouge.sleeper.Objects.Player;
 

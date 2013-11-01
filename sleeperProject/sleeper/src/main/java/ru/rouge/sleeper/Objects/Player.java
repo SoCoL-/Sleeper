@@ -330,6 +330,19 @@ public class Player extends BaseAnimObject
         }
     }
 
+    /**
+     * Установка игрока на текущую позицию
+     * @param x новая позиция игрока
+     * @param y новая позиция игрока
+     * */
+    public void setPlayerPosition(float x, float y)
+    {
+        setY(y);
+        setX(x);
+        mNextX = x;
+        mNextY = y;
+    }
+
 	/**
 	 * Находится ли в движении персонаж?
 	 * @return true - движется, false - иначе
