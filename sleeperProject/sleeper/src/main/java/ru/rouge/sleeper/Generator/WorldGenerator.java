@@ -326,13 +326,21 @@ public final class WorldGenerator
     private void createTiledDoor(final int x, final int y, final int dir)
     {
         boolean isVertical;
+        int above_id;
         if(dir == ObjectOnMap.DIR_EAST || dir == ObjectOnMap.DIR_WEST)
+        {
             isVertical = true;
+            above_id = 18;
+        }
         else
+        {
             isVertical = false;
+            above_id = 17;
+        }
 
         setCell(x, y, 0, GameMap.LAYER_WALLS);                //Убрали стену
         setCell(x, y, 16, GameMap.LAYER_FLOOR);               //Добавили пол
+        setCell(x, y, above_id, GameMap.LAYER_ABOVE);         //Добавили порог
 
         Door newDoor = new Door(x*32, y*32, isVertical, false, ResourceManager.getInstance().mDoorsTexture, ResourceManager.getInstance().mVBO);
         wContext.mWorld.mObjects.get(currLevel).add(newDoor);
@@ -1610,7 +1618,7 @@ public final class WorldGenerator
 
             //Поставим игрока на выбранное место и высветим участок вокруг него
             Debug.e(TAG, "Create spawn player point");
-            TMXObject playerSpawn = new TMXObject("player_spawn", "player", randX*32, randY*32, 32, 32);
+            TMXObject playerSpawn = new TMXObject("player_spawn_"+currLevel+"_down", "player", randX*32, randY*32, 32, 32);
             wContext.mWorld.mSpawns.get(currLevel).add(playerSpawn);
             Debug.e(TAG, "Done spawn player point");
             WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_FLOOR).setVisibleTiles(randX, randY);
@@ -1670,7 +1678,8 @@ public final class WorldGenerator
 			//boolean isFreePlace = true;		//Если еще свободное место на карте(можно ли еще воткнуть туда хоть что-то из комнат)
 			//boolean isFreeObjects = true;		//Если нет свободных объектов, то завершим формирование уровня
 			int countObjects;   				//Текущее количество объектов на карте
-			
+
+            //Создание карты уровня и всех сопутствующих структур
 			TMXTiledMap newLevel = new TMXTiledMap(height_level, width_level, 32, 32);						//Создадим уровень
             TMXLayer floor = new TMXLayer(newLevel, width_level, height_level, "floor", ResourceManager.getInstance().mVBO);
             newLevel.getTMXLayers().add(floor);
@@ -1699,6 +1708,7 @@ public final class WorldGenerator
 
             ArrayList<TMXObject> spawn = new ArrayList<TMXObject>();
             wContext.mWorld.mSpawns.add(spawn);
+            //Конец создания карты уровня
 			
 			while(true)//Займемся добавлением всех объектов на уровень, пока у нас есть свободное место
 			{

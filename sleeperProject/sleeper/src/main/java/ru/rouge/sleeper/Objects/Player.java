@@ -94,6 +94,7 @@ public class Player extends BaseAnimObject
                         row += 1;
                     WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_FLOOR).setVisibleTiles(column, row);
                     WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_WALLS).setVisibleTiles(column, row);
+                    WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_ABOVE).setVisibleTiles(column, row);
                 }
 
                 float nextCoordX = getX() + mSpeed*mKX;
