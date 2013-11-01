@@ -67,6 +67,7 @@ public final class MainGameScene extends MainScene
 		{
             attachChild(WorldContext.getInstance().mWorld.mLevels.get(currLevel).getTMXLayers().get(GameMap.LAYER_FLOOR));
             attachChild(WorldContext.getInstance().mWorld.mLevels.get(currLevel).getTMXLayers().get(GameMap.LAYER_WALLS));
+            attachChild(WorldContext.getInstance().mWorld.mLevels.get(currLevel).getTMXLayers().get(GameMap.LAYER_ABOVE));
             for(BaseObject d : WorldContext.getInstance().mWorld.mObjects.get(currLevel))
             {
                 if(!(d instanceof Door))
