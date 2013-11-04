@@ -3,6 +3,7 @@ package ru.rouge.sleeper.Managers;
 import org.andengine.ui.IGameInterface;
 import org.andengine.util.debug.Debug;
 
+import ru.rouge.sleeper.MainActivity;
 import ru.rouge.sleeper.Scenes.IntroScene;
 import ru.rouge.sleeper.Scenes.LoadScene;
 import ru.rouge.sleeper.Scenes.MainGameScene;
@@ -111,7 +112,26 @@ public final class ScenesManager
     {
         if(mMainGameScene != null)
         {
-            ((MainGameScene)mMainGameScene).showWorld();
+
+            WorldContext.getInstance().getEngine().runOnUpdateThread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    mMainGameScene.setIgnoreUpdate(true);
+                    mMainGameScene.setVisible(false);
+                    mMainGameScene.setChildrenIgnoreUpdate(true);
+                    mMainGameScene.setTouchAreaBindingOnActionMoveEnabled(false);
+                    ((MainGameScene)mMainGameScene).setChange();
+                    //mMainGameScene.getTouchAreas().clear();
+                    ((MainGameScene)mMainGameScene).clearScene();
+                    ((MainGameScene)mMainGameScene).showWorld();
+                    mMainGameScene.setIgnoreUpdate(false);
+                    mMainGameScene.setChildrenIgnoreUpdate(false);
+                    mMainGameScene.setVisible(true);
+                    mMainGameScene.setTouchAreaBindingOnActionMoveEnabled(true);
+                }
+            });
         }
     }
 

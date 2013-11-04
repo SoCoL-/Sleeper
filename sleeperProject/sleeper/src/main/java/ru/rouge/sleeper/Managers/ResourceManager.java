@@ -233,7 +233,6 @@ public final class ResourceManager
         }
 
         WorldContext.getInstance().mPlayer = new Player(0, 0, ResourceManager.getInstance().mHeroTexture, ResourceManager.getInstance().mVBO);
-        WorldContext.getInstance().getCamera().setChaseEntity(WorldContext.getInstance().mPlayer);
         WorldContext.getInstance().mPlayerContr.setPlayer(WorldContext.getInstance().mPlayer);
 
         isGameResLoad = true;

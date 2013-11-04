@@ -81,8 +81,8 @@ public final class LoadScene extends MainScene
 					protected void onPostExecute(String s)
 					{
 						Debug.e("Loaded map");
-                        float heightMap = mWC.mWorld.mLevels.get(0).getTileRows() * mWC.mWorld.mLevels.get(0).getTileHeight();
-                        float widthMap = mWC.mWorld.mLevels.get(0).getTileColumns() * mWC.mWorld.mLevels.get(0).getTileWidth();
+                        float heightMap = mWC.mWorld.mLevels.get(mWC.mWorld.mCurrentLevel).getTileRows() * mWC.mWorld.mLevels.get(mWC.mWorld.mCurrentLevel).getTileHeight();
+                        float widthMap = mWC.mWorld.mLevels.get(mWC.mWorld.mCurrentLevel).getTileColumns() * mWC.mWorld.mLevels.get(mWC.mWorld.mCurrentLevel).getTileWidth();
 						Debug.e("on LoadScene get width and height of map");
 						mWC.getCamera().setBounds(-150, -150, widthMap+150, heightMap+150);
 						mWC.getCamera().setBoundsEnabled(true);

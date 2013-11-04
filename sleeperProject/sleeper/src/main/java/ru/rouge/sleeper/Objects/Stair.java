@@ -44,21 +44,21 @@ public class Stair extends BaseObject
     {
         int index;
         if(isUp)
-            index = 0;
-        else
             index = 1;
+        else
+            index = 0;
 
         setCurrentTileIndex(index);
     }
 
     public boolean doOnStair()
     {
-        if(isUp)
+        if(!isUp)
             WorldContext.getInstance().mLevelManager.nextLevel();
         else
             WorldContext.getInstance().mLevelManager.pervLevel();
 
-        return true;
+        return false;
     }
 
     //-----------------------------

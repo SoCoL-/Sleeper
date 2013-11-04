@@ -5,6 +5,7 @@ import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.util.GLState;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
+import org.andengine.util.debug.Debug;
 
 import ru.rouge.sleeper.Map.GameMap;
 import ru.rouge.sleeper.WorldContext;
@@ -41,8 +42,20 @@ public class BaseObject extends TiledSprite
     {
         int col = (int) getX()/32;
         int row = (int) getY()/32;
-        if(WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_FLOOR).getTMXTile(col, row).isVisible())
+        try
+        {
+            if(WorldContext.getInstance().mWorld.mLevels.get(WorldContext.getInstance().mWorld.mCurrentLevel).getTMXLayers().get(GameMap.LAYER_FLOOR).getTMXTile(col, row) == null)
+                return;
+
+        if(WorldContext.getInstance().mWorld.mLevels.get(WorldContext.getInstance().mWorld.mCurrentLevel).getTMXLayers().get(GameMap.LAYER_FLOOR).getTMXTile(col, row).isVisible())
+        {
             super.draw(pGLState, pCamera);
+        }
+        }
+        catch (Exception e)
+        {
+            Debug.e(e);
+        }
     }
 
     //-----------------------------

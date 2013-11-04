@@ -30,11 +30,14 @@ public final class MainGameScene extends MainScene
 {
 
     private boolean isShowWalls = true;             //Для отладки
+    private boolean isChangeScene;
     public HUD mHUD;
+    private IOnSceneTouchListener mITouch;
 
 	@Override
     public void createScene()
     {
+        isChangeScene = false;
 		Debug.e("Create MainGame");
         setBackground(new Background(Color.BLACK));
 		Debug.e("Set background");
@@ -43,7 +46,18 @@ public final class MainGameScene extends MainScene
 
         mHUD = new HUD();
 
-		setOnSceneTouchListener(new IOnSceneTouchListener()
+        mITouch = new IOnSceneTouchListener()
+        {
+            @Override
+            public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent)
+            {
+                WorldContext.getInstance().mPlayerContr.move(pSceneTouchEvent);
+                return true;
+            }
+        };
+        setOnSceneTouchListener(mITouch);
+
+		/*setOnSceneTouchListener(new IOnSceneTouchListener()
 		{
 			@Override
 			public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent)
@@ -51,7 +65,7 @@ public final class MainGameScene extends MainScene
                 WorldContext.getInstance().mPlayerContr.move(pSceneTouchEvent);
 				return true;
 			}
-		});
+		});*/
 
 		showWorld();
     }
@@ -59,25 +73,35 @@ public final class MainGameScene extends MainScene
 	public void showWorld()
 	{
         final int currLevel = WorldContext.getInstance().mWorld.mCurrentLevel;
+
+        WorldContext.getInstance().getCamera().setChaseEntity(WorldContext.getInstance().mPlayer);
         Debug.e("Уровень подземелья = " + currLevel);
         try
         {
 		Debug.e("Check world");
 		if(WorldContext.getInstance().mWorld != null)
 		{
+            Debug.e("Add floor");
             attachChild(WorldContext.getInstance().mWorld.mLevels.get(currLevel).getTMXLayers().get(GameMap.LAYER_FLOOR));
+            Debug.e("Add walls");
             attachChild(WorldContext.getInstance().mWorld.mLevels.get(currLevel).getTMXLayers().get(GameMap.LAYER_WALLS));
+            Debug.e("Add above");
             attachChild(WorldContext.getInstance().mWorld.mLevels.get(currLevel).getTMXLayers().get(GameMap.LAYER_ABOVE));
+            Debug.e("Add all doors");
             for(BaseObject d : WorldContext.getInstance().mWorld.mObjects.get(currLevel))
             {
-                if(!(d instanceof Door))
+                //if(!(d instanceof Door))
                     attachChild(d);
             }
-			attachChild(WorldContext.getInstance().mPlayer);
-            for(BaseObject d : WorldContext.getInstance().mWorld.mObjects.get(currLevel))
-                if(d instanceof Door)
-                    attachChild(d);
 
+            Debug.e("Add player");
+		    attachChild(WorldContext.getInstance().mPlayer);
+            /*for(BaseObject d : WorldContext.getInstance().mWorld.mObjects.get(currLevel))
+                if(d instanceof Door)
+                    attachChild(d);*/
+
+            //if(currLevel == 0)
+            {
             final Rectangle btnHud = new Rectangle(5, 5, 32, 32, ResourceManager.getInstance().mVBO)
             {
                 @Override
@@ -117,6 +141,8 @@ public final class MainGameScene extends MainScene
 
             Debug.e("Set HUD");
             WorldContext.getInstance().getCamera().setHUD(mHUD);
+            }
+            isChangeScene = true;
 		}
 		else
 			Debug.e("world is null");
@@ -125,7 +151,29 @@ public final class MainGameScene extends MainScene
         {
             Debug.e(e);
         }
+        Debug.e("Add done");
 	}
+
+    public void clearScene()
+    {
+        this.detachChildren();
+    }
+
+    public void setChange()
+    {
+        isChangeScene = false;
+    }
+
+    @Override
+    protected void onManagedUpdate(float pSecondsElapsed)
+    {
+        if(isChangeScene)
+        {
+            if(WorldContext.getInstance().mWorld.mCurrentLevel == 1)
+                Debug.i("Update enable");
+            super.onManagedUpdate(pSecondsElapsed);
+        }
+    }
 
     @Override
     public void OnKeyBackPressed()

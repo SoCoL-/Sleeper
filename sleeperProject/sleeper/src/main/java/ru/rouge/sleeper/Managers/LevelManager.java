@@ -54,7 +54,7 @@ public class LevelManager
 
         //Увеличиваем значение текущего уровня
         //if(mGameWorld.mLevels.size() > 0 && mGameWorld.mLevels.get(mGameWorld.mCurrentLevel+1) == null)
-        if(mGameWorld.mLevels.size() > 0 && mGameWorld.mLevels.size() < mGameWorld.mCurrentLevel + 1)
+        if(mGameWorld.mLevels.size() > 0 && mGameWorld.mLevels.size()-1 < mGameWorld.mCurrentLevel + 1)
         {
             Debug.i("Первый уровень существует, нового нет еще, сгенерируем");
             mGameWorld.mCurrentLevel ++;
@@ -66,7 +66,7 @@ public class LevelManager
             mGenerator.generateNewLevel();
         }
         //else if(mGameWorld.mLevels.get(mGameWorld.mCurrentLevel+1) != null)
-        else if(mGameWorld.mLevels.size() <= mGameWorld.mCurrentLevel + 1)
+        else if(mGameWorld.mLevels.size()-1 <= mGameWorld.mCurrentLevel + 1)
         {
             Debug.i("Мы переходим на сгенерированный уровень");
             mGameWorld.mCurrentLevel ++;
@@ -86,6 +86,8 @@ public class LevelManager
                 if(num == mGameWorld.mCurrentLevel)
                 {
                     Debug.i("Нашли нужный респ, поставим игрока в (" + spawn.getX() + ", " + spawn.getY() + ")");
+                    WorldContext.getInstance().mPlayer.stopAnimation();
+                    WorldContext.getInstance().mPlayer.setMove(false);
                     WorldContext.getInstance().mPlayer.setPlayerPosition(spawn.getX(), spawn.getY());
                     Debug.i("Игрока поставили на место");
                 }
@@ -93,7 +95,8 @@ public class LevelManager
         }
 
         //Обновим сцену с новым уровнем
-        ScenesManager.getInstance().updateMainScene();
+        if(mGameWorld.mCurrentLevel > 0)
+            ScenesManager.getInstance().updateMainScene();
     }
 
     /**
@@ -110,7 +113,27 @@ public class LevelManager
 
         mGameWorld.mCurrentLevel --;
 
-        //TODO Надо найти все точки возрождения на уровне, поставить туда игрока
+        //Надо найти все точки возрождения на уровне, поставить туда игрока
+        ArrayList<TMXObject> playerSpawn = WorldContext.getInstance().mWorld.mSpawns.get(WorldContext.getInstance().mWorld.mCurrentLevel);
+        for(TMXObject spawn : playerSpawn)
+        {
+            if(spawn.getName().contains("player_spawn") && spawn.getType().equals("up"))
+            {
+                String name_spawn = spawn.getName();
+                //name_spawn = name_spawn.concat("player_spawn_");
+                name_spawn = name_spawn.substring("player_spawn_".length(), name_spawn.length());
+                Debug.i("Вырезали все лишнее из названия точки респа = " + name_spawn);
+                int num = Integer.parseInt(name_spawn);
+                if(num == mGameWorld.mCurrentLevel)
+                {
+                    Debug.i("Нашли нужный респ, поставим игрока в (" + spawn.getX() + ", " + spawn.getY() + ")");
+                    WorldContext.getInstance().mPlayer.stopAnimation();
+                    WorldContext.getInstance().mPlayer.setMove(false);
+                    WorldContext.getInstance().mPlayer.setPlayerPosition(spawn.getX(), spawn.getY());
+                    Debug.i("Игрока поставили на место");
+                }
+            }
+        }
 
         //Обновим сцену с новым уровнем
         ScenesManager.getInstance().updateMainScene();

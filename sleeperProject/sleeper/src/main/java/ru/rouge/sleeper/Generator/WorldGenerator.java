@@ -665,7 +665,6 @@ public final class WorldGenerator
         int length = Utils.getRand(3, wContext.mWorld.mLevels.get(currLevel).getTileColumns()/2)+1;	//Сгенерируем длину коридора = половине ширины уровня; +1 для отрисовки стены в конце коридора
 		Debug.i(TAG, "The corridor length = " + length);
 		int direction;  																	//Направление построения коридора
-		//int newDirection = -1;															//Если есть повороты, то тут мы определяем новый поворот коридора
 		int x = 0, y = 0;																	//Координаты начала построения коридора
 		int kx = 0, ky = 0;																	//Коэфиценты, позволяющие создать правильное направление генерации коридора
         TMXTiledMap mCurrLevel = wContext.mWorld.mLevels.get(currLevel);					//Текущий уровень
@@ -674,7 +673,6 @@ public final class WorldGenerator
 		Debug.i(TAG, "Count of rounds of corridor = " + mTurns);
 		Debug.i(TAG, "Calculate margins relative door");
 		direction = door.mDir;
-		//newDirection = direction;
 		door.isFree = false;
 
 		//Посчитаем отступы по х и по у относительно двери
@@ -1578,7 +1576,8 @@ public final class WorldGenerator
         if(d != null)
             mLevelDoors.remove(d);
     }
-	
+
+
 	private void clearDoors()
 	{
 		ArrayList<LevelDoor> buf = new ArrayList<LevelDoor>();
@@ -1631,6 +1630,7 @@ public final class WorldGenerator
             Debug.e(TAG, "Done spawn player point");
             WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_FLOOR).setVisibleTiles(randX, randY);
             WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_WALLS).setVisibleTiles(randX, randY);
+            WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_ABOVE).setVisibleTiles(randX, randY);
         }
     }
 
@@ -1660,8 +1660,85 @@ public final class WorldGenerator
             Stair down = new Stair(randX*32, randY*32, false, ResourceManager.getInstance().mStairsTexture, ResourceManager.getInstance().mVBO);
             WorldContext.getInstance().mWorld.mObjects.get(currLevel).add(down);
             wContext.mWorld.mWakables.get(currLevel)[randX][randY].mIndexObject = wContext.mWorld.mObjects.get(currLevel).size()-1;
-        }
 
+            Debug.e(TAG, "Create spawn player point");
+            TMXObject playerSpawn = new TMXObject("player_spawn_"+currLevel, "up", randX*32, randY*32, 32, 32);
+            wContext.mWorld.mSpawns.get(currLevel).add(playerSpawn);
+            Debug.e(TAG, "Done spawn player point");
+        }
+        else if(currLevel > 0 && currLevel < WorldContext.getInstance().mWorld.MAX_LEVELS)
+        {
+            for(int i = 0; i < 2; i ++)
+            {
+                isExit = false;
+                //Выбираем случайную комнату из списка
+                int number = Utils.getRand(0, objectsMap.size()-1);
+                Debug.i("number = " + number);
+                ObjectOnMap roomInfo = objectsMap.get(number);
+
+                //Выберем координаты, по которым есть свободное место в комнате
+                int randX = 0, randY = 0;
+                while(!isExit)
+                {
+                    randX = Utils.getRand(1, roomInfo.getSize().getWidth()-1);
+                    randY = Utils.getRand(1, roomInfo.getSize().getHeight()-1);
+                    randX = randX + roomInfo.getBegin().getX();
+                    randY = randY + roomInfo.getBegin().getY();
+                    if(getCell(randX, randY, GameMap.LAYER_WALLS) == TILE_NONE && getDoorByCoord(randX, randY) == null)
+                        isExit = true;
+                }
+
+                boolean isUp;
+                String where;
+                if(i == 0)//Поставим лестницу вниз
+                {
+                    isUp = false;
+                    where = "up";
+                }
+                else//Поставим лестницу Вверх
+                {
+                    isUp = true;
+                    where = "down";
+                }
+
+                Stair down = new Stair(randX*32, randY*32, isUp, ResourceManager.getInstance().mStairsTexture, ResourceManager.getInstance().mVBO);
+                WorldContext.getInstance().mWorld.mObjects.get(currLevel).add(down);
+                wContext.mWorld.mWakables.get(currLevel)[randX][randY].mIndexObject = wContext.mWorld.mObjects.get(currLevel).size()-1;
+
+                Debug.e(TAG, "Create spawn player point");
+                TMXObject playerSpawn = new TMXObject("player_spawn_"+currLevel, where, randX*32, randY*32, 32, 32);
+                wContext.mWorld.mSpawns.get(currLevel).add(playerSpawn);
+                Debug.e(TAG, "Done spawn player point");
+            }
+        }
+        else if(currLevel == WorldContext.getInstance().mWorld.MAX_LEVELS)
+        {
+            //Выбираем случайную комнату из списка
+            int number = Utils.getRand(0, objectsMap.size()-1);
+            Debug.i("number = " + number);
+            ObjectOnMap roomInfo = objectsMap.get(number);
+
+            //Выберем координаты, по которым есть свободное место в комнате
+            int randX = 0, randY = 0;
+            while(!isExit)
+            {
+                randX = Utils.getRand(1, roomInfo.getSize().getWidth()-1);
+                randY = Utils.getRand(1, roomInfo.getSize().getHeight()-1);
+                randX = randX + roomInfo.getBegin().getX();
+                randY = randY + roomInfo.getBegin().getY();
+                if(getCell(randX, randY, GameMap.LAYER_WALLS) == TILE_NONE && getDoorByCoord(randX, randY) == null)
+                    isExit = true;
+            }
+
+            Stair up = new Stair(randX*32, randY*32, true, ResourceManager.getInstance().mStairsTexture, ResourceManager.getInstance().mVBO);
+            WorldContext.getInstance().mWorld.mObjects.get(currLevel).add(up);
+            wContext.mWorld.mWakables.get(currLevel)[randX][randY].mIndexObject = wContext.mWorld.mObjects.get(currLevel).size()-1;
+
+            Debug.e(TAG, "Create spawn player point");
+            TMXObject playerSpawn = new TMXObject("player_spawn_"+currLevel, "down", randX*32, randY*32, 32, 32);
+            wContext.mWorld.mSpawns.get(currLevel).add(playerSpawn);
+            Debug.e(TAG, "Done spawn player point");
+        }
     }
 	
 	public boolean generateNewLevel()
@@ -1670,6 +1747,8 @@ public final class WorldGenerator
         ArrayList<TMXTiledMap> mGameLevels = wContext.mWorld.mLevels;
         currLevel = wContext.mWorld.mCurrentLevel;
         PhysicMapCell[][] mWalkable;
+        objectsMap.clear();
+        mLevelDoors.clear();
 		
 		//for(int i = 0; i < wContext.world.getCountLevels(); i++)							//Создадим карты для всех уровней разом
 		for(int i = 0; i < 1; i++)															//Создадим карты для всех уровней разом
@@ -1688,6 +1767,8 @@ public final class WorldGenerator
 			int countObjects;   				//Текущее количество объектов на карте
 
             //Создание карты уровня и всех сопутствующих структур
+            try
+            {
 			TMXTiledMap newLevel = new TMXTiledMap(height_level, width_level, 32, 32);						//Создадим уровень
             TMXLayer floor = new TMXLayer(newLevel, width_level, height_level, "floor", ResourceManager.getInstance().mVBO);
             newLevel.getTMXLayers().add(floor);
@@ -1699,7 +1780,11 @@ public final class WorldGenerator
             set.setImageSource(wContext.getAssetManager(), wContext.getTextureManager(), "tileset/walls_stone.png", null);
             newLevel.getTMXTileSets().add(set);
             mGameLevels.add(newLevel);
-
+            }
+            catch (Exception e)
+            {
+                Debug.e(e);
+            }
 
             mWalkable = new PhysicMapCell[width_level][height_level];
             for(int k = 0; k < 50; k++)
