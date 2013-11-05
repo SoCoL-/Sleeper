@@ -25,8 +25,8 @@ public class Player extends BaseAnimObject
 
     private final static long STEP_TIME = 10;					//Время одного шага в миллисекундах
 	//Время анимации каждого кадра бега в одном направлении
-    private final static long[] ANIM_TIMINGS_RUN = {100, 100, 100, 100, 100, 100, 100, 100};
-    private final static long[] ANIM_TIMINGS_RUN_FAST = {50, 50, 50, 50, 50, 50, 50, 50};
+    private final static long[] ANIM_TIMINGS_RUN = {110, 110, 110, 110, 110, 110, 110, 110};
+    private final static long[] ANIM_TIMINGS_RUN_FAST = {55, 55, 55, 55, 55, 55, 55, 55};
 
 	//-----------------------------
 	//VARIABLES
@@ -223,7 +223,7 @@ public class Player extends BaseAnimObject
             Debug.i("mNextX = " + mNextX + ", mNextY = " + mNextY);
 
             Debug.i("Нет препятствий");
-            setMove(true);
+            //setMove(true);
         }
         else if(!mWalkable[playerPosX][playerPosY].isWalkable)
         {
@@ -243,7 +243,7 @@ public class Player extends BaseAnimObject
                 Debug.i("mNextX = " + mNextX + ", mNextY = " + mNextY);
 
                 Debug.i("Есть объект, на него можно зайти");
-                setMove(true);
+                //setMove(true);
             }
             else
             {

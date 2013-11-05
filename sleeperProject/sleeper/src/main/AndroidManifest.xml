@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ru.rouge.sleeper"
     android:versionCode="36"
-    android:versionName="0.1.6_a" >
+    android:versionName="0.1.62_a" >
 
     <uses-sdk
         android:minSdkVersion="7"

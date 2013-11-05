@@ -1062,13 +1062,10 @@ public final class WorldGenerator
         int length = mCurrLevel.getTileColumns() * mCurrLevel.getTileRows();
 
         Debug.i("Init mCheckTile");
-        if(mCheckTile == null)
+        mCheckTile = new int[mCurrLevel.getTileColumns() * mCurrLevel.getTileRows()];
+        for(int k = 0; k < mCurrLevel.getTileColumns() * mCurrLevel.getTileRows(); k++)
         {
-            mCheckTile = new int[mCurrLevel.getTileColumns() * mCurrLevel.getTileRows()];
-            for(int k = 0; k < mCurrLevel.getTileColumns() * mCurrLevel.getTileRows(); k++)
-            {
-                mCheckTile[k] = 0;
-            }
+            mCheckTile[k] = 0;
         }
         Debug.i("Init done");
 
@@ -1084,6 +1081,8 @@ public final class WorldGenerator
                 calculateIDS(column, row);
             }
         }
+
+        mCheckTile = null;
 
         Debug.i("Modify Tiles", "********************/END/***********************");
 	}

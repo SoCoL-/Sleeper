@@ -18,8 +18,6 @@ import ru.rouge.sleeper.Managers.ResourceManager;
 import ru.rouge.sleeper.Managers.ScenesManager;
 import ru.rouge.sleeper.Map.GameMap;
 import ru.rouge.sleeper.Objects.BaseObject;
-import ru.rouge.sleeper.Objects.Door;
-import ru.rouge.sleeper.Objects.Stair;
 import ru.rouge.sleeper.WorldContext;
 
 /**
@@ -32,7 +30,6 @@ public final class MainGameScene extends MainScene
     private boolean isShowWalls = true;             //Для отладки
     private boolean isChangeScene;
     public HUD mHUD;
-    private IOnSceneTouchListener mITouch;
 
 	@Override
     public void createScene()
@@ -46,18 +43,7 @@ public final class MainGameScene extends MainScene
 
         mHUD = new HUD();
 
-        mITouch = new IOnSceneTouchListener()
-        {
-            @Override
-            public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent)
-            {
-                WorldContext.getInstance().mPlayerContr.move(pSceneTouchEvent);
-                return true;
-            }
-        };
-        setOnSceneTouchListener(mITouch);
-
-		/*setOnSceneTouchListener(new IOnSceneTouchListener()
+		setOnSceneTouchListener(new IOnSceneTouchListener()
 		{
 			@Override
 			public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent)
@@ -65,7 +51,7 @@ public final class MainGameScene extends MainScene
                 WorldContext.getInstance().mPlayerContr.move(pSceneTouchEvent);
 				return true;
 			}
-		});*/
+		});
 
 		showWorld();
     }
@@ -157,6 +143,7 @@ public final class MainGameScene extends MainScene
     public void clearScene()
     {
         this.detachChildren();
+        this.mHUD.detachChildren();
     }
 
     public void setChange()
@@ -205,8 +192,15 @@ public final class MainGameScene extends MainScene
 		detachChild(WorldContext.getInstance().mPlayer);
         detachChildren();
         WorldContext.getInstance().mWorld.mLevels.clear();
-        WorldContext.getInstance().mWorld.mLevels = null;
-        WorldContext.getInstance().mWorld = null;
+        //WorldContext.getInstance().mWorld.mLevels = null;
+        WorldContext.getInstance().mWorld.mSpawns.clear();
+        //WorldContext.getInstance().mWorld.mSpawns = null;
+        WorldContext.getInstance().mWorld.mWakables.clear();
+        //WorldContext.getInstance().mWorld.mWakables = null;
+        WorldContext.getInstance().mWorld.mObjects.clear();
+        //WorldContext.getInstance().mWorld.mObjects = null;
+        WorldContext.getInstance().mWorld.mCurrentLevel = 0;
+        //WorldContext.getInstance().mWorld = null;
         WorldContext.getInstance().getCamera().setHUD(null);
         WorldContext.getInstance().getCamera().setBoundsEnabled(false);
         WorldContext.getInstance().getCamera().clearUpdateHandlers();
