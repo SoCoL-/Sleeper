@@ -92,9 +92,9 @@ public class Player extends BaseAnimObject
                     int row = (int)getY()/32;
                     if(mKY == 1)
                         row += 1;
-                    WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_FLOOR).setVisibleTiles(column, row);
-                    WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_WALLS).setVisibleTiles(column, row);
-                    WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_ABOVE).setVisibleTiles(column, row);
+                    WorldContext.getInstance().mWorld.mLevels.get(WorldContext.getInstance().mWorld.mCurrentLevel).getTMXLayers().get(GameMap.LAYER_FLOOR).setVisibleTiles(column, row);
+                    WorldContext.getInstance().mWorld.mLevels.get(WorldContext.getInstance().mWorld.mCurrentLevel).getTMXLayers().get(GameMap.LAYER_WALLS).setVisibleTiles(column, row);
+                    WorldContext.getInstance().mWorld.mLevels.get(WorldContext.getInstance().mWorld.mCurrentLevel).getTMXLayers().get(GameMap.LAYER_ABOVE).setVisibleTiles(column, row);
                 }
 
                 float nextCoordX = getX() + mSpeed*mKX;
@@ -223,7 +223,7 @@ public class Player extends BaseAnimObject
             Debug.i("mNextX = " + mNextX + ", mNextY = " + mNextY);
 
             Debug.i("Нет препятствий");
-            //setMove(true);
+            setMove(true);
         }
         else if(!mWalkable[playerPosX][playerPosY].isWalkable)
         {
@@ -243,7 +243,7 @@ public class Player extends BaseAnimObject
                 Debug.i("mNextX = " + mNextX + ", mNextY = " + mNextY);
 
                 Debug.i("Есть объект, на него можно зайти");
-                //setMove(true);
+                setMove(true);
             }
             else
             {
