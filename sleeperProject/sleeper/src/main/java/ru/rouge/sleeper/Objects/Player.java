@@ -25,8 +25,10 @@ public class Player extends BaseAnimObject
 
     private final static long STEP_TIME = 10;					//Время одного шага в миллисекундах
 	//Время анимации каждого кадра бега в одном направлении
-    private final static long[] ANIM_TIMINGS_RUN = {110, 110, 110, 110, 110, 110, 110, 110};
-    private final static long[] ANIM_TIMINGS_RUN_FAST = {55, 55, 55, 55, 55, 55, 55, 55};
+    //private final static long[] ANIM_TIMINGS_RUN = {110, 110, 110, 110, 110, 110, 110, 110};
+    private final static long[] ANIM_TIMINGS_RUN = {40, 40, 40, 40, 40, 40, 40, 40};
+    //private final static long[] ANIM_TIMINGS_RUN_FAST = {55, 55, 55, 55, 55, 55, 55, 55};
+    private final static long[] ANIM_TIMINGS_RUN_FAST = {20, 20, 20, 20, 20, 20, 20, 20};
 
 	//-----------------------------
 	//VARIABLES
@@ -277,6 +279,7 @@ public class Player extends BaseAnimObject
             mOldDir = mDir;
             mDir = dir;
             mNextDir = dir;
+            animatePlayer();
 
             if(dir == Directions.DIR_EAST)
             {
@@ -320,8 +323,9 @@ public class Player extends BaseAnimObject
         if(isMove)
         {
             Debug.i("Начали движение игрока");
+            if(this.isMove == false)
+                animatePlayer();
             this.isMove = true;
-            animatePlayer();
         }
         else
         {
