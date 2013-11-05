@@ -89,6 +89,11 @@ public class LevelManager
                     WorldContext.getInstance().mPlayer.stopAnimation();
                     WorldContext.getInstance().mPlayer.setMove(false);
                     WorldContext.getInstance().mPlayer.setPlayerPosition(spawn.getX(), spawn.getY());
+                    int tileX = spawn.getX()/32;
+                    int tileY = spawn.getY()/32;
+                    WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_FLOOR).setVisibleTiles(tileX, tileY);
+                    WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_WALLS).setVisibleTiles(tileX, tileY);
+                    WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_ABOVE).setVisibleTiles(tileX, tileY);
                     Debug.i("Игрока поставили на место");
                 }
             }

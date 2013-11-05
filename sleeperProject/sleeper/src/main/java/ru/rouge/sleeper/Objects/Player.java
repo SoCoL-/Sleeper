@@ -323,7 +323,7 @@ public class Player extends BaseAnimObject
         if(isMove)
         {
             Debug.i("Начали движение игрока");
-            if(this.isMove == false)
+            if(!this.isMove)
                 animatePlayer();
             this.isMove = true;
         }
