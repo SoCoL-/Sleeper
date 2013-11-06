@@ -19,6 +19,7 @@ import ru.rouge.sleeper.Objects.BaseObject;
 import ru.rouge.sleeper.Objects.Door;
 import ru.rouge.sleeper.Objects.Stair;
 import ru.rouge.sleeper.Utils.Coord;
+import ru.rouge.sleeper.Utils.Directions;
 import ru.rouge.sleeper.Utils.Rect;
 import ru.rouge.sleeper.Utils.Size;
 import ru.rouge.sleeper.Utils.Utils;
@@ -652,6 +653,32 @@ public final class WorldGenerator
 		
 		return true;
 	}
+
+    /**
+     * Проверяем, чтобы коридор построился как минимум на 3 тайла
+     * */
+    private boolean isMinLenthCoridor(final int x, final int y, final int kx, final int ky)
+    {
+        boolean rez = true;
+        int centerX = 0, centerY = 0;
+
+        if(kx == 1 || kx == -1)
+        {
+            centerY = 1;
+        }
+        else if(ky == 1 || ky == -1)
+        {
+            centerX = 1;
+        }
+
+        for(int i = 0; i < MIN_LENGTH_CORRIDOR; i++)
+        {
+            if(getCell(x + i*kx + centerX, y + i*ky + centerY, GameMap.LAYER_WALLS) != TILE_NONE)
+                rez = false;
+        }
+
+        return  rez;
+    }
 	
 	/**Функция создания на уровне коридора со всеми переломами
 	 * @param door - комната, с которой начнется коридор
@@ -706,12 +733,12 @@ public final class WorldGenerator
                 }
 			}
 			y = door.mCoord.getY() - 1;
-			ky = 1;
+			ky = 0;
 		}
 		else if((door.mDir == ObjectOnMap.DIR_SOUTH) || (door.mDir == ObjectOnMap.DIR_NORTH))
 		{
 			x = door.mCoord.getX() - 1;
-			kx = 1;
+			kx = 0;
 			if(door.mDir == ObjectOnMap.DIR_SOUTH)
 			{
 				y = door.mCoord.getY()+1;
@@ -743,6 +770,14 @@ public final class WorldGenerator
 		Debug.i(TAG, "ky = " + ky);
 		Debug.i(TAG, "x = " + x);
 		Debug.i(TAG, "y = " + y);
+
+        //Проверим, что коридор построится на первые 3 тайла
+        if(!isMinLenthCoridor(x, y, kx, ky))
+        {
+            //Иначе удалим дверь и остановим генерацию коридора
+            deleteDoor(door);
+            return false;
+        }
 		
 		//Отрисовка коридора в одном направлении
 		if(!drawDirCoridor(length, x, y, kx, ky, direction, mCurrLevel))
@@ -805,7 +840,7 @@ public final class WorldGenerator
 				else
 					buf = (length - 1) * kx;
 				x = x + buf;
-				kx = 1;
+				kx = 0;
 				if(direction == ObjectOnMap.DIR_NORTH)
 				{
 					ky = -1;
@@ -824,7 +859,7 @@ public final class WorldGenerator
 				else
 					buf = (length - 1) * ky;
 				y = y + buf;
-				ky = 1;
+				ky = 0;
 				if(direction == ObjectOnMap.DIR_EAST)
 				{
 					kx = 1;
@@ -872,15 +907,15 @@ public final class WorldGenerator
 		{
 			if(direction == ObjectOnMap.DIR_NORTH || direction == ObjectOnMap.DIR_SOUTH)
 			{
-				currX = (i % WIDTH_CORIDOR) * kx;
-				currY = (i / WIDTH_CORIDOR) * ky;
+				currX = (i % WIDTH_CORIDOR);        // просто узнаем следующую координату
+				currY = (i / WIDTH_CORIDOR) * ky;   // ky задает направление вверх или вниз
 				endX = x + 1;
 				endY = y + currY - ky;
 			}
 			else if (direction == ObjectOnMap.DIR_EAST || direction == ObjectOnMap.DIR_WEST)
 			{
-				currX = (i / WIDTH_CORIDOR) * kx;
-				currY = (i % WIDTH_CORIDOR) * ky;
+				currX = (i / WIDTH_CORIDOR) * kx;   // kx задает направление влево или вправо
+				currY = (i % WIDTH_CORIDOR);        // просто узнаем следующую координату
 				endX = x + currX - kx;
 				endY = y + 1;
 			}
@@ -1436,7 +1471,7 @@ public final class WorldGenerator
 				//Если следующий ряд свободен от стен и от дверей, то можем поставить на стену дверь
 				if(Utils.typesFloor.contains(getCell(x+1, y+ky, GameMap.LAYER_FLOOR)) && getDoorByCoord(x+1, y+ky) == null && getCell(x+1, y+ky, GameMap.LAYER_WALLS) == TILE_NONE)
 					return 2;
-				else if(getCell(x+1, y+ky, GameMap.LAYER_WALLS) == TILE_NONE)//Если строим поворот, то начнем со стены, потому тут продолжим строительство
+				else if(getCell(x+1, y+ky, GameMap.LAYER_WALLS) == TILE_NONE && getCell(x+1, y+ky, GameMap.LAYER_FLOOR) == TILE_NONE)//Если строим поворот, то начнем со стены, потому тут продолжим строительство
 					return 0;
                 else if(Utils.typesWall.contains(getCell(x+1, y+ky, GameMap.LAYER_WALLS)))//Если по всей ширине стена и посреди на следующем шаге стена, то заканчиваем строительство коридора
                 {
@@ -1486,7 +1521,7 @@ public final class WorldGenerator
 				Debug.i(TAG, "isCanGo: x = " + x + ", y = " + y);
 				Debug.i(TAG, "isCanGo: -1: " + getCell(x-kx, y, GameMap.LAYER_WALLS) + " " + getCell(x-kx, y+1, GameMap.LAYER_WALLS) + " " + getCell(x-kx, y+2, GameMap.LAYER_WALLS));
 				Debug.i(TAG, "isCanGo:  0: " + getCell(x, y, GameMap.LAYER_WALLS) + " " + getCell(x, y+1, GameMap.LAYER_WALLS) + " " + getCell(x, y+2, GameMap.LAYER_WALLS));
-				Debug.i(TAG, "isCanGo:  1: " + getCell(x+kx, y, GameMap.LAYER_WALLS) + " " + getCell(x+kx, y+2, GameMap.LAYER_WALLS) + " " + getCell(x+kx, y+2, GameMap.LAYER_WALLS));
+				Debug.i(TAG, "isCanGo:  1: " + getCell(x+kx, y, GameMap.LAYER_WALLS) + " " + getCell(x+kx, y+1, GameMap.LAYER_WALLS) + " " + getCell(x+kx, y+2, GameMap.LAYER_WALLS));
 				Debug.i(TAG, "-------------==============------------");
 				if(Utils.typesFloor.contains(getCell(x+kx, y+1, GameMap.LAYER_FLOOR)) && getDoorByCoord(x+kx, y+1) == null)
 					return 2;
