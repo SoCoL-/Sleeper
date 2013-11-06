@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="10" height="10" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="walls_stone" tilewidth="32" tileheight="32" spacing="2" margin="1">
-  <image source="tileset/walls_stone.png" width="102" height="204"/>
+  <image source="tileset/walls_stone.png" width="102" height="544"/>
  </tileset>
  <layer name="floor" width="10" height="10">
   <data encoding="base64" compression="gzip">
@@ -15,7 +15,7 @@
  </layer>
  <layer name="above" width="10" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWDCQAADA0iRpABAAA=
+   H4sIAAAAAAAAC2NgQABtBuKADpHqqAk0yNCjCcRa1HYIEUAdCZMKALSwk86QAQAA
   </data>
  </layer>
  <objectgroup name="objects" width="10" height="10"/>

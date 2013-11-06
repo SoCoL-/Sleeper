@@ -86,8 +86,6 @@ public final class MainGameScene extends MainScene
                 if(d instanceof Door)
                     attachChild(d);*/
 
-            //if(currLevel == 0)
-            {
             final Rectangle btnHud = new Rectangle(5, 5, 32, 32, ResourceManager.getInstance().mVBO)
             {
                 @Override
@@ -101,8 +99,6 @@ public final class MainGameScene extends MainScene
                         WorldContext.getInstance().mWorld.mLevels.get(WorldContext.getInstance().mWorld.mCurrentLevel).getTMXLayers().get(GameMap.LAYER_WALLS).setVisible(isShowWalls);
                         Debug.i("After change isShowWalls = " + isShowWalls);
                     }
-
-                    //return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
                     return true;
                 }
             };
@@ -127,9 +123,8 @@ public final class MainGameScene extends MainScene
 
             Debug.e("Set HUD");
             WorldContext.getInstance().getCamera().setHUD(mHUD);
-            }
             isChangeScene = true;
-		}
+        }
 		else
 			Debug.e("world is null");
         }

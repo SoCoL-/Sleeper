@@ -626,6 +626,7 @@ public final class WorldGenerator
                     if(Utils.typesFloor.contains(currRoom.getTMXLayers().get(GameMap.LAYER_FLOOR).getTMXTile(xtemp, ytemp).getGlobalTileID()))
                         wContext.mWorld.mWakables.get(currLevel)[xtemp + x][ytemp + y].isWalkable = true;
                     setCell(xtemp + x, ytemp + y, currRoom.getTMXLayers().get(GameMap.LAYER_WALLS).getTMXTile(xtemp, ytemp).getGlobalTileID(), GameMap.LAYER_WALLS);
+                    setCell(xtemp + x, ytemp + y, currRoom.getTMXLayers().get(GameMap.LAYER_ABOVE).getTMXTile(xtemp, ytemp).getGlobalTileID(), GameMap.LAYER_ABOVE);
                 }
 				else
 					ld.isFree = false;
