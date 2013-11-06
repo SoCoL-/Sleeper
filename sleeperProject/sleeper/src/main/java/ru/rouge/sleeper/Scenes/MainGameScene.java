@@ -98,7 +98,7 @@ public final class MainGameScene extends MainScene
                     {
                         Debug.i("Before change isShowWalls = " + isShowWalls);
                         isShowWalls = !isShowWalls;
-                        WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_WALLS).setVisible(isShowWalls);
+                        WorldContext.getInstance().mWorld.mLevels.get(WorldContext.getInstance().mWorld.mCurrentLevel).getTMXLayers().get(GameMap.LAYER_WALLS).setVisible(isShowWalls);
                         Debug.i("After change isShowWalls = " + isShowWalls);
                     }
 
@@ -144,6 +144,7 @@ public final class MainGameScene extends MainScene
     {
         this.detachChildren();
         this.mHUD.detachChildren();
+        WorldContext.getInstance().getCamera().setHUD(null);
     }
 
     public void setChange()
@@ -187,27 +188,34 @@ public final class MainGameScene extends MainScene
     @Override
     public void dispposeScene()
     {
-		Debug.e("on MainGameScene dispose scene");
-        ResourceManager.getInstance().unloadGameRes();
-		detachChild(WorldContext.getInstance().mPlayer);
-        detachChildren();
-        WorldContext.getInstance().mWorld.mLevels.clear();
-        //WorldContext.getInstance().mWorld.mLevels = null;
-        WorldContext.getInstance().mWorld.mSpawns.clear();
-        //WorldContext.getInstance().mWorld.mSpawns = null;
-        WorldContext.getInstance().mWorld.mWakables.clear();
-        //WorldContext.getInstance().mWorld.mWakables = null;
-        WorldContext.getInstance().mWorld.mObjects.clear();
-        //WorldContext.getInstance().mWorld.mObjects = null;
-        WorldContext.getInstance().mWorld.mCurrentLevel = 0;
-        //WorldContext.getInstance().mWorld = null;
-        WorldContext.getInstance().getCamera().setHUD(null);
-        WorldContext.getInstance().getCamera().setBoundsEnabled(false);
-        WorldContext.getInstance().getCamera().clearUpdateHandlers();
-        WorldContext.getInstance().getCamera().setChaseEntity(null);
-        WorldContext.getInstance().getCamera().setCenter(MainActivity.CAMERA_WIDTH/2, MainActivity.CAMERA_HEIGHT/2);
-		this.detachSelf();
-		this.dispose();
-        Debug.e("MainGameScene: after disposing");
+        WorldContext.getInstance().getEngine().runOnUpdateThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                Debug.e("on MainGameScene dispose scene");
+                ResourceManager.getInstance().unloadGameRes();
+                detachChild(WorldContext.getInstance().mPlayer);
+                detachChildren();
+                WorldContext.getInstance().mWorld.mLevels.clear();
+                //WorldContext.getInstance().mWorld.mLevels = null;
+                WorldContext.getInstance().mWorld.mSpawns.clear();
+                //WorldContext.getInstance().mWorld.mSpawns = null;
+                WorldContext.getInstance().mWorld.mWakables.clear();
+                //WorldContext.getInstance().mWorld.mWakables = null;
+                WorldContext.getInstance().mWorld.mObjects.clear();
+                //WorldContext.getInstance().mWorld.mObjects = null;
+                WorldContext.getInstance().mWorld.mCurrentLevel = 0;
+                //WorldContext.getInstance().mWorld = null;
+                WorldContext.getInstance().getCamera().setHUD(null);
+                WorldContext.getInstance().getCamera().setBoundsEnabled(false);
+                WorldContext.getInstance().getCamera().clearUpdateHandlers();
+                WorldContext.getInstance().getCamera().setChaseEntity(null);
+                WorldContext.getInstance().getCamera().setCenter(MainActivity.CAMERA_WIDTH/2, MainActivity.CAMERA_HEIGHT/2);
+                detachSelf();
+                dispose();
+                Debug.e("MainGameScene: after disposing");
+            }
+        });
     }
 }
