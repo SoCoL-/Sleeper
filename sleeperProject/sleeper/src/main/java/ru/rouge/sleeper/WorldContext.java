@@ -82,6 +82,9 @@ public final class WorldContext
         this.mObjectController = new ObjectController();
         this.mSettings = new Settings();
         this.mLevelManager = new LevelManager();
+
+        WorldContext.getInstance().mFPSCounter = new FPSCounter();
+        WorldContext.getInstance().getEngine().registerUpdateHandler(WorldContext.getInstance().mFPSCounter);
     }
 
 	/**

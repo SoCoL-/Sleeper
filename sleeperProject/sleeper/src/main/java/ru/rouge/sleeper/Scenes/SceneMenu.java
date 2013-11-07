@@ -61,7 +61,7 @@ public final class SceneMenu extends MainScene implements MenuScene.IOnMenuItemC
 		this.mResManager.loadMenuRes();
 		createBackground();
 		createMenu();
-        loadSettings();
+        //loadSettings();
 	}
 
 	@Override
@@ -81,12 +81,19 @@ public final class SceneMenu extends MainScene implements MenuScene.IOnMenuItemC
 	@Override
 	public void dispposeScene()
 	{
-        Debug.e("Menu: dispposeScene()");
-		this.mResManager.unloadMenuRes();
-        mMenu.detachSelf();
-        mMenu.dispose();
-        this.detachSelf();
-        this.dispose();
+        WorldContext.getInstance().getEngine().runOnUpdateThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                Debug.e("Menu: dispposeScene()");
+                mResManager.unloadMenuRes();
+                mMenu.detachSelf();
+                mMenu.dispose();
+                detachSelf();
+                dispose();
+            }
+        });
 	}
 
 	@Override
@@ -163,14 +170,6 @@ public final class SceneMenu extends MainScene implements MenuScene.IOnMenuItemC
 
 		setChildScene(mMenu);
 	}
-
-    private void loadSettings()
-    {
-        SharedPreferences preferences = mWorldContext.getContext().getSharedPreferences("GameSettings", Context.MODE_PRIVATE);
-
-        mWorldContext.mSettings.setFastPlayer(preferences.getBoolean("FastPlayer", false));
-        mWorldContext.mSettings.setWarFog(preferences.getBoolean("WarFog", true));
-    }
 
     private void destroy()
     {

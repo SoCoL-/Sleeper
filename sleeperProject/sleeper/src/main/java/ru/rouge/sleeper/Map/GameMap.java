@@ -7,6 +7,7 @@ import org.andengine.util.debug.Debug;
 import java.util.ArrayList;
 
 import ru.rouge.sleeper.Objects.BaseObject;
+import ru.rouge.sleeper.Objects.GameHUD;
 import ru.rouge.sleeper.WorldContext;
 
 /**
@@ -29,6 +30,7 @@ public final class GameMap
 	//VARIABLES
 	//-----------------------------
 
+    public GameHUD mHUD;                                //Вспомогательный интерфейс игры
     public ArrayList<TMXTiledMap> mLevels;              //Уровни подземелья
     public ArrayList<PhysicMapCell[][]> mWakables;      //Физическая часть карты (ссылки на массив объектов + проходимость обычная)
 	public ArrayList<ArrayList<TMXObject>> mSpawns;
@@ -45,32 +47,13 @@ public final class GameMap
         if(WorldContext.getInstance().isNewGame)
             mCurrentLevel = 0;
 
+        this.mHUD = new GameHUD();
         this.mLevels = new ArrayList<TMXTiledMap>(MAX_LEVELS);
         this.mWakables = new ArrayList<PhysicMapCell[][]>(MAX_LEVELS);
         this.mObjects = new ArrayList<ArrayList<BaseObject>>(MAX_LEVELS);
         this.mSpawns = new ArrayList<ArrayList<TMXObject>>(MAX_LEVELS);
 
         Debug.i("GameMap is ready!");
-		/*try
-		{
-            Debug.i("GameMap : Create mWakables");
-            mWakables = new PhysicMapCell[50][60];
-			for(int i = 0; i < 50; i++)
-				for(int j = 0; j < 60; j++)
-                {
-                    mWakables[i][j] = new PhysicMapCell();
-					mWakables[i][j].isWalkable = false;
-                    mWakables[i][j].mIndexObject = -1;
-                }
-            Debug.e("Init walkables done! ");
-
-            mObjects = new ArrayList<BaseObject>();
-            mSpawns = new ArrayList<TMXObject>();
-		}
-		catch (Exception ex)
-		{
-			Debug.e(ex.toString());
-		}*/
 	}
 
 	//-----------------------------

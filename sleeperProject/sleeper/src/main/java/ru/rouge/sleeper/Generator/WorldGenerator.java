@@ -190,7 +190,7 @@ public final class WorldGenerator
                                     //Случайно сдвинемся на один тайл от внутренней стены
                                     place = getRandPlace(place, room.mSize.getWidth()-2);
                                 }
-                                if((room.mCoord.getY() + (room.mSize.getHeight()-1)) < wContext.mWorld.mLevels.get(currLevel).getTMXLayers().get(GameMap.LAYER_FLOOR).getTileRows() && getCell(room.mCoord.getX() + place, room.mCoord.getY() + (room.mSize.getHeight()-1) + 1, GameMap.LAYER_WALLS) != TILE_NONE)//Если напротив двери нет стены, то установим дверь
+                                if((room.mCoord.getY() + (room.mSize.getHeight()-1)) < wContext.mWorld.mLevels.get(currLevel).getTMXLayers().get(GameMap.LAYER_FLOOR).getTileRows()-1 && getCell(room.mCoord.getX() + place, room.mCoord.getY() + (room.mSize.getHeight()-1) + 1, GameMap.LAYER_WALLS) != TILE_NONE)//Если напротив двери нет стены, то установим дверь
                                 {
                                     Debug.w(TAG, "С внешней стороны двери есть стена!! Сменим место на стене");
                                     place = getRandPlace(place, room.mSize.getWidth()-2);
@@ -233,7 +233,7 @@ public final class WorldGenerator
                                     //Случайно сдвинемся на один тайл от внутренней стены
                                     place = getRandPlace(place, room.mSize.getHeight()-2);
                                 }
-                                if((room.mCoord.getX() + (room.mSize.getWidth()-1)) < wContext.mWorld.mLevels.get(currLevel).getTMXLayers().get(GameMap.LAYER_FLOOR).getTileColumns() && getCell(room.mCoord.getX() + (room.mSize.getWidth()-1) + 1, room.mCoord.getY() + place, GameMap.LAYER_WALLS) != TILE_NONE)//Если напротив двери нет стены, то установим дверь
+                                if((room.mCoord.getX() + (room.mSize.getWidth()-1)) < wContext.mWorld.mLevels.get(currLevel).getTMXLayers().get(GameMap.LAYER_FLOOR).getTileColumns()-1 && getCell(room.mCoord.getX() + (room.mSize.getWidth()-1) + 1, room.mCoord.getY() + place, GameMap.LAYER_WALLS) != TILE_NONE)//Если напротив двери нет стены, то установим дверь
                                 {
                                     Debug.w(TAG, "С внешней стороны двери есть стена!! Сменим место на стене");
                                     place = getRandPlace(place, room.mSize.getHeight()-2);

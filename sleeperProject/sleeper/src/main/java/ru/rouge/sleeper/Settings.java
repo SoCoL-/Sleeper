@@ -17,6 +17,8 @@ public class Settings
     //-----------------------------
     private boolean isFastPlayer;
     private boolean isWarFog;
+    private boolean isFPS;
+    private boolean isDebugButton;
 
     //-----------------------------
     //CONSTRUCTORS
@@ -26,6 +28,8 @@ public class Settings
         //Set by Default
         isFastPlayer = false;
         isWarFog = true;
+        isFPS = true;
+        isDebugButton = false;
     }
 
     //-----------------------------
@@ -55,6 +59,14 @@ public class Settings
     {
         isWarFog = warFog;
     }
+
+    public boolean isFPS()  {  return isFPS;  }
+
+    public void setFPS(boolean isFPS)  { this.isFPS = isFPS;  }
+
+    public boolean isDebugButton() {  return isDebugButton;  }
+
+    public void setDebugButton(boolean isDebugButton) {  this.isDebugButton = isDebugButton;  }
 
     //-----------------------------
     //INNER CLASSES

@@ -1,14 +1,11 @@
 package ru.rouge.sleeper.Scenes;
 
-import org.andengine.engine.camera.hud.HUD;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
-import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.text.Text;
-import org.andengine.entity.util.FPSCounter;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.util.debug.Debug;
 import org.andengine.util.color.Color;
@@ -27,9 +24,9 @@ import ru.rouge.sleeper.WorldContext;
 public final class MainGameScene extends MainScene
 {
 
-    private boolean isShowWalls = true;             //Для отладки
+    //private boolean isShowWalls = true;             //Для отладки
     private boolean isChangeScene;
-    public HUD mHUD;
+    //public HUD mHUD;
 
 	@Override
     public void createScene()
@@ -41,7 +38,7 @@ public final class MainGameScene extends MainScene
 		if(WorldContext.getInstance() == null)
 			Debug.e("WorldContext.getInstance() == null Oo");
 
-        mHUD = new HUD();
+        //mHUD = new HUD();
 
 		setOnSceneTouchListener(new IOnSceneTouchListener()
 		{
@@ -86,7 +83,7 @@ public final class MainGameScene extends MainScene
                 if(d instanceof Door)
                     attachChild(d);*/
 
-            final Rectangle btnHud = new Rectangle(5, 5, 32, 32, ResourceManager.getInstance().mVBO)
+            /*final Rectangle btnHud = new Rectangle(5, 5, 32, 32, ResourceManager.getInstance().mVBO)
             {
                 @Override
                 public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY)
@@ -104,13 +101,10 @@ public final class MainGameScene extends MainScene
             };
 
             mHUD.registerTouchArea(btnHud);
-            mHUD.attachChild(btnHud);
+            mHUD.attachChild(btnHud);*/
 
             //Test add text to HUD. Need Class!!!
-            WorldContext.getInstance().mFPSCounter = new FPSCounter();
-            WorldContext.getInstance().getEngine().registerUpdateHandler(WorldContext.getInstance().mFPSCounter);
-
-            final Text mTextFPS = new Text(50, 5, ResourceManager.getInstance().mGameFont, "FPS: , ", "FPS: XXXXX, X".length(), ResourceManager.getInstance().mVBO);
+            /*final Text mTextFPS = new Text(50, 5, ResourceManager.getInstance().mGameFont, "FPS: , ", "FPS: XXXXX, X".length(), ResourceManager.getInstance().mVBO);
             mHUD.attachChild(mTextFPS);
             registerUpdateHandler(new TimerHandler(1 / 20.0f, true, new ITimerCallback()
             {
@@ -122,7 +116,8 @@ public final class MainGameScene extends MainScene
             }));
 
             Debug.e("Set HUD");
-            WorldContext.getInstance().getCamera().setHUD(mHUD);
+            WorldContext.getInstance().getCamera().setHUD(mHUD);*/
+            WorldContext.getInstance().getCamera().setHUD(WorldContext.getInstance().mWorld.mHUD);
             isChangeScene = true;
         }
 		else
@@ -138,7 +133,7 @@ public final class MainGameScene extends MainScene
     public void clearScene()
     {
         this.detachChildren();
-        this.mHUD.detachChildren();
+        //this.mHUD.detachChildren();
         WorldContext.getInstance().getCamera().setHUD(null);
     }
 

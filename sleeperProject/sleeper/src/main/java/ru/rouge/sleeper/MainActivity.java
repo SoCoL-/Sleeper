@@ -1,5 +1,7 @@
 package ru.rouge.sleeper;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.KeyEvent;
 
 import net.hockeyapp.android.CrashManager;
@@ -55,13 +57,31 @@ public class MainActivity extends BaseGameActivity
 		return eo;
 	}
 
-	@Override
+    private void loadSettings()
+    {
+        SharedPreferences preferences = WorldContext.getInstance().getContext().getSharedPreferences("GameSettings", Context.MODE_PRIVATE);
+
+        WorldContext.getInstance().mSettings.setFastPlayer(preferences.getBoolean("FastPlayer", false));
+        WorldContext.getInstance().mSettings.setWarFog(preferences.getBoolean("WarFog", true));
+        WorldContext.getInstance().mSettings.setWarFog(preferences.getBoolean("FPS", true));
+        WorldContext.getInstance().mSettings.setWarFog(preferences.getBoolean("DebugButton", false));
+
+        if(WorldContext.getInstance().mSettings.isFPS())
+            WorldContext.getInstance().mWorld.mHUD.addFPS();
+
+        if(WorldContext.getInstance().mSettings.isDebugButton())
+            WorldContext.getInstance().mWorld.mHUD.addDebugButton();
+    }
+
+
+    @Override
 	public void onCreateResources(OnCreateResourcesCallback pOnCreateResourcesCallback) throws IOException
 	{
         try
         {
 		    ResourceManager.getInstance().setManager(getVertexBufferObjectManager());
 		    WorldContext.getInstance().setWorldContext(this.mCamera, this.getTextureManager(), this, this.getEngine(), this.getFontManager(), this.getAssets());
+            loadSettings();
         }
         catch(Exception e)
         {

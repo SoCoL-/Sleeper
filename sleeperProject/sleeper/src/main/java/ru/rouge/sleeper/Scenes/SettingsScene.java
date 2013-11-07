@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import org.andengine.input.touch.TouchEvent;
+import org.andengine.util.adt.pool.RunnablePoolItem;
 
 import ru.rouge.sleeper.Managers.ResourceManager;
 import ru.rouge.sleeper.Managers.ScenesManager;
@@ -16,15 +17,13 @@ import ru.rouge.sleeper.WorldContext;
  */
 public class SettingsScene extends MainScene
 {
-    private CheckBox mPlayerSpeed, mWarFog;
+    private CheckBox mPlayerSpeed, mWarFog, mDebug, mFps;
     private WorldContext mWContext;
 
     @Override
     public void createScene()
     {
         mWContext = WorldContext.getInstance();
-
-        //loadSettings();
 
         mPlayerSpeed = new CheckBox(50, 30, mWContext.mScreenWidth, 60, "Fast Player", ResourceManager.getInstance().mVBO)
         {
@@ -54,15 +53,55 @@ public class SettingsScene extends MainScene
             }
         };
 
+        mFps = new CheckBox(50, 130, mWContext.mScreenWidth, 60, "FPS", ResourceManager.getInstance().mVBO)
+        {
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY)
+            {
+                if(pSceneTouchEvent.isActionDown())
+                {
+                    mFps.setCheck(!mFps.isCheck());
+                    mWContext.mSettings.setFPS(mFps.isCheck());
+                    if(mFps.isCheck())
+                        mWContext.mWorld.mHUD.addFPS();
+                }
+                return true;
+            }
+        };
+
+        mDebug = new CheckBox(50, 180, mWContext.mScreenWidth, 60, "DebugButton", ResourceManager.getInstance().mVBO)
+        {
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY)
+            {
+                if(pSceneTouchEvent.isActionDown())
+                {
+                    mDebug.setCheck(!mDebug.isCheck());
+                    mWContext.mSettings.setDebugButton(mDebug.isCheck());
+                    if(mDebug.isCheck())
+                        mWContext.mWorld.mHUD.addDebugButton();
+                }
+                return true;
+            }
+        };
+
         if(mWContext.mSettings.isFastPlayer())
             mPlayerSpeed.setCheck(true);
         if(mWContext.mSettings.isWarFog())
             mWarFog.setCheck(true);
+        if(mWContext.mSettings.isFPS())
+            mFps.setCheck(true);
+        if(mWContext.mSettings.isDebugButton())
+            mDebug.setCheck(true);
 
         registerTouchArea(mPlayerSpeed);
         registerTouchArea(mWarFog);
+        registerTouchArea(mFps);
+        registerTouchArea(mDebug);
         attachChild(mPlayerSpeed);
         attachChild(mWarFog);
+        attachChild(mFps);
+        attachChild(mDebug);
     }
 
     private void saveSettings()
@@ -72,6 +111,8 @@ public class SettingsScene extends MainScene
 
         edit.putBoolean("FastPlayer", mWContext.mSettings.isFastPlayer());
         edit.putBoolean("WarFog", mWContext.mSettings.isWarFog());
+        edit.putBoolean("FPS", mWContext.mSettings.isFPS());
+        edit.putBoolean("DebugButton", mWContext.mSettings.isDebugButton());
         edit.commit();
     }
 
@@ -94,7 +135,14 @@ public class SettingsScene extends MainScene
     @Override
     public void dispposeScene()
     {
-        this.detachChildren();
-        this.detachSelf();
+        mWContext.getEngine().runOnUpdateThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                detachChildren();
+                detachSelf();
+            }
+        });
     }
 }
