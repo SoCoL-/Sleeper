@@ -33,8 +33,8 @@ public final class WorldGenerator
 	public final static int WIDTH_CORIDOR = 3;		    //Минимальная ширина коридора
     public final static int MIN_LENGTH_CORRIDOR = 3;    //Минимальная длина коридора
 	
-	private int chanceRoom = 0;     				    //Шансы выпадения комнаты и корридора
-	private int numObjects = 0;						    //Количество комнат на карте
+	//private int chanceRoom = 0;     				    //Шансы выпадения комнаты и корридора
+	//private int numObjects = 0;						    //Количество комнат на карте
 	private int currLevel = 0;                          //Текущий генерируемый уровен
 	
 	private WorldContext wContext;
@@ -57,14 +57,19 @@ public final class WorldGenerator
         mLevelDoors = new ArrayList<LevelDoor>();
     }
 	
-	public void startGeneration(int level)
+	/*public void startGeneration(int level)
 	{
         Debug.i("Start generation with level = " + level);
 		this.currLevel = level;
-	}
+	}*/
 	
 	private int getCell(int x, int y, final int layer)
 	{
+        if(x < 0 || x > wContext.mWorld.mLevels.get(currLevel).getTMXLayers().get(layer).getTileColumns())
+            return -1;
+        if(y < 0 || y > wContext.mWorld.mLevels.get(currLevel).getTMXLayers().get(layer).getTileRows())
+            return -1;
+
         if(wContext.mWorld.mLevels.get(currLevel).getTMXLayers().get(layer).getTMXTile(x, y) == null)
             return TILE_NONE;
         else
@@ -100,14 +105,40 @@ public final class WorldGenerator
 		ld.isFree = isFree;
 		mLevelDoors.add(ld);
 	}
+
+    /**
+     * Функция инкрементирует/декрементирует входящее значение случайно, не превышая значения size и не меньше 1
+     * @param place изменяемое значение
+     * @param size Верхнее ограничение
+     * @return новое значение place
+     * */
+    private int getRandPlace(final int place, final int size)
+    {
+        int rez;
+        if(Utils.getRand(0,1) == 0)
+        {
+            if(place != 1)
+                rez = place - 1;
+            else
+                rez = place + 1;
+        }
+        else
+        {
+            if(place != size)
+                rez = place + 1;
+            else
+                rez = place - 1;
+        }
+        return rez;
+    }
 	
 	/**Функция установки всех дверей случайно
 	 * @param room  - комната, которая устанавливается
 	 * @param count - количество выходов из комнаты*/
 	private void setupDoors(Rect room, int count)
 	{
-		int dir = -1;		//Стена, на которой надо поставить дверь
-		int place = -1;		//Номер тайла на стене, куда ставим дверь
+		int dir;    		//Стена, на которой надо поставить дверь
+		int place;	    	//Номер тайла на стене, куда ставим дверь
 		int i = 0;			//Счетчик
 		HashSet<Integer> dirs = new HashSet<Integer>(); //Список сторон, куда можно поставить дверь
 		dirs.add(0);	//SOUTH
@@ -141,20 +172,12 @@ public final class WorldGenerator
                                 {
                                     Debug.w(TAG, "Inner wall blocks to setup door");
                                     //Случайно сдвинемся на один тайл от внутренней стены
-                                    if(Utils.getRand(0,1) == 0)
-                                    {
-                                        if(place != 1)
-                                            place = place - 1;
-                                        else
-                                            place = place + 1;
-                                    }
-                                    else
-                                    {
-                                        if(place != room.mSize.getWidth()-2)
-                                            place = place + 1;
-                                        else
-                                            place = place - 1;
-                                    }
+                                    place = getRandPlace(place, room.mSize.getWidth()-2);
+                                }
+                                if(room.mCoord.getY() > 0 && getCell(room.mCoord.getX() + place, room.mCoord.getY()-1, GameMap.LAYER_WALLS) != TILE_NONE)//Если напротив двери нет стены, то установим дверь
+                                {
+                                    Debug.w(TAG, "С внешней стороны двери есть стена!! Сменим место на стене");
+                                    place = getRandPlace(place, room.mSize.getWidth()-2);
                                 }
                                 Debug.i(TAG, "Setup door by place: (" + (room.mCoord.getX() + place) + " , " + room.mCoord.getY() + ")");
                                 createDoor(room.mCoord.getX() + place, room.mCoord.getY(), dir, true);
@@ -165,25 +188,18 @@ public final class WorldGenerator
                                 {
                                     Debug.w(TAG, "Inner wall blocks to setup door");
                                     //Случайно сдвинемся на один тайл от внутренней стены
-                                    if(Utils.getRand(0,1) == 0)
-                                    {
-                                        if(place != 1)
-                                            place = place - 1;
-                                        else
-                                            place = place + 1;
-                                    }
-                                    else
-                                    {
-                                        if(place != room.mSize.getWidth()-2)
-                                            place = place + 1;
-                                        else
-                                            place = place - 1;
-                                    }
+                                    place = getRandPlace(place, room.mSize.getWidth()-2);
+                                }
+                                if((room.mCoord.getY() + (room.mSize.getHeight()-1)) < wContext.mWorld.mLevels.get(currLevel).getTMXLayers().get(GameMap.LAYER_FLOOR).getTileRows() && getCell(room.mCoord.getX() + place, room.mCoord.getY() + (room.mSize.getHeight()-1) + 1, GameMap.LAYER_WALLS) != TILE_NONE)//Если напротив двери нет стены, то установим дверь
+                                {
+                                    Debug.w(TAG, "С внешней стороны двери есть стена!! Сменим место на стене");
+                                    place = getRandPlace(place, room.mSize.getWidth()-2);
                                 }
                                 Debug.i(TAG, "Setup door by place: (" + (room.mCoord.getX() + place) + " , " + (room.mCoord.getY() + (room.mSize.getHeight()-1)) + ")");
-								createDoor(room.mCoord.getX() + place, room.mCoord.getY() + (room.mSize.getHeight()-1), dir, true);
+                                createDoor(room.mCoord.getX() + place, room.mCoord.getY() + (room.mSize.getHeight()-1), dir, true);
 							}
 							i++;
+                            dirs.remove(dir);
 						}
 					}
 					else if(dir == ObjectOnMap.DIR_EAST || dir == ObjectOnMap.DIR_WEST)//вертикаль
@@ -199,24 +215,15 @@ public final class WorldGenerator
                                 {
                                     Debug.w(TAG, "Inner wall blocks to setup door");
                                     //Случайно сдвинемся на один тайл от внутренней стены
-                                    if(Utils.getRand(0,1) == 0)
-                                    {
-                                        if(place != 1)
-                                            place = place - 1;
-                                        else
-                                            place = place + 1;
-                                    }
-                                    else
-                                    {
-                                        if(place != room.mSize.getHeight()-2)
-                                            place = place + 1;
-                                        else
-                                            place = place - 1;
-                                    }
+                                    place = getRandPlace(place, room.mSize.getHeight()-2);
                                 }
-
-								Debug.i(TAG, "Setup door by place: (" + (room.mCoord.getX()) + " , " + (room.mCoord.getY() + place) + ")");
-								createDoor(room.mCoord.getX(), room.mCoord.getY() + place, dir, true);
+                                if(room.mCoord.getX() > 0 && getCell(room.mCoord.getX() - 1, room.mCoord.getY() + place, GameMap.LAYER_WALLS) != TILE_NONE)//Если напротив двери нет стены, то установим дверь
+                                {
+                                    Debug.w(TAG, "С внешней стороны двери есть стена!! Сменим место на стене");
+                                    place = getRandPlace(place, room.mSize.getHeight()-2);
+                                }
+                                Debug.i(TAG, "Setup door by place: (" + (room.mCoord.getX()) + " , " + (room.mCoord.getY() + place) + ")");
+                                createDoor(room.mCoord.getX(), room.mCoord.getY() + place, dir, true);
 							}
 							else// if(dir == ObjectOnMap.DIR_EAST)
 							{
@@ -224,31 +231,24 @@ public final class WorldGenerator
                                 {
                                     Debug.w(TAG, "Inner wall blocks to setup door");
                                     //Случайно сдвинемся на один тайл от внутренней стены
-                                    if(Utils.getRand(0,1) == 0)
-                                    {
-                                        if(place != 1)
-                                            place = place - 1;
-                                        else
-                                            place = place + 1;
-                                    }
-                                    else
-                                    {
-                                        if(place != room.mSize.getHeight()-2)
-                                            place = place + 1;
-                                        else
-                                            place = place - 1;
-                                    }
+                                    place = getRandPlace(place, room.mSize.getHeight()-2);
                                 }
-
-								Debug.i(TAG, "Setup door by place: (" + (room.mCoord.getX() + (room.mSize.getWidth()-1)) + " , " + (room.mCoord.getY() + place) + ")");
-								createDoor(room.mCoord.getX() + (room.mSize.getWidth()-1), room.mCoord.getY() + place, dir, true);
+                                if((room.mCoord.getX() + (room.mSize.getWidth()-1)) < wContext.mWorld.mLevels.get(currLevel).getTMXLayers().get(GameMap.LAYER_FLOOR).getTileColumns() && getCell(room.mCoord.getX() + (room.mSize.getWidth()-1) + 1, room.mCoord.getY() + place, GameMap.LAYER_WALLS) != TILE_NONE)//Если напротив двери нет стены, то установим дверь
+                                {
+                                    Debug.w(TAG, "С внешней стороны двери есть стена!! Сменим место на стене");
+                                    place = getRandPlace(place, room.mSize.getHeight()-2);
+                                }
+                                Debug.i(TAG, "Setup door by place: (" + (room.mCoord.getX() + (room.mSize.getWidth()-1)) + " , " + (room.mCoord.getY() + place) + ")");
+                                createDoor(room.mCoord.getX() + (room.mSize.getWidth()-1), room.mCoord.getY() + place, dir, true);
 							}
 							i++;
+                            dirs.remove(dir);
 						}
 					}
 				}
-				dirs.remove(dir);
 			}
+            else
+                break;
 		}
 	}
 	
@@ -1774,8 +1774,8 @@ public final class WorldGenerator
 		for(int i = 0; i < 1; i++)															//Создадим карты для всех уровней разом
 		{
 			//numObjects = Utils.getRand(wContext.world.MINROOMS, wContext.world.MAXROOMS);	//Определимся с максимальным количеством объектов на уровне
-			numObjects = 9;
-			chanceRoom = Utils.getRand(Utils.MINCHANCEROOM, Utils.MAXCHANCEROOM);			//Шанс выпадения комнаты
+			int numObjects = 9;
+			int chanceRoom = Utils.getRand(Utils.MINCHANCEROOM, Utils.MAXCHANCEROOM);		//Шанс выпадения комнаты
 			//int width_level = Utils.getRand(World.MINLEVELWIDTH, World.MAXLEVELWIDTH);	//Ширина уровня(х)
 			int width_level = 50;															//Ширина уровня(х)
 			//int height_level = Utils.getRand(World.MINLEVELHEIGHT, World.MAXLEVELHEIGHT);	//Высота уровня(y)
