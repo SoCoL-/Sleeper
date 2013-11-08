@@ -1,11 +1,9 @@
 package ru.rouge.sleeper.Scenes;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import org.andengine.input.touch.TouchEvent;
-import org.andengine.util.adt.pool.RunnablePoolItem;
 
 import ru.rouge.sleeper.Managers.ResourceManager;
 import ru.rouge.sleeper.Managers.ScenesManager;
@@ -64,8 +62,6 @@ public class SettingsScene extends MainScene
                 {
                     mFps.setCheck(!mFps.isCheck());
                     mWContext.mSettings.setFPS(mFps.isCheck());
-                    if(mFps.isCheck())
-                        mWContext.mWorld.mHUD.addFPS();
                 }
                 return true;
             }
@@ -80,8 +76,6 @@ public class SettingsScene extends MainScene
                 {
                     mDebug.setCheck(!mDebug.isCheck());
                     mWContext.mSettings.setDebugButton(mDebug.isCheck());
-                    if(mDebug.isCheck())
-                        mWContext.mWorld.mHUD.addDebugButton();
                 }
                 return true;
             }

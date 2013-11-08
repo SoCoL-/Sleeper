@@ -53,11 +53,7 @@ public final class LoadScene extends MainScene
                         if(!mRM.isGameResLoad())
                         {
 						    mRM.loadGameRes();
-                            if(mWC.mSettings.isFPS())
-                                mWC.mWorld.mHUD.addFPS();
-                            if(mWC.mSettings.isDebugButton())
-                                mWC.mWorld.mHUD.addDebugButton();
-                            mWC.mWorld.mHUD.addBackground();
+                            mWC.mWorld.mHUD.initHUD();
                         }
 
 						Debug.e("on LoadScene load TMXLoader");

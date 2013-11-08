@@ -27,6 +27,7 @@ public class GameHUD extends HUD
     //Variables
     //-----------------------------
     private boolean isShowWalls;            //Отображать слой стен или нет
+    private WorldContext mWC;               //Игровой контекст
 
     //-----------------------------
     //Ctors
@@ -35,6 +36,7 @@ public class GameHUD extends HUD
     public GameHUD()
     {
         isShowWalls = true;
+        mWC = WorldContext.getInstance();
     }
 
     //-----------------------------
@@ -42,9 +44,40 @@ public class GameHUD extends HUD
     //-----------------------------
 
     /**
+     * Добавление нужных элементов в интерфейс и расчет высоты и ширины его
+     * */
+    public void initHUD()
+    {
+        if(mWC.mSettings.isDebugButton())
+            addDebugButton();
+        if(mWC.mSettings.isFPS())
+            addFPS();
+
+        addCommonUI();
+        addBackground();
+    }
+
+    /**
+     * Добавляем основной интерфейс
+     * */
+    private void addCommonUI()
+    {
+        final Text mTextFPS = new Text(50, 5, ResourceManager.getInstance().mGameFont, "Level: ", "Level: X".length(), ResourceManager.getInstance().mVBO);
+        attachChild(mTextFPS);
+        registerUpdateHandler(new TimerHandler(1 / 20.0f, true, new ITimerCallback()
+        {
+            @Override
+            public void onTimePassed(TimerHandler pTimerHandler)
+            {
+                mTextFPS.setText("Level: " + WorldContext.getInstance().mWorld.mCurrentLevel);
+            }
+        }));
+    }
+
+    /**
      * Добавляем к интерфейсу отладочную кнопку
      * */
-    public void addDebugButton()
+    private void addDebugButton()
     {
         final Rectangle btnHud = new Rectangle(5, 5, 32, 32, ResourceManager.getInstance().mVBO)
         {
@@ -70,23 +103,23 @@ public class GameHUD extends HUD
     /**
      * Добавляем к интерфейсу счетчик кадров всекунду и текущий уровень
      * */
-    public void addFPS()
+    private void addFPS()
     {
-        final Text mTextFPS = new Text(50, 5, ResourceManager.getInstance().mGameFont, "FPS: , ", "FPS: XXXXX, Level: X".length(), ResourceManager.getInstance().mVBO);
+        final Text mTextFPS = new Text(50, 5 +24 , ResourceManager.getInstance().mGameFont, "FPS: , ", "FPS: XXXXX".length(), ResourceManager.getInstance().mVBO);
         attachChild(mTextFPS);
         registerUpdateHandler(new TimerHandler(1 / 20.0f, true, new ITimerCallback()
         {
             @Override
             public void onTimePassed(TimerHandler pTimerHandler)
             {
-                mTextFPS.setText("FPS: " + String.format("%.2f", WorldContext.getInstance().mFPSCounter.getFPS()) + ", Level: " + WorldContext.getInstance().mWorld.mCurrentLevel);
+                mTextFPS.setText("FPS: " + String.format("%.2f", WorldContext.getInstance().mFPSCounter.getFPS()));
             }
         }));
     }
 
-    public void addBackground()
+    private void addBackground()
     {
-        this.attachChild(new Sprite(0, 0, 500, 98, ResourceManager.getInstance().mHUDBackground, ResourceManager.getInstance().mVBO));
+        this.attachChild(new Sprite(0, 0, 500, 64, ResourceManager.getInstance().mHUDBackground, ResourceManager.getInstance().mVBO));
     }
 
     //-----------------------------

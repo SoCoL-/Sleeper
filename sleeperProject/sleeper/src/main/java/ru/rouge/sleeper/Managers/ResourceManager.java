@@ -197,7 +197,7 @@ public final class ResourceManager
         this.mStairsTextureAtlas.load();
 
         BitmapTextureAtlas mHUDBackgroundAtlas = new BitmapTextureAtlas(wc.getTextureManager(), 300, 150, TextureOptions.BILINEAR);
-        mHUDBackground = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mHUDBackgroundAtlas, wc.getContext(), "HUD_fone.png", 0, 0);
+        mHUDBackground = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mHUDBackgroundAtlas, wc.getContext(), "UI/HUD_fone.png", 0, 0);
         mHUDBackgroundAtlas.load();
 
         Utils.typesWall.add(1);
