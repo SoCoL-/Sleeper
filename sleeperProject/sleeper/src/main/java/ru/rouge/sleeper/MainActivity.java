@@ -2,6 +2,7 @@ package ru.rouge.sleeper;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 
 import net.hockeyapp.android.CrashManager;
@@ -59,18 +60,12 @@ public class MainActivity extends BaseGameActivity
 
     private void loadSettings()
     {
-        SharedPreferences preferences = WorldContext.getInstance().getContext().getSharedPreferences("GameSettings", Context.MODE_PRIVATE);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         WorldContext.getInstance().mSettings.setFastPlayer(preferences.getBoolean("FastPlayer", false));
         WorldContext.getInstance().mSettings.setWarFog(preferences.getBoolean("WarFog", true));
-        WorldContext.getInstance().mSettings.setWarFog(preferences.getBoolean("FPS", true));
-        WorldContext.getInstance().mSettings.setWarFog(preferences.getBoolean("DebugButton", false));
-
-        if(WorldContext.getInstance().mSettings.isFPS())
-            WorldContext.getInstance().mWorld.mHUD.addFPS();
-
-        if(WorldContext.getInstance().mSettings.isDebugButton())
-            WorldContext.getInstance().mWorld.mHUD.addDebugButton();
+        WorldContext.getInstance().mSettings.setFPS(preferences.getBoolean("FPS", true));
+        WorldContext.getInstance().mSettings.setDebugButton(preferences.getBoolean("DebugButton", false));
     }
 
 

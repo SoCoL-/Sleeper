@@ -25,9 +25,6 @@ public class GameHUD extends HUD
     //-----------------------------
     //Variables
     //-----------------------------
-
-    private HUD mHUD;                       //Сам интерфейс
-
     private boolean isShowWalls;            //Отображать слой стен или нет
 
     //-----------------------------
@@ -36,7 +33,7 @@ public class GameHUD extends HUD
 
     public GameHUD()
     {
-        mHUD = new HUD();
+        isShowWalls = true;
     }
 
     //-----------------------------
@@ -65,8 +62,8 @@ public class GameHUD extends HUD
             }
         };
 
-        mHUD.registerTouchArea(btnHud);
-        mHUD.attachChild(btnHud);
+        registerTouchArea(btnHud);
+        attachChild(btnHud);
     }
 
     /**
@@ -75,7 +72,7 @@ public class GameHUD extends HUD
     public void addFPS()
     {
         final Text mTextFPS = new Text(50, 5, ResourceManager.getInstance().mGameFont, "FPS: , ", "FPS: XXXXX, Level: X".length(), ResourceManager.getInstance().mVBO);
-        mHUD.attachChild(mTextFPS);
+        attachChild(mTextFPS);
         registerUpdateHandler(new TimerHandler(1 / 20.0f, true, new ITimerCallback()
         {
             @Override

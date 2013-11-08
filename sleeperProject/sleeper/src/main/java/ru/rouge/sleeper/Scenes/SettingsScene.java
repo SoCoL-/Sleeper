@@ -2,12 +2,14 @@ package ru.rouge.sleeper.Scenes;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.util.adt.pool.RunnablePoolItem;
 
 import ru.rouge.sleeper.Managers.ResourceManager;
 import ru.rouge.sleeper.Managers.ScenesManager;
+import ru.rouge.sleeper.R;
 import ru.rouge.sleeper.Utils.Views.CheckBox;
 import ru.rouge.sleeper.WorldContext;
 
@@ -25,7 +27,7 @@ public class SettingsScene extends MainScene
     {
         mWContext = WorldContext.getInstance();
 
-        mPlayerSpeed = new CheckBox(50, 30, mWContext.mScreenWidth, 60, "Fast Player", ResourceManager.getInstance().mVBO)
+        mPlayerSpeed = new CheckBox(50, 30, mWContext.mScreenWidth, 60, mWContext.getContext().getString(R.string.Settings_Fast), ResourceManager.getInstance().mVBO)
         {
             @Override
             public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY)
@@ -39,7 +41,7 @@ public class SettingsScene extends MainScene
             }
         };
 
-        mWarFog = new CheckBox(50, 80, mWContext.mScreenWidth, 60, "Fog of war", ResourceManager.getInstance().mVBO)
+        mWarFog = new CheckBox(50, 80, mWContext.mScreenWidth, 60, mWContext.getContext().getString(R.string.Settings_Fog), ResourceManager.getInstance().mVBO)
         {
             @Override
             public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY)
@@ -53,7 +55,7 @@ public class SettingsScene extends MainScene
             }
         };
 
-        mFps = new CheckBox(50, 130, mWContext.mScreenWidth, 60, "FPS", ResourceManager.getInstance().mVBO)
+        mFps = new CheckBox(50, 130, mWContext.mScreenWidth, 60, mWContext.getContext().getString(R.string.Settings_FPS), ResourceManager.getInstance().mVBO)
         {
             @Override
             public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY)
@@ -69,7 +71,7 @@ public class SettingsScene extends MainScene
             }
         };
 
-        mDebug = new CheckBox(50, 180, mWContext.mScreenWidth, 60, "DebugButton", ResourceManager.getInstance().mVBO)
+        mDebug = new CheckBox(50, 180, mWContext.mScreenWidth, 60, mWContext.getContext().getString(R.string.Settings_Debug), ResourceManager.getInstance().mVBO)
         {
             @Override
             public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY)
@@ -106,14 +108,15 @@ public class SettingsScene extends MainScene
 
     private void saveSettings()
     {
-        SharedPreferences preferences = mWContext.getContext().getSharedPreferences("GameSettings", Context.MODE_PRIVATE);
+        //SharedPreferences preferences = mWContext.getContext().getSharedPreferences("GameSettings", Context.MODE_PRIVATE);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mWContext.getContext());
         SharedPreferences.Editor edit= preferences.edit();
 
-        edit.putBoolean("FastPlayer", mWContext.mSettings.isFastPlayer());
-        edit.putBoolean("WarFog", mWContext.mSettings.isWarFog());
-        edit.putBoolean("FPS", mWContext.mSettings.isFPS());
-        edit.putBoolean("DebugButton", mWContext.mSettings.isDebugButton());
-        edit.commit();
+        edit.putBoolean("FastPlayer", mWContext.mSettings.isFastPlayer()).commit();
+        edit.putBoolean("WarFog", mWContext.mSettings.isWarFog()).commit();
+        edit.putBoolean("FPS", mWContext.mSettings.isFPS()).commit();
+        edit.putBoolean("DebugButton", mWContext.mSettings.isDebugButton()).commit();
+        //edit.commit();
     }
 
     @Override
