@@ -79,7 +79,6 @@ public class LevelManager
             if(spawn.getName().contains("player_spawn") && spawn.getType().equals("down"))
             {
                 String name_spawn = spawn.getName();
-                //name_spawn = name_spawn.concat("player_spawn_");
                 name_spawn = name_spawn.substring("player_spawn_".length(), name_spawn.length());
                 Debug.i("Вырезали все лишнее из названия точки респа = " + name_spawn);
                 int num = Integer.parseInt(name_spawn);
@@ -125,7 +124,6 @@ public class LevelManager
             if(spawn.getName().contains("player_spawn") && spawn.getType().equals("up"))
             {
                 String name_spawn = spawn.getName();
-                //name_spawn = name_spawn.concat("player_spawn_");
                 name_spawn = name_spawn.substring("player_spawn_".length(), name_spawn.length());
                 Debug.i("Вырезали все лишнее из названия точки респа = " + name_spawn);
                 int num = Integer.parseInt(name_spawn);

@@ -57,6 +57,7 @@ public final class LoadScene extends MainScene
                                 mWC.mWorld.mHUD.addFPS();
                             if(mWC.mSettings.isDebugButton())
                                 mWC.mWorld.mHUD.addDebugButton();
+                            mWC.mWorld.mHUD.addBackground();
                         }
 
 						Debug.e("on LoadScene load TMXLoader");

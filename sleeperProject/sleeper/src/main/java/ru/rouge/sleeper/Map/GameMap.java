@@ -7,7 +7,7 @@ import org.andengine.util.debug.Debug;
 import java.util.ArrayList;
 
 import ru.rouge.sleeper.Objects.BaseObject;
-import ru.rouge.sleeper.Objects.GameHUD;
+import ru.rouge.sleeper.Objects.UI.GameHUD;
 import ru.rouge.sleeper.WorldContext;
 
 /**

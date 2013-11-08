@@ -1,9 +1,10 @@
-package ru.rouge.sleeper.Objects;
+package ru.rouge.sleeper.Objects.UI;
 
 import org.andengine.engine.camera.hud.HUD;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.primitive.Rectangle;
+import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.util.debug.Debug;
@@ -81,6 +82,11 @@ public class GameHUD extends HUD
                 mTextFPS.setText("FPS: " + String.format("%.2f", WorldContext.getInstance().mFPSCounter.getFPS()) + ", Level: " + WorldContext.getInstance().mWorld.mCurrentLevel);
             }
         }));
+    }
+
+    public void addBackground()
+    {
+        this.attachChild(new Sprite(0, 0, 500, 98, ResourceManager.getInstance().mHUDBackground, ResourceManager.getInstance().mVBO));
     }
 
     //-----------------------------

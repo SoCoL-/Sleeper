@@ -42,7 +42,14 @@ public final class MainGameScene extends MainScene
 			}
 		});
 
-		showWorld();
+        WorldContext.getInstance().getEngine().runOnUpdateThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                showWorld();
+            }
+        });
     }
 
 	public void showWorld()

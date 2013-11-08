@@ -60,6 +60,7 @@ public final class ResourceManager
 
 	//private BitmapTextureAtlas	mMenuBackgroundAtlas;
 	public ITextureRegion 		mMenuBackground;
+    public ITextureRegion 		mHUDBackground;
 
 	//Characters
     private BitmapTextureAtlas              mPlayerTexture;
@@ -195,6 +196,10 @@ public final class ResourceManager
         this.mStairsTexture = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mStairsTextureAtlas, wc.getAssetManager(), "stairs.png", 0, 0, 2, 1);
         this.mStairsTextureAtlas.load();
 
+        BitmapTextureAtlas mHUDBackgroundAtlas = new BitmapTextureAtlas(wc.getTextureManager(), 300, 150, TextureOptions.BILINEAR);
+        mHUDBackground = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mHUDBackgroundAtlas, wc.getContext(), "HUD_fone.png", 0, 0);
+        mHUDBackgroundAtlas.load();
+
         Utils.typesWall.add(1);
         Utils.typesWall.add(2);
         Utils.typesWall.add(3);
@@ -232,7 +237,7 @@ public final class ResourceManager
             Debug.e(e);
         }
 
-        WorldContext.getInstance().mPlayer = new Player(0, 0, ResourceManager.getInstance().mHeroTexture, ResourceManager.getInstance().mVBO);
+        WorldContext.getInstance().mPlayer = new Player(0, 0, mHeroTexture, mVBO);
         WorldContext.getInstance().mPlayerContr.setPlayer(WorldContext.getInstance().mPlayer);
 
         isGameResLoad = true;
