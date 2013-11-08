@@ -5,6 +5,10 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
 
+    <string name="Settings_Fast">Быстрая скорость игрока</string>
+    <string name="Settings_Fog">Туман войны</string>
+    <string name="Settings_FPS">Кадры в секунду</string>
+    <string name="Settings_Debug">Отладочная кнопка</string>
 
     <string-array name="rooms_name">
         <item>room1.tmx</item>

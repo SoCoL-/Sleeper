@@ -3,7 +3,6 @@ package ru.rouge.sleeper.Managers;
 import org.andengine.ui.IGameInterface;
 import org.andengine.util.debug.Debug;
 
-import ru.rouge.sleeper.MainActivity;
 import ru.rouge.sleeper.Scenes.IntroScene;
 import ru.rouge.sleeper.Scenes.LoadScene;
 import ru.rouge.sleeper.Scenes.MainGameScene;
@@ -123,7 +122,6 @@ public final class ScenesManager
                     mMainGameScene.setChildrenIgnoreUpdate(true);
                     mMainGameScene.setTouchAreaBindingOnActionMoveEnabled(false);
                     ((MainGameScene)mMainGameScene).setChange();
-                    //mMainGameScene.getTouchAreas().clear();
                     ((MainGameScene)mMainGameScene).clearScene();
                     ((MainGameScene)mMainGameScene).showWorld();
                     mMainGameScene.setIgnoreUpdate(false);

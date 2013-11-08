@@ -113,7 +113,7 @@ public final class ResourceManager
 
         FontFactory.setAssetBasePath("fonts/");
         mGameFontAtlas = new BitmapTextureAtlas(WorldContext.getInstance().getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-        mGameFont = FontFactory.createFromAsset(WorldContext.getInstance().getFontManager(), mGameFontAtlas, WorldContext.getInstance().getAssetManager(), "NeverwinterNights.ttf", 24, true, Color.WHITE);
+        mGameFont = FontFactory.createFromAsset(WorldContext.getInstance().getFontManager(), mGameFontAtlas, WorldContext.getInstance().getAssetManager(), "arthur_gothic.ttf", 24, true, Color.WHITE);
         mGameFont.load();
 
         mMenuFontAtlas = new BitmapTextureAtlas(WorldContext.getInstance().getTextureManager(), 512, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);

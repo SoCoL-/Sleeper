@@ -4,17 +4,12 @@ import android.os.AsyncTask;
 
 import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.text.Text;
-import org.andengine.extension.tmx.TMXLayer;
-import org.andengine.extension.tmx.TMXObject;
 import org.andengine.util.color.Color;
 import org.andengine.util.debug.Debug;
 
-import ru.rouge.sleeper.Generator.WorldGenerator;
 import ru.rouge.sleeper.Managers.ResourceManager;
 import ru.rouge.sleeper.Managers.ScenesManager;
 import ru.rouge.sleeper.Map.GameMap;
-import ru.rouge.sleeper.Objects.Player;
-import ru.rouge.sleeper.Utils.Utils;
 import ru.rouge.sleeper.WorldContext;
 
 /**
@@ -26,8 +21,6 @@ public final class LoadScene extends MainScene
 	private WorldContext mWC;
 	private ResourceManager mRM;
 
-    private WorldGenerator mGenerator = new WorldGenerator();
-
     @Override
     public void createScene()
     {
@@ -36,7 +29,7 @@ public final class LoadScene extends MainScene
 		Debug.e("on LoadScene create()");
         setBackground(new Background(Color.GREEN));
 		Debug.e("on LoadScene setBackground");
-		attachChild(new Text(mWC.mScreenWidth/2 - mRM.mGameFont.getTexture().getWidth()/2, mWC.mScreenHeight/2 - mRM.mGameFont.getTexture().getHeight()/2, mRM.mGameFont, "Loading...", mRM.mVBO));
+		attachChild(new Text(mWC.mScreenWidth/2 - mRM.mGameFont.getTexture().getWidth()/2, mWC.mScreenHeight/2 - mRM.mGameFont.getTexture().getHeight()/2, mRM.mGameFont, "Загрузка...", mRM.mVBO));
 		Debug.e("on LoadScene load map");
 		loadingGameStructures();
     }
@@ -58,7 +51,13 @@ public final class LoadScene extends MainScene
 					protected String doInBackground(String... strings)
 					{
                         if(!mRM.isGameResLoad())
+                        {
 						    mRM.loadGameRes();
+                            if(mWC.mSettings.isFPS())
+                                mWC.mWorld.mHUD.addFPS();
+                            if(mWC.mSettings.isDebugButton())
+                                mWC.mWorld.mHUD.addDebugButton();
+                        }
 
 						Debug.e("on LoadScene load TMXLoader");
 						try
