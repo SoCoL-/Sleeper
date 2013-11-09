@@ -658,7 +658,15 @@ public final class WorldGenerator
         for(int i = 0; i < MIN_LENGTH_CORRIDOR; i++)
         {
             if(getCell(x + i*kx + centerX, y + i*ky + centerY, GameMap.LAYER_WALLS) != TILE_NONE)
-                rez = false;
+            {
+                /*if(getCell(x + i*kx, y + i*ky, GameMap.LAYER_WALLS) != TILE_NONE && getCell(x + i*kx + 2*centerX, y + i*ky + 2*centerY, GameMap.LAYER_WALLS) != TILE_NONE)
+                {
+                    rez =  true;
+                    break;
+                }
+                else*/
+                    rez = false;
+            }
         }
 
         return  rez;

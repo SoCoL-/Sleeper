@@ -4,6 +4,7 @@ import org.andengine.engine.camera.hud.HUD;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.primitive.Rectangle;
+import org.andengine.entity.scene.background.EntityBackground;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.input.touch.TouchEvent;
@@ -11,6 +12,7 @@ import org.andengine.util.debug.Debug;
 
 import ru.rouge.sleeper.Managers.ResourceManager;
 import ru.rouge.sleeper.Map.GameMap;
+import ru.rouge.sleeper.Utils.Views.ProgressView;
 import ru.rouge.sleeper.WorldContext;
 
 /**
@@ -28,6 +30,8 @@ public class GameHUD extends HUD
     //-----------------------------
     private boolean isShowWalls;            //Отображать слой стен или нет
     private WorldContext mWC;               //Игровой контекст
+    private int mWidth;                     //Ширина подложки
+    private int mHeight;                    //Высота подложки
 
     //-----------------------------
     //Ctors
@@ -48,12 +52,12 @@ public class GameHUD extends HUD
      * */
     public void initHUD()
     {
+        addCommonUI();
         if(mWC.mSettings.isDebugButton())
             addDebugButton();
         if(mWC.mSettings.isFPS())
             addFPS();
 
-        addCommonUI();
         addBackground();
     }
 
@@ -62,7 +66,45 @@ public class GameHUD extends HUD
      * */
     private void addCommonUI()
     {
-        final Text mTextFPS = new Text(50, 5, ResourceManager.getInstance().mGameFont, "Level: ", "Level: X".length(), ResourceManager.getInstance().mVBO);
+        mHeight = 37;
+        mWidth = 370;
+
+        final Rectangle btnInventory = new Rectangle(5, 5, 32, 32, ResourceManager.getInstance().mVBO)
+        {
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY)
+            {
+                Debug.i("Click by rectangle in the HUD");
+                if(pSceneTouchEvent.isActionDown())
+                {
+                    //TODO Открыть сцену с инвентарем
+                    Debug.i("Open Inventory of Player");
+                }
+                return true;
+            }
+        };
+        btnInventory.setZIndex(10);
+
+        registerTouchArea(btnInventory);
+        attachChild(btnInventory);
+
+        final ProgressView health = new ProgressView(60, 5, 200, 16, ResourceManager.getInstance().mVBO);
+        health.setMaxProgress(30);
+        health.setCurrentProgress(25);
+        health.setProgressColor(255, 0, 0, 255);
+        health.setBackgroundColor(0, 0, 0, 255);
+        health.setZIndex(10);
+        this.attachChild(health);
+
+        final ProgressView mana = new ProgressView(60, 26, 200, 16, ResourceManager.getInstance().mVBO);
+        mana.setMaxProgress(30);
+        mana.setCurrentProgress(30);
+        mana.setProgressColor(0, 0, 255, 255);
+        mana.setBackgroundColor(0, 0, 0, 255);
+        mana.setZIndex(10);
+        this.attachChild(mana);
+
+        final Text mTextFPS = new Text(275, 7, ResourceManager.getInstance().mGameFont, "Level: ", "Level: X".length(), ResourceManager.getInstance().mVBO);
         attachChild(mTextFPS);
         registerUpdateHandler(new TimerHandler(1 / 20.0f, true, new ITimerCallback()
         {
@@ -79,7 +121,8 @@ public class GameHUD extends HUD
      * */
     private void addDebugButton()
     {
-        final Rectangle btnHud = new Rectangle(5, 5, 32, 32, ResourceManager.getInstance().mVBO)
+        mHeight = 79;
+        final Rectangle btnHud = new Rectangle(5, 40, 32, 32, ResourceManager.getInstance().mVBO)
         {
             @Override
             public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY)
@@ -95,6 +138,7 @@ public class GameHUD extends HUD
                 return true;
             }
         };
+        btnHud.setZIndex(10);
 
         registerTouchArea(btnHud);
         attachChild(btnHud);
@@ -105,7 +149,8 @@ public class GameHUD extends HUD
      * */
     private void addFPS()
     {
-        final Text mTextFPS = new Text(50, 5 +24 , ResourceManager.getInstance().mGameFont, "FPS: , ", "FPS: XXXXX".length(), ResourceManager.getInstance().mVBO);
+        mWidth = 400;
+        final Text mTextFPS = new Text(275, 7 + 7 + 32 , ResourceManager.getInstance().mGameFont, "FPS: ", "FPS: XXXXX".length(), ResourceManager.getInstance().mVBO);
         attachChild(mTextFPS);
         registerUpdateHandler(new TimerHandler(1 / 20.0f, true, new ITimerCallback()
         {
@@ -119,7 +164,10 @@ public class GameHUD extends HUD
 
     private void addBackground()
     {
-        this.attachChild(new Sprite(0, 0, 500, 64, ResourceManager.getInstance().mHUDBackground, ResourceManager.getInstance().mVBO));
+        Sprite bgrd = new Sprite(0, 0, mWidth, mHeight, ResourceManager.getInstance().mHUDBackground, ResourceManager.getInstance().mVBO);
+        bgrd.setZIndex(0);
+        this.attachChild(bgrd);
+        this.sortChildren();
     }
 
     //-----------------------------
