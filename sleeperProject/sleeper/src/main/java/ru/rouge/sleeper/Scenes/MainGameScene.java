@@ -3,6 +3,8 @@ package ru.rouge.sleeper.Scenes;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
+import org.andengine.entity.scene.menu.MenuScene;
+import org.andengine.entity.scene.menu.item.IMenuItem;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.util.debug.Debug;
 import org.andengine.util.color.Color;
@@ -12,6 +14,7 @@ import ru.rouge.sleeper.Managers.ResourceManager;
 import ru.rouge.sleeper.Managers.ScenesManager;
 import ru.rouge.sleeper.Map.GameMap;
 import ru.rouge.sleeper.Objects.BaseObject;
+import ru.rouge.sleeper.Scenes.SubScenes.GameMenu;
 import ru.rouge.sleeper.WorldContext;
 
 /**
@@ -21,11 +24,15 @@ import ru.rouge.sleeper.WorldContext;
 public final class MainGameScene extends MainScene
 {
     private boolean isChangeScene;
+    private boolean isGameMenu;
+    private GameMenu mGameMenu;
+    private MenuScene.IOnMenuItemClickListener mMenuListener;
 
 	@Override
     public void createScene()
     {
         isChangeScene = false;
+        isGameMenu = false;
 		Debug.e("Create MainGame");
         setBackground(new Background(Color.BLACK));
 		Debug.e("Set background");
@@ -106,14 +113,29 @@ public final class MainGameScene extends MainScene
         isChangeScene = false;
     }
 
+    private void destroyMenu()
+    {
+        mGameMenu.back();
+        mGameMenu = null;
+        isGameMenu = false;
+    }
+
     @Override
     protected void onManagedUpdate(float pSecondsElapsed)
     {
         if(isChangeScene)
         {
-            if(WorldContext.getInstance().mWorld.mCurrentLevel == 1)
-                Debug.i("Update enable");
-            super.onManagedUpdate(pSecondsElapsed);
+            if(!isGameMenu)
+            {
+                if(WorldContext.getInstance().mWorld.mCurrentLevel == 1)
+                    Debug.i("Update enable");
+                super.onManagedUpdate(pSecondsElapsed);
+            }
+            else
+            {
+                if(getChildScene() != null)
+                    getChildScene().onUpdate(pSecondsElapsed);
+            }
         }
     }
 
@@ -124,7 +146,45 @@ public final class MainGameScene extends MainScene
         Debug.e("back press");
         try
         {
-            ScenesManager.getInstance().setMenuScene();
+            //ScenesManager.getInstance().setMenuScene();
+            if(!isGameMenu)
+            {
+                mGameMenu = new GameMenu();
+                mMenuListener = new MenuScene.IOnMenuItemClickListener()
+                {
+                    @Override
+                    public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem, float pMenuItemLocalX, float pMenuItemLocalY)
+                    {
+                        switch(pMenuItem.getID())
+                        {
+                            case GameMenu.BTN_RESUME:
+                                mGameMenu.destroyMenu();
+                                destroyMenu();
+                                break;
+
+                            case GameMenu.BTN_SAVE:
+                                break;
+
+                            case GameMenu.BTN_LOAD:
+                                break;
+
+                            case GameMenu.BTN_EXIT:
+                                ScenesManager.getInstance().setMenuScene();
+                                destroyMenu();
+                                break;
+                        }
+                        return false;
+                    }
+                };
+                mGameMenu.setOnMenuItemClickListener(mMenuListener);
+                setChildScene(mGameMenu, false, true, true);
+                isGameMenu = true;
+            }
+            else
+            {
+                mGameMenu.destroyMenu();
+                destroyMenu();
+            }
         }
         catch (Exception e)
         {
@@ -148,6 +208,8 @@ public final class MainGameScene extends MainScene
             public void run()
             {
                 Debug.e("on MainGameScene dispose scene");
+                isChangeScene = false;
+                isGameMenu = false;
                 ResourceManager.getInstance().unloadGameRes();
                 detachChild(WorldContext.getInstance().mPlayer);
                 detachChildren();
