@@ -53,7 +53,6 @@ public class LevelManager
         }
 
         //Увеличиваем значение текущего уровня
-        //if(mGameWorld.mLevels.size() > 0 && mGameWorld.mLevels.get(mGameWorld.mCurrentLevel+1) == null)
         if(mGameWorld.mLevels.size() > 0 && mGameWorld.mLevels.size()-1 < mGameWorld.mCurrentLevel + 1)
         {
             Debug.i("Первый уровень существует, нового нет еще, сгенерируем");
@@ -65,8 +64,7 @@ public class LevelManager
             Debug.i("Начали новую игру, сгенерируем первый уровень");
             mGenerator.generateNewLevel();
         }
-        //else if(mGameWorld.mLevels.get(mGameWorld.mCurrentLevel+1) != null)
-        else if(mGameWorld.mLevels.size()-1 <= mGameWorld.mCurrentLevel + 1)
+        else if(mGameWorld.mLevels.size()-1 >= mGameWorld.mCurrentLevel + 1)
         {
             Debug.i("Мы переходим на сгенерированный уровень");
             mGameWorld.mCurrentLevel ++;
