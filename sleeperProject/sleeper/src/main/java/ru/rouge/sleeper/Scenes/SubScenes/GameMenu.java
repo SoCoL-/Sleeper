@@ -66,8 +66,7 @@ public class GameMenu extends MenuScene
 
         this.buildAnimations();
         this.setBackgroundEnabled(false);
-        this.setOnSceneTouchListener(this);
-
+        //this.setOnSceneTouchListener(this);
     }
 
     public void destroyMenu()

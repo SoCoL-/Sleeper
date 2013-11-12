@@ -25,8 +25,9 @@ public final class MainGameScene extends MainScene
 {
     private boolean isChangeScene;
     private boolean isGameMenu;
+    private boolean isPause;
     private GameMenu mGameMenu;
-    private MenuScene.IOnMenuItemClickListener mMenuListener;
+    //private MenuScene.IOnMenuItemClickListener mMenuListener;
 
 	@Override
     public void createScene()
@@ -108,6 +109,15 @@ public final class MainGameScene extends MainScene
         WorldContext.getInstance().getCamera().setHUD(null);
     }
 
+    /**
+     * Ставим/снимаем игру на паузу
+     * @param pause - пауза или нет
+     * */
+    public void setPause(boolean pause)
+    {
+        isPause = pause;
+    }
+
     public void setChange()
     {
         isChangeScene = false;
@@ -125,7 +135,7 @@ public final class MainGameScene extends MainScene
     {
         if(isChangeScene)
         {
-            if(!isGameMenu)
+            if(!isPause)
             {
                 if(WorldContext.getInstance().mWorld.mCurrentLevel == 1)
                     Debug.i("Update enable");
@@ -150,7 +160,7 @@ public final class MainGameScene extends MainScene
             if(!isGameMenu)
             {
                 mGameMenu = new GameMenu();
-                mMenuListener = new MenuScene.IOnMenuItemClickListener()
+                MenuScene.IOnMenuItemClickListener mMenuListener = new MenuScene.IOnMenuItemClickListener()
                 {
                     @Override
                     public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem, float pMenuItemLocalX, float pMenuItemLocalY)
@@ -178,12 +188,14 @@ public final class MainGameScene extends MainScene
                 };
                 mGameMenu.setOnMenuItemClickListener(mMenuListener);
                 setChildScene(mGameMenu, false, true, true);
+                setPause(true);
                 isGameMenu = true;
             }
             else
             {
                 mGameMenu.destroyMenu();
                 destroyMenu();
+                setPause(false);
             }
         }
         catch (Exception e)

@@ -61,6 +61,7 @@ public final class ResourceManager
 	//private BitmapTextureAtlas	mMenuBackgroundAtlas;
 	public ITextureRegion 		mMenuBackground;
     public ITextureRegion 		mHUDBackground;
+    public ITextureRegion 		mDialogBackground;
 
 	//Characters
     private BitmapTextureAtlas              mPlayerTexture;
@@ -199,6 +200,11 @@ public final class ResourceManager
         BitmapTextureAtlas mHUDBackgroundAtlas = new BitmapTextureAtlas(wc.getTextureManager(), 300, 150, TextureOptions.BILINEAR);
         mHUDBackground = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mHUDBackgroundAtlas, wc.getContext(), "UI/HUD_fone.png", 0, 0);
         mHUDBackgroundAtlas.load();
+
+        BitmapTextureAtlas mDialogBackgroundAtlas = new BitmapTextureAtlas(wc.getTextureManager(), 600, 400, TextureOptions.BILINEAR);
+        mDialogBackground = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mDialogBackgroundAtlas, wc.getContext(), "UI/dialog_fone.png", 0, 0);
+        mDialogBackgroundAtlas.load();
+
 
         Utils.typesWall.add(1);
         Utils.typesWall.add(2);
