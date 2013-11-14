@@ -48,6 +48,14 @@ public class ObjectController
         int currX = (int)pSceneTouchEvent.getX() / 32;
         int currY = (int)pSceneTouchEvent.getY() / 32;
 
+        if(currX < 0 || currY < 0)
+            return;
+
+        if(currX >= mWC.mWorld.mLevels.get(mWC.mWorld.mCurrentLevel).getTileColumns())
+            return;
+        if(currY >= mWC.mWorld.mLevels.get(mWC.mWorld.mCurrentLevel).getTileRows())
+            return;
+
         if(mWC.mWorld.mWakables.get(mWC.mWorld.mCurrentLevel)[currX][currY].mIndexObject == -1)
             return;
 

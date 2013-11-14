@@ -2,6 +2,7 @@ package ru.rouge.sleeper.Objects;
 
 import android.os.SystemClock;
 
+import org.andengine.extension.tmx.TMXTiledMap;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.debug.Debug;
@@ -94,9 +95,10 @@ public class Player extends BaseAnimObject
                     int row = (int)getY()/32;
                     if(mKY == 1)
                         row += 1;
-                    WorldContext.getInstance().mWorld.mLevels.get(WorldContext.getInstance().mWorld.mCurrentLevel).getTMXLayers().get(GameMap.LAYER_FLOOR).setVisibleTiles(column, row);
+                    /*WorldContext.getInstance().mWorld.mLevels.get(WorldContext.getInstance().mWorld.mCurrentLevel).getTMXLayers().get(GameMap.LAYER_FLOOR).setVisibleTiles(column, row);
                     WorldContext.getInstance().mWorld.mLevels.get(WorldContext.getInstance().mWorld.mCurrentLevel).getTMXLayers().get(GameMap.LAYER_WALLS).setVisibleTiles(column, row);
-                    WorldContext.getInstance().mWorld.mLevels.get(WorldContext.getInstance().mWorld.mCurrentLevel).getTMXLayers().get(GameMap.LAYER_ABOVE).setVisibleTiles(column, row);
+                    WorldContext.getInstance().mWorld.mLevels.get(WorldContext.getInstance().mWorld.mCurrentLevel).getTMXLayers().get(GameMap.LAYER_ABOVE).setVisibleTiles(column, row);*/
+                    los(column, row);
                 }
 
                 float nextCoordX = getX() + mSpeed*mKX;
@@ -137,6 +139,51 @@ public class Player extends BaseAnimObject
 	//-----------------------------
 	//CLASS METHODS
 	//-----------------------------
+
+    private void los(final int x, final int y)
+    {
+        int range = 6;
+        int dx, dy;
+        for (double f = 0; f < 3.14*2; f += 0.05)
+        {
+            dx = (int)(range*Math.cos(f)) + x;
+            dy = (int)(range*Math.sin(f)) + y;
+            drawline(x, y, dx, dy);
+        }
+    }
+
+    private void drawline(int x, int y, int x2, int y2)
+    {
+        TMXTiledMap mCurrLevel = WorldContext.getInstance().mWorld.mLevels.get(WorldContext.getInstance().mWorld.mCurrentLevel);
+        int dx = Math.abs(x - x2);
+        int dy = Math.abs(y - y2);
+        double s = .99/(dx>dy?dx:dy);
+        double t = 0.0;
+        while(t < 1.0)
+        {
+            dx = (int)((1.0 - t)*x + t*x2);
+            dy = (int)((1.0 - t)*y + t*y2);
+            //Если на текущем уровне нет стены, двери и есть пол, то мы видим тайл
+            if(mCurrLevel.getTMXLayers().get(GameMap.LAYER_FLOOR).getTMXTile(dx, dy).getGlobalTileID() != 0 && WorldContext.getInstance().mWorld.mWakables.get(WorldContext.getInstance().mWorld.mCurrentLevel)[dx][dy].mIndexObject == -1)
+            {
+                //map[dy][dx] = 5;
+                mCurrLevel.getTMXLayers().get(GameMap.LAYER_FLOOR).getTMXTile(dx, dy).setVisible(true);
+                mCurrLevel.getTMXLayers().get(GameMap.LAYER_WALLS).getTMXTile(dx, dy).setVisible(true);
+                if(mCurrLevel.getTMXLayers().get(GameMap.LAYER_ABOVE).getTMXTile(dx, dy) != null)
+                    mCurrLevel.getTMXLayers().get(GameMap.LAYER_ABOVE).getTMXTile(dx, dy).setVisible(true);
+            }
+            else
+            {
+                mCurrLevel.getTMXLayers().get(GameMap.LAYER_FLOOR).getTMXTile(dx, dy).setVisible(true);
+                mCurrLevel.getTMXLayers().get(GameMap.LAYER_WALLS).getTMXTile(dx, dy).setVisible(true);
+                if(mCurrLevel.getTMXLayers().get(GameMap.LAYER_ABOVE).getTMXTile(dx, dy) != null)
+                    mCurrLevel.getTMXLayers().get(GameMap.LAYER_ABOVE).getTMXTile(dx, dy).setVisible(true);
+                if(x != dx || y != dy)
+                    return;
+            }
+            t += s;
+        }
+    }
 
 	/**
 	*  Функция приводит персонаж на первый кадр выбранного направления, если он не движется
