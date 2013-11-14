@@ -36,6 +36,8 @@ public class Door extends BaseObject
         setLocked(locked);
         setVertical(verical);
         setOpen(false);
+        setObjectName("Дверь");
+        setObjectMessage("Обычная деревянная дверь, ничего обычного. Откроется с полпинка. Ловушек не видно.");
     }
 
     //-----------------------------
@@ -107,26 +109,13 @@ public class Door extends BaseObject
         X = x;
     }
 
-    public boolean isVertical()
-    {
-        return isVertical;
-    }
+    public boolean isVertical() { return isVertical; }
 
-    public void setVertical(boolean vertical)
-    {
-        isVertical = vertical;
-    }
+    public void setVertical(boolean vertical) { isVertical = vertical; }
 
-    public boolean isLocked()
-    {
-        return isLocked;
-    }
+    public boolean isLocked() { return isLocked; }
 
-    public void setLocked(boolean locked)
-    {
-        isLocked = locked;
-    }
-
+    public void setLocked(boolean locked) { isLocked = locked; }
     //-----------------------------
     //Inner Classes
     //-----------------------------

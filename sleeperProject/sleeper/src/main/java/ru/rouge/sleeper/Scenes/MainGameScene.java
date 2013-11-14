@@ -26,6 +26,7 @@ public final class MainGameScene extends MainScene
     private boolean isChangeScene;
     private boolean isGameMenu;
     private boolean isPause;
+    private boolean isDialogOpen;
     private GameMenu mGameMenu;
     //private MenuScene.IOnMenuItemClickListener mMenuListener;
 
@@ -34,6 +35,7 @@ public final class MainGameScene extends MainScene
     {
         isChangeScene = false;
         isGameMenu = false;
+        isDialogOpen = false;
 		Debug.e("Create MainGame");
         setBackground(new Background(Color.BLACK));
 		Debug.e("Set background");
@@ -109,6 +111,12 @@ public final class MainGameScene extends MainScene
         WorldContext.getInstance().getCamera().setHUD(null);
     }
 
+    public void setDialogMode()
+    {
+        isDialogOpen = true;
+        setPause(true);
+    }
+
     /**
      * Ставим/снимаем игру на паузу
      * @param pause - пауза или нет
@@ -157,7 +165,7 @@ public final class MainGameScene extends MainScene
         try
         {
             //ScenesManager.getInstance().setMenuScene();
-            if(!isGameMenu)
+            if(!isGameMenu && !isDialogOpen)
             {
                 mGameMenu = new GameMenu();
                 MenuScene.IOnMenuItemClickListener mMenuListener = new MenuScene.IOnMenuItemClickListener()
@@ -191,11 +199,17 @@ public final class MainGameScene extends MainScene
                 setPause(true);
                 isGameMenu = true;
             }
-            else
+            else if(isGameMenu && !isDialogOpen)
             {
                 mGameMenu.destroyMenu();
                 destroyMenu();
                 setPause(false);
+            }
+            else if(!isGameMenu && isDialogOpen)
+            {
+                MainGameScene.this.clearChildScene();
+                setPause(false);
+                isDialogOpen = false;
             }
         }
         catch (Exception e)

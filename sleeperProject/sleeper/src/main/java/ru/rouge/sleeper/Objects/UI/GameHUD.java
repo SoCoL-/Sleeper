@@ -4,7 +4,6 @@ import org.andengine.engine.camera.hud.HUD;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.primitive.Rectangle;
-import org.andengine.entity.scene.background.EntityBackground;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.input.touch.TouchEvent;
@@ -88,12 +87,10 @@ public class GameHUD extends HUD
                         {
                             mDialog = new Dialog(125, 90, 550, 300, ResourceManager.getInstance().mVBO);
                             mDialog.setTextDialog("Воин - самый универсальный класс в игре, может всё, и, одновременно, ничего толком. Бьет больно, но маг жарит больнее; живуч, но оборотень здоровее; ловок, но с лучником не сравнится. Одно слово - универсал.");
-                            //((MainGameScene)ScenesManager.getInstance().getCurrentScene()).attachChild(mDialog);
                             ScenesManager.getInstance().getCurrentScene().setChildScene(mDialog, false, true, true);
                         }
                         else
                         {
-                            //((MainGameScene)ScenesManager.getInstance().getCurrentScene()).detachChild(mDialog);
                             ScenesManager.getInstance().getCurrentScene().clearChildScene();
                             mDialog = null;
                         }

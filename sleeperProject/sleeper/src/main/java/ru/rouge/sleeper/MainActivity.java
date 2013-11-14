@@ -42,10 +42,6 @@ public class MainActivity extends BaseGameActivity
 	@Override
 	public EngineOptions onCreateEngineOptions()
 	{
-		//float width = getResources().getDisplayMetrics().widthPixels;
-		//float height = getResources().getDisplayMetrics().heightPixels;
-		//WorldContext.getInstance().mScreenWidth = width;
-		//WorldContext.getInstance().mScreenHeight = height;
         WorldContext.getInstance().mScreenWidth = CAMERA_WIDTH;
         WorldContext.getInstance().mScreenHeight = CAMERA_HEIGHT;
 

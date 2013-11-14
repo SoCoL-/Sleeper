@@ -1,12 +1,17 @@
 package ru.rouge.sleeper.Controllers;
 
+import org.andengine.input.touch.TouchEvent;
 import org.andengine.util.debug.Debug;
 
 import java.util.ArrayList;
 
+import ru.rouge.sleeper.Managers.ResourceManager;
+import ru.rouge.sleeper.Managers.ScenesManager;
 import ru.rouge.sleeper.Objects.BaseObject;
 import ru.rouge.sleeper.Objects.Door;
 import ru.rouge.sleeper.Objects.Stair;
+import ru.rouge.sleeper.Objects.UI.Dialog;
+import ru.rouge.sleeper.Scenes.MainGameScene;
 import ru.rouge.sleeper.WorldContext;
 
 /**
@@ -23,23 +28,50 @@ public class ObjectController
     //VARIABLES
     //-----------------------------
 
+    private WorldContext mWC;
+
     //-----------------------------
     //CONSTRUCTOR
     //-----------------------------
 
     public ObjectController()
-    {}
+    {
+        mWC = WorldContext.getInstance();
+    }
 
     //-----------------------------
     //CLASS METHODS
     //-----------------------------
 
+    public void onLongClick(TouchEvent pSceneTouchEvent)
+    {
+        int currX = (int)pSceneTouchEvent.getX() / 32;
+        int currY = (int)pSceneTouchEvent.getY() / 32;
+
+        if(mWC.mWorld.mWakables.get(mWC.mWorld.mCurrentLevel)[currX][currY].mIndexObject == -1)
+            return;
+
+        int objectIndex = mWC.mWorld.mWakables.get(mWC.mWorld.mCurrentLevel)[currX][currY].mIndexObject;
+        BaseObject currObject = mWC.mWorld.mObjects.get(mWC.mWorld.mCurrentLevel).get(objectIndex);
+
+        /**
+         * Тестовая проба
+         * */
+        ((MainGameScene)ScenesManager.getInstance().getCurrentScene()).setDialogMode();
+        Dialog d = new Dialog(125, 90, 550, 300, ResourceManager.getInstance().mVBO);
+        d.setTextDialog(currObject.getObjectMessage());
+        ScenesManager.getInstance().getCurrentScene().setChildScene(d, false, true, true);
+      }
+
+    /**
+     * Обработаем взаимодействие с предметом, если мы на него зашли
+     * */
     public boolean workWithObject(int index)
     {
         boolean rez = false;
 
         //Получим наш объект из списка
-        ArrayList<BaseObject> objects = WorldContext.getInstance().mWorld.mObjects.get(WorldContext.getInstance().mWorld.mCurrentLevel);
+        ArrayList<BaseObject> objects = mWC.mWorld.mObjects.get(mWC.mWorld.mCurrentLevel);
         BaseObject currObject = objects.get(index);
 
         //Определим, что за объект

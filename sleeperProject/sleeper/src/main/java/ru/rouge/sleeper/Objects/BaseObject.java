@@ -24,6 +24,9 @@ public class BaseObject extends TiledSprite
     //VARIABLES
     //-----------------------------
 
+    private String mName;               //Имя объекта
+    private String mMessage;            //Описание объекта
+
     //-----------------------------
     //CONSTRUCTOR
     //-----------------------------
@@ -57,10 +60,17 @@ public class BaseObject extends TiledSprite
             Debug.e(e);
         }
     }
-
     //-----------------------------
     //GETTERS/SETTERS
     //-----------------------------
+
+    public void setObjectName(String name) { this.mName = name; }
+
+    public String getObjectName() { return this.mName; }
+
+    public void setObjectMessage(String message) { this.mMessage = message; }
+
+    public String getObjectMessage() { return this.mMessage; }
 
     //-----------------------------
     //INNER CLAASES
