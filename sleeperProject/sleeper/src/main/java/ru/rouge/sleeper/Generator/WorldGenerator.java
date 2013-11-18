@@ -1681,8 +1681,23 @@ public final class WorldGenerator
                 randY = Utils.getRand(1, roomInfo.getSize().getHeight()-1);
                 randX = randX + roomInfo.getBegin().getX();
                 randY = randY + roomInfo.getBegin().getY();
-                if(getCell(randX, randY, GameMap.LAYER_WALLS) == TILE_NONE && getDoorByCoord(randX, randY) == null)
+                boolean isCanSet = true;
+                for(int m = randY - 1; m <= randY + 1; m++)
+                {
+                    for(int n = randX - 1; n <= randX + 1; n++)
+                    {
+                        if(getCell(n, m, GameMap.LAYER_WALLS) != TILE_NONE || getDoorByCoord(n, m) != null)
+                        {
+                            isCanSet = false;
+                            m = randY+1;
+                            break;
+                        }
+                    }
+                }
+                if(isCanSet)
                     isExit = true;
+                //if(getCell(randX, randY, GameMap.LAYER_WALLS) == TILE_NONE && getDoorByCoord(randX, randY) == null)
+                //    isExit = true;
             }
 
             Stair down = new Stair(randX*32, randY*32, false, ResourceManager.getInstance().mStairsTexture, ResourceManager.getInstance().mVBO);
@@ -1712,7 +1727,20 @@ public final class WorldGenerator
                     randY = Utils.getRand(1, roomInfo.getSize().getHeight()-1);
                     randX = randX + roomInfo.getBegin().getX();
                     randY = randY + roomInfo.getBegin().getY();
-                    if(getCell(randX, randY, GameMap.LAYER_WALLS) == TILE_NONE && getDoorByCoord(randX, randY) == null)
+                    boolean isCanSet = true;
+                    for(int m = randY - 1; m <= randY + 1; m++)
+                    {
+                        for(int n = randX - 1; n <= randX + 1; n++)
+                        {
+                            if(getCell(n, m, GameMap.LAYER_WALLS) != TILE_NONE || getDoorByCoord(n, m) != null)
+                            {
+                                isCanSet = false;
+                                m = randY+1;
+                                break;
+                            }
+                        }
+                    }
+                    if(isCanSet)
                         isExit = true;
                 }
 
@@ -1754,7 +1782,20 @@ public final class WorldGenerator
                 randY = Utils.getRand(1, roomInfo.getSize().getHeight()-1);
                 randX = randX + roomInfo.getBegin().getX();
                 randY = randY + roomInfo.getBegin().getY();
-                if(getCell(randX, randY, GameMap.LAYER_WALLS) == TILE_NONE && getDoorByCoord(randX, randY) == null)
+                boolean isCanSet = true;
+                for(int m = randY - 1; m <= randY + 1; m++)
+                {
+                    for(int n = randX - 1; n <= randX + 1; n++)
+                    {
+                        if(getCell(n, m, GameMap.LAYER_WALLS) != TILE_NONE || getDoorByCoord(n, m) != null)
+                        {
+                            isCanSet = false;
+                            m = randY+1;
+                            break;
+                        }
+                    }
+                }
+                if(isCanSet)
                     isExit = true;
             }
 
