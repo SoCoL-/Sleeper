@@ -57,6 +57,7 @@ public final class ResourceManager
 	public ITextureRegion mBtnOptions;
 	public ITextureRegion mBtnCredits;
 	public ITextureRegion mBtnExit;
+    public ITextureRegion mBtnSave;
 
 	//private BitmapTextureAtlas	mMenuBackgroundAtlas;
 	public ITextureRegion 		mMenuBackground;
@@ -139,13 +140,14 @@ public final class ResourceManager
 	{
 		WorldContext wc = WorldContext.getInstance();
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("menu/");
-		mMenuBuildableAtlas = new BuildableBitmapTextureAtlas(wc.getTextureManager(), 220, 480, TextureOptions.BILINEAR);
+		mMenuBuildableAtlas = new BuildableBitmapTextureAtlas(wc.getTextureManager(), 222, 496, TextureOptions.BILINEAR);
 		mBtnCredits = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mMenuBuildableAtlas, wc.getContext(), "btn_credits.png");
 		mBtnOptions = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mMenuBuildableAtlas, wc.getContext(), "btn_settings.png");
 		mBtnResume = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mMenuBuildableAtlas, wc.getContext(), "btn_resume.png");
 		mBtnLoad = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mMenuBuildableAtlas, wc.getContext(), "btn_load.png");
 		mBtnExit = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mMenuBuildableAtlas, wc.getContext(), "btn_exit.png");
 		mBtnNew = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mMenuBuildableAtlas, wc.getContext(), "btn_new.png");
+        mBtnSave = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mMenuBuildableAtlas, wc.getContext(), "btn_save.png");
 
         BitmapTextureAtlas mMenuBackgroundAtlas = new BitmapTextureAtlas(wc.getTextureManager(), 400, 400, TextureOptions.BILINEAR);
 		mMenuBackground = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mMenuBackgroundAtlas, wc.getContext(), "background.png", 0, 0);
