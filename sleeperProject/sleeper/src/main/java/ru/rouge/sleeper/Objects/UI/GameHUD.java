@@ -34,7 +34,8 @@ public class GameHUD extends HUD
     private int mWidth;                     //Ширина подложки
     private int mHeight;                    //Высота подложки
 
-    Dialog mDialog;
+    //Dialog mDialog;
+    DialogManager mDialog;
 
     //-----------------------------
     //Ctors
@@ -85,13 +86,30 @@ public class GameHUD extends HUD
                     {
                         if(mDialog == null)
                         {
-                            mDialog = new Dialog(125, 90, 550, 300, ResourceManager.getInstance().mVBO);
-                            mDialog.setTextDialog("Воин - самый универсальный класс в игре, может всё, и, одновременно, ничего толком. Бьет больно, но маг жарит больнее; живуч, но оборотень здоровее; ловок, но с лучником не сравнится. Одно слово - универсал.");
-                            ScenesManager.getInstance().getCurrentScene().setChildScene(mDialog, false, true, true);
+                            //mDialog = new Dialog(125, 90, 550, 300, ResourceManager.getInstance().mVBO);
+                            //mDialog.setTextDialog("Воин - самый универсальный класс в игре, может всё, и, одновременно, ничего толком. Бьет больно, но маг жарит больнее; живуч, но оборотень здоровее; ловок, но с лучником не сравнится. Одно слово - универсал.");
+                            //ScenesManager.getInstance().getCurrentScene().setChildScene(mDialog, false, true, true);
+                            mDialog = new DialogManager(WorldContext.getInstance().getContext());
+                            mDialog.addMessageToDialog("Воин это начальный класс для любителей пвп, благодаря высокому количеству жизней и урону незаменим в любом походе.\n" +
+                                    "\n" +
+                                    "Чтобы взять класс Воина, нужно ввести команду /hero choose Warrior, потом /hero confirm (для подтверждения выбора). Если вы меняете класс первый раз этот процесс будет бесплатным.\n" +
+                                    "\n" +
+                                    "Броня: кожаный доспех.\n" +
+                                    "Инструменты: деревянные и каменные инструменты.\n" +
+                                    "Оружие: каменный меч, железный меч.\n" +
+                                    "Зелья: лечение, регенерация, ускорение, сила.\n" +
+                                    "\n" +
+                                    "Умения класса:\n" +
+                                    "В скобках указан уровень (левел) умения с которого оно доступно.\n" +
+                                    "\n" +
+                                    "Potion(5) - вы можете использовать зелья\n" +
+                                    "Root(5) - опутывает цель корнями и не позволяет ей двигаться в течении 6 секунд.\n" +
+                                    "Bandage(10) - перевязывает рану, восстанавливает здоровье и останавливает кровотечение, использует бумагу для активации..");
                         }
                         else
                         {
-                            ScenesManager.getInstance().getCurrentScene().clearChildScene();
+                            //ScenesManager.getInstance().getCurrentScene().clearChildScene();
+                            mDialog.closeDialog();
                             mDialog = null;
                         }
                     }

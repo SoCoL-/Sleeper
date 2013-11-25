@@ -15,6 +15,7 @@ import ru.rouge.sleeper.Controllers.PlayerControllers;
 import ru.rouge.sleeper.Managers.LevelManager;
 import ru.rouge.sleeper.Map.GameMap;
 import ru.rouge.sleeper.Objects.Player;
+import ru.rouge.sleeper.Objects.UI.DialogManager;
 
 /**
  * Created by 1 on 18.06.13. Eugene Savchik
@@ -44,6 +45,7 @@ public final class WorldContext
     public ObjectController mObjectController;          //Обработчик действий над интерактивными объектами
     public Settings mSettings;
     public LevelManager mLevelManager;                  //Менеджер уровней
+    //public DialogManager mDialogManager;//test
 
     public FPSCounter mFPSCounter;                      //Счетчик фпс
 
@@ -81,6 +83,7 @@ public final class WorldContext
         this.mObjectController = new ObjectController();
         this.mSettings = new Settings();
         this.mLevelManager = new LevelManager();
+        //this.mDialogManager = new DialogManager(c);
 
         WorldContext.getInstance().mFPSCounter = new FPSCounter();
         WorldContext.getInstance().getEngine().registerUpdateHandler(WorldContext.getInstance().mFPSCounter);
