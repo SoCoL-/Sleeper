@@ -1656,9 +1656,9 @@ public final class WorldGenerator
             TMXObject playerSpawn = new TMXObject("player_spawn_"+currLevel, "down", randX*32, randY*32, 32, 32);
             wContext.mWorld.mSpawns.get(currLevel).add(playerSpawn);
             Debug.e(TAG, "Done spawn player point");
-            WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_FLOOR).setVisibleTiles(randX, randY);
+            /*WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_FLOOR).setVisibleTiles(randX, randY);
             WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_WALLS).setVisibleTiles(randX, randY);
-            WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_ABOVE).setVisibleTiles(randX, randY);
+            WorldContext.getInstance().mWorld.mLevels.get(0).getTMXLayers().get(GameMap.LAYER_ABOVE).setVisibleTiles(randX, randY);*/
         }
     }
 
