@@ -136,6 +136,7 @@ public final class MainGameScene extends MainScene
         mGameMenu.back();
         mGameMenu = null;
         isGameMenu = false;
+        WorldContext.getInstance().mWorld.mHUD.detachChildren();
     }
 
     @Override

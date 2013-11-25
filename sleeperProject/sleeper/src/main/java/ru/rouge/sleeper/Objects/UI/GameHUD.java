@@ -70,7 +70,7 @@ public class GameHUD extends HUD
      * */
     private void addCommonUI()
     {
-        mHeight = 37;
+        mHeight = 47;
         mWidth = 370;
 
         final Rectangle btnInventory = new Rectangle(5, 5, 32, 32, ResourceManager.getInstance().mVBO)
