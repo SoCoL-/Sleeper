@@ -56,12 +56,16 @@ public class GameMenu extends MenuScene
 
         //Добавим элементы меню
         final IMenuItem btnResume = new ScaleMenuItemDecorator(new SpriteMenuItem(BTN_RESUME, mRes.mBtnResume, mRes.mVBO), 1.2f, 1.0f);
+        btnResume.setY(btnResume.getY()-20);
         this.addMenuItem(btnResume);
-        final IMenuItem btnSave = new ScaleMenuItemDecorator(new SpriteMenuItem(BTN_SAVE, mRes.mBtnLoad, mRes.mVBO), 1.2f, 1.0f);
+        final IMenuItem btnSave = new ScaleMenuItemDecorator(new SpriteMenuItem(BTN_SAVE, mRes.mBtnSave, mRes.mVBO), 1.2f, 1.0f);
+        btnSave.setY(btnSave.getY()-10);
         this.addMenuItem(btnSave);
         final IMenuItem btnLoad = new ScaleMenuItemDecorator(new SpriteMenuItem(BTN_LOAD, mRes.mBtnLoad, mRes.mVBO), 1.2f, 1.0f);
+        btnLoad.setY(btnLoad.getY()+10);
         this.addMenuItem(btnLoad);
         final IMenuItem btnExit = new ScaleMenuItemDecorator(new SpriteMenuItem(BTN_EXIT, mRes.mBtnExit, mRes.mVBO), 1.2f, 1.0f);
+        btnExit.setY(btnExit.getY()+20);
         this.addMenuItem(btnExit);
 
         this.buildAnimations();
