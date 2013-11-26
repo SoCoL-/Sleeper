@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ru.rouge.sleeper"
-    android:versionCode="55"
-    android:versionName="0.1.67_a" >
+    android:versionCode="85"
+    android:versionName="0.1.7_a" >
 
     <uses-sdk
         android:minSdkVersion="10"
