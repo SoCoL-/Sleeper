@@ -45,7 +45,6 @@ public class GameHUD extends HUD
     {
         isShowWalls = true;
         mWC = WorldContext.getInstance();
-        mDialog = mWC.mDialogManager;
     }
 
     //-----------------------------
@@ -73,6 +72,7 @@ public class GameHUD extends HUD
     {
         mHeight = 47;
         mWidth = 370;
+        mDialog = mWC.mDialogManager;
 
         final Rectangle btnInventory = new Rectangle(5, 5, 32, 32, ResourceManager.getInstance().mVBO)
         {
