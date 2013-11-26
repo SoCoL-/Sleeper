@@ -67,6 +67,7 @@ public class DialogManager
                         resetDialog();
                         ((MainGameScene)ScenesManager.getInstance().getCurrentScene()).setPause(false);
                         mDialog.dismiss();
+                        isShowDialog = false;
                     }
                 });
             }
