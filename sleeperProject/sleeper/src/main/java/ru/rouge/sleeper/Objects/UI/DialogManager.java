@@ -32,6 +32,7 @@ public class DialogManager
     private Dialog mDialog;
     private ArrayAdapter<String> mAdapter;
     private ImageView mBtnExit;
+    private boolean isShowDialog;
 
     //-----------------------------
     //CONSTRUCTOR
@@ -40,6 +41,7 @@ public class DialogManager
     public DialogManager(final Activity c)
     {
         this.mActivity = c;
+        isShowDialog = false;
         c.runOnUiThread(new Runnable()
         {
             @Override
@@ -48,7 +50,7 @@ public class DialogManager
                 mDialog = new Dialog(c);
                 mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                //mDialog.setCancelable(false);
+                mDialog.setCancelable(false);
                 mDialog.setContentView(R.layout.game_dialog);
 
                 //View container = c.getLayoutInflater().inflate(R.layout.game_dialog, null);
@@ -82,8 +84,10 @@ public class DialogManager
             @Override
             public void run()
             {
+                resetDialog();
                 mAdapter.add(message);
                 mDialog.show();
+                isShowDialog = true;
             }
         });
     }
@@ -96,12 +100,26 @@ public class DialogManager
     public void closeDialog()
     {
         if(mDialog != null && mDialog.isShowing())
+        {
             mDialog.dismiss();
+            isShowDialog = false;
+        }
     }
+
+
 
     //-----------------------------
     //GETTERS/SETTERS
     //-----------------------------
+
+    public boolean isShowDialog() {
+        return isShowDialog;
+    }
+
+    public void setShowDialog(boolean isShowDialog)
+    {
+        this.isShowDialog = isShowDialog;
+    }
 
     //-----------------------------
     //INNER CLAASES

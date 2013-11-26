@@ -65,12 +65,12 @@ public class ObjectController
         /**
          * Тестовая проба
          * */
-        ((MainGameScene)ScenesManager.getInstance().getCurrentScene()).setDialogMode();
-        //((MainGameScene)ScenesManager.getInstance().getCurrentScene()).setPause(true);
-        //mWC.mDialogManager.addMessageToDialog(currObject.getObjectMessage());
-        Dialog d = new Dialog(125, 90, 550, 300, ResourceManager.getInstance().mVBO);
-        d.setTextDialog(currObject.getObjectMessage());
-        ScenesManager.getInstance().getCurrentScene().setChildScene(d, false, true, true);
+        //((MainGameScene)ScenesManager.getInstance().getCurrentScene()).setDialogMode();
+        ((MainGameScene)ScenesManager.getInstance().getCurrentScene()).setPause(true);
+        mWC.mDialogManager.addMessageToDialog(currObject.getObjectMessage());
+        //Dialog d = new Dialog(125, 90, 550, 300, ResourceManager.getInstance().mVBO);
+        //d.setTextDialog(currObject.getObjectMessage());
+        //ScenesManager.getInstance().getCurrentScene().setChildScene(d, false, true, true);
 
       }
 

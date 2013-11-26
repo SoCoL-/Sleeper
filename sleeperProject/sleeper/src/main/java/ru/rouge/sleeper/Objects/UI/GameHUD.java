@@ -45,6 +45,7 @@ public class GameHUD extends HUD
     {
         isShowWalls = true;
         mWC = WorldContext.getInstance();
+        mDialog = mWC.mDialogManager;
     }
 
     //-----------------------------
@@ -84,12 +85,12 @@ public class GameHUD extends HUD
                     //TODO Открыть сцену с инвентарем
                     if(ScenesManager.getInstance().getCurrentScene() instanceof MainGameScene)
                     {
-                        if(mDialog == null)
+                        if(!mDialog.isShowDialog())
                         {
                             //mDialog = new Dialog(125, 90, 550, 300, ResourceManager.getInstance().mVBO);
                             //mDialog.setTextDialog("Воин - самый универсальный класс в игре, может всё, и, одновременно, ничего толком. Бьет больно, но маг жарит больнее; живуч, но оборотень здоровее; ловок, но с лучником не сравнится. Одно слово - универсал.");
                             //ScenesManager.getInstance().getCurrentScene().setChildScene(mDialog, false, true, true);
-                            mDialog = new DialogManager(WorldContext.getInstance().getContext());
+                            //mDialog = new DialogManager(WorldContext.getInstance().getContext());
                             mDialog.addMessageToDialog("Воин это начальный класс для любителей пвп, благодаря высокому количеству жизней и урону незаменим в любом походе.\n" +
                                     "\n" +
                                     "Чтобы взять класс Воина, нужно ввести команду /hero choose Warrior, потом /hero confirm (для подтверждения выбора). Если вы меняете класс первый раз этот процесс будет бесплатным.\n" +
@@ -110,7 +111,7 @@ public class GameHUD extends HUD
                         {
                             //ScenesManager.getInstance().getCurrentScene().clearChildScene();
                             mDialog.closeDialog();
-                            mDialog = null;
+                            //mDialog = null;
                         }
                     }
                     Debug.i("Open Inventory of Player");

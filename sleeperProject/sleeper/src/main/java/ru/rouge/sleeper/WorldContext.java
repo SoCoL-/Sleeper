@@ -45,7 +45,7 @@ public final class WorldContext
     public ObjectController mObjectController;          //Обработчик действий над интерактивными объектами
     public Settings mSettings;
     public LevelManager mLevelManager;                  //Менеджер уровней
-    //public DialogManager mDialogManager;//test
+    public DialogManager mDialogManager;                //Менеджер игровых диалогов
 
     public FPSCounter mFPSCounter;                      //Счетчик фпс
 
@@ -83,7 +83,7 @@ public final class WorldContext
         this.mObjectController = new ObjectController();
         this.mSettings = new Settings();
         this.mLevelManager = new LevelManager();
-        //this.mDialogManager = new DialogManager(c);
+        this.mDialogManager = new DialogManager(c);
 
         WorldContext.getInstance().mFPSCounter = new FPSCounter();
         WorldContext.getInstance().getEngine().registerUpdateHandler(WorldContext.getInstance().mFPSCounter);
@@ -102,6 +102,7 @@ public final class WorldContext
         this.mAssetManager = null;
         this.mSettings = null;
         this.mLevelManager = null;
+        this.mDialogManager = null;
 
 		if(instance != null)
 			instance = null;
