@@ -32,6 +32,10 @@ public class Stair extends BaseObject
         super(pX, pY, pTiledTextureRegion, pVertexBufferObjectManager);
 
         this.isUp = isUp;
+        if(isUp)
+            setObjectMessage("Переход на уровень выше");
+        else
+            setObjectMessage("Переход на следующий уровень");
 
         setCurrIndexTile();
     }

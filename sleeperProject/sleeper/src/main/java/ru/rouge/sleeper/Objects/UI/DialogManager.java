@@ -9,6 +9,7 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import ru.rouge.sleeper.Managers.ScenesManager;
 import ru.rouge.sleeper.R;
@@ -30,8 +31,9 @@ public class DialogManager
 
     private Activity mActivity;
     private Dialog mDialog;
-    private ArrayAdapter<String> mAdapter;
-    private ImageView mBtnExit;
+    //private ArrayAdapter<String> mAdapter;
+    private ImageView mBtnExit, mImgObj;
+    private TextView mMessage, mStats;
     private boolean isShowDialog;
 
     //-----------------------------
@@ -41,7 +43,7 @@ public class DialogManager
     public DialogManager(final Activity c)
     {
         this.mActivity = c;
-        isShowDialog = false;
+        setShowDialog(false);
         c.runOnUiThread(new Runnable()
         {
             @Override
@@ -55,9 +57,12 @@ public class DialogManager
 
                 //View container = c.getLayoutInflater().inflate(R.layout.game_dialog, null);
                 mBtnExit = (ImageView)mDialog.findViewById(R.id.GameDialog_Exit);
-                ListView mListDialog = (ListView)mDialog.findViewById(R.id.GameDialog_List);
-                mAdapter = new ArrayAdapter<String>(c, android.R.layout.simple_list_item_1);
-                mListDialog.setAdapter(mAdapter);
+                mStats = (TextView)mDialog.findViewById(R.id.GameDialog_Stats);
+                mImgObj = (ImageView)mDialog.findViewById(R.id.GameDialog_Img);
+                mMessage = (TextView)mDialog.findViewById(R.id.GameDialog_Message);
+                //ListView mListDialog = (ListView)mDialog.findViewById(R.id.GameDialog_List);
+                //mAdapter = new ArrayAdapter<String>(c, android.R.layout.simple_list_item_1);
+                //mListDialog.setAdapter(mAdapter);
 
                 mBtnExit.setOnClickListener(new View.OnClickListener()
                 {
@@ -67,7 +72,7 @@ public class DialogManager
                         resetDialog();
                         ((MainGameScene)ScenesManager.getInstance().getCurrentScene()).setPause(false);
                         mDialog.dismiss();
-                        isShowDialog = false;
+                        setShowDialog(false);
                     }
                 });
             }
@@ -86,16 +91,23 @@ public class DialogManager
             public void run()
             {
                 resetDialog();
-                mAdapter.add(message);
+                //mAdapter.add(message);
+                mMessage.setText(message);
+                mStats.setVisibility(View.GONE);
+                mImgObj.setVisibility(View.GONE);
                 mDialog.show();
-                isShowDialog = true;
+                setShowDialog(true);
             }
         });
     }
 
     public void resetDialog()
     {
-        mAdapter.clear();
+        mMessage.setText("");
+        mMessage.setVisibility(View.VISIBLE);
+        mStats.setText("");
+        mStats.setVisibility(View.VISIBLE);
+        mImgObj.setVisibility(View.VISIBLE);
     }
 
     public void closeDialog()
@@ -103,7 +115,7 @@ public class DialogManager
         if(mDialog != null && mDialog.isShowing())
         {
             mDialog.dismiss();
-            isShowDialog = false;
+            setShowDialog(false);
         }
     }
 
