@@ -136,7 +136,6 @@ public final class MainGameScene extends MainScene
         mGameMenu.back();
         mGameMenu = null;
         isGameMenu = false;
-        WorldContext.getInstance().mWorld.mHUD.detachChildren();
     }
 
     @Override
@@ -179,6 +178,7 @@ public final class MainGameScene extends MainScene
                             case GameMenu.BTN_RESUME:
                                 mGameMenu.destroyMenu();
                                 destroyMenu();
+                                setPause(false);
                                 break;
 
                             case GameMenu.BTN_SAVE:
@@ -190,6 +190,7 @@ public final class MainGameScene extends MainScene
                             case GameMenu.BTN_EXIT:
                                 ScenesManager.getInstance().setMenuScene();
                                 destroyMenu();
+                                WorldContext.getInstance().mWorld.mHUD.detachChildren();
                                 break;
                         }
                         return false;
