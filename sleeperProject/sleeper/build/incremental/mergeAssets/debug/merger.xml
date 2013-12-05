@@ -25,11 +25,17 @@
                 name="gfx/door/door1.png"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\gfx\door\door1.png" />
             <file
-                name="gfx/ic_btton_hud.png"
-                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\gfx\ic_btton_hud.png" />
-            <file
                 name="gfx/stairs.png"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\gfx\stairs.png" />
+            <file
+                name="gfx/UI/dialog_fone.png"
+                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\gfx\UI\dialog_fone.png" />
+            <file
+                name="gfx/UI/HUD_fone.png"
+                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\gfx\UI\HUD_fone.png" />
+            <file
+                name="gfx/UI/ic_btton_hud.png"
+                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\gfx\UI\ic_btton_hud.png" />
             <file
                 name="menu/background.png"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\menu\background.png" />
@@ -69,6 +75,9 @@
             <file
                 name="tmx/room4.tmx"
                 path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\tmx\room4.tmx" />
+            <file
+                name="menu/btn_save.png"
+                path="C:\Users\1\Documents\GitHub\Sleeper\sleeperProject\sleeper\src\main\assets\menu\btn_save.png" />
         </source>
     </dataSet>
     <dataSet config="debug" >

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="15" height="11" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="type" value="quest"/>
+ </properties>
+ <tileset firstgid="1" name="walls_stone" tilewidth="32" tileheight="32" spacing="2" margin="1">
+  <image source="../tileset/walls_stone.png" width="102" height="544"/>
+ </tileset>
+ <layer name="floor" width="15" height="11">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgoAwIkIFppReb24h1MyH3jOolXS+5AAC+Lym6lAIAAA==
+  </data>
+ </layer>
+ <layer name="walls" width="15" height="11">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NlYGBgJAOzATETA3mAiUZ6WRlQ3ciAxufHo5eQe/DZO6oXU56FAXu64cUhDsPsQAwAo//Zr5QCAAA=
+  </data>
+ </layer>
+ <layer name="above" width="15" height="11">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgYGDQZkAFcgzEAx0S1NIDKAOxChJfDIjFidSrCsRqaGJSUIwMZIBYlizXUQaEoRgZSAOxCBCLArEkkjp0IA/ECjRzGXUBAM2Ih6SUAgAA
+  </data>
+ </layer>
+ <objectgroup name="objects" width="15" height="11">
+  <object name="door" x="320" y="96" width="32" height="32"/>
+ </objectgroup>
+</map>

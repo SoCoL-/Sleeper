@@ -140,7 +140,7 @@ public class Player extends BaseAnimObject
     {
         int range = 6;
         int dx, dy;
-        for (double f = 0; f < 3.14*2; f += 0.05)
+        for (double f = 0; f < 3.14*2; f += 0.08)
         {
             dx = (int)(range*Math.cos(f)) + x;
             dy = (int)(range*Math.sin(f)) + y;
