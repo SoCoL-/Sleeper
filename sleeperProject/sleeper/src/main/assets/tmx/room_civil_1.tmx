@@ -4,7 +4,7 @@
   <property name="type" value="quest"/>
  </properties>
  <tileset firstgid="1" name="walls_stone" tilewidth="32" tileheight="32" spacing="2" margin="1">
-  <image source="../tileset/walls_stone.png" width="102" height="544"/>
+  <image source="../tileset/walls_stone.png" width="510" height="578"/>
  </tileset>
  <layer name="floor" width="15" height="11">
   <data encoding="base64" compression="gzip">
@@ -18,7 +18,7 @@
  </layer>
  <layer name="above" width="15" height="11">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgYGDQZkAFcgzEAx0S1NIDKAOxChJfDIjFidSrCsRqaGJSUIwMZIBYlizXUQaEoRgZSAOxCBCLArEkkjp0IA/ECjRzGXUBAM2Ih6SUAgAA
+   H4sIAAAAAAAAC2NgYGC4zIAK1BgwgQIWMRC4gsZXx6JGEYdeWgAjIJZE4mcBsTQQa6GpE4ZiZGAMxNuQ+LJQrI2mTgOINbHYLQrEYiS6FwbEgViCgJpoKEYG1UAcA8SxQFyJpA4dTAfiGWS6jd4AAMdqWSCUAgAA
   </data>
  </layer>
  <objectgroup name="objects" width="15" height="11">

@@ -4,7 +4,7 @@
   <property name="type" value="uniq"/>
  </properties>
  <tileset firstgid="1" name="walls_stone" tilewidth="32" tileheight="32" spacing="2" margin="1">
-  <image source="../tileset/walls_stone.png" width="102" height="544"/>
+  <image source="../tileset/walls_stone.png" width="510" height="578"/>
  </tileset>
  <layer name="floor" width="11" height="12">
   <data encoding="base64" compression="gzip">
@@ -18,7 +18,7 @@
  </layer>
  <layer name="above" width="11" height="12">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgIA9IQjEuPjKQB2IFPHx6misDxLJDyL3EmEtNAACDii5oEAIAAA==
+   H4sIAAAAAAAAC2NgIB3IQHElFjF0oAHEmkA8A4vYQJirBMTKQ8i9hMylNgAATUs56xACAAA=
   </data>
  </layer>
  <objectgroup name="objects" width="11" height="12"/>

@@ -4,7 +4,7 @@
   <property name="type" value="common"/>
  </properties>
  <tileset firstgid="1" name="walls_stone" tilewidth="32" tileheight="32" spacing="2" margin="1">
-  <image source="../tileset/walls_stone.png" width="102" height="544"/>
+  <image source="../tileset/walls_stone.png" width="510" height="578"/>
  </tileset>
  <layer name="floor" width="5" height="8">
   <data encoding="base64" compression="gzip">
@@ -18,7 +18,7 @@
  </layer>
  <layer name="above" width="5" height="8">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgIA2oE6lOg0gxQgAAATxmcaAAAAA=
+   H4sIAAAAAAAAC2NgIA0YEil2BI1vgEWMGAAAzu1xyqAAAAA=
   </data>
  </layer>
  <objectgroup name="objects" width="5" height="8"/>
