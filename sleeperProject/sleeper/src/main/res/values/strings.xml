@@ -11,10 +11,13 @@
     <string name="Settings_Debug">Отладочная кнопка</string>
 
     <string-array name="rooms_name">
-        <item>room1.tmx</item>
-        <item>room2.tmx</item>
-        <item>room3.tmx</item>
-        <item>room4.tmx</item>
+        <item>room_civil_1.tmx</item>
+        <item>room_civil_2.tmx</item>
+        <item>room_civil_3.tmx</item>
+        <item>room_civil_4.tmx</item>
+        <item>room_civil_5.tmx</item>
+        <item>room_civil_6.tmx</item>
+        <item>room_civil_7.tmx</item>
     </string-array>
 
 </resources>

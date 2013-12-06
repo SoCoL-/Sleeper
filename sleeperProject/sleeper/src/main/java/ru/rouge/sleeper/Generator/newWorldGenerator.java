@@ -1,5 +1,7 @@
 package ru.rouge.sleeper.Generator;
 
+import org.andengine.extension.tmx.TMXTiledMap;
+
 import java.util.ArrayList;
 
 import ru.rouge.sleeper.Managers.ResourceManager;
@@ -28,6 +30,17 @@ public class newWorldGenerator
     private static final int THEME_DWARF_SETTLES    = 5;
     private static final int THEME_DROW_SETTLES     = 6;
 
+    public final static String[] TYPESOFROOMS = new String[] {
+            "civil",
+            "old",
+            "plants",
+            "orc",
+            "drow",
+            "dwarf",
+            "magic"
+    };
+
+
     //-----------------------------
     //VARIABLES
     //-----------------------------
@@ -41,6 +54,7 @@ public class newWorldGenerator
     private ArrayList<ObjectOnMap> mObjects;        //Список комнат установленных
     private int mThemeOfDungeon;                    //Тематика уровня
     private int mCurrLevel;                         //Текущий генерируемый уровень
+    private ArrayList<TMXTiledMap> mRoomsByType;    //Список комнат данной тематики
 
     private int[] mThemes = new int[] {             //Список тем для генерации
             THEME_SETTLES_PEOPLE,
@@ -80,6 +94,8 @@ public class newWorldGenerator
 
         mCurrLevel = mContext.mWorld.mCurrentLevel;
         mThemeOfDungeon = Utils.getRand(0, mThemes.length);
+        mRoomsByType = mResManager.getRoomsByType(TYPESOFROOMS[mThemeOfDungeon]);
+
         int width_level = Utils.getRand(GameMap.MINLEVELWIDTH, GameMap.MAXLEVELWIDTH);	//Ширина уровня(х)
         int height_level = Utils.getRand(GameMap.MINLEVELHEIGHT, GameMap.MAXLEVELHEIGHT);	//Высота уровня(y)
 

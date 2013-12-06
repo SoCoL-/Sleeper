@@ -4,6 +4,7 @@ import android.graphics.Color;
 
 import org.andengine.extension.tmx.TMXLoader;
 import org.andengine.extension.tmx.TMXTiledMap;
+import org.andengine.extension.tmx.TMXTiledMapProperty;
 import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
 import org.andengine.opengl.texture.ITexture;
@@ -250,6 +251,22 @@ public final class ResourceManager
 
         isGameResLoad = true;
 	}
+
+    public ArrayList<TMXTiledMap> getRoomsByType(String type)
+    {
+        ArrayList<TMXTiledMap> rez = new ArrayList<TMXTiledMap>();
+
+        for(TMXTiledMap room : mRooms)
+        {
+            for(TMXTiledMapProperty prop : room.getTMXTiledMapProperties())
+            {
+                if(prop.getName().equals(type))
+                    rez.add(room);
+            }
+        }
+
+        return rez;
+    }
 
     /**
      * Освобождение игровых ресурсов
