@@ -6,6 +6,7 @@ import org.andengine.util.debug.Debug;
 import java.util.ArrayList;
 
 import ru.rouge.sleeper.Generator.WorldGenerator;
+import ru.rouge.sleeper.Generator.newWorldGenerator;
 import ru.rouge.sleeper.Map.GameMap;
 import ru.rouge.sleeper.WorldContext;
 
@@ -25,6 +26,7 @@ public class LevelManager
 
     private final GameMap mGameWorld;               //Весь мир игры
     private WorldGenerator mGenerator;              //Генератор уровней
+    private newWorldGenerator mNewGenerator;
 
     //-----------------------------
     //CONSTRUCTOR
@@ -34,6 +36,7 @@ public class LevelManager
     {
         this.mGameWorld = WorldContext.getInstance().mWorld;
         this.mGenerator = new WorldGenerator();
+        this.mNewGenerator = new newWorldGenerator();
     }
 
     //-----------------------------
@@ -63,6 +66,7 @@ public class LevelManager
         {
             Debug.i("Начали новую игру, сгенерируем первый уровень");
             mGenerator.generateNewLevel();
+            mNewGenerator.generateNewLevel();
         }
         else if(mGameWorld.mLevels.size()-1 >= mGameWorld.mCurrentLevel + 1)
         {

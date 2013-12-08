@@ -1,6 +1,7 @@
 package org.andengine.extension.tmx;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.andengine.extension.tmx.util.constants.TMXConstants;
 import org.andengine.opengl.texture.region.ITextureRegion;
@@ -40,6 +41,7 @@ public class TMXTiledMap implements TMXConstants
 	private final SparseArray<TMXProperties<TMXTileProperty>> mGlobalTileIDToTMXTilePropertiesCache = new SparseArray<TMXProperties<TMXTileProperty>>();
 
 	private final TMXProperties<TMXTiledMapProperty> mTMXTiledMapProperties = new TMXProperties<TMXTiledMapProperty>();
+    private HashMap<String, String> mMapProperties = new HashMap<String, String>();
 
 	// ===========================================================
 	// Constructors
@@ -145,6 +147,19 @@ public class TMXTiledMap implements TMXConstants
 		return this.mTMXTiledMapProperties;
 	}
 
+    public void addMapProperty(final Attributes pAttributes)
+    {
+        mMapProperties.put(pAttributes.getValue("", TMXConstants.TAG_PROPERTY_ATTRIBUTE_NAME), pAttributes.getValue("", TMXConstants.TAG_PROPERTY_ATTRIBUTE_VALUE));
+    }
+
+    public HashMap<String, String> getMapProperties() {
+        return mMapProperties;
+    }
+
+    public void setMapProperties(HashMap<String, String> mMapProperties) {
+        this.mMapProperties = mMapProperties;
+    }
+
 	// ===========================================================
 	// Methods for/from SuperClass/Interfaces
 	// ===========================================================
@@ -207,7 +222,7 @@ public class TMXTiledMap implements TMXConstants
 		}
 	}
 
-	// ===========================================================
+    // ===========================================================
 	// Inner and Anonymous Classes
 	// ===========================================================
 }

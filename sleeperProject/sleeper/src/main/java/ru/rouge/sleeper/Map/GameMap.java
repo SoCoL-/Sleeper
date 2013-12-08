@@ -21,10 +21,10 @@ public final class GameMap
 	//-----------------------------
 
     public final int MAX_LEVELS = 5;     //Максимальное количество уровней в игре
-    public static final int MINLEVELWIDTH = 40;    //Минимальная ширина уровня
-    public static final int MAXLEVELWIDTH = 80;    //Максимальная ширина уровня
-    public static final int MINLEVELHEIGHT = 40;   //Максимальная высота уровня
-    public static final int MAXLEVELHEIGHT = 80;   //Максимальная высота уровня
+    public static final int MINLEVELWIDTH = 25;    //Минимальная ширина уровня
+    public static final int MAXLEVELWIDTH = 35;    //Максимальная ширина уровня
+    public static final int MINLEVELHEIGHT = 20;   //Максимальная высота уровня
+    public static final int MAXLEVELHEIGHT = 40;   //Максимальная высота уровня
 
 	public final static int LAYER_FLOOR = 0;
 	public final static int LAYER_WALLS = 1;

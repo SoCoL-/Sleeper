@@ -258,11 +258,8 @@ public final class ResourceManager
 
         for(TMXTiledMap room : mRooms)
         {
-            for(TMXTiledMapProperty prop : room.getTMXTiledMapProperties())
-            {
-                if(prop.getName().equals(type))
-                    rez.add(room);
-            }
+            if(room.getMapProperties().get("theme").equals(type))
+                rez.add(room);
         }
 
         return rez;

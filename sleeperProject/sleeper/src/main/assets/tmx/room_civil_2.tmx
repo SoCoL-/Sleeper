@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="11" height="12" tilewidth="32" tileheight="32">
  <properties>
+  <property name="theme" value="civil"/>
   <property name="type" value="uniq"/>
  </properties>
  <tileset firstgid="1" name="walls_stone" tilewidth="32" tileheight="32" spacing="2" margin="1">
-  <image source="../tileset/walls_stone.png" width="510" height="578"/>
+  <image source="tileset/walls_stone.png" width="510" height="578"/>
  </tileset>
  <layer name="floor" width="11" height="12">
   <data encoding="base64" compression="gzip">
